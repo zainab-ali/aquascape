@@ -1,0 +1,73 @@
+package aquascape
+
+import fs2.*
+import cats.effect.*
+import aquascape.Trace
+import munit.CatsEffectSuite
+import munit.Location
+
+class DrawSuite extends CatsEffectSuite {
+
+  import Event.*
+
+  def step(labels: List[String], event: Event)(using
+      loc: munit.Location
+  ): Step =
+    Step(labels, event)
+
+  test("draws a single combinator") {
+    val steps = List(
+      step(List("source"), Pull),
+      step(List("source"), Output("Mao")),
+      step(List("source"), Pull),
+      step(List("source"), Done)
+    )
+    val actual =
+      import drawing.Item.*
+      List(
+        Pull(from = -1, to = 0, progress = 0),
+        IncProgress(at = 0, progress = 0, continuous = true),
+        Output(value = "Mao", from = 0, to = -1, progress = 1),
+        IncProgress(at = -1, progress = 1, continuous = true),
+        Pull(from = -1, to = 0, progress = 2),
+        IncProgress(at = 0, progress = 2, continuous = true),
+        Done(from = 0, to = -1, progress = 3)
+      )
+    val diagram = drawing.stepsToDiagram(steps)
+    println(diagram)
+    assertEquals(diagram.labels, List("source"))
+    assertEquals(diagram.items, actual)
+  }
+
+  test("draws multiple combinators") {
+    val steps = List(
+      step(List("map"), Pull),
+      step(List("source", "map"), Pull),
+      step(List("source", "map"), Output("Mao")),
+      step(List("map"), Output("MAO")),
+      step(List("map"), Pull),
+      step(List("source", "map"), Pull),
+      step(List("source", "map"), Done),
+      step(List("map"), Done)
+    )
+    val actual =
+      import drawing.Item.*
+      List(
+        Pull(from = -1, to = 0, progress = 0),
+        Pull(from = 0, to = 1, progress = 0),
+        IncProgress(at = 1, progress = 0, continuous = true),
+        Output(value = "Mao", from = 1, to = 0, progress = 1),
+        Output(value = "MAO", from = 0, to = -1, progress = 1),
+        IncProgress(at = -1, progress = 1, continuous = true),
+        Pull(from = -1, to = 0, progress = 2),
+        Pull(from = 0, to = 1, progress = 2),
+        IncProgress(at = 1, progress = 2, continuous = true),
+        Done(from = 1, to = 0, progress = 3),
+        Done(from = 0, to = -1, progress = 3)
+      )
+    val diagram = drawing.stepsToDiagram(steps)
+    println(diagram)
+    assertEquals(diagram.labels, List("map", "source"))
+    assertEquals(diagram.items, actual)
+  }
+}
