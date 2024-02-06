@@ -39,6 +39,54 @@ class Examples extends GoldenSuite {
   }
 
   group("basic") {
+    test("compile")(
+      example("toList")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("drain")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .compile
+            .drain
+            .traceCompile("compile.drain")
+        )
+      ),
+      example("last")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .compile
+            .last
+            .traceCompile("compile.last")
+        )
+      ),
+      example("count")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .compile
+            .count
+            .traceCompile("compile.count")
+        )
+      ),
+      example("onlyOrError")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .compile
+            .onlyOrError
+            .traceCompile("compile.onlyOrError")
+        )
+      )
+    )
+
     test("take")(
       example("fewer")(
         range(
