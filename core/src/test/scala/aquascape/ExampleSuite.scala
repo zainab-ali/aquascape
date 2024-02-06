@@ -25,18 +25,21 @@ import fs2.*
 import fs2.io.file.Path
 import munit.*
 
-class Examples extends GoldenSuite {
-
-  given GroupName = GroupName(
-    Path(s"${aquascape.BuildInfo.baseDirectory}/docs")
-  )
-
-  given Show[Nothing] = Show.fromToString
+trait LowPriorityShow {
   given Show[Either[Throwable, Char]] = {
     case Left(Trace.Caught(err)) => s"Left(${err.getMessage})"
     case Left(err)               => s"Left(${err.getMessage})"
     case Right(c)                => s"Right(${c.show})"
   }
+}
+
+class Examples extends GoldenSuite with LowPriorityShow {
+
+  given GroupName = GroupName(
+    Path(s"${aquascape.BuildInfo.baseDirectory}/docs")
+  )
+
+  given Show[Nothing] = _ => sys.error("Unreachable code.")
 
   group("basic") {
     test("compile")(
@@ -109,6 +112,30 @@ class Examples extends GoldenSuite {
             .toList
             .traceCompile("compile.toList")
         )
+      ),
+      example("from an infinite stream")(
+        range(
+          Stream('a').repeat
+            .trace("Stream('a').repeat")
+            .take(2)
+            .trace("take(2)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("from a drained stream")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .drain
+            .trace("drain")
+            .take(2)
+            .trace("take(2)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
       )
     )
 
@@ -136,9 +163,179 @@ class Examples extends GoldenSuite {
         )
       )
     )
+    test("filtering")(
+      example("filter")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .filter(_ == 'b')
+            .trace("filter(_ == 'b')")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("exists")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .exists(_ == 'b')
+            .trace("exists(_ == 'b')")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("forall")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .forall(_ == 'b')
+            .trace("forall(_ == 'b')")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("changes")(
+        range(
+          Stream('a', 'b', 'b', 'a', 'c')
+            .trace("Stream('a','b','b','a','c')")
+            .changes
+            .trace("changes")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      )
+    )
+  }
+  group("chunking") {
+    test("chunks")(
+      example("chunkLimit")(
+        range(
+          Stream('a', 'b', 'c')
+            .chunkLimit(2)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      )
+    )
+    test("buffering")(
+      example("buffer")(
+        range(
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .buffer(2)
+            .trace("buffer(2)")
+            .head
+            .trace("head")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("bufferAll")(
+        range(
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .bufferAll
+            .trace("bufferAll")
+            .head
+            .trace("head")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      )
+    )
+  }
+  group("combining") {
+    test("append")(
+      example("append")(
+        range(
+          (Stream('a', 'b')
+            .trace("Stream('a','b')")
+            ++ Stream('c').trace("Stream('c')"))
+            .trace("++")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      )
+    )
+    test("flatMap")(
+      example("flatMap")(
+        range(
+          Stream("abc")
+            .trace("""Stream("abc")""")
+            .flatMap { str =>
+              Stream
+                .emits(str.toList)
+                .trace("Stream.emits(str.toList)")
+            }
+            .trace("flatMap {…}")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("error propagation")(
+        range(
+          Stream("abc")
+            .trace("""Stream("abc")""")
+            .flatMap { _ =>
+              Stream
+                .raiseError[IO](Err)
+                .trace("Stream.raiseError(Err)")
+            }
+            .trace("flatMap {…}")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("error handling")(
+        range(
+          Stream("abc")
+            .trace("""Stream("abc")""")
+            .flatMap { _ =>
+              Stream
+                .raiseError[IO](Err)
+                .trace("Stream.raiseError(Err)")
+            }
+            .trace("flatMap {…}")
+            .handleError(_ => 'a')
+            .trace("handleError(_ => 'a')")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("bracket")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("""Stream('a','b','c')""")
+            .flatMap { x =>
+              Stream.bracket(IO(s"<$x").traceF())(_ => IO(s"$x>").traceF().void)
+            }
+            .trace("flatMap {…}")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      )
+    )
   }
   group("effects") {
-    test("evalMap")(
+    test("effects")(
       example("evalMap")(
         range(
           Stream('a', 'b', 'c')
@@ -148,6 +345,26 @@ class Examples extends GoldenSuite {
             .compile
             .toList
             .traceCompile("compile.toList")
+        )
+      ),
+      example("exec")(
+        range(
+          Stream
+            .exec(IO('a').traceF().void)
+            .trace("Stream.exec(…)")
+            .compile
+            .last
+            .traceCompile("compile.last")
+        )
+      ),
+      example("eval")(
+        range(
+          Stream
+            .eval(IO('a').traceF())
+            .trace("Stream.eval(…)")
+            .compile
+            .last
+            .traceCompile("compile.last")
         )
       )
     )
@@ -227,6 +444,20 @@ class Examples extends GoldenSuite {
             .trace("evalTap(…)")
             .attempt
             .trace("attempt")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      },
+      example("attempts") {
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+            .trace("evalTap(…)")
+            .attempts(Stream.empty)
+            .trace("attempts")
+            .take(4)
             .compile
             .toList
             .traceCompile("compile.toList")
