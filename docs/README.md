@@ -33,3 +33,7 @@ Stream('a', 'b', 'c')
 ```
 
 ![diagram](error-example.png)
+
+## More details
+
+Watch the presentation on [The Pierian Stream, ScalaDays Seattle 2023](https://www.youtube.com/watch?v=q85Wi_485Es).
