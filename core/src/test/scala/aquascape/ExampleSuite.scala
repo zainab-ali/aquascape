@@ -187,8 +187,8 @@ class Examples extends GoldenSuite {
     )
   }
   group("resources") {
-    test("resources") {
-      example("resource")(
+    test("bracket")(
+      example("bracket")(
         range(
           Stream
             .bracket(IO("abc").traceF())(_ => IO("d").traceF().void)
@@ -203,7 +203,45 @@ class Examples extends GoldenSuite {
             .toList
             .traceCompile("compile.toList")
         )
+      ),
+      example("raising errors")(
+        range(
+          Stream
+            .bracket(IO("abc").traceF())(_ => IO("d").traceF().void)
+            .trace("Stream.bracket(…)")
+            .flatMap { str =>
+              Stream
+                .emits(str.toList)
+                .trace("Stream.emits(str.toList)")
+                .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+                .trace("evalTap(…)")
+            }
+            .trace("flatMap {…}")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("handing errors")(
+        range(
+          Stream
+            .bracket(IO("abc").traceF())(_ => IO("d").traceF().void)
+            .trace("Stream.bracket(…)")
+            .flatMap { str =>
+              Stream
+                .emits(str.toList)
+                .trace("Stream.emits(str.toList)")
+                .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+                .trace("evalTap(…)")
+            }
+            .trace("flatMap {…}")
+            .handleErrorWith(_ => Stream('e', 'f').trace("Stream('e','f')"))
+            .trace("handleErrorWith(…)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
       )
-    }
+    )
   }
 }
