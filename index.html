@@ -78,7 +78,7 @@
     <li class="level2 nav-leaf"><a href="errors/handling-errors.html">handling errors</a></li>
     <li class="level2 nav-leaf"><a href="errors/raising-errors.html">raising errors</a></li>
     <li class="level1 nav-header">resources</li>
-    <li class="level2 nav-leaf"><a href="resources/resources.html">resources</a></li>
+    <li class="level2 nav-leaf"><a href="resources/bracket.html">bracket</a></li>
   </ul>
 
 </nav>
@@ -94,6 +94,7 @@
     <li class="level1 nav-node"><a href="#how-to-read-the-diagrams">How to read the diagrams</a></li>
     <li class="level2 nav-leaf"><a href="#basics">Basics</a></li>
     <li class="level2 nav-leaf"><a href="#effects-and-errors">Effects and errors</a></li>
+    <li class="level1 nav-leaf"><a href="#more-details">More details</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -136,6 +137,9 @@
   .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
   .</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
         <p><img src="error-example.png" alt="diagram"></p>
+        
+        <h2 id="more-details" class="section"><a class="anchor-link left" href="#more-details"><i class="icofont-laika link">&#xef71;</i></a>More details</h2>
+        <p>Watch the presentation on <a href="https://www.youtube.com/watch?v=q85Wi_485Es">The Pierian Stream, ScalaDays Seattle 2023</a>.</p>
 
         
 <hr class="footer-rule"/>
