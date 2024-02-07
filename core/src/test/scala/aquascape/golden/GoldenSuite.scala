@@ -44,26 +44,32 @@ trait GoldenSuite extends CatsEffectSuite {
     super.test(name)(run)
   }
 
-  def example(name: String)(
+  def example(name: String, drawChunked: DrawChunked = DrawChunked.Yes)(
       f: Trace[IO] ?=> StreamCode
   )(using parent: TestName): IO[Unit] = {
-    Trace.unchunked[IO].flatMap { case given Trace[IO] =>
-      val streamCode: StreamCode = f
-      val exampleName: ExampleName = ExampleName(s"${name}", parent)
-      writeSource(streamCode.pos, exampleName) >> drawStream(
-        streamCode.code,
-        exampleName
-      )
-    } >>
-      Trace.chunked[IO].flatMap { case given Trace[IO] =>
+    Trace
+      .unchunked[IO]
+      .flatMap { case given Trace[IO] =>
         val streamCode: StreamCode = f
-        val exampleName: ExampleName =
-          ExampleName(s"${name} (with chunks)", parent)
+        val exampleName: ExampleName = ExampleName(s"${name}", parent)
         writeSource(streamCode.pos, exampleName) >> drawStream(
           streamCode.code,
           exampleName
         )
       }
+      .unlessA(drawChunked == DrawChunked.OnlyChunked) >>
+      Trace
+        .chunked[IO]
+        .flatMap { case given Trace[IO] =>
+          val streamCode: StreamCode = f
+          val exampleName: ExampleName =
+            ExampleName(s"${name} (with chunks)", parent)
+          writeSource(streamCode.pos, exampleName) >> drawStream(
+            streamCode.code,
+            exampleName
+          )
+        }
+        .unlessA(drawChunked == DrawChunked.No)
   }
 }
 

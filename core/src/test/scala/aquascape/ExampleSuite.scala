@@ -211,13 +211,15 @@ class Examples extends GoldenSuite with LowPriorityShow {
     )
   }
   group("chunking") {
+    import DrawChunked.*
     test("chunks")(
-      example("chunkLimit")(
+      example("chunkLimit", OnlyChunked)(
         range(
           Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
             .chunkLimit(2)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .trace("chunkLimit(2).unchunks")
             .compile
             .toList
             .traceCompile("compile.toList")
@@ -225,7 +227,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
       )
     )
     test("buffering")(
-      example("buffer")(
+      example("buffer", OnlyChunked)(
         range(
           Stream('a', 'b', 'c')
             .chunkLimit(1)
@@ -233,14 +235,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
             .trace("Stream('a','b','c')…unchunks")
             .buffer(2)
             .trace("buffer(2)")
-            .head
-            .trace("head")
             .compile
             .toList
             .traceCompile("compile.toList")
         )
       ),
-      example("bufferAll")(
+      example("bufferAll", OnlyChunked)(
         range(
           Stream('a', 'b', 'c')
             .chunkLimit(1)
@@ -248,8 +248,19 @@ class Examples extends GoldenSuite with LowPriorityShow {
             .trace("Stream('a','b','c')…unchunks")
             .bufferAll
             .trace("bufferAll")
-            .head
-            .trace("head")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("bufferBy", OnlyChunked)(
+        range(
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .bufferBy(_ != 'b')
+            .trace("bufferBy")
             .compile
             .toList
             .traceCompile("compile.toList")
