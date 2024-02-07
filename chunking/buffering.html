@@ -97,10 +97,9 @@
   <p class="header"><a href="#">buffering</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#buffer">buffer</a></li>
     <li class="level1 nav-leaf"><a href="#buffer-with-chunks">buffer (with chunks)</a></li>
-    <li class="level1 nav-leaf"><a href="#bufferall">bufferAll</a></li>
     <li class="level1 nav-leaf"><a href="#bufferall-with-chunks">bufferAll (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#bufferby-with-chunks">bufferBy (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -111,21 +110,17 @@
 
         <h1 id="buffering" class="title">buffering</h1>
         
-        <h2 id="buffer" class="section"><a class="anchor-link left" href="#buffer"><i class="icofont-laika link">&#xef71;</i></a>buffer</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">buffer</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="buffering/buffer.png" alt="diagram"></p>
-        
         <h2 id="buffer-with-chunks" class="section"><a class="anchor-link left" href="#buffer-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>buffer (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">buffer</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">buffer</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
         <p><img src="buffering/buffer--with-chunks-.png" alt="diagram"></p>
         
-        <h2 id="bufferall" class="section"><a class="anchor-link left" href="#bufferall"><i class="icofont-laika link">&#xef71;</i></a>bufferAll</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferAll</span><span>.</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="buffering/bufferAll.png" alt="diagram"></p>
-        
         <h2 id="bufferall-with-chunks" class="section"><a class="anchor-link left" href="#bufferall-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>bufferAll (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferAll</span><span>.</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferAll</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
         <p><img src="buffering/bufferAll--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="bufferby-with-chunks" class="section"><a class="anchor-link left" href="#bufferby-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>bufferBy (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferBy</span><span>(</span><span class="identifier">_</span><span> != </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="buffering/bufferBy--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>
