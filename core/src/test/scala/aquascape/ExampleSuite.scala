@@ -224,6 +224,33 @@ class Examples extends GoldenSuite with LowPriorityShow {
             .toList
             .traceCompile("compile.toList")
         )
+      ),
+      example("chunkMin", OnlyChunked)(
+        range(
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .chunkMin(2)
+            .unchunks
+            .trace("chunkMin(2).unchunks")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("repartition", OnlyChunked)(
+        range(
+          Stream("Hel", "l", "o Wor", "ld")
+            .chunkLimit(1)
+            .unchunks
+            .trace("""Stream(…)…unchunks""")
+            .repartition(s => Chunk.array(s.split(" ")))
+            .trace("repartition(…)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
       )
     )
     test("buffering")(
