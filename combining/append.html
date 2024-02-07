@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>drop</title>
+  <title>append</title>
   
   <meta name="author" content="Zainab Ali"/>
   
@@ -69,16 +69,16 @@
 
   <ul class="nav-list">
     <li class="level1 nav-header">basic</li>
-    <li class="level2 nav-leaf"><a href="compile.html">compile</a></li>
-    <li class="level2 active nav-leaf"><a href="#">drop</a></li>
-    <li class="level2 nav-leaf"><a href="filtering.html">filtering</a></li>
-    <li class="level2 nav-leaf"><a href="take.html">take</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/compile.html">compile</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/filtering.html">filtering</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/take.html">take</a></li>
     <li class="level1 nav-header">chunking</li>
     <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
     <li class="level2 nav-leaf"><a href="../chunking/chunks.html">chunks</a></li>
     <li class="level1 nav-header">combining</li>
-    <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
-    <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
+    <li class="level2 active nav-leaf"><a href="#">append</a></li>
+    <li class="level2 nav-leaf"><a href="flatMap.html">flatMap</a></li>
     <li class="level1 nav-header">effects</li>
     <li class="level2 nav-leaf"><a href="../effects/effects.html">effects</a></li>
     <li class="level1 nav-header">errors</li>
@@ -94,13 +94,11 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">drop</a></p>
+  <p class="header"><a href="#">append</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#fewer">fewer</a></li>
-    <li class="level1 nav-leaf"><a href="#fewer-with-chunks">fewer (with chunks)</a></li>
-    <li class="level1 nav-leaf"><a href="#more">more</a></li>
-    <li class="level1 nav-leaf"><a href="#more-with-chunks">more (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#append-2">append</a></li>
+    <li class="level1 nav-leaf"><a href="#append-with-chunks">append (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -109,23 +107,15 @@
 
       <main class="content">
 
-        <h1 id="drop" class="title">drop</h1>
+        <h1 id="append-1" class="title">append</h1>
         
-        <h2 id="fewer" class="section"><a class="anchor-link left" href="#fewer"><i class="icofont-laika link">&#xef71;</i></a>fewer</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/fewer.png" alt="diagram"></p>
+        <h2 id="append-2" class="section"><a class="anchor-link left" href="#append-2"><i class="icofont-laika link">&#xef71;</i></a>append</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>) ++ </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;c&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="append/append.png" alt="diagram"></p>
         
-        <h2 id="fewer-with-chunks" class="section"><a class="anchor-link left" href="#fewer-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>fewer (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/fewer--with-chunks-.png" alt="diagram"></p>
-        
-        <h2 id="more" class="section"><a class="anchor-link left" href="#more"><i class="icofont-laika link">&#xef71;</i></a>more</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">5</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/more.png" alt="diagram"></p>
-        
-        <h2 id="more-with-chunks" class="section"><a class="anchor-link left" href="#more-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>more (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">5</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/more--with-chunks-.png" alt="diagram"></p>
+        <h2 id="append-with-chunks" class="section"><a class="anchor-link left" href="#append-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>append (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>) ++ </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;c&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="append/append--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>

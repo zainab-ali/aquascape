@@ -69,10 +69,18 @@
 
   <ul class="nav-list">
     <li class="level1 nav-header">basic</li>
+    <li class="level2 nav-leaf"><a href="../basic/compile.html">compile</a></li>
     <li class="level2 nav-leaf"><a href="../basic/drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/filtering.html">filtering</a></li>
     <li class="level2 nav-leaf"><a href="../basic/take.html">take</a></li>
+    <li class="level1 nav-header">chunking</li>
+    <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
+    <li class="level2 nav-leaf"><a href="../chunking/chunks.html">chunks</a></li>
+    <li class="level1 nav-header">combining</li>
+    <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
     <li class="level1 nav-header">effects</li>
-    <li class="level2 nav-leaf"><a href="../effects/evalMap.html">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="../effects/effects.html">effects</a></li>
     <li class="level1 nav-header">errors</li>
     <li class="level2 active nav-leaf"><a href="#">handling errors</a></li>
     <li class="level2 nav-leaf"><a href="raising-errors.html">raising errors</a></li>
@@ -95,6 +103,8 @@
     <li class="level1 nav-leaf"><a href="#handleerrorwith-with-chunks">handleErrorWith (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#attempt">attempt</a></li>
     <li class="level1 nav-leaf"><a href="#attempt-with-chunks">attempt (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#attempts">attempts</a></li>
+    <li class="level1 nav-leaf"><a href="#attempts-with-chunks">attempts (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -152,6 +162,24 @@
   .</span><span class="identifier">compile</span><span>
   .</span><span class="identifier">toList</span></code></pre>
         <p><img src="handling-errors/attempt--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="attempts" class="section"><a class="anchor-link left" href="#attempts"><i class="icofont-laika link">&#xef71;</i></a>attempts</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
+  .</span><span class="identifier">attempts</span><span>(</span><span class="type-name">Stream</span><span>.</span><span class="identifier">empty</span><span>)
+  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">4</span><span>)
+  .</span><span class="identifier">compile</span><span>
+  .</span><span class="identifier">toList</span></code></pre>
+        <p><img src="handling-errors/attempts.png" alt="diagram"></p>
+        
+        <h2 id="attempts-with-chunks" class="section"><a class="anchor-link left" href="#attempts-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>attempts (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
+  .</span><span class="identifier">attempts</span><span>(</span><span class="type-name">Stream</span><span>.</span><span class="identifier">empty</span><span>)
+  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">4</span><span>)
+  .</span><span class="identifier">compile</span><span>
+  .</span><span class="identifier">toList</span></code></pre>
+        <p><img src="handling-errors/attempts--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>

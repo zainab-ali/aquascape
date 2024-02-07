@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>evalMap</title>
+  <title>buffering</title>
   
   <meta name="author" content="Zainab Ali"/>
   
@@ -69,10 +69,18 @@
 
   <ul class="nav-list">
     <li class="level1 nav-header">basic</li>
+    <li class="level2 nav-leaf"><a href="../basic/compile.html">compile</a></li>
     <li class="level2 nav-leaf"><a href="../basic/drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/filtering.html">filtering</a></li>
     <li class="level2 nav-leaf"><a href="../basic/take.html">take</a></li>
+    <li class="level1 nav-header">chunking</li>
+    <li class="level2 active nav-leaf"><a href="#">buffering</a></li>
+    <li class="level2 nav-leaf"><a href="chunks.html">chunks</a></li>
+    <li class="level1 nav-header">combining</li>
+    <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
     <li class="level1 nav-header">effects</li>
-    <li class="level2 active nav-leaf"><a href="#">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="../effects/effects.html">effects</a></li>
     <li class="level1 nav-header">errors</li>
     <li class="level2 nav-leaf"><a href="../errors/handling-errors.html">handling errors</a></li>
     <li class="level2 nav-leaf"><a href="../errors/raising-errors.html">raising errors</a></li>
@@ -86,11 +94,13 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">evalMap</a></p>
+  <p class="header"><a href="#">buffering</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#evalmap-2">evalMap</a></li>
-    <li class="level1 nav-leaf"><a href="#evalmap-with-chunks">evalMap (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#buffer">buffer</a></li>
+    <li class="level1 nav-leaf"><a href="#buffer-with-chunks">buffer (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#bufferall">bufferAll</a></li>
+    <li class="level1 nav-leaf"><a href="#bufferall-with-chunks">bufferAll (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -99,15 +109,23 @@
 
       <main class="content">
 
-        <h1 id="evalmap-1" class="title">evalMap</h1>
+        <h1 id="buffering" class="title">buffering</h1>
         
-        <h2 id="evalmap-2" class="section"><a class="anchor-link left" href="#evalmap-2"><i class="icofont-laika link">&#xef71;</i></a>evalMap</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="evalMap/evalMap.png" alt="diagram"></p>
+        <h2 id="buffer" class="section"><a class="anchor-link left" href="#buffer"><i class="icofont-laika link">&#xef71;</i></a>buffer</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">buffer</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="buffering/buffer.png" alt="diagram"></p>
         
-        <h2 id="evalmap-with-chunks" class="section"><a class="anchor-link left" href="#evalmap-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>evalMap (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="evalMap/evalMap--with-chunks-.png" alt="diagram"></p>
+        <h2 id="buffer-with-chunks" class="section"><a class="anchor-link left" href="#buffer-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>buffer (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">buffer</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="buffering/buffer--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="bufferall" class="section"><a class="anchor-link left" href="#bufferall"><i class="icofont-laika link">&#xef71;</i></a>bufferAll</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferAll</span><span>.</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="buffering/bufferAll.png" alt="diagram"></p>
+        
+        <h2 id="bufferall-with-chunks" class="section"><a class="anchor-link left" href="#bufferall-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>bufferAll (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferAll</span><span>.</span><span class="identifier">head</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="buffering/bufferAll--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>
