@@ -107,7 +107,7 @@
         <p>This website is a collection of diagrams for <a href="https://github.com/typelevel/fs2">fs2</a>.</p>
         
         <h2 id="the-basic-idea" class="section"><a class="anchor-link left" href="#the-basic-idea"><i class="icofont-laika link">&#xef71;</i></a>The basic idea</h2>
-        <p>A stream is split into <strong>stages</strong>.</p>
+        <p>A stream is built from <strong>stages</strong>. When evaluated:</p>
         <ul>
           <li>Each stage <strong>pulls</strong> on the stage above.</li>
         </ul>
@@ -121,7 +121,7 @@
           <li>It might also evaluate an <strong>effect</strong>.</li>
         </ul>
         <ul>
-          <li>It might raise an <strong>error</strong>.</li>
+          <li>That effect might raise an <strong>error</strong>.</li>
         </ul>
         
         <h2 id="how-to-read-the-diagrams" class="section"><a class="anchor-link left" href="#how-to-read-the-diagrams"><i class="icofont-laika link">&#xef71;</i></a>How to read the diagrams</h2>
