@@ -98,6 +98,8 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#chunklimit-with-chunks">chunkLimit (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#chunkmin-with-chunks">chunkMin (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#repartition-with-chunks">repartition (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -111,6 +113,19 @@
         <h2 id="chunklimit-with-chunks" class="section"><a class="anchor-link left" href="#chunklimit-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>chunkLimit (with chunks)</h2>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
         <p><img src="chunks/chunkLimit--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="chunkmin-with-chunks" class="section"><a class="anchor-link left" href="#chunkmin-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>chunkMin (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">chunkMin</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="chunks/chunkMin--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="repartition-with-chunks" class="section"><a class="anchor-link left" href="#repartition-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>repartition (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;Hel&quot;</span><span>, </span><span class="string-literal">&quot;l&quot;</span><span>, </span><span class="string-literal">&quot;o Wor&quot;</span><span>, </span><span class="string-literal">&quot;ld&quot;</span><span>)
+  .</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>)
+  .</span><span class="identifier">unchunks</span><span>
+  .</span><span class="identifier">repartition</span><span>(</span><span class="identifier">s</span><span> =&gt; </span><span class="type-name">Chunk</span><span>.</span><span class="identifier">array</span><span>(</span><span class="identifier">s</span><span>.</span><span class="identifier">split</span><span>(</span><span class="string-literal">&quot; &quot;</span><span>)))
+  .</span><span class="identifier">compile</span><span>
+  .</span><span class="identifier">toList</span></code></pre>
+        <p><img src="chunks/repartition--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>
