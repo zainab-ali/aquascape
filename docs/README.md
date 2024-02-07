@@ -4,13 +4,13 @@ This website is a collection of diagrams for [fs2](https://github.com/typelevel/
 
 ## The basic idea
 
-A stream is split into **stages**.
+A stream is built from **stages**. When evaluated:
 
  - Each stage **pulls** on the stage above.
  - It **outputs** an element to the stage below.
  - If there are no more elements to output, the stage is **done**.
  - It might also evaluate an **effect**.
- - It might raise an **error**.
+ - That effect might raise an **error**.
 
 ## How to read the diagrams
 
