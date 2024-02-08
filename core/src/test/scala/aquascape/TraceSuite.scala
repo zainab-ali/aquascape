@@ -31,6 +31,29 @@ class TraceSuite extends CatsEffectSuite {
   ): (Step, Location) =
     Step(labels, e) -> loc
 
+  val t = new Unique.Token()
+  private def replaceToken(s: Step): Step = {
+    val event = s.e match {
+      case (Event.Pull(_))           => Event.Pull(t)
+      case (Event.Done(_))           => Event.Done(t)
+      case (Event.Output(v, _))      => Event.Output(v, t)
+      case (e: Event.Error)          => e.copy(token = t)
+      case (Event.OutputChunk(v, _)) => Event.OutputChunk(v, t)
+      case other                     => other
+    }
+    s.copy(e = event)
+  }
+
+  def assertContains(
+      actual: List[Step],
+      expected: List[(Step, Location)]
+  ): Unit = {
+    val _ = expected.foldLeft(actual) { (acc, el) =>
+      val (e, l) = el
+      assert(acc.contains(e))(l)
+      acc.dropWhile(_ != e)
+    }
+  }
   def assertSteps(actualIO: IO[List[Step]], expected: List[(Step, Location)])(
       using loc: munit.Location
   ): IO[Unit] = {
@@ -38,17 +61,8 @@ class TraceSuite extends CatsEffectSuite {
       actual.zipWithIndex
         .zip(expected)
         .map { case ((a, i), (e, l)) =>
-          val event = (a.e, e.e) match {
-            case (Event.Pull(_), Event.Pull(t))           => Event.Pull(t)
-            case (Event.Done(_), Event.Done(t))           => Event.Done(t)
-            case (Event.Output(v, _), Event.Output(_, t)) => Event.Output(v, t)
-            case (a: Event.Error, e: Event.Error) => a.copy(token = e.token)
-            case (Event.OutputChunk(v, _), Event.OutputChunk(_, t)) =>
-              Event.OutputChunk(v, t)
-            case (a, _) => a
-          }
           assertEquals(
-            a.copy(e = event),
+            replaceToken(a),
             e,
             s"Step $i is incorrect - ${pprint(actual)}"
           )(
@@ -63,8 +77,6 @@ class TraceSuite extends CatsEffectSuite {
       )
     }.void
   }
-
-  val t = new Unique.Token()
 
   test("traces a single combinator") {
     val actual = Trace.simple { (_: Trace[IO]) ?=>
@@ -409,46 +421,68 @@ class TraceSuite extends CatsEffectSuite {
     assertSteps(actual, expected)
   }
 
-  // TODO: Use TestContext?
-  // test("traces merged streams".ignored) {
-  //   val actual = Trace.simple[IO] { (_: Trace[IO]) ?=>
-  //     Stream("Mao")[IO]
-  //       .trace("left", branch = "left")
-  //       .fork("root", "left")
-  //       .merge(
-  //         Stream("Popcorn")[IO]
-  //           .trace("right", branch = "right")
-  //           .fork("root", "right")
-  //       )
-  //       .trace("merge")
-  //   }
-  //   // FIXME: There is a bug in the test or code.
-  //   val expected = List(
-  //     step(labels = List(), e = OpenScope(label = "merge")),
-  //     step(labels = List("merge"), e = Pull),
-  //     step(labels = List("merge"), e = OpenScope(label = "left")),
-  //     step(labels = List("left", "merge"), e = Pull),
-  //     step(labels = List("left", "merge"), e = OpenScope(label = "right")),
-  //     step(labels = List("left", "merge"), e = Output(value = "Mao")),
-  //     step(labels = List("right", "left", "merge"), e = Pull),
-  //     step(
-  //       labels = List("right", "left", "merge"),
-  //       e = Output(value = "Popcorn")
-  //     ),
-  //     step(labels = List("merge"), e = Output(value = "Mao")),
-  //     step(labels = List("merge"), e = Pull),
-  //     step(labels = List("left", "merge"), e = Pull),
-  //     step(labels = List("left", "merge"), e = Done),
-  //     step(labels = List("merge"), e = CloseScope(label = "left")),
-  //     step(labels = List("merge"), e = Output(value = "Popcorn")),
-  //     step(labels = List("merge"), e = Pull),
-  //     step(labels = List("right", "merge"), e = Pull),
-  //     step(labels = List("right", "merge"), e = Done),
-  //     step(labels = List("merge"), e = CloseScope(label = "right")),
-  //     step(labels = List("merge"), e = Done),
-  //     step(labels = List(), e = CloseScope(label = "merge")),
-  //     step(labels = List(), e = Finished(errored = false))
-  //   )
-  //   assertSteps(actual, expected)
-  // }
+  test("trace parallel execution".ignore) {
+    val actualIO = Trace.simple { (_: Trace[IO]) ?=>
+      Stream("Mao", "Popcorn", "Trouble")[IO]
+        .trace("source", branch = "s")
+        .fork("root", "s")
+        .parEvalMap(2)(IO(_).traceF())
+        .trace("parEvalMap")
+        .compile
+        .drain
+        .traceCompile("drain")
+    }
+    assertSteps(actualIO, Nil)
+  }
+
+  test("traces merged streams") {
+    val actualIO = Trace.simple { (_: Trace[IO]) ?=>
+      Stream("Mao")[IO]
+        .trace("left", branch = "l")
+        .fork("root", "l")
+        .merge(
+          Stream("Popcorn")[IO]
+            .trace("right", branch = "r")
+            .fork("root", "r")
+        )
+        .trace("merge")
+        .compile
+        .drain
+        .traceCompile("drain")
+    }
+    actualIO.map { actualWithTokens =>
+      val actual = actualWithTokens.map(replaceToken)
+      val beginning = List(
+        step(labels = List("drain"), e = OpenScope(label = "merge")),
+        step(labels = List("merge", "drain"), e = Pull(t))
+      )
+      assertEquals(actual.take(beginning.size), beginning.map(_._1))
+      val left = List(
+        step(labels = List("merge", "drain"), e = OpenScope(label = "left")),
+        step(labels = List("left", "merge", "drain"), e = Pull(t)),
+        step(
+          labels = List("left", "merge", "drain"),
+          e = Output(value = "Mao", t)
+        ),
+        step(labels = List("merge", "drain"), e = Output(value = "Mao", t)),
+        step(labels = List("left", "merge", "drain"), e = Pull(t)),
+        step(labels = List("left", "merge", "drain"), e = Done(t)),
+        step(labels = List("merge", "drain"), e = CloseScope(label = "left"))
+      )
+      assertContains(actual.drop(beginning.size), left)
+      val right = List(
+        step(labels = List("merge", "drain"), e = OpenScope(label = "right")),
+        step(labels = List("right", "merge", "drain"), e = Pull(t)),
+        step(
+          labels = List("right", "merge", "drain"),
+          e = Output(value = "Popcorn", t)
+        ),
+        step(labels = List("merge", "drain"), e = Output(value = "Popcorn", t)),
+        step(labels = List("right", "merge", "drain"), e = Pull(t)),
+        step(labels = List("right", "merge", "drain"), e = Done(t)),
+        step(labels = List("merge", "drain"), e = CloseScope(label = "right"))
+      )
+      assertContains(actual.drop(beginning.size), right)
+    }
+  }
 }

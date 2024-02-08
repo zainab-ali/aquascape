@@ -25,53 +25,32 @@ import fs2.concurrent.Channel
 
 // TODO: Opaque?
 type Branch = String
-type Stack[F[_]] = Ref[F, List[Label]]
 
-extension [F[_]: Functor](stack: Stack[F]) {
-  def peek: F[List[Label]] = stack.get
-  def bracket[O, A](child: Label)(fa: Pull[F, O, A]): Pull[F, O, A] =
-    Pull.bracketCase(
-      acquire = Pull.eval(
-        stack.update(xs => child :: xs)
-      ),
-      use = _ => fa,
-      release = (_, _) =>
-        Pull.eval(
-          stack.update(_.tail)
-        )
-    )
-}
-
-type TreeStack[F[_]] = Ref[F, Map[Branch, (Branch, List[Label])]]
-extension [F[_]: MonadCancelThrow](stack: TreeStack[F]) {
+type Stack[F[_]] = Ref[F, Map[Branch, List[Label]]]
+extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
   def bracketF[A](branch: Branch, child: Label)(fa: F[A]): F[A] =
     summon[MonadCancelThrow[F]].bracket(
       stack.update { bs =>
-        bs.get(branch).fold(bs) { case (p, xs) =>
-          bs + ((branch, (p, child :: xs)))
+        bs.get(branch).fold(bs) { case xs =>
+          bs + ((branch, (child :: xs)))
         }
       }
     )(_ => fa)(_ =>
       stack.update { bs =>
-        bs.get(branch).fold(bs) { case (p, xs) =>
-          bs + ((branch, (p, xs.tail)))
+        bs.get(branch).fold(bs) { case xs =>
+          bs + ((branch, (xs.tail)))
         }
       }
     )
 }
-extension [F[_]: Functor](stack: TreeStack[F]) {
+extension [F[_]: Functor](stack: Stack[F]) {
   def forkTS(parent: Branch, child: Branch): F[Unit] =
-    stack.update { bs => bs + ((child, (parent, Nil))) }
-  def peek(branch: Branch): F[List[Label]] = {
-    def peek_(
-        branches: Map[Branch, (Branch, List[Label])],
-        branch: Branch
-    ): List[Label] = {
-      branches.get(branch).fold(Nil) { case (p, xs) =>
-        xs ++ peek_(branches, p)
-      }
+    stack.update { bs =>
+      val parentLabels = bs.getOrElse(parent, Nil)
+      bs + ((child, (parentLabels)))
     }
-    stack.get.map(peek_(_, branch))
+  def peek(branch: Branch): F[List[Label]] = {
+    stack.get.map(_.getOrElse(branch, Nil))
   }
 
   def bracket[O, A](branch: Branch, child: Label)(
@@ -80,8 +59,8 @@ extension [F[_]: Functor](stack: TreeStack[F]) {
     Pull.bracketCase(
       acquire = Pull.eval(
         stack.update { bs =>
-          bs.get(branch).fold(bs) { case (p, xs) =>
-            bs + ((branch, (p, child :: xs)))
+          bs.get(branch).fold(bs) { case xs =>
+            bs + ((branch, (child :: xs)))
           }
         }
       ),
@@ -89,15 +68,15 @@ extension [F[_]: Functor](stack: TreeStack[F]) {
       release = (_, _) =>
         Pull.eval(
           stack.update { bs =>
-            bs.get(branch).fold(bs) { case (p, xs) =>
-              bs + ((branch, (p, xs.tail)))
+            bs.get(branch).fold(bs) { case xs =>
+              bs + ((branch, (xs.tail)))
             }
           }
         )
     )
 }
 
-case class Pen[F[_]](stack: TreeStack[F], chan: Channel[F, Step])
+case class Pen[F[_]](stack: Stack[F], chan: Channel[F, Step])
 
 import cats.effect.*
 
@@ -106,7 +85,7 @@ val root = "root"
 object Pen {
   def apply[F[_]: Async]: F[Pen[F]] =
     (
-      Ref.of[F, Map[Branch, (Branch, List[Label])]](Map(root -> ("_", Nil))),
+      Ref.of[F, Map[Branch, (List[Label])]](Map(root -> (Nil))),
       Channel.synchronous[F, Step]
     ).mapN(Pen(_, _))
 }

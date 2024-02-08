@@ -34,6 +34,8 @@ private def writeSource(
   def stripTraceCalls(tree: Tree): Tree = {
     // TODO: Should we add .compile.drain ?
     tree.transform {
+      case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("fork")), _) =>
+        stripTraceCalls(t)
       case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace")), _)  => t
       case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("traceF")), _) => t
       case Term.Apply

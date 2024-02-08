@@ -371,6 +371,40 @@ class Examples extends GoldenSuite with LowPriorityShow {
         )
       )
     )
+    test("merge")(
+      example("merge")(
+        range(
+          Stream('a')
+            .trace("Stream('a')", branch = "left")
+            .fork("root", "left")
+            .merge(
+              Stream('b')
+                .trace("Stream('b')", branch = "right")
+                .fork("root", "right")
+            )
+            .trace("merge")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("parZip")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')", "left")
+            .fork("root", "left")
+            .parZip(
+              Stream('d', 'e')
+                .trace("Stream('d','e')", "right")
+                .fork("root", "right")
+            )
+            .trace("parZip(…)")
+            .compile
+            .drain
+            .traceCompile("compile.drain")
+        )
+      )
+    )
   }
   group("effects") {
     test("effects")(
@@ -403,6 +437,30 @@ class Examples extends GoldenSuite with LowPriorityShow {
             .compile
             .last
             .traceCompile("compile.last")
+        )
+      ),
+      example("parEvalMap")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')", "upstream")
+            .fork("root", "upstream")
+            .parEvalMap(2)(_.pure[IO].traceF())
+            .trace("parEvalMap(2)(…)")
+            .compile
+            .drain
+            .traceCompile("compile.drain")
+        )
+      ),
+      example("parEvalMapUnordered")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')", "upstream")
+            .fork("root", "upstream")
+            .parEvalMapUnordered(2)(_.pure[IO].traceF())
+            .trace("parEvalMapUnordered(2)(…)")
+            .compile
+            .drain
+            .traceCompile("compile.drain")
         )
       )
     )
