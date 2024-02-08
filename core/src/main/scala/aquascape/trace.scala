@@ -50,13 +50,13 @@ object Trace {
     def lift: Pull[F, Nothing, A] = Pull.eval(fa)
   }
 
-  def simple[F[_]: Async](f: Trace[F] ?=> F[Any]): F[List[Step]] =
+  def simple[F[_]: Async, O](f: Trace[F] ?=> F[O]): F[List[Step]] =
     unchunked[F].flatMap { t =>
       t.steps(f(using t)).compile.toList
     }
 
-  def simpleChunked[F[_]: Async](
-      f: Trace[F] ?=> F[Any]
+  def simpleChunked[F[_]: Async, O](
+      f: Trace[F] ?=> F[O]
   ): F[List[Step]] =
     chunked[F].flatMap { t =>
       t.steps(f(using t)).compile.toList

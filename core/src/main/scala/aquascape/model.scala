@@ -30,5 +30,4 @@ enum Event {
   case CloseScope(label: Label)
   case Finished(errored: Boolean, value: String)
 }
-// TODO: Rename to Event and Event.Data
 case class Step(labels: List[Label], e: Event)

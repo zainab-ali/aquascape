@@ -43,6 +43,8 @@ lazy val core = crossProject(JVMPlatform)
       ("org.scalameta" %% "scalafmt-core" % "3.7.17" % Test)
         .cross(CrossVersion.for3Use2_13),
       ("com.lihaoyi" %% "sourcecode" % "0.3.1" % Test)
+        .cross(CrossVersion.for3Use2_13),
+      ("com.lihaoyi" %% "pprint" % "0.8.1" % Test)
         .cross(CrossVersion.for3Use2_13)
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
