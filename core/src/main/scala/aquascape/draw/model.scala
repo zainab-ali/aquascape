@@ -121,7 +121,7 @@ object Config {
     errorColor = Color.red,
     progressColor = Color.black,
     pullColor = Color.black,
-    outputColor = Color.black,
+    outputColor = Color.rgb(6,68,88),
     doneColor = Color.green,
     startDotColor = Color.black,
     font = Font.defaultSansSerif.family(FontFamily.monospaced).size(12)

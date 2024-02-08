@@ -127,6 +127,7 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
           // Draw text centered around (0.0, 0.0)
           .text(i.value)
           .font(config.font)
+          .strokeColor(config.outputColor)
         val picture = text.width.flatMap { width =>
           // Draw an arrow upwards
           arrow(config)(length * config.stageHeight - 5)
@@ -267,6 +268,7 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
         val text = Picture
           .text(i.value)
           .font(config.font)
+          .strokeColor(color)
         text.width.map { width =>
           val picture = innerCircle
             .on(outerCircle)
