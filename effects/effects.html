@@ -79,6 +79,7 @@
     <li class="level1 nav-header">combining</li>
     <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/merge.html">merge</a></li>
     <li class="level1 nav-header">effects</li>
     <li class="level2 active nav-leaf"><a href="#">effects</a></li>
     <li class="level1 nav-header">errors</li>
@@ -103,6 +104,10 @@
     <li class="level1 nav-leaf"><a href="#exec-with-chunks">exec (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#eval">eval</a></li>
     <li class="level1 nav-leaf"><a href="#eval-with-chunks">eval (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#parevalmap">parEvalMap</a></li>
+    <li class="level1 nav-leaf"><a href="#parevalmap-with-chunks">parEvalMap (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#parevalmapunordered">parEvalMapUnordered</a></li>
+    <li class="level1 nav-leaf"><a href="#parevalmapunordered-with-chunks">parEvalMapUnordered (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -136,6 +141,22 @@
         <h2 id="eval-with-chunks" class="section"><a class="anchor-link left" href="#eval-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>eval (with chunks)</h2>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>.</span><span class="identifier">eval</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">last</span></code></pre>
         <p><img src="effects/eval--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="parevalmap" class="section"><a class="anchor-link left" href="#parevalmap"><i class="icofont-laika link">&#xef71;</i></a>parEvalMap</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">parEvalMap</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">drain</span></code></pre>
+        <p><img src="effects/parEvalMap.png" alt="diagram"></p>
+        
+        <h2 id="parevalmap-with-chunks" class="section"><a class="anchor-link left" href="#parevalmap-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>parEvalMap (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">parEvalMap</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">drain</span></code></pre>
+        <p><img src="effects/parEvalMap--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="parevalmapunordered" class="section"><a class="anchor-link left" href="#parevalmapunordered"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnordered</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">parEvalMapUnordered</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">drain</span></code></pre>
+        <p><img src="effects/parEvalMapUnordered.png" alt="diagram"></p>
+        
+        <h2 id="parevalmapunordered-with-chunks" class="section"><a class="anchor-link left" href="#parevalmapunordered-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnordered (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">parEvalMapUnordered</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">drain</span></code></pre>
+        <p><img src="effects/parEvalMapUnordered--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>
