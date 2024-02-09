@@ -15,10 +15,10 @@
  */
 
 package aquascape.drawing
-import aquascape.Step
-extension (steps: List[Step]) {
+import aquascape.Event
+import cats.Foldable
+
+extension [F[_]: Foldable](events: F[Event]) {
   def toPicture(config: Config): Picture[Unit] =
-    diagramToPicture(config)(stepsToDiagram(steps))
-    // TODO: SVG does not draw properly
-    // .writeToIO[Png]("foo.png")
+    diagramToPicture(config)(eventsToDiagram(events))
 }

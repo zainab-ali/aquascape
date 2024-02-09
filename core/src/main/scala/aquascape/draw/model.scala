@@ -50,12 +50,9 @@ enum Item {
       pullProgress: Int
   )
   case Finished(value: String, errored: Boolean, progress: Int)
-
-  def progress1: Int = ???
 }
 
 type Progress = Int
-val rootIndex = -1
 
 final case class Config(
     // The dash style used to mark the horizontal stage line

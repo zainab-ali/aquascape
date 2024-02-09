@@ -26,27 +26,19 @@ class TraceSuite extends CatsEffectSuite {
 
   import Event.*
 
-  def step(labels: List[String], e: Event)(using
-      loc: munit.Location
-  ): (Step, Location) =
-    Step(labels, e) -> loc
-
   val t = new Unique.Token()
-  private def replaceToken(s: Step): Step = {
-    val event = s.e match {
-      case (Event.Pull(_))           => Event.Pull(t)
-      case (Event.Done(_))           => Event.Done(t)
-      case (Event.Output(v, _))      => Event.Output(v, t)
-      case (e: Event.Error)          => e.copy(token = t)
-      case (Event.OutputChunk(v, _)) => Event.OutputChunk(v, t)
-      case other                     => other
-    }
-    s.copy(e = event)
+  private def replaceToken: Event => Event = {
+    case Event.Pull(to, from, _) => Event.Pull(to, from, t)
+    case Event.Done(_)           => Event.Done(t)
+    case Event.Output(v, _)      => Event.Output(v, t)
+    case e: Event.Error          => e.copy(token = t)
+    case Event.OutputChunk(v, _) => Event.OutputChunk(v, t)
+    case other                   => other
   }
 
   def assertContains(
-      actual: List[Step],
-      expected: List[(Step, Location)]
+      actual: List[Event],
+      expected: List[(Event, Location)]
   ): Unit = {
     val _ = expected.foldLeft(actual) { (acc, el) =>
       val (e, l) = el
@@ -54,8 +46,11 @@ class TraceSuite extends CatsEffectSuite {
       acc.dropWhile(_ != e)
     }
   }
-  def assertSteps(actualIO: IO[List[Step]], expected: List[(Step, Location)])(
-      using loc: munit.Location
+  def assertEvents(
+      actualIO: IO[List[Event]],
+      expected: List[(Event, Location)]
+  )(using
+      loc: munit.Location
   ): IO[Unit] = {
     actualIO.map { actual =>
       actual.zipWithIndex
@@ -64,19 +59,21 @@ class TraceSuite extends CatsEffectSuite {
           assertEquals(
             replaceToken(a),
             e,
-            s"Step $i is incorrect - ${pprint(actual)}"
+            s"Event $i is incorrect - ${pprint(actual)}"
           )(
             l,
-            summon[Step <:< Step]
+            summon
           )
         }
       assertEquals(
         actual.length,
         expected.length,
-        s"Wrong number of steps obtained. ${pprint(actual)}"
+        s"Wrong number of events obtained. ${pprint(actual)}"
       )
     }.void
   }
+
+  private def loc[A](a: A)(using l: Location): (A, Location) = (a, l)
 
   test("traces a single combinator") {
     val actual = Trace.simple { (_: Trace[IO]) ?=>
@@ -87,19 +84,16 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("last")
     }
     val expected = List(
-      step(labels = List("last"), e = OpenScope(label = "source")),
-      step(labels = List("source", "last"), e = Pull(t)),
-      step(
-        labels = List("source", "last"),
-        e = Output(value = "Mao", token = t)
-      ),
-      step(labels = List("source", "last"), e = Pull(t)),
-      step(labels = List("source", "last"), e = Done(t)),
-      step(labels = List("last"), e = CloseScope(label = "source")),
-      step(labels = List("last"), e = Finished(errored = false, value = "Mao"))
+      loc(OpenScope(label = "source")),
+      loc(Pull("source", "last", t)),
+      loc(Output(value = "Mao", token = t)),
+      loc(Pull("source", "last", t)),
+      loc(Done(t)),
+      loc(CloseScope(label = "source")),
+      loc(Finished(errored = false, value = "Mao"))
     )
 
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
   test("traces chunks") {
     val actual = Trace.simpleChunked { (_: Trace[IO]) ?=>
@@ -110,18 +104,15 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("last")
     }
     val expected = List(
-      step(List("last"), OpenScope("source")),
-      step(List("source", "last"), Pull(t)),
-      step(
-        List("source", "last"),
-        OutputChunk(Chunk("Mao", "Popcorn"), token = t)
-      ),
-      step(List("source", "last"), Pull(t)),
-      step(List("source", "last"), Done(t)),
-      step(List("last"), CloseScope("source")),
-      step(List("last"), Finished(errored = false, value = "Popcorn"))
+      loc(OpenScope("source")),
+      loc(Pull("source", "last", t)),
+      loc(OutputChunk(Chunk("Mao", "Popcorn"), token = t)),
+      loc(Pull("source", "last", t)),
+      loc(Done(t)),
+      loc(CloseScope("source")),
+      loc(Finished(errored = false, value = "Popcorn"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("traces multiple combinators") {
@@ -135,21 +126,21 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("last")
     }
     val expected = List(
-      step(List("last"), OpenScope("map")),
-      step(List("map", "last"), Pull(t)),
-      step(List("map", "last"), OpenScope("source")),
-      step(List("source", "map", "last"), Pull(t)),
-      step(List("source", "map", "last"), Output("Mao", t)),
-      step(List("map", "last"), Output("MAO", t)),
-      step(List("map", "last"), Pull(t)),
-      step(List("source", "map", "last"), Pull(t)),
-      step(List("source", "map", "last"), Done(t)),
-      step(List("map", "last"), CloseScope("source")),
-      step(List("map", "last"), Done(t)),
-      step(List("last"), CloseScope("map")),
-      step(List("last"), Finished(errored = false, value = "MAO"))
+      loc(OpenScope("map")),
+      loc(Pull("map", "last", t)),
+      loc(OpenScope("source")),
+      loc(Pull("source", "map", t)),
+      loc(Output("Mao", t)),
+      loc(Output("MAO", t)),
+      loc(Pull("map", "last", t)),
+      loc(Pull("source", "map", t)),
+      loc(Done(t)),
+      loc(CloseScope("source")),
+      loc(Done(t)),
+      loc(CloseScope("map")),
+      loc(Finished(errored = false, value = "MAO"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("traces zipped streams") {
@@ -166,25 +157,25 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("last")
     }
     val expected = List(
-      step(List("last"), OpenScope("zip")),
-      step(List("zip", "last"), Pull(t)),
-      step(List("zip", "last"), OpenScope("left")),
-      step(List("left", "zip", "last"), Pull(t)),
-      step(List("left", "zip", "last"), Output("Mao", t)),
-      step(List("zip", "last"), OpenScope("right")),
-      step(List("right", "zip", "last"), Pull(t)),
-      step(List("right", "zip", "last"), Output("Popcorn", t)),
-      step(List("zip", "last"), Output("(Mao,Popcorn)", t)),
-      step(List("zip", "last"), Pull(t)),
-      step(List("left", "zip", "last"), Pull(t)),
-      step(List("left", "zip", "last"), Done(t)),
-      step(List("zip", "last"), CloseScope("left")),
-      step(List("zip", "last"), CloseScope("right")),
-      step(List("zip", "last"), Done(t)),
-      step(List("last"), CloseScope("zip")),
-      step(List("last"), Finished(errored = false, value = "(Mao,Popcorn)"))
+      loc(OpenScope("zip")),
+      loc(Pull("zip", "last", t)),
+      loc(OpenScope("left")),
+      loc(Pull("left", "zip", t)),
+      loc(Output("Mao", t)),
+      loc(OpenScope("right")),
+      loc(Pull("right", "zip", t)),
+      loc(Output("Popcorn", t)),
+      loc(Output("(Mao,Popcorn)", t)),
+      loc(Pull("zip", "last", t)),
+      loc(Pull("left", "zip", t)),
+      loc(Done(t)),
+      loc(CloseScope("left")),
+      loc(CloseScope("right")),
+      loc(Done(t)),
+      loc(CloseScope("zip")),
+      loc(Finished(errored = false, value = "(Mao,Popcorn)"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("traces effect evaluation") {
@@ -198,16 +189,16 @@ class TraceSuite extends CatsEffectSuite {
 
     }
     val expected = List(
-      step(List("last"), OpenScope("source")),
-      step(List("source", "last"), Pull(t)),
-      step(List("source", "last"), Eval("Mao")),
-      step(List("source", "last"), Output("Mao", t)),
-      step(List("source", "last"), Pull(t)),
-      step(List("source", "last"), Done(t)),
-      step(List("last"), CloseScope("source")),
-      step(List("last"), Finished(errored = false, value = "Mao"))
+      loc(OpenScope("source")),
+      loc(Pull("source", "last", t)),
+      loc(Eval("source", "Mao")),
+      loc(Output("Mao", t)),
+      loc(Pull("source", "last", t)),
+      loc(Done(t)),
+      loc(CloseScope("source")),
+      loc(Finished(errored = false, value = "Mao"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("traces raising errors") {
@@ -221,24 +212,18 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("last")
     }
     val expected = List(
-      step(labels = List("last"), e = OpenScope(label = "eval")),
-      step(labels = List("eval", "last"), e = Pull(t)),
-      step(labels = List("eval", "last"), e = OpenScope(label = "source")),
-      step(labels = List("source", "eval", "last"), e = Pull(t)),
-      step(
-        labels = List("source", "eval", "last"),
-        e = Output(value = "Mao", t)
-      ),
-      step(
-        labels = List("eval", "last"),
-        e = Error(value = "BOOM!", t, raisedHere = true)
-      ),
-      step(labels = List("last"), e = CloseScope(label = "source")),
-      step(labels = List("last"), e = CloseScope(label = "eval")),
-      step(labels = List("last"), e = Finished(errored = true, value = "BOOM!"))
+      loc(OpenScope(label = "eval")),
+      loc(Pull("eval", "last", t)),
+      loc(OpenScope(label = "source")),
+      loc(Pull("source", "eval", t)),
+      loc(Output(value = "Mao", t)),
+      loc(Error(value = "BOOM!", t, raisedHere = true)),
+      loc(CloseScope(label = "source")),
+      loc(CloseScope(label = "eval")),
+      loc(Finished(errored = true, value = "BOOM!"))
     )
 
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("traces handling errors") {
@@ -254,28 +239,27 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("drain")
     }
     val expected = List(
-      step(List("drain"), OpenScope("handle")),
-      step(List("handle", "drain"), Pull(t)),
-      step(List("handle", "drain"), OpenScope("eval")),
-      step(List("eval", "handle", "drain"), Pull(t)),
-      step(List("eval", "handle", "drain"), OpenScope("source")),
-      step(List("source", "eval", "handle", "drain"), Pull(t)),
-      step(List("source", "eval", "handle", "drain"), Output("Mao", t)),
-      step(
-        List("eval", "handle", "drain"),
+      loc(OpenScope("handle")),
+      loc(Pull("handle", "drain", t)),
+      loc(OpenScope("eval")),
+      loc(Pull("eval", "handle", t)),
+      loc(OpenScope("source")),
+      loc(Pull("source", "eval", t)),
+      loc(Output("Mao", t)),
+      loc(
         Error("BOOM!", t, raisedHere = true)
       ),
-      step(List("handle", "drain"), CloseScope("source")),
-      step(List("handle", "drain"), CloseScope("eval")),
-      step(List("handle", "drain"), OpenScope("second")),
-      step(List("second", "handle", "drain"), Pull(t)),
-      step(List("second", "handle", "drain"), Done(t)),
-      step(List("handle", "drain"), CloseScope("second")),
-      step(List("handle", "drain"), Done(t)),
-      step(List("drain"), CloseScope("handle")),
-      step(List("drain"), Finished(errored = false, value = "()"))
+      loc(CloseScope("source")),
+      loc(CloseScope("eval")),
+      loc(OpenScope("second")),
+      loc(Pull("second", "handle", t)),
+      loc(Done(t)),
+      loc(CloseScope("second")),
+      loc(Done(t)),
+      loc(CloseScope("handle")),
+      loc(Finished(errored = false, value = "()"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   def bracket(suffix: String = "")(using t: Trace[IO]): Stream[IO, Unit] =
@@ -295,19 +279,19 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("drain")
     }
     val expected = List(
-      step(List("drain"), OpenScope("eval")),
-      step(List("eval", "drain"), Pull(t)),
-      step(List("eval", "drain"), OpenScope("source")),
-      step(List("source", "eval", "drain"), Pull(t)),
-      step(List("source", "eval", "drain"), Eval("acquire")),
-      step(List("source", "eval", "drain"), Output("()", t)),
-      step(List("eval", "drain"), Error("BOOM!", t, raisedHere = true)),
-      step(List("drain"), Eval("release")),
-      step(List("drain"), CloseScope("source")),
-      step(List("drain"), CloseScope("eval")),
-      step(List("drain"), Finished(errored = true, value = "BOOM!"))
+      loc(OpenScope("eval")),
+      loc(Pull("eval", "drain", t)),
+      loc(OpenScope("source")),
+      loc(Pull("source", "eval", t)),
+      loc(Eval("source", "acquire")),
+      loc(Output("()", t)),
+      loc(Error("BOOM!", t, raisedHere = true)),
+      loc(Eval("drain", "release")),
+      loc(CloseScope("source")),
+      loc(CloseScope("eval")),
+      loc(Finished(errored = true, value = "BOOM!"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("traces resources and error handling") {
@@ -323,30 +307,29 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("drain")
     }
     val expected = List(
-      step(List("drain"), OpenScope("handle")),
-      step(List("handle", "drain"), Pull(t)),
-      step(List("handle", "drain"), OpenScope("eval")),
-      step(List("eval", "handle", "drain"), Pull(t)),
-      step(List("eval", "handle", "drain"), OpenScope("source")),
-      step(List("source", "eval", "handle", "drain"), Pull(t)),
-      step(List("source", "eval", "handle", "drain"), Eval("acquire")),
-      step(List("source", "eval", "handle", "drain"), Output("()", t)),
-      step(
-        List("eval", "handle", "drain"),
+      loc(OpenScope("handle")),
+      loc(Pull("handle", "drain", t)),
+      loc(OpenScope("eval")),
+      loc(Pull("eval", "handle", t)),
+      loc(OpenScope("source")),
+      loc(Pull("source", "eval", t)),
+      loc(Eval("source", "acquire")),
+      loc(Output("()", t)),
+      loc(
         Error("BOOM!", t, raisedHere = true)
       ),
-      step(List("handle", "drain"), Eval("release")),
-      step(List("handle", "drain"), CloseScope("source")),
-      step(List("handle", "drain"), CloseScope("eval")),
-      step(List("handle", "drain"), OpenScope("second")),
-      step(List("second", "handle", "drain"), Pull(t)),
-      step(List("second", "handle", "drain"), Done(t)),
-      step(List("handle", "drain"), CloseScope("second")),
-      step(List("handle", "drain"), Done(t)),
-      step(List("drain"), CloseScope("handle")),
-      step(List("drain"), Finished(errored = false, value = "()"))
+      loc(Eval("handle", "release")),
+      loc(CloseScope("source")),
+      loc(CloseScope("eval")),
+      loc(OpenScope("second")),
+      loc(Pull("second", "handle", t)),
+      loc(Done(t)),
+      loc(CloseScope("second")),
+      loc(Done(t)),
+      loc(CloseScope("handle")),
+      loc(Finished(errored = false, value = "()"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("scope: error in parent") {
@@ -364,25 +347,25 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("drain")
     }
     val expected = List(
-      step(List("drain"), OpenScope("eval")),
-      step(List("eval", "drain"), Pull(t)),
-      step(List("eval", "drain"), OpenScope("left")),
-      step(List("left", "eval", "drain"), Pull(t)),
-      step(List("left", "eval", "drain"), Eval("acquireLeft")),
-      step(List("left", "eval", "drain"), Output("()", t)),
-      step(List("eval", "drain"), OpenScope("right")),
-      step(List("right", "eval", "drain"), Pull(t)),
-      step(List("right", "eval", "drain"), Eval("acquireRight")),
-      step(List("right", "eval", "drain"), Output("()", t)),
-      step(List("eval", "drain"), Error("BOOM!", t, raisedHere = true)),
-      step(List("drain"), Eval("releaseRight")),
-      step(List("drain"), CloseScope("right")),
-      step(List("drain"), Eval("releaseLeft")),
-      step(List("drain"), CloseScope("left")),
-      step(List("drain"), CloseScope("eval")),
-      step(labels = List("drain"), Finished(errored = true, value = "BOOM!"))
+      loc(OpenScope("eval")),
+      loc(Pull("eval", "drain", t)),
+      loc(OpenScope("left")),
+      loc(Pull("left", "eval", t)),
+      loc(Eval("left", "acquireLeft")),
+      loc(Output("()", t)),
+      loc(OpenScope("right")),
+      loc(Pull("right", "eval", t)),
+      loc(Eval("right", "acquireRight")),
+      loc(Output("()", t)),
+      loc(Error("BOOM!", t, raisedHere = true)),
+      loc(Eval("drain", "releaseRight")),
+      loc(CloseScope("right")),
+      loc(Eval("drain", "releaseLeft")),
+      loc(CloseScope("left")),
+      loc(CloseScope("eval")),
+      loc(Finished(errored = true, value = "BOOM!"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("scope: error in child") {
@@ -400,25 +383,25 @@ class TraceSuite extends CatsEffectSuite {
         .traceCompile("drain")
     }
     val expected = List(
-      step(List("drain"), OpenScope("zip")),
-      step(List("zip", "drain"), Pull(t)),
-      step(List("zip", "drain"), OpenScope("left")),
-      step(List("left", "zip", "drain"), Pull(t)),
-      step(List("left", "zip", "drain"), Eval("acquireLeft")),
-      step(List("left", "zip", "drain"), Output("()", t)),
-      step(List("zip", "drain"), OpenScope("right")),
-      step(List("right", "zip", "drain"), Pull(t)),
-      step(List("right", "zip", "drain"), Eval("acquireRight")),
-      step(List("right", "zip", "drain"), Error("BOOM!", t, raisedHere = true)),
-      step(List("zip", "drain"), Eval("releaseRight")),
-      step(List("zip", "drain"), CloseScope("right")),
-      step(List("zip", "drain"), Eval("releaseLeft")),
-      step(List("zip", "drain"), CloseScope("left")),
-      step(List("zip", "drain"), Error("BOOM!", t, raisedHere = false)),
-      step(List("drain"), CloseScope("zip")),
-      step(labels = List("drain"), Finished(errored = true, value = "BOOM!"))
+      loc(OpenScope("zip")),
+      loc(Pull("zip", "drain", t)),
+      loc(OpenScope("left")),
+      loc(Pull("left", "zip", t)),
+      loc(Eval("left", "acquireLeft")),
+      loc(Output("()", t)),
+      loc(OpenScope("right")),
+      loc(Pull("right", "zip", t)),
+      loc(Eval("right", "acquireRight")),
+      loc(Error("BOOM!", t, raisedHere = true)),
+      loc(Eval("zip", "releaseRight")),
+      loc(CloseScope("right")),
+      loc(Eval("zip", "releaseLeft")),
+      loc(CloseScope("left")),
+      loc(Error("BOOM!", t, raisedHere = false)),
+      loc(CloseScope("zip")),
+      loc(Finished(errored = true, value = "BOOM!"))
     )
-    assertSteps(actual, expected)
+    assertEvents(actual, expected)
   }
 
   test("trace parallel execution".ignore) {
@@ -432,7 +415,7 @@ class TraceSuite extends CatsEffectSuite {
         .drain
         .traceCompile("drain")
     }
-    assertSteps(actualIO, Nil)
+    assertEvents(actualIO, Nil)
   }
 
   test("traces merged streams") {
@@ -453,34 +436,30 @@ class TraceSuite extends CatsEffectSuite {
     actualIO.map { actualWithTokens =>
       val actual = actualWithTokens.map(replaceToken)
       val beginning = List(
-        step(labels = List("drain"), e = OpenScope(label = "merge")),
-        step(labels = List("merge", "drain"), e = Pull(t))
+        loc(OpenScope(label = "merge")),
+        loc(Pull("merge", "drain", t))
       )
       assertEquals(actual.take(beginning.size), beginning.map(_._1))
       val left = List(
-        step(labels = List("merge", "drain"), e = OpenScope(label = "left")),
-        step(labels = List("left", "merge", "drain"), e = Pull(t)),
-        step(
-          labels = List("left", "merge", "drain"),
-          e = Output(value = "Mao", t)
+        loc(OpenScope(label = "left")),
+        loc(Pull("left", "merge", t)),
+        loc(
+          Output(value = "Mao", t)
         ),
-        step(labels = List("merge", "drain"), e = Output(value = "Mao", t)),
-        step(labels = List("left", "merge", "drain"), e = Pull(t)),
-        step(labels = List("left", "merge", "drain"), e = Done(t)),
-        step(labels = List("merge", "drain"), e = CloseScope(label = "left"))
+        loc(Output(value = "Mao", t)),
+        loc(Pull("left", "merge", t)),
+        loc(Done(t)),
+        loc(CloseScope(label = "left"))
       )
       assertContains(actual.drop(beginning.size), left)
       val right = List(
-        step(labels = List("merge", "drain"), e = OpenScope(label = "right")),
-        step(labels = List("right", "merge", "drain"), e = Pull(t)),
-        step(
-          labels = List("right", "merge", "drain"),
-          e = Output(value = "Popcorn", t)
-        ),
-        step(labels = List("merge", "drain"), e = Output(value = "Popcorn", t)),
-        step(labels = List("right", "merge", "drain"), e = Pull(t)),
-        step(labels = List("right", "merge", "drain"), e = Done(t)),
-        step(labels = List("merge", "drain"), e = CloseScope(label = "right"))
+        loc(OpenScope(label = "right")),
+        loc(Pull("right", "merge", t)),
+        loc(Output(value = "Popcorn", t)),
+        loc(Output(value = "Popcorn", t)),
+        loc(Pull("right", "merge", t)),
+        loc(Done(t)),
+        loc(CloseScope(label = "right"))
       )
       assertContains(actual.drop(beginning.size), right)
     }

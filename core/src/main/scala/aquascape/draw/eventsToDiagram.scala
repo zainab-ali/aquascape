@@ -17,10 +17,11 @@
 package aquascape.drawing
 
 import aquascape.*
+import cats.Foldable
 import cats.effect.Unique
 import cats.syntax.all.*
 
-def stepsToDiagram(steps: List[Step]): Diagram = {
+def eventsToDiagram[F[_]: Foldable](events: F[Event]): Diagram = {
 
   case class PullCoord(progress: Int, from: Int, to: Int)
   type TokenMapEntry = (Unique.Token, PullCoord)
@@ -28,43 +29,48 @@ def stepsToDiagram(steps: List[Step]): Diagram = {
 
   def op(
       acc: (Diagram, Progress, TokenMap),
-      step: Step
+      event: Event
   ): (Diagram, TokenMap) = {
     val (diagram, prevProgress, tokens) = acc
 
-    def labelIndices(
-        stepLabels: List[Label],
-        diagramLabels: List[Label]
-    ): (Int, Int) = {
-      val head: Int = diagramLabels.indexOf(stepLabels.head)
-      val tail: Int =
-        stepLabels.tail.headOption.fold(rootIndex)(diagramLabels.indexOf)
-      (head, tail)
+    val labels: List[Label] = {
+      val newLabel: Option[Label] = event match {
+        case e: Event.Pull => Some(e.to)
+        case e: Event.Eval => Some(e.at)
+        case _             => None
+      }
+      newLabel
+        .filterNot(diagram.labels.contains)
+        .fold(diagram.labels)(diagram.labels :+ _)
     }
-    val labels = step.labels.headOption
-      .filterNot(diagram.labels.contains)
-      .fold(diagram.labels)(diagram.labels :+ _)
+    def labelIndex(l: String): Int =
+      val idx = labels.indexOf(l)
+      if (idx == -1) {
+        throw sys.error("Label is not present.")
+      } else idx
+    def token(t: Unique.Token) =
+      tokens.getOrElse(t, sys.error("Token is not present."))
+
     def maybeToken: Event => Option[TokenMapEntry] = {
-      case Event.Pull(tok) =>
-        val (to, from) = labelIndices(step.labels, labels)
+      case e: Event.Pull =>
+        val to = labelIndex(e.to)
+        val from = labelIndex(e.from)
         val (progress) = prevProgress + 1
-        Some((tok, PullCoord(progress = progress, to = to, from = from)))
+        Some((e.token, PullCoord(progress = progress, to = to, from = from)))
       case _ => None
     }
     val item: PartialFunction[
       Event,
       Item
     ] = {
-      case Event.Pull(tok) =>
-        // Draw a line from this "to" to the next from that has a token.
-        val (to, from) = labelIndices(step.labels, labels)
+      case e: Event.Pull =>
+        val to = labelIndex(e.to)
+        val from = labelIndex(e.from)
         val (progress) = prevProgress + 1
         Item.Pull(from = from, to = to, progress = progress)
       case Event.Output(value, tok) =>
-        val (progress) =
-          prevProgress + 1
-        val pullCoord =
-          tokens.get(tok).getOrElse(sys.error("Token not found."))
+        val (progress) = prevProgress + 1
+        val pullCoord = token(tok)
         Item.Output(
           value = value,
           from = pullCoord.to,
@@ -73,8 +79,7 @@ def stepsToDiagram(steps: List[Step]): Diagram = {
           pullProgress = pullCoord.progress
         )
       case e: Event.OutputChunk =>
-        val pullCoord =
-          tokens.get(e.token).getOrElse(sys.error("Token not found."))
+        val pullCoord = token(e.token)
         Item.Output(
           value = e.value.toList.mkString("[", ",", "]"),
           from = pullCoord.to,
@@ -83,8 +88,7 @@ def stepsToDiagram(steps: List[Step]): Diagram = {
           pullProgress = pullCoord.progress
         )
       case Event.Done(tok) =>
-        val pullCoord =
-          tokens.get(tok).getOrElse(sys.error("Token not found."))
+        val pullCoord = token(tok)
         Item.Done(
           from = pullCoord.to,
           to = pullCoord.from,
@@ -92,12 +96,10 @@ def stepsToDiagram(steps: List[Step]): Diagram = {
           pullProgress = pullCoord.progress
         )
       case e: Event.Eval =>
-        // In the case of an error, there may be no steps listed.
-        val at = step.labels.headOption.map(labels.indexOf).getOrElse(-1)
+        val at = labelIndex(e.at)
         Item.Eval(at = at, value = e.value, progress = prevProgress + 1)
       case e: Event.Error =>
-        val pullCoord =
-          tokens.get(e.token).getOrElse(sys.error("Token not found."))
+        val pullCoord = token(e.token)
         Item.Error(
           from = pullCoord.to,
           to = pullCoord.from,
@@ -112,8 +114,8 @@ def stepsToDiagram(steps: List[Step]): Diagram = {
           progress = prevProgress + 1
         )
     }
-    val nextTokens = maybeToken(step.e).fold(tokens)(tokens + _)
-    val items = item.lift(step.e) match {
+    val nextTokens = maybeToken(event).fold(tokens)(tokens + _)
+    val items = item.lift(event) match {
       case None => diagram.items
       case Some(i) => (
         i :: Item.IncProgress(prevProgress) :: diagram.items
@@ -126,12 +128,12 @@ def stepsToDiagram(steps: List[Step]): Diagram = {
     (Diagram(labels = Nil, items = Nil), 0, Map.empty[Unique.Token, PullCoord])
   def foldOp(
       acc: (Diagram, Progress, TokenMap),
-      step: Step
+      event: Event
   ): (Diagram, Progress, TokenMap) = {
     val (_, prevProgress, _) = acc
-    val (diagram, tokens) = op(acc, step)
+    val (diagram, tokens) = op(acc, event)
     (diagram, prevProgress + 1, tokens)
   }
-  val (diagram, _, _) = steps.foldLeft(empty)(foldOp)
+  val (diagram, _, _) = events.foldLeft(empty)(foldOp)
   diagram.copy(items = diagram.items.reverse)
 }

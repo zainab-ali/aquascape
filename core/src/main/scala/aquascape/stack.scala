@@ -20,13 +20,11 @@ import cats.*
 import cats.effect.MonadCancelThrow
 import cats.effect.Ref
 import cats.syntax.all.*
-import fs2.Pull
-import fs2.concurrent.Channel
+import fs2.*
 
-// TODO: Opaque?
 type Branch = String
 
-type Stack[F[_]] = Ref[F, Map[Branch, List[Label]]]
+opaque type Stack[F[_]] = Ref[F, Map[Branch, List[Label]]]
 extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
   def bracketF[A](branch: Branch, child: Label)(fa: F[A]): F[A] =
     summon[MonadCancelThrow[F]].bracket(
@@ -42,8 +40,7 @@ extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
         }
       }
     )
-}
-extension [F[_]: Functor](stack: Stack[F]) {
+
   def forkTS(parent: Branch, child: Branch): F[Unit] =
     stack.update { bs =>
       val parentLabels = bs.getOrElse(parent, Nil)
@@ -74,32 +71,4 @@ extension [F[_]: Functor](stack: Stack[F]) {
           }
         )
     )
-}
-
-case class Pen[F[_]](stack: Stack[F], chan: Channel[F, Step])
-
-import cats.effect.*
-
-val root = "root"
-
-object Pen {
-  def apply[F[_]: Async]: F[Pen[F]] =
-    (
-      Ref.of[F, Map[Branch, (List[Label])]](Map(root -> (Nil))),
-      Channel.synchronous[F, Step]
-    ).mapN(Pen(_, _))
-}
-extension [F[_]: MonadCancelThrow](pen: Pen[F]) {
-  def bracketF[A](branch: Branch, child: Label)(fa: F[A]): F[A] =
-    pen.stack.bracketF(branch, child)(fa)
-}
-extension [F[_]: Monad](pen: Pen[F]) {
-  def bracket[O, A](branch: Branch, child: Label)(
-      fa: Pull[F, O, A]
-  ): Pull[F, O, A] = pen.stack.bracket(branch, child)(fa)
-  def write(branch: Branch, e: Event): F[Unit] =
-    pen.stack.peek(branch).map(Step(_, e)) >>= (s => pen.chan.send(s).void)
-
-  def forkF(parent: Branch, child: Branch): F[Unit] =
-    pen.stack.forkTS(parent, child)
 }

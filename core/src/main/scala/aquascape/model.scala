@@ -19,9 +19,9 @@ import cats.effect.Unique.Token
 type Label = String
 
 enum Event {
-  case Pull(token: Token)
+  case Pull(to: String, from: String, token: Token)
   case Done(token: Token)
-  case Eval(value: String)
+  case Eval(at: String, value: String)
   case EvalError(value: String)
   case Error(value: String, token: Token, raisedHere: Boolean)
   case Output(value: String, token: Token)
@@ -30,4 +30,3 @@ enum Event {
   case CloseScope(label: Label)
   case Finished(errored: Boolean, value: String)
 }
-case class Step(labels: List[Label], e: Event)
