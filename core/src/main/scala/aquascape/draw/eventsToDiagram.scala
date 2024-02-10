@@ -128,7 +128,7 @@ def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
     val diff = cur.seconds - prev.seconds
     if (diff > 0) {
       List(
-        Item.Eval(s"⏰ ${diff}s", 0, progress + 1),
+        Item.Eval(s"⏰-🕐-⧗-⏳-🕐 ${diff}s", 0, progress + 1),
         Item.IncProgress(progress)
       )
     } else {
