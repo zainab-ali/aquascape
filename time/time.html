@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>debounce</title>
+  <title>time</title>
   
   <meta name="author" content="Zainab Ali"/>
   
@@ -88,7 +88,7 @@
     <li class="level1 nav-header">resources</li>
     <li class="level2 nav-leaf"><a href="../resources/bracket.html">bracket</a></li>
     <li class="level1 nav-header">time</li>
-    <li class="level2 active nav-leaf"><a href="#">debounce</a></li>
+    <li class="level2 active nav-leaf"><a href="#">time</a></li>
   </ul>
 
 </nav>
@@ -97,10 +97,14 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">debounce</a></p>
+  <p class="header"><a href="#">time</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#debounce-2">debounce</a></li>
+    <li class="level1 nav-leaf"><a href="#awakeevery-with-chunks">awakeEvery (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#delayby-with-chunks">delayBy (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#metered-with-chunks">metered (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#debounce-with-chunks">debounce (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#debounce-awake-with-chunks">debounce awake (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -109,11 +113,33 @@
 
       <main class="content">
 
-        <h1 id="debounce-1" class="title">debounce</h1>
+        <h1 id="time" class="title">time</h1>
         
-        <h2 id="debounce-2" class="section"><a class="anchor-link left" href="#debounce-2"><i class="icofont-laika link">&#xef71;</i></a>debounce</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">debounce</span><span>(</span><span class="number-literal">200</span><span>.</span><span class="identifier">millis</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="debounce/debounce.gif" alt="diagram"></p>
+        <h2 id="awakeevery-with-chunks" class="section"><a class="anchor-link left" href="#awakeevery-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>awakeEvery (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>.</span><span class="identifier">awakeEvery</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">toSeconds</span><span>).</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="time/awakeEvery--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="delayby-with-chunks" class="section"><a class="anchor-link left" href="#delayby-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>delayBy (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">delayBy</span><span>(</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="time/delayBy--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="metered-with-chunks" class="section"><a class="anchor-link left" href="#metered-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>metered (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">metered</span><span>(</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="time/metered--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="debounce-with-chunks" class="section"><a class="anchor-link left" href="#debounce-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>debounce (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">debounce</span><span>(</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="time/debounce--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="debounce-awake-with-chunks" class="section"><a class="anchor-link left" href="#debounce-awake-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>debounce awake (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
+  .</span><span class="identifier">awakeEvery</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="number-literal">1</span><span>.</span><span class="identifier">seconds</span><span>)
+  .</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">toSeconds</span><span>)
+  .</span><span class="identifier">debounce</span><span>(</span><span class="number-literal">2</span><span>.</span><span class="identifier">seconds</span><span>)
+  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>)
+  .</span><span class="identifier">compile</span><span>
+  .</span><span class="identifier">toList</span></code></pre>
+        <p><img src="time/debounce-awake--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>
