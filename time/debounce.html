@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>chunks</title>
+  <title>debounce</title>
   
   <meta name="author" content="Zainab Ali"/>
   
@@ -74,8 +74,8 @@
     <li class="level2 nav-leaf"><a href="../basic/filtering.html">filtering</a></li>
     <li class="level2 nav-leaf"><a href="../basic/take.html">take</a></li>
     <li class="level1 nav-header">chunking</li>
-    <li class="level2 nav-leaf"><a href="buffering.html">buffering</a></li>
-    <li class="level2 active nav-leaf"><a href="#">chunks</a></li>
+    <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
+    <li class="level2 nav-leaf"><a href="../chunking/chunks.html">chunks</a></li>
     <li class="level1 nav-header">combining</li>
     <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
@@ -88,7 +88,7 @@
     <li class="level1 nav-header">resources</li>
     <li class="level2 nav-leaf"><a href="../resources/bracket.html">bracket</a></li>
     <li class="level1 nav-header">time</li>
-    <li class="level2 nav-leaf"><a href="../time/debounce.html">debounce</a></li>
+    <li class="level2 active nav-leaf"><a href="#">debounce</a></li>
   </ul>
 
 </nav>
@@ -97,12 +97,10 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">chunks</a></p>
+  <p class="header"><a href="#">debounce</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#chunklimit-with-chunks">chunkLimit (with chunks)</a></li>
-    <li class="level1 nav-leaf"><a href="#chunkmin-with-chunks">chunkMin (with chunks)</a></li>
-    <li class="level1 nav-leaf"><a href="#repartition-with-chunks">repartition (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#debounce-2">debounce</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -111,24 +109,11 @@
 
       <main class="content">
 
-        <h1 id="chunks" class="title">chunks</h1>
+        <h1 id="debounce-1" class="title">debounce</h1>
         
-        <h2 id="chunklimit-with-chunks" class="section"><a class="anchor-link left" href="#chunklimit-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>chunkLimit (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="chunks/chunkLimit--with-chunks-.png" alt="diagram"></p>
-        
-        <h2 id="chunkmin-with-chunks" class="section"><a class="anchor-link left" href="#chunkmin-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>chunkMin (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">chunkMin</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="chunks/chunkMin--with-chunks-.png" alt="diagram"></p>
-        
-        <h2 id="repartition-with-chunks" class="section"><a class="anchor-link left" href="#repartition-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>repartition (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;Hel&quot;</span><span>, </span><span class="string-literal">&quot;l&quot;</span><span>, </span><span class="string-literal">&quot;o Wor&quot;</span><span>, </span><span class="string-literal">&quot;ld&quot;</span><span>)
-  .</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>)
-  .</span><span class="identifier">unchunks</span><span>
-  .</span><span class="identifier">repartition</span><span>(</span><span class="identifier">s</span><span> =&gt; </span><span class="type-name">Chunk</span><span>.</span><span class="identifier">array</span><span>(</span><span class="identifier">s</span><span>.</span><span class="identifier">split</span><span>(</span><span class="string-literal">&quot; &quot;</span><span>)))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="chunks/repartition--with-chunks-.png" alt="diagram"></p>
+        <h2 id="debounce-2" class="section"><a class="anchor-link left" href="#debounce-2"><i class="icofont-laika link">&#xef71;</i></a>debounce</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">debounce</span><span>(</span><span class="number-literal">200</span><span>.</span><span class="identifier">millis</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="debounce/debounce.gif" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>
