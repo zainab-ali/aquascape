@@ -18,6 +18,8 @@ package aquascape
 import cats.effect.Unique.Token
 type Label = String
 
+final case class Time(seconds: Int)
+
 enum Event {
   case Pull(to: String, from: String, token: Token)
   case Done(token: Token)

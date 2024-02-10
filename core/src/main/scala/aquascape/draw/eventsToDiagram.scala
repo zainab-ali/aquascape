@@ -21,7 +21,7 @@ import cats.Foldable
 import cats.effect.Unique
 import cats.syntax.all.*
 
-def eventsToDiagram[F[_]: Foldable](events: F[Event]): Diagram = {
+def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
 
   case class PullCoord(progress: Int, from: Int, to: Int)
   type TokenMapEntry = (Unique.Token, PullCoord)
@@ -124,16 +124,39 @@ def eventsToDiagram[F[_]: Foldable](events: F[Event]): Diagram = {
     (diagram.copy(labels = labels, items = items), nextTokens)
   }
 
-  val empty =
-    (Diagram(labels = Nil, items = Nil), 0, Map.empty[Unique.Token, PullCoord])
-  def foldOp(
-      acc: (Diagram, Progress, TokenMap),
-      event: Event
-  ): (Diagram, Progress, TokenMap) = {
-    val (_, prevProgress, _) = acc
-    val (diagram, tokens) = op(acc, event)
-    (diagram, prevProgress + 1, tokens)
+  def time(prev: Time, cur: Time, progress: Int): List[Item] = {
+    val diff = cur.seconds - prev.seconds
+    if (diff > 0) {
+      List(
+        Item.Eval(s"⏰ ${diff}s", 0, progress + 1),
+        Item.IncProgress(progress)
+      )
+    } else {
+      Nil
+    }
   }
-  val (diagram, _, _) = events.foldLeft(empty)(foldOp)
+
+  val empty =
+    (
+      Diagram(labels = Nil, items = Nil),
+      0,
+      Map.empty[Unique.Token, PullCoord],
+      Option.empty[Time]
+    )
+  def foldOp(
+      acc: (Diagram, Progress, TokenMap, Option[Time]),
+      te: (Event, Time)
+  ): (Diagram, Progress, TokenMap, Option[Time]) = {
+    val (event, curTime) = te
+    val (prevDiagram, prevProgress, tokenMap, prevTime) = acc
+    val opAcc = (prevDiagram, prevProgress, tokenMap)
+    val (diagram, tokens) = op(opAcc, event)
+    val timeItems = prevTime.fold(Nil)(time(_, curTime, prevProgress + 1))
+    val nextDiagram = diagram.copy(items = timeItems ::: diagram.items)
+    val nextProgress =
+      if (timeItems.isEmpty) prevProgress + 1 else prevProgress + 2
+    (nextDiagram, nextProgress, tokens, Some(curTime))
+  }
+  val (diagram, _, _, _) = events.foldLeft(empty)(foldOp)
   diagram.copy(items = diagram.items.reverse)
 }

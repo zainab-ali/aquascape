@@ -19,6 +19,7 @@ package aquascape
 import aquascape.drawing.*
 import cats.*
 import cats.data.Chain
+import cats.effect.Async
 import cats.effect.Concurrent
 import cats.syntax.all.*
 import fs2.*
@@ -36,16 +37,22 @@ extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Trace[F]) {
   def traceCompile(label: String): F[Unit] = t.traceCompile(fo, label)
 }
 
-extension [F[_]: Concurrent, O](fo: F[O])(using t: Trace[F]) {
+extension [F[_]: Async, O](fo: F[O])(using t: Trace[F]) {
   def draw(config: Config = Config.default): F[Picture[Unit]] = {
     t.events(fo)
+      .zip(
+        Stream.repeatEval(Async[F].realTime.map(t => Time(t.toSeconds.toInt)))
+      )
       .compile
       .toVector
       .map(_.toPicture(config))
   }
   def animate(config: Config = Config.default): Stream[F, Picture[Unit]] = {
     t.events(fo)
-      .scan(Chain.empty[Event])((acc, e) => acc :+ e)
+      .zip(
+        Stream.repeatEval(Async[F].realTime.map(t => Time(t.toSeconds.toInt)))
+      )
+      .scan(Chain.empty[(Event, Time)])((acc, e) => acc :+ e)
       .map(_.toPicture(config))
   }
 }

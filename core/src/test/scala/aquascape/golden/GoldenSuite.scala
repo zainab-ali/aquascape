@@ -18,6 +18,7 @@ package aquascape.golden
 
 import aquascape.Trace
 import cats.effect.IO
+import cats.effect.testkit.*
 import cats.syntax.all.*
 import fs2.*
 import fs2.io.file.Files
@@ -120,7 +121,9 @@ private def drawStream[Fmt <: Format, Frame](
   import doodle.syntax.all.*
   val targetDir = exampleName.parent.imageDir
   Files[IO].createDirectories(targetDir) >>
-    stream.draw().flatMap(_.writeToIO[Fmt](exampleName.imageFile.toString))
+    TestControl
+      .executeEmbed(stream.draw(), seed = Some("MTIzNDU="))
+      .flatMap(_.writeToIO[Fmt](exampleName.imageFile.toString))
 
 private def animateStream(
     stream: IO[Any],

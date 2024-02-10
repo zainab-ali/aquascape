@@ -45,7 +45,8 @@ lazy val core = crossProject(JVMPlatform)
       ("com.lihaoyi" %% "sourcecode" % "0.3.1" % Test)
         .cross(CrossVersion.for3Use2_13),
       ("com.lihaoyi" %% "pprint" % "0.8.1" % Test)
-        .cross(CrossVersion.for3Use2_13)
+        .cross(CrossVersion.for3Use2_13),
+      "org.typelevel" %% "cats-effect-testkit" % "3.5.3" % Test
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
     buildInfoPackage := "aquascape",

@@ -621,13 +621,70 @@ class Examples extends GoldenSuite with LowPriorityShow {
   }
   import scala.concurrent.duration.*
   group("time") {
-    test("debounce")(
-      animate("debounce", DrawChunked.No)(
+    test("time")(
+      example("awakeEvery", DrawChunked.OnlyChunked)(
+        range(
+          Stream
+            .awakeEvery[IO](5.seconds)
+            .map(_.toSeconds)
+            .trace("Stream.awakeEvery(5.seconds).map(…)")
+            .take(2)
+            .trace("take(2)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("delayBy", DrawChunked.OnlyChunked)(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
-            .debounce(200.millis)
-            .trace("debounce(200.millis)")
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .delayBy(5.seconds)
+            .trace("delayBy(5.seconds)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("metered", DrawChunked.OnlyChunked)(
+        range(
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .metered(5.seconds)
+            .trace("metered(5.seconds)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("debounce", DrawChunked.OnlyChunked)(
+        range(
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')…unchunks")
+            .debounce(5.seconds)
+            .trace("debounce(5.seconds)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("debounce awake", DrawChunked.OnlyChunked)(
+        range(
+          Stream
+            .awakeEvery[IO](1.seconds)
+            .map(_.toSeconds)
+            .trace("Stream.awakeEvery(1.seconds)…take(5)", "upstream")
+            .fork("root", "upstream")
+            .debounce(2.seconds)
+            .trace("debounce(2.seconds)")
+            .take(2)
+            .trace("take(2)")
             .compile
             .toList
             .traceCompile("compile.toList")
