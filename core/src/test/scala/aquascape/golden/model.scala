@@ -32,7 +32,7 @@ final case class ExampleName(value: String, parent: TestName) {
 }
 
 final case class RangePos(source: String, startAt: Int, endAt: Int)
-final case class StreamCode(pos: RangePos, code: IO[Any])
+final case class StreamCode(pos: RangePos, stream: IO[Any])
 
 enum DrawChunked {
   case No extends DrawChunked

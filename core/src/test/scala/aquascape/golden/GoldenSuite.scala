@@ -53,7 +53,7 @@ trait GoldenSuite extends CatsEffectSuite {
         val streamCode: StreamCode = f
         val exampleName: ExampleName = ExampleName(s"${name}", parent)
         writeSource(streamCode.pos, exampleName) >> drawStream(
-          streamCode.code,
+          streamCode.stream,
           exampleName
         )
       }
@@ -65,7 +65,7 @@ trait GoldenSuite extends CatsEffectSuite {
           val exampleName: ExampleName =
             ExampleName(s"${name} (with chunks)", parent)
           writeSource(streamCode.pos, exampleName) >> drawStream(
-            streamCode.code,
+            streamCode.stream,
             exampleName
           )
         }

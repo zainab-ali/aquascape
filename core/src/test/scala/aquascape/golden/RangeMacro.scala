@@ -29,7 +29,7 @@ private def rangeImpl(
   '{
     StreamCode(
       pos = RangePos(source = $path, startAt = $startAt, endAt = $endAt),
-      code = $stream
+      stream = $stream
     )
   }
 }

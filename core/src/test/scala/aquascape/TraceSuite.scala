@@ -36,6 +36,18 @@ class TraceSuite extends CatsEffectSuite {
     case other                   => other
   }
 
+  private def simple[O](f: Trace[IO] ?=> IO[O]): IO[List[Event]] =
+    Trace.unchunked[IO].flatMap { t =>
+      t.events(f(using t)).compile.toList
+    }
+
+  private def simpleChunked[O](
+      f: Trace[IO] ?=> IO[O]
+  ): IO[List[Event]] =
+    Trace.chunked[IO].flatMap { t =>
+      t.events(f(using t)).compile.toList
+    }
+
   def assertContains(
       actual: List[Event],
       expected: List[(Event, Location)]
@@ -76,7 +88,7 @@ class TraceSuite extends CatsEffectSuite {
   private def loc[A](a: A)(using l: Location): (A, Location) = (a, l)
 
   test("traces a single combinator") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       Stream("Mao")[IO]
         .trace("source")
         .compile
@@ -96,7 +108,7 @@ class TraceSuite extends CatsEffectSuite {
     assertEvents(actual, expected)
   }
   test("traces chunks") {
-    val actual = Trace.simpleChunked { (_: Trace[IO]) ?=>
+    val actual = simpleChunked {
       Stream("Mao", "Popcorn")[IO]
         .trace("source")
         .compile
@@ -116,7 +128,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("traces multiple combinators") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       Stream("Mao")[IO]
         .trace("source")
         .map(_.toUpperCase)
@@ -144,7 +156,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("traces zipped streams") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       Stream("Mao")[IO]
         .trace("left")
         .zip(
@@ -179,7 +191,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("traces effect evaluation") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       Stream
         .eval(IO("Mao").traceF())
         .trace("source")
@@ -202,7 +214,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("traces raising errors") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       Stream("Mao")[IO]
         .trace("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -227,7 +239,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("traces handling errors") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       Stream("Mao")[IO]
         .trace("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -269,7 +281,7 @@ class TraceSuite extends CatsEffectSuite {
       )
 
   test("traces resources and errors") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       bracket()
         .trace("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -295,7 +307,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("traces resources and error handling") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       bracket()
         .trace("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -333,7 +345,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("scope: error in parent") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       bracket("Left")
         .trace("left")
         .zip(
@@ -369,7 +381,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("scope: error in child") {
-    val actual = Trace.simple { (_: Trace[IO]) ?=>
+    val actual = simple {
       bracket("Left")
         .trace("left")
         .zip(
@@ -405,7 +417,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("trace parallel execution".ignore) {
-    val actualIO = Trace.simple { (_: Trace[IO]) ?=>
+    val actualIO = simple {
       Stream("Mao", "Popcorn", "Trouble")[IO]
         .trace("source", branch = "s")
         .fork("root", "s")
@@ -419,7 +431,7 @@ class TraceSuite extends CatsEffectSuite {
   }
 
   test("traces merged streams") {
-    val actualIO = Trace.simple { (_: Trace[IO]) ?=>
+    val actualIO = simple {
       Stream("Mao")[IO]
         .trace("left", branch = "l")
         .fork("root", "l")

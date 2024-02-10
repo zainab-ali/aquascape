@@ -49,18 +49,6 @@ object Trace {
     def lift: Pull[F, Nothing, A] = Pull.eval(fa)
   }
 
-  def simple[F[_]: Async, O](f: Trace[F] ?=> F[O]): F[List[Event]] =
-    unchunked[F].flatMap { t =>
-      t.events(f(using t)).compile.toList
-    }
-
-  def simpleChunked[F[_]: Async, O](
-      f: Trace[F] ?=> F[O]
-  ): F[List[Event]] =
-    chunked[F].flatMap { t =>
-      t.events(f(using t)).compile.toList
-    }
-
   def unchunked[F[_]: Async]: F[Trace[F]] = Pen[F, Event].map { pen =>
     new {
       def trace[O: Show](label: Label, branch: Branch)(
