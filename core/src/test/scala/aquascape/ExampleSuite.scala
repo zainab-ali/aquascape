@@ -619,4 +619,20 @@ class Examples extends GoldenSuite with LowPriorityShow {
       )
     )
   }
+  import scala.concurrent.duration.*
+  group("time") {
+    test("debounce")(
+      animate("debounce", DrawChunked.No)(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .debounce(200.millis)
+            .trace("debounce(200.millis)")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      )
+    )
+  }
 }

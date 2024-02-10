@@ -25,10 +25,10 @@ final case class TestName(name: String, value: Path) {
   def imageDir: Path = value / imageDirName
   def markdownFile: Path = value / s"${imageDirName}.md"
 }
-final case class ExampleName(value: String, parent: TestName) {
+final case class ExampleName(value: String, parent: TestName, ext: String) {
   private val dashedName: String = value.replaceAll("\\s|\\(|\\)", "-")
-  def imageFile: Path = parent.imageDir / s"${dashedName}.png"
-  def relativeImage: String = s"${parent.imageDirName}/${dashedName}.png"
+  def imageFile: Path = parent.imageDir / s"${dashedName}.$ext"
+  def relativeImage: String = s"${parent.imageDirName}/${dashedName}.$ext"
 }
 
 final case class RangePos(source: String, startAt: Int, endAt: Int)

@@ -28,12 +28,12 @@ class TraceSuite extends CatsEffectSuite {
 
   val t = new Unique.Token()
   private def replaceToken: Event => Event = {
-    case Event.Pull(to, from, _) => Event.Pull(to, from, t)
-    case Event.Done(_)           => Event.Done(t)
-    case Event.Output(v, _)      => Event.Output(v, t)
-    case e: Event.Error          => e.copy(token = t)
-    case Event.OutputChunk(v, _) => Event.OutputChunk(v, t)
-    case other                   => other
+    case Pull(to, from, _) => Pull(to, from, t)
+    case Done(_)           => Done(t)
+    case Output(v, _)      => Output(v, t)
+    case e: Error          => e.copy(token = t)
+    case OutputChunk(v, _) => OutputChunk(v, t)
+    case other             => other
   }
 
   private def simple[O](f: Trace[IO] ?=> IO[O]): IO[List[Event]] =

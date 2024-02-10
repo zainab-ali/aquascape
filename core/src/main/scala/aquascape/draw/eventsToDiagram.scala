@@ -34,19 +34,19 @@ def eventsToDiagram[F[_]: Foldable](events: F[Event]): Diagram = {
     val (diagram, prevProgress, tokens) = acc
 
     val labels: List[Label] = {
-      val newLabel: Option[Label] = event match {
-        case e: Event.Pull => Some(e.to)
-        case e: Event.Eval => Some(e.at)
-        case _             => None
+      val newLabels: List[Label] = event match {
+        case e: Event.Pull => List(e.from, e.to)
+        case e: Event.Eval => List(e.at)
+        case _             => Nil
       }
-      newLabel
+      newLabels
         .filterNot(diagram.labels.contains)
-        .fold(diagram.labels)(diagram.labels :+ _)
+        .foldLeft(diagram.labels)((ls, l) => ls :+ l)
     }
     def labelIndex(l: String): Int =
       val idx = labels.indexOf(l)
       if (idx == -1) {
-        throw sys.error("Label is not present.")
+        throw sys.error(s"Label is not present. Label $l in $labels")
       } else idx
     def token(t: Unique.Token) =
       tokens.getOrElse(t, sys.error("Token is not present."))
