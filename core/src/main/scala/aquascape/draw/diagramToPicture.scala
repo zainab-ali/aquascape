@@ -44,9 +44,8 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
   def picture(config: Config)(
       item: Item,
       progressOffset: Int,
-      currentMaxWidth: Int,
       offsets: Map[Int, Int]
-  ): Picture[(Picture[Unit], Int, Int, Map[Int, Int])] = {
+  ): Picture[(Picture[Unit], Int)] = {
     // Draw an arrow in the Y direction, with the origin at the base of the arrow
     def arrow(config: Config)(length: Int): Picture[Unit] = {
       val l = length.abs
@@ -71,9 +70,7 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
             )
             .strokeColor(config.pullColor)
             .fillColor(config.pullColor)
-        picture.width.map(w =>
-          (picture, progressOffset, w.toInt.max(currentMaxWidth), offsets)
-        )
+        picture.width.map(w => (picture, w.toInt))
       case i: Item.Done =>
         val text = Picture
           // Draw text centered around (0.0, 0.0)
@@ -116,9 +113,7 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
         picture.width.map(w =>
           (
             picture.on(pullToOutput),
-            progressOffset,
-            w.toInt.max(currentMaxWidth),
-            offsets
+            w.toInt
           )
         )
       case i: Item.Output =>
@@ -160,9 +155,7 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
         picture.width.map(w =>
           (
             picture.on(pullToOutput),
-            progressOffset,
-            w.toInt.max(currentMaxWidth),
-            offsets
+            w.toInt
           )
         )
       case i: Item.Eval =>
@@ -184,9 +177,7 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
             .strokeColor(config.evalColor)
             .fillColor(Color.white)
         }
-        picture.width.map(w =>
-          (picture, progressOffset, w.toInt.max(currentMaxWidth), offsets)
-        )
+        picture.width.map(w => (picture, w.toInt))
       case i: Item.Error =>
         val length = (i.from - i.to).abs
         val text = Picture
@@ -226,9 +217,7 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
         picture.width.map(w =>
           (
             picture.on(pullToOutput),
-            progressOffset,
-            w.toInt.max(currentMaxWidth),
-            offsets
+            w.toInt
           )
         )
       // case i: Item.Error =>
@@ -277,19 +266,9 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
             .at(progressOffset + config.arrowBaseHalfWidth, 0)
           (
             picture,
-            progressOffset,
             (config.arrowBaseWidth + progressOffset + width.toInt)
-              .max(currentMaxWidth),
-            offsets
           )
         }
-      case i: Item.IncProgress =>
-        val width =
-          (currentMaxWidth - progressOffset + config.progressPaddingLeft).max(
-            config.minProgressWidth
-          )
-        val nextOffsets = offsets + ((i.progress + 1, progressOffset + width))
-        (Picture.empty, progressOffset + width, 0, nextOffsets).pure
     }
   }
 
@@ -338,28 +317,27 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
     }
   }
 
-  foldLeftM(diagram.items.reverse)(
+  foldLeftM(diagram.items.zipWithIndex.reverse)(
     (
       config.progressPaddingLeft,
-      0,
       Map.empty[Int, Int],
       List.empty[Picture[Unit]]
     )
   )((b, item) =>
-    b match {
-      case (progressOffset, maxWidth, offsets, pics) =>
-        picture(config)(item, progressOffset, maxWidth, offsets).map {
-          case (pic, nextOffset, nextWidth, nextOffsets) =>
-            (nextOffset, nextWidth, nextOffsets, pic :: pics)
+    (b, item) match {
+      case ((progressOffset, offsets, pics), (i, idx)) =>
+        picture(config)(i, progressOffset, offsets).map {
+          case (pic, nextOffset) =>
+            val nextOffsets = offsets + ((idx, progressOffset))
+            (nextOffset, nextOffsets, pic :: pics)
         }
     }
   )
-    .flatMap {
-      case (progressOffset, maxWidth, _, pictures: List[Picture[Unit]]) =>
-        ((pictures ++ List(
-          dot
-        ) ++ diagram.labels.zipWithIndex.map(
-          label(config)(maxWidth)
-        ))).reduce(_ on _)
+    .flatMap { case (progressOffset, _, pictures: List[Picture[Unit]]) =>
+      ((pictures ++ List(
+        dot
+      ) ++ diagram.labels.zipWithIndex.map(
+        label(config)(progressOffset)
+      ))).reduce(_ on _)
     }
 }

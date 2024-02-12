@@ -21,35 +21,26 @@ import doodle.core.font.FontFamily
 
 final case class Diagram(labels: List[String], items: List[Item])
 enum Item {
-  // XCoords and YCoords OR Vectors
-  // so points (x, y)
-  // or start and end points
-  // These are length agnostic, as the final diagram has different ys dependning on text width
-  // Do we care that this is anything more than an arrow?
-  // With a colour indicating its progress?
-  case IncProgress(progress: Int)
-  case Pull(from: Int, to: Int, progress: Int)
-  case Done(from: Int, to: Int, progress: Int, pullProgress: Int)
+  case Pull(from: Int, to: Int)
+  case Done(from: Int, to: Int, pullProgress: Int)
   // Do we care that this is anything more than a text box placed along a connector?
   case Output(
       value: String,
       from: Int,
       to: Int,
-      progress: Int,
       pullProgress: Int
   )
   // TODO: Having an "at" label is misleading.
   // While there is an order of events, there is no label to evaluate the effect "at".
   // This is especially confusing for effects in resource finalizers. The effect is evaluated in a given order, but is marked with whatever label the scope closer has, and not the resource label.
-  case Eval(value: String, at: Int, progress: Int)
+  case Eval(value: String, at: Int)
   case Error(
       value: String,
       from: Int,
       to: Int,
-      progress: Int,
       pullProgress: Int
   )
-  case Finished(value: String, errored: Boolean, progress: Int)
+  case Finished(value: String, errored: Boolean)
 }
 
 type Progress = Int

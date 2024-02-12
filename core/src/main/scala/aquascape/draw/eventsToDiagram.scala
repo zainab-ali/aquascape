@@ -28,10 +28,10 @@ def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
   type TokenMap = Map[Unique.Token, PullCoord]
 
   def op(
-      acc: (Diagram, Progress, TokenMap),
+      acc: (Diagram, TokenMap),
       event: Event
   ): (Diagram, TokenMap) = {
-    val (diagram, prevProgress, tokens) = acc
+    val (diagram, tokens) = acc
 
     val labels: List[Label] = {
       val newLabels: List[Label] = event match {
@@ -55,10 +55,15 @@ def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
       case e: Event.Pull =>
         val to = labelIndex(e.to)
         val from = labelIndex(e.from)
-        val (progress) = prevProgress + 1
-        Some((e.token, PullCoord(progress = progress, to = to, from = from)))
+        Some(
+          (
+            e.token,
+            PullCoord(progress = diagram.items.length, to = to, from = from)
+          )
+        )
       case _ => None
     }
+
     val item: PartialFunction[
       Event,
       Item
@@ -66,16 +71,13 @@ def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
       case e: Event.Pull =>
         val to = labelIndex(e.to)
         val from = labelIndex(e.from)
-        val (progress) = prevProgress + 1
-        Item.Pull(from = from, to = to, progress = progress)
+        Item.Pull(from = from, to = to)
       case Event.Output(value, tok) =>
-        val (progress) = prevProgress + 1
         val pullCoord = token(tok)
         Item.Output(
           value = value,
           from = pullCoord.to,
           to = pullCoord.from,
-          progress = progress,
           pullProgress = pullCoord.progress
         )
       case e: Event.OutputChunk =>
@@ -84,7 +86,6 @@ def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
           value = e.value.toList.mkString("[", ",", "]"),
           from = pullCoord.to,
           to = pullCoord.from,
-          progress = prevProgress + 1,
           pullProgress = pullCoord.progress
         )
       case Event.Done(tok) =>
@@ -92,72 +93,55 @@ def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
         Item.Done(
           from = pullCoord.to,
           to = pullCoord.from,
-          progress = prevProgress + 1,
           pullProgress = pullCoord.progress
         )
       case e: Event.Eval =>
         val at = labelIndex(e.at)
-        Item.Eval(at = at, value = e.value, progress = prevProgress + 1)
+        Item.Eval(at = at, value = e.value)
       case e: Event.Error =>
         val pullCoord = token(e.token)
         Item.Error(
           from = pullCoord.to,
           to = pullCoord.from,
           value = e.value,
-          progress = prevProgress + 1,
           pullProgress = pullCoord.progress
         )
       case Event.Finished(errored, value) =>
         Item.Finished(
           value = value,
-          errored = errored,
-          progress = prevProgress + 1
+          errored = errored
         )
     }
     val nextTokens = maybeToken(event).fold(tokens)(tokens + _)
-    val items = item.lift(event) match {
-      case None => diagram.items
-      case Some(i) => (
-        i :: Item.IncProgress(prevProgress) :: diagram.items
-      )
-    }
+    val items = item.lift(event).fold(diagram.items)(_ :: diagram.items)
     (diagram.copy(labels = labels, items = items), nextTokens)
   }
 
-  def time(prev: Time, cur: Time, progress: Int): List[Item] = {
+  def time(prev: Time, cur: Time): Option[Item] = {
     val diff = cur.seconds - prev.seconds
     // TODO: This should be its own item. Render with a different symbol.
-    if (diff > 0) {
-      List(
-        Item.Eval(s"${diff}s", 0, progress + 1),
-        Item.IncProgress(progress)
-      )
-    } else {
-      Nil
-    }
+    Option.when(diff > 0)(Item.Eval(s"${diff}s", 0))
   }
 
   val empty =
     (
       Diagram(labels = Nil, items = Nil),
-      0,
       Map.empty[Unique.Token, PullCoord],
       Option.empty[Time]
     )
   def foldOp(
-      acc: (Diagram, Progress, TokenMap, Option[Time]),
+      acc: (Diagram, TokenMap, Option[Time]),
       te: (Event, Time)
-  ): (Diagram, Progress, TokenMap, Option[Time]) = {
+  ): (Diagram, TokenMap, Option[Time]) = {
     val (event, curTime) = te
-    val (prevDiagram, prevProgress, tokenMap, prevTime) = acc
-    val opAcc = (prevDiagram, prevProgress, tokenMap)
+    val (prevDiagram, tokenMap, prevTime) = acc
+    val opAcc = (prevDiagram, tokenMap)
     val (diagram, tokens) = op(opAcc, event)
-    val timeItems = prevTime.fold(Nil)(time(_, curTime, prevProgress + 1))
-    val nextDiagram = diagram.copy(items = timeItems ::: diagram.items)
-    val nextProgress =
-      if (timeItems.isEmpty) prevProgress + 1 else prevProgress + 2
-    (nextDiagram, nextProgress, tokens, Some(curTime))
+    val nextItems =
+      prevTime.flatMap(time(_, curTime)).fold(diagram.items)(_ :: diagram.items)
+    val nextDiagram = diagram.copy(items = nextItems)
+    (nextDiagram, tokens, Some(curTime))
   }
-  val (diagram, _, _, _) = events.foldLeft(empty)(foldOp)
+  val (diagram, _, _) = events.foldLeft(empty)(foldOp)
   diagram.copy(items = diagram.items.reverse)
 }
