@@ -28,4 +28,3 @@ node_modules/
 # Generated docs
 docs/**/**.md
 docs/**/**/**.png
-docs/**/**/**.gif

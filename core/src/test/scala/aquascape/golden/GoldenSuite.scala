@@ -79,32 +79,6 @@ trait GoldenSuite extends CatsEffectSuite {
         }
         .unlessA(drawChunked == DrawChunked.No)
   }
-
-  def animate(name: String, drawChunked: DrawChunked = DrawChunked.Yes)(
-      f: Trace[IO] ?=> StreamCode
-  )(using parent: TestName): IO[Unit] = {
-    def write(suffix: String)(using Trace[IO]): IO[Unit] = {
-      val streamCode: StreamCode = f
-      val exampleName: ExampleName =
-        ExampleName(s"${name}${suffix}", parent, "gif")
-      writeSource(streamCode.pos, exampleName) >> animateStream(
-        streamCode.stream,
-        exampleName
-      )
-    }
-    Trace
-      .unchunked[IO]
-      .flatMap { case given Trace[IO] =>
-        write("")
-      }
-      .unlessA(drawChunked == DrawChunked.OnlyChunked) >>
-      Trace
-        .chunked[IO]
-        .flatMap { case given Trace[IO] =>
-          write(" (with chunks)")
-        }
-        .unlessA(drawChunked == DrawChunked.No)
-  }
 }
 
 import doodle.effect.Writer
@@ -124,24 +98,3 @@ private def drawStream[Fmt <: Format, Frame](
     TestControl
       .executeEmbed(stream.draw(), seed = Some("MTIzNDU="))
       .flatMap(_.writeToIO[Fmt](exampleName.imageFile.toString))
-
-private def animateStream(
-    stream: IO[Any],
-    exampleName: ExampleName
-)(using
-    Trace[IO]
-): IO[Unit] =
-  import aquascape.*
-  import doodle.interact.syntax.all._
-  import doodle.java2d.*
-  import doodle.core.format.*
-  val frame = doodle.java2d.effect.Frame.default.withSize(1000, 1000)
-  val targetDir = exampleName.parent.imageDir
-  Files[IO].createDirectories(targetDir) >>
-    (stream
-      .animate() ++ Stream.exec(IO.println("Finished animating")))
-      .writeToIO[Gif]
-      .apply(exampleName.imageFile.toString, frame)(
-        summon,
-        java2dGifAnimationWriter
-      )
