@@ -33,7 +33,7 @@ lazy val core = crossProject(JVMPlatform)
       "co.fs2" %%% "fs2-core" % "3.9.1",
       "co.fs2" %%% "fs2-io" % "3.9.1",
       ("org.creativescala" %%% "doodle" % "0.20.0")
-        .excludeAll("com.lihaoyi", "sourcecode"),
+        .exclude(org = "com.lihaoyi", name = "sourcecode_3"),
       "org.typelevel" %%% "cats-core" % "2.10.0",
       "org.typelevel" %%% "cats-effect" % "3.5.1",
       "org.scalameta" %%% "munit" % "0.7.29" % Test,
