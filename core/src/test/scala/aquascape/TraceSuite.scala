@@ -38,14 +38,14 @@ class TraceSuite extends CatsEffectSuite {
 
   private def simple[O](f: Trace[IO] ?=> IO[O]): IO[List[Event]] =
     Trace.unchunked[IO].flatMap { t =>
-      t.events(f(using t)).compile.toList
+      t.events(f(using t)).compile.toList.map(_.map(_._1))
     }
 
   private def simpleChunked[O](
       f: Trace[IO] ?=> IO[O]
   ): IO[List[Event]] =
     Trace.chunked[IO].flatMap { t =>
-      t.events(f(using t)).compile.toList
+      t.events(f(using t)).compile.toList.map(_.map(_._1))
     }
 
   def assertContains(

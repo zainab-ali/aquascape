@@ -178,6 +178,25 @@ def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
             .fillColor(Color.white)
         }
         picture.width.map(w => (picture, w.toInt))
+      case i: Item.Time =>
+        val box = Picture.text(s"${i.value}s").font(config.font)
+        val picture = (box.width, box.height).flatMapN { (width, height) =>
+          box
+            .on(
+              Picture.circle(
+                diameter = width + config.textBoxPaddingWidth
+              )
+            )
+            .originAt(-width / 2.0, 0.0)
+            .at(
+              progressOffset + config.arrowBaseWidth + config.textBoxPaddingWidth,
+              0
+            )
+            .font(config.font)
+            .strokeColor(config.timeColor)
+            .fillColor(Color.white)
+        }
+        picture.width.map(w => (picture, w.toInt))
       case i: Item.Error =>
         val length = (i.from - i.to).abs
         val text = Picture

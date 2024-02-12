@@ -34,6 +34,7 @@ enum Item {
   // While there is an order of events, there is no label to evaluate the effect "at".
   // This is especially confusing for effects in resource finalizers. The effect is evaluated in a given order, but is marked with whatever label the scope closer has, and not the resource label.
   case Eval(value: String, at: Int)
+  case Time(value: Int)
   case Error(
       value: String,
       from: Int,
@@ -66,6 +67,7 @@ final case class Config(
     textBoxPaddingHeight: Int,
     stageColor: Color,
     evalColor: Color,
+    timeColor: Color,
     errorColor: Color,
     progressColor: Color,
     outputColor: Color,
@@ -106,6 +108,7 @@ object Config {
     textBoxPaddingWidth = 8,
     textBoxPaddingHeight = 8,
     evalColor = Color.blue,
+    timeColor = Color.purple,
     errorColor = Color.red,
     progressColor = Color.black,
     pullColor = Color.black,

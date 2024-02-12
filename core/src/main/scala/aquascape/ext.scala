@@ -40,18 +40,12 @@ extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Trace[F]) {
 extension [F[_]: Async, O](fo: F[O])(using t: Trace[F]) {
   def draw(config: Config = Config.default): F[Picture[Unit]] = {
     t.events(fo)
-      .zip(
-        Stream.repeatEval(Async[F].realTime.map(t => Time(t.toSeconds.toInt)))
-      )
       .compile
       .toVector
       .map(_.toPicture(config))
   }
   def animate(config: Config = Config.default): Stream[F, Picture[Unit]] = {
     t.events(fo)
-      .zip(
-        Stream.repeatEval(Async[F].realTime.map(t => Time(t.toSeconds.toInt)))
-      )
       .scan(Chain.empty[(Event, Time)])((acc, e) => acc :+ e)
       .map(_.toPicture(config))
   }

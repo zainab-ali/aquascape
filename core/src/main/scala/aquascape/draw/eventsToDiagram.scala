@@ -120,7 +120,7 @@ def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
   def time(prev: Time, cur: Time): Option[Item] = {
     val diff = cur.seconds - prev.seconds
     // TODO: This should be its own item. Render with a different symbol.
-    Option.when(diff > 0)(Item.Eval(s"${diff}s", 0))
+    Option.when(diff > 0)(Item.Time(diff))
   }
 
   val empty =
