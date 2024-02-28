@@ -33,7 +33,7 @@ extension [F[_], A: Show](s: Stream[F, A])(using t: Trace[F]) {
 
 extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Trace[F]) {
   def traceF(branch: String = root): F[O] = t.trace(fo, branch)
-  def traceCompile(label: String): F[Unit] = t.traceCompile(fo, label)
+  def traceCompile(label: String): F[O] = t.traceCompile(fo, label)
 }
 
 extension [F[_]: Async, O](fo: F[O])(using t: Trace[F]) {
