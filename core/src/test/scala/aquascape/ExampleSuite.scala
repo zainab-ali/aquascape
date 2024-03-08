@@ -406,6 +406,62 @@ class Examples extends GoldenSuite with LowPriorityShow {
       )
     )
   }
+  group("broadcastThrough"){
+    import scala.concurrent.duration.*
+    test("broadcastThrough")(
+      example("basic", DrawChunked.OnlyChunked)(
+        range(
+          Stream('a', 'b', 'c').chunkLimit(1).unchunks
+          .trace("Stream('a','b','c')", branch = "upstream")
+          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+          .trace("evalTap(…)", branch = "upstream")
+          .fork("root", "upstream")
+            .broadcastThrough(in =>
+              in.metered(1.second).trace("in.metered(…)", branch = "broadcast")
+              .fork("root", "broadcast")
+            )
+            .trace("broadcastThrough")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("error propagation", DrawChunked.OnlyChunked)(
+        range(
+          Stream('a', 'b', 'c').chunkLimit(1).unchunks
+          .trace("Stream('a','b','c')", branch = "upstream")
+          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+          .trace("evalTap(…)", branch = "upstream")
+          .fork("root", "upstream")
+            .broadcastThrough(in =>
+              in.metered(1.second).trace("in.metered(…)", branch = "broadcast")
+              .fork("root", "broadcast")
+            )
+            .trace("broadcastThrough")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("different rates", DrawChunked.OnlyChunked)(
+        range(
+          Stream('a', 'b', 'c').chunkLimit(1).unchunks
+          .trace("Stream('a','b', 'c')…", branch = "upstream")
+          .fork("root", "upstream")
+            .broadcastThrough(in =>
+              in.metered(1.second).trace("in.metered(1s)", branch = "broadcast1")
+              .fork("root", "broadcast1"),
+                in => in.metered(100.second).trace("in.metered(100s)", branch = "broadcast2")
+              .fork("root", "broadcast2")
+            )
+            .trace("broadcastThrough")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      )
+    )
+  }
   group("effects") {
     test("effects")(
       example("evalMap")(
@@ -414,6 +470,19 @@ class Examples extends GoldenSuite with LowPriorityShow {
             .trace("Stream('a','b','c')")
             .evalMap(_.pure[IO].traceF())
             .trace("evalMap")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      ),
+      example("evalMap2")(
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .evalTap(char => IO(s"$char 1").traceF())
+            .trace("evalTap1")
+            .evalTap(char => IO(s"$char 2").traceF())
+            .trace("evalTap2")
             .compile
             .toList
             .traceCompile("compile.toList")
@@ -517,6 +586,24 @@ class Examples extends GoldenSuite with LowPriorityShow {
             .traceCompile("compile.toList")
         )
       },
+      example("handleError2") {
+        range(
+          Stream('a', 'b', 'c')
+            .trace("Stream('a','b','c')")
+            .evalMap(x =>
+              IO.raiseWhen(x == 'b')(Err)
+                .as(x)
+                .handleError(_ => 'd')
+                .traceF()
+            )
+            .trace("evalTap(…)")
+            .handleError(_ => 'd')
+            .trace("handleError(_ => 'd')")
+            .compile
+            .toList
+            .traceCompile("compile.toList")
+        )
+      },
       example("handleErrorWith") {
         range(
           Stream('a', 'b', 'c')
@@ -608,6 +695,13 @@ class Examples extends GoldenSuite with LowPriorityShow {
                 .trace("Stream.emits(str.toList)")
                 .evalTap(x => IO.raiseWhen(x == 'b')(Err))
                 .trace("evalTap(…)")
+            }
+            .trace("flatMap1")
+            .flatMap { str =>
+              Stream(str).repeatN(2)
+                .trace("Stream.(str).repeatN(2)")
+                .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+                .trace("evalTap1(…)")
             }
             .trace("flatMap {…}")
             .handleErrorWith(_ => Stream('e', 'f').trace("Stream('e','f')"))
