@@ -16,6 +16,8 @@
             scala_3
             sbt
             althttpd
+            scala-cli
+            visualvm
          ];
         };
       }
