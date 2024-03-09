@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>append</title>
+  <title>broadcastThrough</title>
   
   <meta name="author" content="Zainab Ali"/>
   
@@ -74,14 +74,14 @@
     <li class="level2 nav-leaf"><a href="../basic/filtering.html">filtering</a></li>
     <li class="level2 nav-leaf"><a href="../basic/take.html">take</a></li>
     <li class="level1 nav-header">broadcastThrough</li>
-    <li class="level2 nav-leaf"><a href="../broadcastThrough/broadcastThrough.html">broadcastThrough</a></li>
+    <li class="level2 active nav-leaf"><a href="#">broadcastThrough</a></li>
     <li class="level1 nav-header">chunking</li>
     <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
     <li class="level2 nav-leaf"><a href="../chunking/chunks.html">chunks</a></li>
     <li class="level1 nav-header">combining</li>
-    <li class="level2 active nav-leaf"><a href="#">append</a></li>
-    <li class="level2 nav-leaf"><a href="flatMap.html">flatMap</a></li>
-    <li class="level2 nav-leaf"><a href="merge.html">merge</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/merge.html">merge</a></li>
     <li class="level1 nav-header">effects</li>
     <li class="level2 nav-leaf"><a href="../effects/effects.html">effects</a></li>
     <li class="level1 nav-header">errors</li>
@@ -99,11 +99,12 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">append</a></p>
+  <p class="header"><a href="#">broadcastThrough</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#append-2">append</a></li>
-    <li class="level1 nav-leaf"><a href="#append-with-chunks">append (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#basic-with-chunks">basic (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#error-propagation-with-chunks">error propagation (with chunks)</a></li>
+    <li class="level1 nav-leaf"><a href="#different-rates-with-chunks">different rates (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -112,15 +113,36 @@
 
       <main class="content">
 
-        <h1 id="append-1" class="title">append</h1>
+        <h1 id="broadcastthrough" class="title">broadcastThrough</h1>
         
-        <h2 id="append-2" class="section"><a class="anchor-link left" href="#append-2"><i class="icofont-laika link">&#xef71;</i></a>append</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>) ++ </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;c&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="append/append.png" alt="diagram"></p>
+        <h2 id="basic-with-chunks" class="section"><a class="anchor-link left" href="#basic-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>basic (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+  .</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>)
+  .</span><span class="identifier">unchunks</span><span>
+  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
+  .</span><span class="identifier">broadcastThrough</span><span>(</span><span class="identifier">in</span><span> =&gt; </span><span class="identifier">in</span><span>.</span><span class="identifier">metered</span><span>(</span><span class="number-literal">1</span><span>.</span><span class="identifier">second</span><span>))
+  .</span><span class="identifier">compile</span><span>
+  .</span><span class="identifier">toList</span></code></pre>
+        <p><img src="broadcastThrough/basic--with-chunks-.png" alt="diagram"></p>
         
-        <h2 id="append-with-chunks" class="section"><a class="anchor-link left" href="#append-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>append (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>) ++ </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;c&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="append/append--with-chunks-.png" alt="diagram"></p>
+        <h2 id="error-propagation-with-chunks" class="section"><a class="anchor-link left" href="#error-propagation-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>error propagation (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+  .</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>)
+  .</span><span class="identifier">unchunks</span><span>
+  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
+  .</span><span class="identifier">broadcastThrough</span><span>(</span><span class="identifier">in</span><span> =&gt; </span><span class="identifier">in</span><span>.</span><span class="identifier">metered</span><span>(</span><span class="number-literal">1</span><span>.</span><span class="identifier">second</span><span>))
+  .</span><span class="identifier">compile</span><span>
+  .</span><span class="identifier">toList</span></code></pre>
+        <p><img src="broadcastThrough/error-propagation--with-chunks-.png" alt="diagram"></p>
+        
+        <h2 id="different-rates-with-chunks" class="section"><a class="anchor-link left" href="#different-rates-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>different rates (with chunks)</h2>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+  .</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>)
+  .</span><span class="identifier">unchunks</span><span>
+  .</span><span class="identifier">broadcastThrough</span><span>(</span><span class="identifier">in</span><span> =&gt; </span><span class="identifier">in</span><span>.</span><span class="identifier">metered</span><span>(</span><span class="number-literal">1</span><span>.</span><span class="identifier">second</span><span>), </span><span class="identifier">in</span><span> =&gt; </span><span class="identifier">in</span><span>.</span><span class="identifier">metered</span><span>(</span><span class="number-literal">100</span><span>.</span><span class="identifier">second</span><span>))
+  .</span><span class="identifier">compile</span><span>
+  .</span><span class="identifier">toList</span></code></pre>
+        <p><img src="broadcastThrough/different-rates--with-chunks-.png" alt="diagram"></p>
 
         
 <hr class="footer-rule"/>
