@@ -205,7 +205,8 @@ object Trace {
       label: Label
   ): F[O] =
     pen.bracket(root, label)((fo.attempt, time).flatMapN {
-      case (Right(o), t) => pen.write(root, (Event.Finished(false, o.show), t)).as(o)
+      case (Right(o), t) =>
+        pen.write(root, (Event.Finished(false, o.show), t)).as(o)
       case (Left(Caught(err)), t) =>
         pen.write(
           root,
