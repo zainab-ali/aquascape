@@ -27,8 +27,9 @@ trait Pen[F[_], E] {
   def bracket[O, A](branch: Branch, child: Label)(
       fa: Pull[F, O, A]
   ): Pull[F, O, A]
-  def writeWith(branch: Branch, f: List[Label] => E): F[Unit]
-  def write(branch: Branch, e: E): F[Unit] = writeWith(branch, _ => e)
+  def writeWithLast(branch: Branch, f: Label => E): F[Unit]
+  def writeWithLastTwo(branch: Branch, f: (Label, Label) => E): F[Unit]
+  def write(branch: Branch, e: E): F[Unit]
   def fork(parent: Branch, child: Branch): F[Unit]
   def events: Stream[F, E]
   def close: F[Unit]
@@ -38,6 +39,12 @@ import cats.effect.*
 val root = "root"
 
 object Pen {
+
+  object MissingStageException
+      extends Throwable(
+        "A stage is missing. Did you forget to `traceCompile` ?"
+      )
+
   def apply[F[_]: Async, E]: F[Pen[F, E]] =
     (
       Ref.of[F, Map[Branch, (List[Label])]](Map(root -> (Nil))),
@@ -49,8 +56,19 @@ object Pen {
         def bracket[O, A](branch: Branch, child: Label)(
             fa: Pull[F, O, A]
         ): Pull[F, O, A] = stack.bracket(branch, child)(fa)
-        def writeWith(branch: Branch, f: List[Label] => E): F[Unit] =
-          stack.peek(branch).map(f) >>= (s => chan.send(s).void)
+        def writeWithLast(branch: Branch, f: Label => E): F[Unit] =
+          stack
+            .peek(branch)
+            .flatMap(_.headOption.liftTo[F](MissingStageException))
+            .map(f)
+            .flatMap(s => chan.send(s).void)
+
+        def writeWithLastTwo(branch: Branch, f: (Label, Label) => E): F[Unit] =
+          stack.peek(branch).flatMap {
+            case h :: t :: _ => f(h, t).pure
+            case _           => MissingStageException.raiseError
+          } >>= (s => chan.send(s).void)
+        def write(branch: Branch, e: E): F[Unit] = chan.send(e).void
 
         def fork(parent: Branch, child: Branch): F[Unit] =
           stack.forkTS(parent, child)

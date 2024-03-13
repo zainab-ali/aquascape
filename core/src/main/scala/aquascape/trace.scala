@@ -112,12 +112,16 @@ object Trace {
           (Unique[F].unique.lift, time[F].lift)
             .flatMapN { (token, t) =>
               pen
-                .writeWith(
+                .writeWithLastTwo(
                   branch,
-                  labels =>
+                  (to, from) =>
                     (
                       Event
-                        .Pull(to = labels.head, from = labels.tail.head, token),
+                        .Pull(
+                          to = to,
+                          from = from,
+                          token
+                        ),
                       t
                     )
                 )
@@ -186,7 +190,7 @@ object Trace {
     fo.attempt.flatTap {
       case Right(o) =>
         time >>= (t =>
-          pen.writeWith(branch, labels => (Event.Eval(labels.head, o.show), t))
+          pen.writeWithLast(branch, label => (Event.Eval(label, o.show), t))
         )
       case Left(err) =>
         time >>= (t => pen.write(branch, (Event.EvalError(err.getMessage), t)))
