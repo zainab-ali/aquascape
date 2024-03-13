@@ -406,19 +406,22 @@ class Examples extends GoldenSuite with LowPriorityShow {
       )
     )
   }
-  group("broadcastThrough"){
+  group("broadcastThrough") {
     import scala.concurrent.duration.*
     test("broadcastThrough")(
       example("basic", DrawChunked.OnlyChunked)(
         range(
-          Stream('a', 'b', 'c').chunkLimit(1).unchunks
-          .trace("Stream('a','b','c')", branch = "upstream")
-          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-          .trace("evalTap(…)", branch = "upstream")
-          .fork("root", "upstream")
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')", branch = "upstream")
+            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+            .trace("evalTap(…)", branch = "upstream")
+            .fork("root", "upstream")
             .broadcastThrough(in =>
-              in.metered(1.second).trace("in.metered(…)", branch = "broadcast")
-              .fork("root", "broadcast")
+              in.metered(1.second)
+                .trace("in.metered(…)", branch = "broadcast")
+                .fork("root", "broadcast")
             )
             .trace("broadcastThrough")
             .compile
@@ -428,14 +431,17 @@ class Examples extends GoldenSuite with LowPriorityShow {
       ),
       example("error propagation", DrawChunked.OnlyChunked)(
         range(
-          Stream('a', 'b', 'c').chunkLimit(1).unchunks
-          .trace("Stream('a','b','c')", branch = "upstream")
-          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-          .trace("evalTap(…)", branch = "upstream")
-          .fork("root", "upstream")
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b','c')", branch = "upstream")
+            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+            .trace("evalTap(…)", branch = "upstream")
+            .fork("root", "upstream")
             .broadcastThrough(in =>
-              in.metered(1.second).trace("in.metered(…)", branch = "broadcast")
-              .fork("root", "broadcast")
+              in.metered(1.second)
+                .trace("in.metered(…)", branch = "broadcast")
+                .fork("root", "broadcast")
             )
             .trace("broadcastThrough")
             .compile
@@ -445,14 +451,20 @@ class Examples extends GoldenSuite with LowPriorityShow {
       ),
       example("different rates", DrawChunked.OnlyChunked)(
         range(
-          Stream('a', 'b', 'c').chunkLimit(1).unchunks
-          .trace("Stream('a','b', 'c')…", branch = "upstream")
-          .fork("root", "upstream")
-            .broadcastThrough(in =>
-              in.metered(1.second).trace("in.metered(1s)", branch = "broadcast1")
-              .fork("root", "broadcast1"),
-                in => in.metered(100.second).trace("in.metered(100s)", branch = "broadcast2")
-              .fork("root", "broadcast2")
+          Stream('a', 'b', 'c')
+            .chunkLimit(1)
+            .unchunks
+            .trace("Stream('a','b', 'c')…", branch = "upstream")
+            .fork("root", "upstream")
+            .broadcastThrough(
+              in =>
+                in.metered(1.second)
+                  .trace("in.metered(1s)", branch = "broadcast1")
+                  .fork("root", "broadcast1"),
+              in =>
+                in.metered(100.second)
+                  .trace("in.metered(100s)", branch = "broadcast2")
+                  .fork("root", "broadcast2")
             )
             .trace("broadcastThrough")
             .compile
@@ -698,7 +710,8 @@ class Examples extends GoldenSuite with LowPriorityShow {
             }
             .trace("flatMap1")
             .flatMap { str =>
-              Stream(str).repeatN(2)
+              Stream(str)
+                .repeatN(2)
                 .trace("Stream.(str).repeatN(2)")
                 .evalTap(x => IO.raiseWhen(x == 'b')(Err))
                 .trace("evalTap1(…)")
