@@ -62,7 +62,7 @@ trait GoldenSuite extends CatsEffectSuite {
         doodle.core.format.Png,
         Frame
       ](
-        streamCode.stream,
+        streamCode.stream.attempt.void,
         exampleName
       )
     }

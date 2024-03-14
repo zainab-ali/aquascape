@@ -38,7 +38,7 @@ class TraceSuite extends CatsEffectSuite {
 
   private def simple[O](f: Trace[IO] ?=> IO[O]): IO[List[Event]] =
     Trace.unchunked[IO].flatMap { t =>
-      t.events(f(using t)).compile.toList.map(_.map(_._1))
+      t.events(f(using t).attempt.void).compile.toList.map(_.map(_._1))
     }
 
   private def simpleChunked[O](

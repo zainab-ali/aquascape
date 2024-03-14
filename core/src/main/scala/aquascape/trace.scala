@@ -35,7 +35,7 @@ trait Trace[F[_]] {
   def fork[O](parent: Branch, child: Branch)(s: Stream[F, O]): Stream[F, O]
 
   /** Record a trace of the compile event surrounding this stream. */
-  def traceCompile[O: Show](fo: F[O], label: Label): F[Unit]
+  def traceCompile[O: Show](fo: F[O], label: Label): F[O]
 
   /** Given a compiled stream `fo` which has been traced, output a stream of
     * events.
@@ -66,7 +66,7 @@ object Trace {
       def fork[O](parent: Branch, child: Branch)(
           s: Stream[F, O]
       ): Stream[F, O] = fork_(pen)(parent, child)(s)
-      def traceCompile[O: Show](fo: F[O], branch: Branch): F[Unit] =
+      def traceCompile[O: Show](fo: F[O], branch: Branch): F[O] =
         traceCompile_(pen, fo, branch)
       def events[O](fo: F[O]): Stream[F, (Event, Time)] = events_(pen, fo)
     }
@@ -90,7 +90,7 @@ object Trace {
           s: Stream[F, O]
       ): Stream[F, O] = fork_(pen)(parent, child)(s)
 
-      def traceCompile[O: Show](fo: F[O], branch: Branch): F[Unit] =
+      def traceCompile[O: Show](fo: F[O], branch: Branch): F[O] =
         traceCompile_(pen, fo, branch)
       def events[O](fo: F[O]): Stream[F, (Event, Time)] = events_(pen, fo)
     }
@@ -207,19 +207,20 @@ object Trace {
       pen: Pen[F, (Event, Time)],
       fo: F[O],
       label: Label
-  ): F[Unit] =
+  ): F[O] =
     pen.bracket(root, label)((fo.attempt, time).flatMapN {
-      case (Right(o), t) => pen.write(root, (Event.Finished(false, o.show), t))
+      case (Right(o), t) =>
+        pen.write(root, (Event.Finished(false, o.show), t)).as(o)
       case (Left(Caught(err)), t) =>
         pen.write(
           root,
           (Event.Finished(true, Option(err.getMessage).getOrElse("!")), t)
-        )
+        ) >> err.raiseError
       case (Left(err), t) =>
         pen.write(
           root,
           (Event.Finished(true, Option(err.getMessage).getOrElse("!")), t)
-        )
+        ) >> err.raiseError
     })
 
   private def events_[F[_]: Concurrent, O](
