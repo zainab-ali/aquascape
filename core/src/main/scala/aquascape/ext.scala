@@ -23,20 +23,20 @@ import cats.effect.Concurrent
 import cats.syntax.all.*
 import fs2.*
 
-extension [F[_], A: Show](s: Stream[F, A])(using t: Trace[F]) {
+extension [F[_], A: Show](s: Stream[F, A])(using t: Stage[F]) {
 
-  def trace(label: String, branch: String = root): Stream[F, A] =
-    t.trace(label, branch)(s)
+  def stage(label: String, branch: String = root): Stream[F, A] =
+    t.stage(label, branch)(s)
 
   def fork(from: String, to: String): Stream[F, A] = t.fork(from, to)(s)
 }
 
-extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Trace[F]) {
-  def traceF(branch: String = root): F[O] = t.trace(fo, branch)
-  def traceCompile(label: String): F[O] = t.traceCompile(fo, label)
+extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Stage[F]) {
+  def stageF(branch: String = root): F[O] = t.stage(fo, branch)
+  def compileStage(label: String): F[O] = t.compileStage(fo, label)
 }
 
-extension [F[_]: Async, O](fo: F[O])(using t: Trace[F]) {
+extension [F[_]: Async, O](fo: F[O])(using t: Stage[F]) {
   def draw(config: Config = Config.default): F[Picture[Unit]] = {
     t.events(fo)
       .compile

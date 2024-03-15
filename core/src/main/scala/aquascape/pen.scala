@@ -42,7 +42,7 @@ object Pen {
 
   object MissingStageException
       extends Throwable(
-        "A stage is missing. Did you forget to `traceCompile` ?"
+        "A stage is missing. Did you forget to `compileStage` ?"
       )
 
   def apply[F[_]: Async, E]: F[Pen[F, E]] =

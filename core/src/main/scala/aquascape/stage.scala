@@ -21,77 +21,77 @@ import cats.effect.*
 import cats.syntax.all.*
 import fs2.*
 
-trait Trace[F[_]] {
+trait Stage[F[_]] {
 
-  /** Record a trace of pulls and outputs surrounding this stream. */
-  def trace[O: Show](label: Label, branch: Branch)(
+  /** Record a stage of pulls and outputs surrounding this stream. */
+  def stage[O: Show](label: Label, branch: Branch)(
       s: Stream[F, O]
   ): Stream[F, O]
 
   /** Record an eval or error event after running this effect. */
-  def trace[O: Show](fo: F[O], branch: Branch): F[O]
+  def stage[O: Show](fo: F[O], branch: Branch): F[O]
 
   /** Connects a parent and child branch. */
   def fork[O](parent: Branch, child: Branch)(s: Stream[F, O]): Stream[F, O]
 
-  /** Record a trace of the compile event surrounding this stream. */
-  def traceCompile[O: Show](fo: F[O], label: Label): F[O]
+  /** Record a stage of the compile event surrounding this stream. */
+  def compileStage[O: Show](fo: F[O], label: Label): F[O]
 
-  /** Given a compiled stream `fo` which has been traced, output a stream of
+  /** Given a compiled stream `fo` which has been staged, output a stream of
     * events.
     */
   def events[O](fo: F[O]): Stream[F, (Event, Time)]
 }
 
-object Trace {
+object Stage {
 
   extension [F[_], A](fa: F[A]) {
     def lift: Pull[F, Nothing, A] = Pull.eval(fa)
   }
 
-  def unchunked[F[_]: Async]: F[Trace[F]] = Pen[F, (Event, Time)].map { pen =>
+  def unchunked[F[_]: Async]: F[Stage[F]] = Pen[F, (Event, Time)].map { pen =>
     new {
-      def trace[O: Show](label: Label, branch: Branch)(
+      def stage[O: Show](label: Label, branch: Branch)(
           s: Stream[F, O]
       ): Stream[F, O] =
-        trace_[F, O, O](
+        stage_[F, O, O](
           _.uncons1,
           (o, tok) => Event.Output(o.show, tok),
           Pull.output1(_),
           pen
         )(label, branch)(s)
 
-      def trace[O: Show](fo: F[O], branch: Branch): F[O] =
-        trace_(pen, fo, branch)
+      def stage[O: Show](fo: F[O], branch: Branch): F[O] =
+        stage_(pen, fo, branch)
       def fork[O](parent: Branch, child: Branch)(
           s: Stream[F, O]
       ): Stream[F, O] = fork_(pen)(parent, child)(s)
-      def traceCompile[O: Show](fo: F[O], branch: Branch): F[O] =
-        traceCompile_(pen, fo, branch)
+      def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
+        compileStage_(pen, fo, branch)
       def events[O](fo: F[O]): Stream[F, (Event, Time)] = events_(pen, fo)
     }
   }
 
-  def chunked[F[_]: Async]: F[Trace[F]] = Pen[F, (Event, Time)].map { pen =>
+  def chunked[F[_]: Async]: F[Stage[F]] = Pen[F, (Event, Time)].map { pen =>
     new {
-      def trace[O: Show](label: Label, branch: Branch)(
+      def stage[O: Show](label: Label, branch: Branch)(
           s: Stream[F, O]
       ): Stream[F, O] =
-        trace_[F, O, Chunk[O]](
+        stage_[F, O, Chunk[O]](
           _.uncons,
           (chk, tok) => Event.OutputChunk(chk.map(_.show), tok),
           Pull.output(_),
           pen
         )(label, branch)(s)
 
-      def trace[O: Show](fo: F[O], branch: Branch): F[O] =
-        trace_(pen, fo, branch)
+      def stage[O: Show](fo: F[O], branch: Branch): F[O] =
+        stage_(pen, fo, branch)
       def fork[O](parent: Branch, child: Branch)(
           s: Stream[F, O]
       ): Stream[F, O] = fork_(pen)(parent, child)(s)
 
-      def traceCompile[O: Show](fo: F[O], branch: Branch): F[O] =
-        traceCompile_(pen, fo, branch)
+      def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
+        compileStage_(pen, fo, branch)
       def events[O](fo: F[O]): Stream[F, (Event, Time)] = events_(pen, fo)
     }
   }
@@ -99,7 +99,7 @@ object Trace {
   private def time[F[_]: Temporal]: F[Time] =
     summon[Temporal[F]].realTime.map(t => Time(t.toSeconds.toInt))
 
-  private def trace_[F[_]: Temporal: Unique, O, A](
+  private def stage_[F[_]: Temporal: Unique, O, A](
       uncons: Stream.ToPull[F, O] => Pull[F, O, Option[(A, Stream[F, O])]],
       event: (A, Unique.Token) => Event,
       output: A => Pull[F, O, Unit],
@@ -182,7 +182,7 @@ object Trace {
     }
   }
 
-  private def trace_[F[_]: MonadThrow: Temporal, O: Show](
+  private def stage_[F[_]: MonadThrow: Temporal, O: Show](
       pen: Pen[F, (Event, Time)],
       fo: F[O],
       branch: Branch
@@ -203,7 +203,7 @@ object Trace {
   ): Stream[F, O] =
     Stream.exec(pen.fork(parent, child)) ++ s
 
-  private def traceCompile_[F[_]: MonadCancelThrow: Temporal, O: Show](
+  private def compileStage_[F[_]: MonadCancelThrow: Temporal, O: Show](
       pen: Pen[F, (Event, Time)],
       fo: F[O],
       label: Label

@@ -2,7 +2,7 @@ package aquascape
 
 import fs2.*
 import cats.effect.*
-import aquascape.Trace
+import aquascape.Stage
 import munit.CatsEffectSuite
 import munit.Location
 

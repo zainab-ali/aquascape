@@ -17,7 +17,7 @@
 package aquascape.golden
 
 import aquascape.*
-import cats.effect.{Trace => _, *}
+import cats.effect.*
 import cats.syntax.all.*
 import fs2.*
 import fs2.io.file.Path
@@ -31,14 +31,14 @@ private def writeSource(
     pos: RangePos,
     exampleName: ExampleName
 ): IO[Unit] = {
-  def stripTraceCalls(tree: Tree): Tree = {
+  def stripStageCalls(tree: Tree): Tree = {
     tree.transform {
       case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("fork")), _) =>
-        stripTraceCalls(t)
-      case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace")), _)  => t
-      case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("traceF")), _) => t
+        stripStageCalls(t)
+      case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("stage")), _)  => t
+      case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("stageF")), _) => t
       case Term.Apply
-            .After_4_6_0(Term.Select(t, Term.Name("traceCompile")), _) =>
+            .After_4_6_0(Term.Select(t, Term.Name("compileStage")), _) =>
         t
     }
   }
@@ -74,7 +74,7 @@ $code
     val cleaned =
       source.parse[Stat].toEither.leftMap(_.details).liftTo[IO].flatMap {
         tree =>
-          format(stripTraceCalls(tree))
+          format(stripStageCalls(tree))
       }
     cleaned.flatMap { text =>
       Files[IO].createDirectories(exampleName.parent.value) >> Files[IO]
