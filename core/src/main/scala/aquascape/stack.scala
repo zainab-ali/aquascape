@@ -41,11 +41,19 @@ extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
       }
     )
 
-  def forkTS(parent: Branch, child: Branch): F[Unit] =
-    stack.update { bs =>
-      val parentLabels = bs.getOrElse(parent, Nil)
-      bs + ((child, (parentLabels)))
+  def forkTS(parent: Branch, child: Branch): F[Unit] = {
+    val updateOrError = stack.modify { bs =>
+      bs.get(parent) match {
+        case None => (bs, Some(ParentBranchNotFound(parent, child)))
+        case Some(parentLabels) => (bs + ((child, parentLabels)), None)
+      }
     }
+    updateOrError.flatMap {
+      case Some(err) => err.raiseError
+      case None      => ().pure
+    }
+  }
+
   def peek(branch: Branch): F[List[Label]] = {
     stack.get.map(_.getOrElse(branch, Nil))
   }

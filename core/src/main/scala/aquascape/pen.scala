@@ -40,11 +40,6 @@ val root = "root"
 
 object Pen {
 
-  object MissingStageException
-      extends Throwable(
-        "A stage is missing. Did you forget to `compileStage` ?"
-      )
-
   def apply[F[_]: Async, E]: F[Pen[F, E]] =
     (
       Ref.of[F, Map[Branch, (List[Label])]](Map(root -> (Nil))),
