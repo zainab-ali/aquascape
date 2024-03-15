@@ -87,6 +87,42 @@ class StageSuite extends CatsEffectSuite {
 
   private def loc[A](a: A)(using l: Location): (A, Location) = (a, l)
 
+  test("raises an error when compileStage is not present") {
+    val program = Stage.unchunked[IO].flatMap { case t @ (given Stage[IO]) =>
+      t.events(
+        Stream("Mao")[IO]
+          .stage("source")
+          .compile
+          .lastOrError
+      ).compile
+        .lastOrError
+        .attempt
+    }
+    assertIO(
+      program,
+      Left(MissingStageException)
+    )
+  }
+
+  test("raises an error when compileStage is not present") {
+    val program = Stage.unchunked[IO].flatMap { case t @ (given Stage[IO]) =>
+      t.events(
+        Stream("Mao")[IO]
+          .stage("source")
+          .fork("nonexistent", "child")
+          .compile
+          .lastOrError
+          .compileStage("lastOrError")
+      ).compile
+        .lastOrError
+        .attempt
+    }
+    assertIO(
+      program,
+      Left(ParentBranchNotFound("nonexistent", "child"))
+    )
+  }
+
   test("traces a single combinator") {
     val actual = simple {
       Stream("Mao")[IO]
