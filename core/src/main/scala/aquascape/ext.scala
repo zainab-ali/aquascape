@@ -32,7 +32,7 @@ extension [F[_], A: Show](s: Stream[F, A])(using t: Stage[F]) {
 }
 
 extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Stage[F]) {
-  def stageF(branch: String = root): F[O] = t.stage(fo, branch)
+  def trace(branch: String = root): F[O] = t.trace(fo, branch)
   def compileStage(label: String): F[O] = t.compileStage(fo, label)
 }
 

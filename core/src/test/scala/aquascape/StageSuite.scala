@@ -229,7 +229,7 @@ class StageSuite extends CatsEffectSuite {
   test("traces effect evaluation") {
     val actual = simple {
       Stream
-        .eval(IO("Mao").stageF())
+        .eval(IO("Mao").trace())
         .stage("source")
         .compile
         .lastOrError
@@ -312,8 +312,8 @@ class StageSuite extends CatsEffectSuite {
 
   def bracket(suffix: String = "")(using t: Stage[IO]): Stream[IO, Unit] =
     Stream
-      .bracket(IO(s"acquire$suffix").stageF().void)(_ =>
-        IO(s"release$suffix").stageF().void
+      .bracket(IO(s"acquire$suffix").trace().void)(_ =>
+        IO(s"release$suffix").trace().void
       )
 
   test("traces resources and errors") {
@@ -457,7 +457,7 @@ class StageSuite extends CatsEffectSuite {
       Stream("Mao", "Popcorn", "Trouble")[IO]
         .stage("source", branch = "s")
         .fork("root", "s")
-        .parEvalMap(2)(IO(_).stageF())
+        .parEvalMap(2)(IO(_).trace())
         .stage("parEvalMap")
         .compile
         .drain

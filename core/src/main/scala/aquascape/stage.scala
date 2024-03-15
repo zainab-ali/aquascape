@@ -29,7 +29,7 @@ trait Stage[F[_]] {
   ): Stream[F, O]
 
   /** Record an eval or error event after running this effect. */
-  def stage[O: Show](fo: F[O], branch: Branch): F[O]
+  def trace[O: Show](fo: F[O], branch: Branch): F[O]
 
   /** Connects a parent and child branch. */
   def fork[O](parent: Branch, child: Branch)(s: Stream[F, O]): Stream[F, O]
@@ -61,8 +61,8 @@ object Stage {
           pen
         )(label, branch)(s)
 
-      def stage[O: Show](fo: F[O], branch: Branch): F[O] =
-        stage_(pen, fo, branch)
+      def trace[O: Show](fo: F[O], branch: Branch): F[O] =
+        trace_(pen, fo, branch)
       def fork[O](parent: Branch, child: Branch)(
           s: Stream[F, O]
       ): Stream[F, O] = fork_(pen)(parent, child)(s)
@@ -84,8 +84,8 @@ object Stage {
           pen
         )(label, branch)(s)
 
-      def stage[O: Show](fo: F[O], branch: Branch): F[O] =
-        stage_(pen, fo, branch)
+      def trace[O: Show](fo: F[O], branch: Branch): F[O] =
+        trace_(pen, fo, branch)
       def fork[O](parent: Branch, child: Branch)(
           s: Stream[F, O]
       ): Stream[F, O] = fork_(pen)(parent, child)(s)
@@ -182,7 +182,7 @@ object Stage {
     }
   }
 
-  private def stage_[F[_]: MonadThrow: Temporal, O: Show](
+  private def trace_[F[_]: MonadThrow: Temporal, O: Show](
       pen: Pen[F, (Event, Time)],
       fo: F[O],
       branch: Branch
