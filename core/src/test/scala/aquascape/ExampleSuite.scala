@@ -19,7 +19,7 @@ package aquascape
 import aquascape.*
 import aquascape.golden.*
 import cats.Show
-import cats.effect.{Trace => _, *}
+import cats.effect.*
 import cats.syntax.all.*
 import fs2.*
 import fs2.io.file.Path
@@ -27,7 +27,7 @@ import munit.*
 
 trait LowPriorityShow {
   given Show[Either[Throwable, Char]] = {
-    case Left(Trace.Caught(err)) => s"Left(${err.getMessage})"
+    case Left(Stage.Caught(err)) => s"Left(${err.getMessage})"
     case Left(err)               => s"Left(${err.getMessage})"
     case Right(c)                => s"Right(${c.show})"
   }
@@ -46,46 +46,46 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("toList")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("drain")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .compile
             .drain
-            .traceCompile("compile.drain")
+            .compileStage("compile.drain")
         )
       ),
       example("last")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .compile
             .last
-            .traceCompile("compile.last")
+            .compileStage("compile.last")
         )
       ),
       example("count")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .compile
             .count
-            .traceCompile("compile.count")
+            .compileStage("compile.count")
         )
       ),
       example("onlyOrError")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .compile
             .onlyOrError
-            .traceCompile("compile.onlyOrError")
+            .compileStage("compile.onlyOrError")
         )
       )
     )
@@ -94,47 +94,47 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("fewer")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .take(2)
-            .trace("take(2)")
+            .stage("take(2)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("more")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .take(5)
-            .trace("take(5)")
+            .stage("take(5)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("from an infinite stream")(
         range(
           Stream('a').repeat
-            .trace("Stream('a').repeat")
+            .stage("Stream('a').repeat")
             .take(2)
-            .trace("take(2)")
+            .stage("take(2)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("from a drained stream")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .drain
-            .trace("drain")
+            .stage("drain")
             .take(2)
-            .trace("take(2)")
+            .stage("take(2)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -143,23 +143,23 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("fewer")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .drop(2)
-            .trace("drop(2)")
+            .stage("drop(2)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("more")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .drop(5)
-            .trace("drop(5)")
+            .stage("drop(5)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -167,45 +167,45 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("filter")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .filter(_ == 'b')
-            .trace("filter(_ == 'b')")
+            .stage("filter(_ == 'b')")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("exists")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .exists(_ == 'b')
-            .trace("exists(_ == 'b')")
+            .stage("exists(_ == 'b')")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("forall")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .forall(_ == 'b')
-            .trace("forall(_ == 'b')")
+            .stage("forall(_ == 'b')")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("changes")(
         range(
           Stream('a', 'b', 'b', 'a', 'c')
-            .trace("Stream('a','b','b','a','c')")
+            .stage("Stream('a','b','b','a','c')")
             .changes
-            .trace("changes")
+            .stage("changes")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -216,13 +216,13 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("chunkLimit", OnlyChunked)(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .chunkLimit(2)
             .unchunks
-            .trace("chunkLimit(2).unchunks")
+            .stage("chunkLimit(2).unchunks")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("chunkMin", OnlyChunked)(
@@ -230,13 +230,13 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .stage("Stream('a','b','c')…unchunks")
             .chunkMin(2)
             .unchunks
-            .trace("chunkMin(2).unchunks")
+            .stage("chunkMin(2).unchunks")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("repartition", OnlyChunked)(
@@ -244,12 +244,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream("Hel", "l", "o Wor", "ld")
             .chunkLimit(1)
             .unchunks
-            .trace("""Stream(…)…unchunks""")
+            .stage("""Stream(…)…unchunks""")
             .repartition(s => Chunk.array(s.split(" ")))
-            .trace("repartition(…)")
+            .stage("repartition(…)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -259,12 +259,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .stage("Stream('a','b','c')…unchunks")
             .buffer(2)
-            .trace("buffer(2)")
+            .stage("buffer(2)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("bufferAll", OnlyChunked)(
@@ -272,12 +272,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .stage("Stream('a','b','c')…unchunks")
             .bufferAll
-            .trace("bufferAll")
+            .stage("bufferAll")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("bufferBy", OnlyChunked)(
@@ -285,12 +285,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .stage("Stream('a','b','c')…unchunks")
             .bufferBy(_ != 'b')
-            .trace("bufferBy")
+            .stage("bufferBy")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -300,12 +300,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("append")(
         range(
           (Stream('a', 'b')
-            .trace("Stream('a','b')")
-            ++ Stream('c').trace("Stream('c')"))
-            .trace("++")
+            .stage("Stream('a','b')")
+            ++ Stream('c').stage("Stream('c')"))
+            .stage("++")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -313,61 +313,61 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("flatMap")(
         range(
           Stream("abc")
-            .trace("""Stream("abc")""")
+            .stage("""Stream("abc")""")
             .flatMap { str =>
               Stream
                 .emits(str.toList)
-                .trace("Stream.emits(str.toList)")
+                .stage("Stream.emits(str.toList)")
             }
-            .trace("flatMap {…}")
+            .stage("flatMap {…}")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("error propagation")(
         range(
           Stream("abc")
-            .trace("""Stream("abc")""")
+            .stage("""Stream("abc")""")
             .flatMap { _ =>
               Stream
                 .raiseError[IO](Err)
-                .trace("Stream.raiseError(Err)")
+                .stage("Stream.raiseError(Err)")
             }
-            .trace("flatMap {…}")
+            .stage("flatMap {…}")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("error handling")(
         range(
           Stream("abc")
-            .trace("""Stream("abc")""")
+            .stage("""Stream("abc")""")
             .flatMap { _ =>
               Stream
                 .raiseError[IO](Err)
-                .trace("Stream.raiseError(Err)")
+                .stage("Stream.raiseError(Err)")
             }
-            .trace("flatMap {…}")
+            .stage("flatMap {…}")
             .handleError(_ => 'a')
-            .trace("handleError(_ => 'a')")
+            .stage("handleError(_ => 'a')")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("bracket")(
         range(
           Stream('a', 'b', 'c')
-            .trace("""Stream('a','b','c')""")
+            .stage("""Stream('a','b','c')""")
             .flatMap { x =>
-              Stream.bracket(IO(s"<$x").traceF())(_ => IO(s"$x>").traceF().void)
+              Stream.bracket(IO(s"<$x").stageF())(_ => IO(s"$x>").stageF().void)
             }
-            .trace("flatMap {…}")
+            .stage("flatMap {…}")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -375,33 +375,33 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("merge")(
         range(
           Stream('a')
-            .trace("Stream('a')", branch = "left")
+            .stage("Stream('a')", branch = "left")
             .fork("root", "left")
             .merge(
               Stream('b')
-                .trace("Stream('b')", branch = "right")
+                .stage("Stream('b')", branch = "right")
                 .fork("root", "right")
             )
-            .trace("merge")
+            .stage("merge")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("parZip")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')", "left")
+            .stage("Stream('a','b','c')", "left")
             .fork("root", "left")
             .parZip(
               Stream('d', 'e')
-                .trace("Stream('d','e')", "right")
+                .stage("Stream('d','e')", "right")
                 .fork("root", "right")
             )
-            .trace("parZip(…)")
+            .stage("parZip(…)")
             .compile
             .drain
-            .traceCompile("compile.drain")
+            .compileStage("compile.drain")
         )
       )
     )
@@ -414,19 +414,19 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')", branch = "upstream")
+            .stage("Stream('a','b','c')", branch = "upstream")
             .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .trace("evalTap(…)", branch = "upstream")
+            .stage("evalTap(…)", branch = "upstream")
             .fork("root", "upstream")
             .broadcastThrough(in =>
               in.metered(1.second)
-                .trace("in.metered(…)", branch = "broadcast")
+                .stage("in.metered(…)", branch = "broadcast")
                 .fork("root", "broadcast")
             )
-            .trace("broadcastThrough")
+            .stage("broadcastThrough")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("error propagation", DrawChunked.OnlyChunked)(
@@ -434,19 +434,19 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')", branch = "upstream")
+            .stage("Stream('a','b','c')", branch = "upstream")
             .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .trace("evalTap(…)", branch = "upstream")
+            .stage("evalTap(…)", branch = "upstream")
             .fork("root", "upstream")
             .broadcastThrough(in =>
               in.metered(1.second)
-                .trace("in.metered(…)", branch = "broadcast")
+                .stage("in.metered(…)", branch = "broadcast")
                 .fork("root", "broadcast")
             )
-            .trace("broadcastThrough")
+            .stage("broadcastThrough")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("different rates", DrawChunked.OnlyChunked)(
@@ -454,22 +454,22 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b', 'c')…", branch = "upstream")
+            .stage("Stream('a','b', 'c')…", branch = "upstream")
             .fork("root", "upstream")
             .broadcastThrough(
               in =>
                 in.metered(1.second)
-                  .trace("in.metered(1s)", branch = "broadcast1")
+                  .stage("in.metered(1s)", branch = "broadcast1")
                   .fork("root", "broadcast1"),
               in =>
                 in.metered(100.second)
-                  .trace("in.metered(100s)", branch = "broadcast2")
+                  .stage("in.metered(100s)", branch = "broadcast2")
                   .fork("root", "broadcast2")
             )
-            .trace("broadcastThrough")
+            .stage("broadcastThrough")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -479,69 +479,69 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("evalMap")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
-            .evalMap(_.pure[IO].traceF())
-            .trace("evalMap")
+            .stage("Stream('a','b','c')")
+            .evalMap(_.pure[IO].stageF())
+            .stage("evalMap")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("evalMap2")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
-            .evalTap(char => IO(s"$char 1").traceF())
-            .trace("evalTap1")
-            .evalTap(char => IO(s"$char 2").traceF())
-            .trace("evalTap2")
+            .stage("Stream('a','b','c')")
+            .evalTap(char => IO(s"$char 1").stageF())
+            .stage("evalTap1")
+            .evalTap(char => IO(s"$char 2").stageF())
+            .stage("evalTap2")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("exec")(
         range(
           Stream
-            .exec(IO('a').traceF().void)
-            .trace("Stream.exec(…)")
+            .exec(IO('a').stageF().void)
+            .stage("Stream.exec(…)")
             .compile
             .last
-            .traceCompile("compile.last")
+            .compileStage("compile.last")
         )
       ),
       example("eval")(
         range(
           Stream
-            .eval(IO('a').traceF())
-            .trace("Stream.eval(…)")
+            .eval(IO('a').stageF())
+            .stage("Stream.eval(…)")
             .compile
             .last
-            .traceCompile("compile.last")
+            .compileStage("compile.last")
         )
       ),
       example("parEvalMap")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')", "upstream")
+            .stage("Stream('a','b','c')", "upstream")
             .fork("root", "upstream")
-            .parEvalMap(2)(_.pure[IO].traceF())
-            .trace("parEvalMap(2)(…)")
+            .parEvalMap(2)(_.pure[IO].stageF())
+            .stage("parEvalMap(2)(…)")
             .compile
             .drain
-            .traceCompile("compile.drain")
+            .compileStage("compile.drain")
         )
       ),
       example("parEvalMapUnordered")(
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')", "upstream")
+            .stage("Stream('a','b','c')", "upstream")
             .fork("root", "upstream")
-            .parEvalMapUnordered(2)(_.pure[IO].traceF())
-            .trace("parEvalMapUnordered(2)(…)")
+            .parEvalMapUnordered(2)(_.pure[IO].stageF())
+            .stage("parEvalMapUnordered(2)(…)")
             .compile
             .drain
-            .traceCompile("compile.drain")
+            .compileStage("compile.drain")
         )
       )
     )
@@ -553,34 +553,34 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("raiseError")(
         range(
           (Stream.raiseError[IO](Err) ++ Stream('a'))
-            .trace("Stream.raiseError[IO](Err)")
+            .stage("Stream.raiseError[IO](Err)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("in evalMap") {
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
-            .evalMap(x => IO.raiseWhen(x == 'b')(Err).traceF())
-            .trace("evalMap(IO.raiseWhen(_ == 'b')(Err))")
+            .stage("Stream('a','b','c')")
+            .evalMap(x => IO.raiseWhen(x == 'b')(Err).stageF())
+            .stage("evalMap(IO.raiseWhen(_ == 'b')(Err))")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       },
       example("propagation") {
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .evalMap(x => IO.raiseWhen(x == 'b')(Err))
-            .trace("evalMap(IO.raiseWhen(_ == 'b')(Err))")
+            .stage("evalMap(IO.raiseWhen(_ == 'b')(Err))")
             .map(identity)
-            .trace("map(identity)")
+            .stage("map(identity)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       }
     )
@@ -588,74 +588,74 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("handleError") {
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .trace("evalTap(IO.raiseWhen(_ == 'b')(Err))")
+            .stage("evalTap(IO.raiseWhen(_ == 'b')(Err))")
             .handleError(_ => 'd')
-            .trace("handleError(_ => 'd')")
+            .stage("handleError(_ => 'd')")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       },
       example("handleError2") {
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .evalMap(x =>
               IO.raiseWhen(x == 'b')(Err)
                 .as(x)
                 .handleError(_ => 'd')
-                .traceF()
+                .stageF()
             )
-            .trace("evalTap(…)")
+            .stage("evalTap(…)")
             .handleError(_ => 'd')
-            .trace("handleError(_ => 'd')")
+            .stage("handleError(_ => 'd')")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       },
       example("handleErrorWith") {
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .trace("evalTap(…)")
+            .stage("evalTap(…)")
             .handleErrorWith(_ =>
-              Stream('d', 'e', 'f').trace("Stream('d','e','f')")
+              Stream('d', 'e', 'f').stage("Stream('d','e','f')")
             )
-            .trace("handleErrorWith(_ => …)")
+            .stage("handleErrorWith(_ => …)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       },
       example("attempt") {
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .trace("evalTap(…)")
+            .stage("evalTap(…)")
             .attempt
-            .trace("attempt")
+            .stage("attempt")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       },
       example("attempts") {
         range(
           Stream('a', 'b', 'c')
-            .trace("Stream('a','b','c')")
+            .stage("Stream('a','b','c')")
             .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .trace("evalTap(…)")
+            .stage("evalTap(…)")
             .attempts(Stream.empty)
-            .trace("attempts")
+            .stage("attempts")
             .take(4)
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       }
     )
@@ -665,63 +665,63 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("bracket")(
         range(
           Stream
-            .bracket(IO("abc").traceF())(_ => IO("d").traceF().void)
-            .trace("Stream.bracket(…)")
+            .bracket(IO("abc").stageF())(_ => IO("d").stageF().void)
+            .stage("Stream.bracket(…)")
             .flatMap { str =>
               Stream
                 .emits(str.toList)
-                .trace("Stream.emits(str.toList)")
+                .stage("Stream.emits(str.toList)")
             }
-            .trace("flatMap {…}")
+            .stage("flatMap {…}")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("raising errors")(
         range(
           Stream
-            .bracket(IO("abc").traceF())(_ => IO("d").traceF().void)
-            .trace("Stream.bracket(…)")
+            .bracket(IO("abc").stageF())(_ => IO("d").stageF().void)
+            .stage("Stream.bracket(…)")
             .flatMap { str =>
               Stream
                 .emits(str.toList)
-                .trace("Stream.emits(str.toList)")
+                .stage("Stream.emits(str.toList)")
                 .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-                .trace("evalTap(…)")
+                .stage("evalTap(…)")
             }
-            .trace("flatMap {…}")
+            .stage("flatMap {…}")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("handing errors")(
         range(
           Stream
-            .bracket(IO("abc").traceF())(_ => IO("d").traceF().void)
-            .trace("Stream.bracket(…)")
+            .bracket(IO("abc").stageF())(_ => IO("d").stageF().void)
+            .stage("Stream.bracket(…)")
             .flatMap { str =>
               Stream
                 .emits(str.toList)
-                .trace("Stream.emits(str.toList)")
+                .stage("Stream.emits(str.toList)")
                 .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-                .trace("evalTap(…)")
+                .stage("evalTap(…)")
             }
-            .trace("flatMap1")
+            .stage("flatMap1")
             .flatMap { str =>
               Stream(str)
                 .repeatN(2)
-                .trace("Stream.(str).repeatN(2)")
+                .stage("Stream.(str).repeatN(2)")
                 .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-                .trace("evalTap1(…)")
+                .stage("evalTap1(…)")
             }
-            .trace("flatMap {…}")
-            .handleErrorWith(_ => Stream('e', 'f').trace("Stream('e','f')"))
-            .trace("handleErrorWith(…)")
+            .stage("flatMap {…}")
+            .handleErrorWith(_ => Stream('e', 'f').stage("Stream('e','f')"))
+            .stage("handleErrorWith(…)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )
@@ -734,12 +734,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream
             .awakeEvery[IO](5.seconds)
             .map(_.toSeconds)
-            .trace("Stream.awakeEvery(5.seconds).map(…)")
+            .stage("Stream.awakeEvery(5.seconds).map(…)")
             .take(2)
-            .trace("take(2)")
+            .stage("take(2)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("delayBy", DrawChunked.OnlyChunked)(
@@ -747,12 +747,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .stage("Stream('a','b','c')…unchunks")
             .delayBy(5.seconds)
-            .trace("delayBy(5.seconds)")
+            .stage("delayBy(5.seconds)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("metered", DrawChunked.OnlyChunked)(
@@ -760,12 +760,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .stage("Stream('a','b','c')…unchunks")
             .metered(5.seconds)
-            .trace("metered(5.seconds)")
+            .stage("metered(5.seconds)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("debounce", DrawChunked.OnlyChunked)(
@@ -773,12 +773,12 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .chunkLimit(1)
             .unchunks
-            .trace("Stream('a','b','c')…unchunks")
+            .stage("Stream('a','b','c')…unchunks")
             .debounce(5.seconds)
-            .trace("debounce(5.seconds)")
+            .stage("debounce(5.seconds)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       ),
       example("debounce awake", DrawChunked.OnlyChunked)(
@@ -786,15 +786,15 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream
             .awakeEvery[IO](1.seconds)
             .map(_.toSeconds)
-            .trace("Stream.awakeEvery(1.seconds)…take(5)", "upstream")
+            .stage("Stream.awakeEvery(1.seconds)…take(5)", "upstream")
             .fork("root", "upstream")
             .debounce(2.seconds)
-            .trace("debounce(2.seconds)")
+            .stage("debounce(2.seconds)")
             .take(2)
-            .trace("take(2)")
+            .stage("take(2)")
             .compile
             .toList
-            .traceCompile("compile.toList")
+            .compileStage("compile.toList")
         )
       )
     )

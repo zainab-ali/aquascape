@@ -16,12 +16,12 @@
 
 package aquascape
 
-import cats.effect.{Trace => _, *}
+import cats.effect.*
 import fs2.*
 import munit.CatsEffectSuite
 import munit.Location
 
-class TraceSuite extends CatsEffectSuite {
+class StageSuite extends CatsEffectSuite {
   object Boom extends Throwable("BOOM!")
 
   import Event.*
@@ -36,15 +36,15 @@ class TraceSuite extends CatsEffectSuite {
     case other             => other
   }
 
-  private def simple[O](f: Trace[IO] ?=> IO[O]): IO[List[Event]] =
-    Trace.unchunked[IO].flatMap { t =>
+  private def simple[O](f: Stage[IO] ?=> IO[O]): IO[List[Event]] =
+    Stage.unchunked[IO].flatMap { t =>
       t.events(f(using t).attempt.void).compile.toList.map(_.map(_._1))
     }
 
   private def simpleChunked[O](
-      f: Trace[IO] ?=> IO[O]
+      f: Stage[IO] ?=> IO[O]
   ): IO[List[Event]] =
-    Trace.chunked[IO].flatMap { t =>
+    Stage.chunked[IO].flatMap { t =>
       t.events(f(using t)).compile.toList.map(_.map(_._1))
     }
 
@@ -90,10 +90,10 @@ class TraceSuite extends CatsEffectSuite {
   test("traces a single combinator") {
     val actual = simple {
       Stream("Mao")[IO]
-        .trace("source")
+        .stage("source")
         .compile
         .lastOrError
-        .traceCompile("last")
+        .compileStage("last")
     }
     val expected = List(
       loc(OpenScope(label = "source")),
@@ -110,10 +110,10 @@ class TraceSuite extends CatsEffectSuite {
   test("traces chunks") {
     val actual = simpleChunked {
       Stream("Mao", "Popcorn")[IO]
-        .trace("source")
+        .stage("source")
         .compile
         .lastOrError
-        .traceCompile("last")
+        .compileStage("last")
     }
     val expected = List(
       loc(OpenScope("source")),
@@ -130,12 +130,12 @@ class TraceSuite extends CatsEffectSuite {
   test("traces multiple combinators") {
     val actual = simple {
       Stream("Mao")[IO]
-        .trace("source")
+        .stage("source")
         .map(_.toUpperCase)
-        .trace("map")
+        .stage("map")
         .compile
         .lastOrError
-        .traceCompile("last")
+        .compileStage("last")
     }
     val expected = List(
       loc(OpenScope("map")),
@@ -158,15 +158,15 @@ class TraceSuite extends CatsEffectSuite {
   test("traces zipped streams") {
     val actual = simple {
       Stream("Mao")[IO]
-        .trace("left")
+        .stage("left")
         .zip(
           Stream("Popcorn")[IO]
-            .trace("right")
+            .stage("right")
         )
-        .trace("zip")
+        .stage("zip")
         .compile
         .lastOrError
-        .traceCompile("last")
+        .compileStage("last")
     }
     val expected = List(
       loc(OpenScope("zip")),
@@ -193,11 +193,11 @@ class TraceSuite extends CatsEffectSuite {
   test("traces effect evaluation") {
     val actual = simple {
       Stream
-        .eval(IO("Mao").traceF())
-        .trace("source")
+        .eval(IO("Mao").stageF())
+        .stage("source")
         .compile
         .lastOrError
-        .traceCompile("last")
+        .compileStage("last")
 
     }
     val expected = List(
@@ -216,12 +216,12 @@ class TraceSuite extends CatsEffectSuite {
   test("traces raising errors") {
     val actual = simple {
       Stream("Mao")[IO]
-        .trace("source")
+        .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
-        .trace("eval")
+        .stage("eval")
         .compile
         .lastOrError
-        .traceCompile("last")
+        .compileStage("last")
     }
     val expected = List(
       loc(OpenScope(label = "eval")),
@@ -241,14 +241,14 @@ class TraceSuite extends CatsEffectSuite {
   test("traces handling errors") {
     val actual = simple {
       Stream("Mao")[IO]
-        .trace("source")
+        .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
-        .trace("eval")
-        .handleErrorWith(_ => Stream.empty[IO].map(_.toString).trace("second"))
-        .trace("handle")
+        .stage("eval")
+        .handleErrorWith(_ => Stream.empty[IO].map(_.toString).stage("second"))
+        .stage("handle")
         .compile
         .drain
-        .traceCompile("drain")
+        .compileStage("drain")
     }
     val expected = List(
       loc(OpenScope("handle")),
@@ -274,21 +274,21 @@ class TraceSuite extends CatsEffectSuite {
     assertEvents(actual, expected)
   }
 
-  def bracket(suffix: String = "")(using t: Trace[IO]): Stream[IO, Unit] =
+  def bracket(suffix: String = "")(using t: Stage[IO]): Stream[IO, Unit] =
     Stream
-      .bracket(IO(s"acquire$suffix").traceF().void)(_ =>
-        IO(s"release$suffix").traceF().void
+      .bracket(IO(s"acquire$suffix").stageF().void)(_ =>
+        IO(s"release$suffix").stageF().void
       )
 
   test("traces resources and errors") {
     val actual = simple {
       bracket()
-        .trace("source")
+        .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
-        .trace("eval")
+        .stage("eval")
         .compile
         .drain
-        .traceCompile("drain")
+        .compileStage("drain")
     }
     val expected = List(
       loc(OpenScope("eval")),
@@ -309,14 +309,14 @@ class TraceSuite extends CatsEffectSuite {
   test("traces resources and error handling") {
     val actual = simple {
       bracket()
-        .trace("source")
+        .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
-        .trace("eval")
-        .handleErrorWith(_ => Stream.empty[IO].as(()).trace("second"))
-        .trace("handle")
+        .stage("eval")
+        .handleErrorWith(_ => Stream.empty[IO].as(()).stage("second"))
+        .stage("handle")
         .compile
         .drain
-        .traceCompile("drain")
+        .compileStage("drain")
     }
     val expected = List(
       loc(OpenScope("handle")),
@@ -347,16 +347,16 @@ class TraceSuite extends CatsEffectSuite {
   test("scope: error in parent") {
     val actual = simple {
       bracket("Left")
-        .trace("left")
+        .stage("left")
         .zip(
           bracket("Right")
-            .trace("right")
+            .stage("right")
         )
         .evalTap(_ => IO.raiseError[String](Boom))
-        .trace("eval")
+        .stage("eval")
         .compile
         .drain
-        .traceCompile("drain")
+        .compileStage("drain")
     }
     val expected = List(
       loc(OpenScope("eval")),
@@ -383,16 +383,16 @@ class TraceSuite extends CatsEffectSuite {
   test("scope: error in child") {
     val actual = simple {
       bracket("Left")
-        .trace("left")
+        .stage("left")
         .zip(
           bracket("Right")
             .evalTap(_ => IO.raiseError[String](Boom))
-            .trace("right")
+            .stage("right")
         )
-        .trace("zip")
+        .stage("zip")
         .compile
         .drain
-        .traceCompile("drain")
+        .compileStage("drain")
     }
     val expected = List(
       loc(OpenScope("zip")),
@@ -416,16 +416,16 @@ class TraceSuite extends CatsEffectSuite {
     assertEvents(actual, expected)
   }
 
-  test("trace parallel execution".ignore) {
+  test("stage parallel execution".ignore) {
     val actualIO = simple {
       Stream("Mao", "Popcorn", "Trouble")[IO]
-        .trace("source", branch = "s")
+        .stage("source", branch = "s")
         .fork("root", "s")
-        .parEvalMap(2)(IO(_).traceF())
-        .trace("parEvalMap")
+        .parEvalMap(2)(IO(_).stageF())
+        .stage("parEvalMap")
         .compile
         .drain
-        .traceCompile("drain")
+        .compileStage("drain")
     }
     assertEvents(actualIO, Nil)
   }
@@ -433,17 +433,17 @@ class TraceSuite extends CatsEffectSuite {
   test("traces merged streams") {
     val actualIO = simple {
       Stream("Mao")[IO]
-        .trace("left", branch = "l")
+        .stage("left", branch = "l")
         .fork("root", "l")
         .merge(
           Stream("Popcorn")[IO]
-            .trace("right", branch = "r")
+            .stage("right", branch = "r")
             .fork("root", "r")
         )
-        .trace("merge")
+        .stage("merge")
         .compile
         .drain
-        .traceCompile("drain")
+        .compileStage("drain")
     }
     actualIO.map { actualWithTokens =>
       val actual = actualWithTokens.map(replaceToken)
