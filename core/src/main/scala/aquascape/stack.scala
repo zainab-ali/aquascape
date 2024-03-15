@@ -26,7 +26,9 @@ type Branch = String
 
 opaque type Stack[F[_]] = Ref[F, Map[Branch, List[Label]]]
 extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
-  def bracketF[A](branch: Branch, child: Label)(fa: F[A]): F[A] =
+  private[aquascape] def bracketF[A](branch: Branch, child: Label)(
+      fa: F[A]
+  ): F[A] =
     summon[MonadCancelThrow[F]].bracket(
       stack.update { bs =>
         bs.get(branch).fold(bs) { case xs =>
@@ -41,7 +43,7 @@ extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
       }
     )
 
-  def forkTS(parent: Branch, child: Branch): F[Unit] = {
+  private[aquascape] def forkTS(parent: Branch, child: Branch): F[Unit] = {
     val updateOrError = stack.modify { bs =>
       bs.get(parent) match {
         case None => (bs, Some(ParentBranchNotFound(parent, child)))
@@ -54,11 +56,11 @@ extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
     }
   }
 
-  def peek(branch: Branch): F[List[Label]] = {
+  private[aquascape] def peek(branch: Branch): F[List[Label]] = {
     stack.get.map(_.getOrElse(branch, Nil))
   }
 
-  def bracket[O, A](branch: Branch, child: Label)(
+  private[aquascape] def bracket[O, A](branch: Branch, child: Label)(
       fa: Pull[F, O, A]
   ): Pull[F, O, A] =
     Pull.bracketCase(

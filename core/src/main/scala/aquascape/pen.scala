@@ -17,12 +17,12 @@
 package aquascape
 
 import cats.*
-import cats.effect.Ref
+import cats.effect.*
 import cats.syntax.all.*
 import fs2.*
 import fs2.concurrent.Channel
 
-trait Pen[F[_], E] {
+private trait Pen[F[_], E] {
   def bracket[A](branch: Branch, child: Label)(fa: F[A]): F[A]
   def bracket[O, A](branch: Branch, child: Label)(
       fa: Pull[F, O, A]
@@ -34,11 +34,10 @@ trait Pen[F[_], E] {
   def events: Stream[F, E]
   def close: F[Unit]
 }
-import cats.effect.*
 
 val root = "root"
 
-object Pen {
+private object Pen {
 
   def apply[F[_]: Async, E]: F[Pen[F, E]] =
     (

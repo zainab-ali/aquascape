@@ -21,7 +21,9 @@ import cats.Foldable
 import cats.effect.Unique
 import cats.syntax.all.*
 
-def eventsToDiagram[F[_]: Foldable](events: F[(Event, Time)]): Diagram = {
+private def eventsToDiagram[F[_]: Foldable](
+    events: F[(Event, Time)]
+): Diagram = {
 
   case class PullCoord(progress: Int, from: Int, to: Int)
   type TokenMapEntry = (Unique.Token, PullCoord)
