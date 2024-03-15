@@ -22,6 +22,6 @@ case class ParentBranchNotFound(parent: String, child: String)
     )
 
 object MissingStageException
-      extends Throwable(
-        "A stage is missing. Did you forget to `compileStage` ?"
-      )
+    extends Throwable(
+      "A stage is missing. Did you forget to `compileStage` ?"
+    )
