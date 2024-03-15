@@ -39,7 +39,9 @@ private def foldLeftM[A, B, F[_]: Monad](
     case h :: t => foldLeftM(t)(b)(f).flatMap(f(_, h))
     case Nil    => b.pure[F]
   }
-def diagramToPicture(config: Config)(diagram: Diagram): Picture[Unit] = {
+private[drawing] def diagramToPicture(
+    config: Config
+)(diagram: Diagram): Picture[Unit] = {
 
   def picture(config: Config)(
       item: Item,

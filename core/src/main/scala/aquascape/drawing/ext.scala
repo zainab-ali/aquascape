@@ -20,6 +20,6 @@ import aquascape.Time
 import cats.Foldable
 
 extension [F[_]: Foldable](events: F[(Event, Time)]) {
-  def toPicture(config: Config): Picture[Unit] =
+  private[aquascape] def toPicture(config: Config): Picture[Unit] =
     diagramToPicture(config)(eventsToDiagram(events))
 }

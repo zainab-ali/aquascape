@@ -19,8 +19,8 @@ import doodle.core.Color
 import doodle.core.font.Font
 import doodle.core.font.FontFamily
 
-final case class Diagram(labels: List[String], items: List[Item])
-enum Item {
+private final case class Diagram(labels: List[String], items: List[Item])
+private enum Item {
   case Pull(from: Int, to: Int)
   case Done(from: Int, to: Int, pullProgress: Int)
   // Do we care that this is anything more than a text box placed along a connector?
@@ -43,8 +43,6 @@ enum Item {
   )
   case Finished(value: String, errored: Boolean)
 }
-
-type Progress = Int
 
 final case class Config(
     // The dash style used to mark the horizontal stage line
@@ -93,7 +91,6 @@ final case class Config(
   )
 }
 object Config {
-  // TODO: Tweak default values
   def default: Config = Config(
     stageLineStrokeDash = Array(4, 4),
     stageLineColor = Color.grey,

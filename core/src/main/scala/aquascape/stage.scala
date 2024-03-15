@@ -40,13 +40,13 @@ trait Stage[F[_]] {
   /** Given a compiled stream `fo` which has been staged, output a stream of
     * events.
     */
-  def events[O](fo: F[O]): Stream[F, (Event, Time)]
+  private[aquascape] def events[O](fo: F[O]): Stream[F, (Event, Time)]
 }
 
 object Stage {
 
   extension [F[_], A](fa: F[A]) {
-    def lift: Pull[F, Nothing, A] = Pull.eval(fa)
+    private[Stage] def lift: Pull[F, Nothing, A] = Pull.eval(fa)
   }
 
   def unchunked[F[_]: Async]: F[Stage[F]] = Pen[F, (Event, Time)].map { pen =>
