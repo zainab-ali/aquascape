@@ -362,7 +362,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .stage("""Stream('a','b','c')""")
             .flatMap { x =>
-              Stream.bracket(IO(s"<$x").stageF())(_ => IO(s"$x>").stageF().void)
+              Stream.bracket(IO(s"<$x").trace())(_ => IO(s"$x>").trace().void)
             }
             .stage("flatMap {…}")
             .compile
@@ -480,7 +480,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
         range(
           Stream('a', 'b', 'c')
             .stage("Stream('a','b','c')")
-            .evalMap(_.pure[IO].stageF())
+            .evalMap(_.pure[IO].trace())
             .stage("evalMap")
             .compile
             .toList
@@ -491,9 +491,9 @@ class Examples extends GoldenSuite with LowPriorityShow {
         range(
           Stream('a', 'b', 'c')
             .stage("Stream('a','b','c')")
-            .evalTap(char => IO(s"$char 1").stageF())
+            .evalTap(char => IO(s"$char 1").trace())
             .stage("evalTap1")
-            .evalTap(char => IO(s"$char 2").stageF())
+            .evalTap(char => IO(s"$char 2").trace())
             .stage("evalTap2")
             .compile
             .toList
@@ -503,7 +503,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("exec")(
         range(
           Stream
-            .exec(IO('a').stageF().void)
+            .exec(IO('a').trace().void)
             .stage("Stream.exec(…)")
             .compile
             .last
@@ -513,7 +513,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("eval")(
         range(
           Stream
-            .eval(IO('a').stageF())
+            .eval(IO('a').trace())
             .stage("Stream.eval(…)")
             .compile
             .last
@@ -525,7 +525,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .stage("Stream('a','b','c')", "upstream")
             .fork("root", "upstream")
-            .parEvalMap(2)(_.pure[IO].stageF())
+            .parEvalMap(2)(_.pure[IO].trace())
             .stage("parEvalMap(2)(…)")
             .compile
             .drain
@@ -537,7 +537,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
           Stream('a', 'b', 'c')
             .stage("Stream('a','b','c')", "upstream")
             .fork("root", "upstream")
-            .parEvalMapUnordered(2)(_.pure[IO].stageF())
+            .parEvalMapUnordered(2)(_.pure[IO].trace())
             .stage("parEvalMapUnordered(2)(…)")
             .compile
             .drain
@@ -563,7 +563,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
         range(
           Stream('a', 'b', 'c')
             .stage("Stream('a','b','c')")
-            .evalMap(x => IO.raiseWhen(x == 'b')(Err).stageF())
+            .evalMap(x => IO.raiseWhen(x == 'b')(Err).trace())
             .stage("evalMap(IO.raiseWhen(_ == 'b')(Err))")
             .compile
             .toList
@@ -606,7 +606,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
               IO.raiseWhen(x == 'b')(Err)
                 .as(x)
                 .handleError(_ => 'd')
-                .stageF()
+                .trace()
             )
             .stage("evalTap(…)")
             .handleError(_ => 'd')
@@ -665,7 +665,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("bracket")(
         range(
           Stream
-            .bracket(IO("abc").stageF())(_ => IO("d").stageF().void)
+            .bracket(IO("abc").trace())(_ => IO("d").trace().void)
             .stage("Stream.bracket(…)")
             .flatMap { str =>
               Stream
@@ -681,7 +681,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("raising errors")(
         range(
           Stream
-            .bracket(IO("abc").stageF())(_ => IO("d").stageF().void)
+            .bracket(IO("abc").trace())(_ => IO("d").trace().void)
             .stage("Stream.bracket(…)")
             .flatMap { str =>
               Stream
@@ -699,7 +699,7 @@ class Examples extends GoldenSuite with LowPriorityShow {
       example("handing errors")(
         range(
           Stream
-            .bracket(IO("abc").stageF())(_ => IO("d").stageF().void)
+            .bracket(IO("abc").trace())(_ => IO("d").trace().void)
             .stage("Stream.bracket(…)")
             .flatMap { str =>
               Stream
