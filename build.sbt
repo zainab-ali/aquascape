@@ -7,7 +7,6 @@ ThisBuild / organizationName := "Zainab Ali"
 ThisBuild / startYear := Some(2023)
 ThisBuild / licenses := Seq(License.Apache2)
 ThisBuild / developers := List(
-  // your GitHub handle and name
   tlGitHubDev("zainab-ali", "Zainab Ali")
 )
 
@@ -17,7 +16,7 @@ ThisBuild / tlSonatypeUseLegacyHost := false
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala3 = "3.3.1"
+val Scala3 = "3.4.0"
 ThisBuild / crossScalaVersions := Seq(Scala3)
 ThisBuild / scalaVersion := Scala3 // the default Scala
 
@@ -30,23 +29,23 @@ lazy val core = crossProject(JVMPlatform)
     name := "aquascape",
     fork := true,
     libraryDependencies ++= Seq(
-      "co.fs2" %%% "fs2-core" % "3.9.1",
-      "co.fs2" %%% "fs2-io" % "3.9.1",
-      ("org.creativescala" %%% "doodle" % "0.20.0")
+      "co.fs2" %%% "fs2-core" % "3.9.4",
+      "co.fs2" %%% "fs2-io" % "3.9.4",
+      ("org.creativescala" %%% "doodle" % "0.21.0")
         .exclude(org = "com.lihaoyi", name = "sourcecode_3"),
       "org.typelevel" %%% "cats-core" % "2.10.0",
-      "org.typelevel" %%% "cats-effect" % "3.5.1",
+      "org.typelevel" %%% "cats-effect" % "3.5.4",
+      "org.typelevel" %% "cats-effect-testkit" % "3.5.4" % Test,
       "org.scalameta" %%% "munit" % "0.7.29" % Test,
-      ("org.scalameta" %%% "scalameta" % "4.8.15" % Test)
+      ("org.scalameta" %%% "scalameta" % "4.9.2" % Test)
         .cross(CrossVersion.for3Use2_13),
       "org.typelevel" %%% "munit-cats-effect-3" % "1.0.7" % Test,
-      ("org.scalameta" %% "scalafmt-core" % "3.7.17" % Test)
+      ("org.scalameta" %% "scalafmt-core" % "3.8.0" % Test)
         .cross(CrossVersion.for3Use2_13),
       ("com.lihaoyi" %% "sourcecode" % "0.3.1" % Test)
         .cross(CrossVersion.for3Use2_13),
       ("com.lihaoyi" %% "pprint" % "0.8.1" % Test)
-        .cross(CrossVersion.for3Use2_13),
-      "org.typelevel" %% "cats-effect-testkit" % "3.5.3" % Test
+        .cross(CrossVersion.for3Use2_13)
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
     buildInfoPackage := "aquascape",
