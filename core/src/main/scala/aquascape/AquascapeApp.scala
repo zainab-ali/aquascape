@@ -16,11 +16,11 @@
 
 package aquascape
 
-import cats.effect.*
 import aquascape.drawing.Config
+import cats.effect.*
+import doodle.core.format.*
 import doodle.java2d.*
 import doodle.syntax.all.*
-import doodle.core.format.*
 
 object AquascapeApp {
   trait Core {
