@@ -38,14 +38,16 @@ class StageSuite extends CatsEffectSuite {
 
   private def simple[O](f: Stage[IO] ?=> IO[O]): IO[List[Event]] =
     Stage.unchunked[IO].flatMap { t =>
-      t.events(f(using t).attempt.void).compile.toList.map(_.map(_._1))
+      t.events(f(using t).attempt.void)
+        .map(_._1.map(_._1).toList)
     }
 
   private def simpleChunked[O](
       f: Stage[IO] ?=> IO[O]
   ): IO[List[Event]] =
     Stage.chunked[IO].flatMap { t =>
-      t.events(f(using t)).compile.toList.map(_.map(_._1))
+      t.events(f(using t))
+        .map(_._1.map(_._1).toList)
     }
 
   def assertContains(
@@ -94,9 +96,7 @@ class StageSuite extends CatsEffectSuite {
           .stage("source")
           .compile
           .lastOrError
-      ).compile
-        .lastOrError
-        .attempt
+      ).attempt
     }
     assertIO(
       program,
@@ -113,9 +113,7 @@ class StageSuite extends CatsEffectSuite {
           .compile
           .lastOrError
           .compileStage("lastOrError")
-      ).compile
-        .lastOrError
-        .attempt
+      ).attempt
     }
     assertIO(
       program,
