@@ -18,7 +18,6 @@ package aquascape
 
 import cats.*
 import cats.effect.*
-import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import fs2.*
 
