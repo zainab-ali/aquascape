@@ -40,7 +40,7 @@ trait Stage[F[_]] {
   /** Given a compiled stream `fo` which has been staged, output a stream of
     * events.
     */
-  private[aquascape] def events[O](fo: F[O]): Stream[F, (Event, Time)]
+  private[aquascape] def events[O](fo: F[O]): F[(Vector[(Event, Time)], O)]
 }
 
 object Stage {
@@ -49,52 +49,57 @@ object Stage {
     private[Stage] def lift: Pull[F, Nothing, A] = Pull.eval(fa)
   }
 
-  def unchunked[F[_]: Async]: F[Stage[F]] = Pen[F, (Event, Time)].map { pen =>
-    new {
-      def stage[O: Show](label: Label, branch: Branch)(
-          s: Stream[F, O]
-      ): Stream[F, O] =
-        stage_[F, O, O](
-          _.uncons1,
-          (o, tok) => Event.Output(o.show, tok),
-          Pull.output1(_),
-          pen
-        )(label, branch)(s)
+  def unchunked[F[_]: Async: NonEmptyParallel]: F[Stage[F]] =
+    Pen[F, (Event, Time)].map { pen =>
+      new {
+        def stage[O: Show](label: Label, branch: Branch)(
+            s: Stream[F, O]
+        ): Stream[F, O] =
+          stage_[F, O, O](
+            _.uncons1,
+            (o, tok) => Event.Output(o.show, tok),
+            Pull.output1(_),
+            pen
+          )(label, branch)(s)
 
-      def trace[O: Show](fo: F[O], branch: Branch): F[O] =
-        trace_(pen, fo, branch)
-      def fork[O](parent: Branch, child: Branch)(
-          s: Stream[F, O]
-      ): Stream[F, O] = fork_(pen)(parent, child)(s)
-      def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
-        compileStage_(pen, fo, branch)
-      def events[O](fo: F[O]): Stream[F, (Event, Time)] = events_(pen, fo)
+        def trace[O: Show](fo: F[O], branch: Branch): F[O] =
+          trace_(pen, fo, branch)
+        def fork[O](parent: Branch, child: Branch)(
+            s: Stream[F, O]
+        ): Stream[F, O] = fork_(pen)(parent, child)(s)
+        def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
+          compileStage_(pen, fo, branch)
+
+        def events[O](fo: F[O]): F[(Vector[(Event, Time)], O)] =
+          events_(pen, fo)
+      }
     }
-  }
 
-  def chunked[F[_]: Async]: F[Stage[F]] = Pen[F, (Event, Time)].map { pen =>
-    new {
-      def stage[O: Show](label: Label, branch: Branch)(
-          s: Stream[F, O]
-      ): Stream[F, O] =
-        stage_[F, O, Chunk[O]](
-          _.uncons,
-          (chk, tok) => Event.OutputChunk(chk.map(_.show), tok),
-          Pull.output(_),
-          pen
-        )(label, branch)(s)
+  def chunked[F[_]: Async: NonEmptyParallel]: F[Stage[F]] =
+    Pen[F, (Event, Time)].map { pen =>
+      new {
+        def stage[O: Show](label: Label, branch: Branch)(
+            s: Stream[F, O]
+        ): Stream[F, O] =
+          stage_[F, O, Chunk[O]](
+            _.uncons,
+            (chk, tok) => Event.OutputChunk(chk.map(_.show), tok),
+            Pull.output(_),
+            pen
+          )(label, branch)(s)
 
-      def trace[O: Show](fo: F[O], branch: Branch): F[O] =
-        trace_(pen, fo, branch)
-      def fork[O](parent: Branch, child: Branch)(
-          s: Stream[F, O]
-      ): Stream[F, O] = fork_(pen)(parent, child)(s)
+        def trace[O: Show](fo: F[O], branch: Branch): F[O] =
+          trace_(pen, fo, branch)
+        def fork[O](parent: Branch, child: Branch)(
+            s: Stream[F, O]
+        ): Stream[F, O] = fork_(pen)(parent, child)(s)
 
-      def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
-        compileStage_(pen, fo, branch)
-      def events[O](fo: F[O]): Stream[F, (Event, Time)] = events_(pen, fo)
+        def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
+          compileStage_(pen, fo, branch)
+        def events[O](fo: F[O]): F[(Vector[(Event, Time)], O)] =
+          events_(pen, fo)
+      }
     }
-  }
 
   private def time[F[_]: Temporal]: F[Time] =
     summon[Temporal[F]].realTime.map(t => Time(t.toSeconds.toInt))
@@ -223,13 +228,10 @@ object Stage {
         ) >> err.raiseError
     })
 
-  private def events_[F[_]: Concurrent, O](
+  private def events_[F[_]: Concurrent: NonEmptyParallel, O](
       pen: Pen[F, (Event, Time)],
       fo: F[O]
-  ): Stream[F, (Event, Time)] =
-    pen.events
-      .concurrently(
-        Stream.exec(fo >> pen.close)
-      )
+  ): F[(Vector[(Event, Time)], O)] =
+    (pen.events.compile.toVector, fo.flatTap(_ => pen.close)).parTupled
 
 }

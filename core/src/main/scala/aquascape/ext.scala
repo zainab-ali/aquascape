@@ -37,10 +37,12 @@ extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Stage[F]) {
 }
 
 extension [F[_]: Async, O](fo: F[O])(using t: Stage[F]) {
-  def draw(config: Config = Config.default): F[Picture[Unit]] = {
+  def run(config: Config = Config.default): F[(Picture[Unit], O)] = {
     t.events(fo)
-      .compile
-      .toVector
-      .map(_.toPicture(config))
+      .map { case (events, o) => (events.toPicture(config), o) }
+  }
+
+  def draw(config: Config = Config.default): F[Picture[Unit]] = {
+    run(config).map(_._1)
   }
 }
