@@ -48,8 +48,7 @@ lazy val core = crossProject(JVMPlatform)
         .cross(CrossVersion.for3Use2_13)
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
-    buildInfoPackage := "aquascape",
-    publish := false
+    buildInfoPackage := "aquascape"
   )
   .enablePlugins(BuildInfoPlugin)
 
