@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-23.05;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-23.11;
     flake-utils.url = github:numtide/flake-utils;
   };
 
@@ -11,7 +11,7 @@
       in
       {
         devShell = pkgs.mkShell {
-          name = "stoop-shell";
+          name = "aquascape-shell";
           buildInputs = with pkgs; [
             scala_3
             sbt
