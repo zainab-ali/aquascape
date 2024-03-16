@@ -16,7 +16,7 @@
 
 package aquascape.golden
 
-import aquascape.Stage
+import aquascape.Scape
 import cats.effect.IO
 import cats.effect.testkit.*
 import cats.syntax.all.*
@@ -51,9 +51,9 @@ trait GoldenSuite extends CatsEffectSuite {
   }
 
   def example(name: String, drawChunked: DrawChunked = DrawChunked.Yes)(
-      f: Stage[IO] ?=> StreamCode
+      f: Scape[IO] ?=> StreamCode
   )(using parent: TestName): IO[Unit] = {
-    def write(suffix: String)(using Stage[IO]): IO[Unit] = {
+    def write(suffix: String)(using Scape[IO]): IO[Unit] = {
       import doodle.java2d.*
       val streamCode: StreamCode = f
       val exampleName: ExampleName =
@@ -66,15 +66,15 @@ trait GoldenSuite extends CatsEffectSuite {
         exampleName
       )
     }
-    Stage
+    Scape
       .unchunked[IO]
-      .flatMap { case given Stage[IO] =>
+      .flatMap { case given Scape[IO] =>
         write("")
       }
       .unlessA(drawChunked == DrawChunked.OnlyChunked) >>
-      Stage
+      Scape
         .chunked[IO]
-        .flatMap { case given Stage[IO] =>
+        .flatMap { case given Scape[IO] =>
           write(" (with chunks)")
         }
         .unlessA(drawChunked == DrawChunked.No)
@@ -88,7 +88,7 @@ private def drawStream[Fmt <: Format, Frame](
     stream: IO[Any],
     exampleName: ExampleName
 )(using
-    Stage[IO],
+    Scape[IO],
     Writer[aquascape.drawing.Picture.Algebra, Frame, Fmt]
 ): IO[Unit] =
   import aquascape.*

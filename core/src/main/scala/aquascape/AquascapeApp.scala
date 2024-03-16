@@ -26,22 +26,22 @@ object AquascapeApp {
   trait Core {
     def config: Config = Config.default
 
-    def stream(using Stage[IO]): IO[Unit]
+    def stream(using Scape[IO]): IO[Unit]
   }
 
   trait Simple extends IOApp.Simple with Core {
-    def run: IO[Unit] = Stage
+    def run: IO[Unit] = Scape
       .unchunked[IO]
-      .flatMap { case t @ given Stage[IO] =>
+      .flatMap { case t @ given Scape[IO] =>
         stream(using t).draw()
       }
       .flatMap(_.drawToIO())
   }
   object Simple {
     abstract class File(name: String) extends IOApp.Simple with Core {
-      def run: IO[Unit] = Stage
+      def run: IO[Unit] = Scape
         .unchunked[IO]
-        .flatMap { case t @ given Stage[IO] =>
+        .flatMap { case t @ given Scape[IO] =>
           stream(using t).draw()
         }
         .flatMap(_.writeToIO[Png](s"$name.png"))
@@ -49,9 +49,9 @@ object AquascapeApp {
   }
 
   trait Chunked extends IOApp.Simple with Core {
-    def run: IO[Unit] = Stage
+    def run: IO[Unit] = Scape
       .unchunked[IO]
-      .flatMap { case t @ given Stage[IO] =>
+      .flatMap { case t @ given Scape[IO] =>
         stream(using t).draw()
       }
       .flatMap(_.drawToIO())
@@ -59,9 +59,9 @@ object AquascapeApp {
 
   object Chunked {
     abstract class File(name: String) extends IOApp.Simple with Core {
-      def run: IO[Unit] = Stage
+      def run: IO[Unit] = Scape
         .chunked[IO]
-        .flatMap { case t @ given Stage[IO] =>
+        .flatMap { case t @ given Scape[IO] =>
           stream(using t).draw()
         }
         .flatMap(_.writeToIO[Png](s"$name.png"))

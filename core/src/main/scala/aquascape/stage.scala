@@ -21,7 +21,7 @@ import cats.effect.*
 import cats.syntax.all.*
 import fs2.*
 
-trait Stage[F[_]] {
+trait Scape[F[_]] {
 
   /** Record a stage of pulls and outputs surrounding this stream. */
   def stage[O: Show](label: Label, branch: Branch)(
@@ -43,13 +43,13 @@ trait Stage[F[_]] {
   private[aquascape] def events[O](fo: F[O]): F[(Vector[(Event, Time)], O)]
 }
 
-object Stage {
+object Scape {
 
   extension [F[_], A](fa: F[A]) {
-    private[Stage] def lift: Pull[F, Nothing, A] = Pull.eval(fa)
+    private[Scape] def lift: Pull[F, Nothing, A] = Pull.eval(fa)
   }
 
-  def unchunked[F[_]: Async: NonEmptyParallel]: F[Stage[F]] =
+  def unchunked[F[_]: Async: NonEmptyParallel]: F[Scape[F]] =
     Pen[F, (Event, Time)].map { pen =>
       new {
         def stage[O: Show](label: Label, branch: Branch)(
@@ -75,7 +75,7 @@ object Stage {
       }
     }
 
-  def chunked[F[_]: Async: NonEmptyParallel]: F[Stage[F]] =
+  def chunked[F[_]: Async: NonEmptyParallel]: F[Scape[F]] =
     Pen[F, (Event, Time)].map { pen =>
       new {
         def stage[O: Show](label: Label, branch: Branch)(
