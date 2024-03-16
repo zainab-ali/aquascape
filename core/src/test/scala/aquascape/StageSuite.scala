@@ -21,7 +21,7 @@ import fs2.*
 import munit.CatsEffectSuite
 import munit.Location
 
-class StageSuite extends CatsEffectSuite {
+class ScapeSuite extends CatsEffectSuite {
   object Boom extends Throwable("BOOM!")
 
   import Event.*
@@ -36,16 +36,16 @@ class StageSuite extends CatsEffectSuite {
     case other             => other
   }
 
-  private def simple[O](f: Stage[IO] ?=> IO[O]): IO[List[Event]] =
-    Stage.unchunked[IO].flatMap { t =>
+  private def simple[O](f: Scape[IO] ?=> IO[O]): IO[List[Event]] =
+    Scape.unchunked[IO].flatMap { t =>
       t.events(f(using t).attempt.void)
         .map(_._1.map(_._1).toList)
     }
 
   private def simpleChunked[O](
-      f: Stage[IO] ?=> IO[O]
+      f: Scape[IO] ?=> IO[O]
   ): IO[List[Event]] =
-    Stage.chunked[IO].flatMap { t =>
+    Scape.chunked[IO].flatMap { t =>
       t.events(f(using t))
         .map(_._1.map(_._1).toList)
     }
@@ -90,7 +90,7 @@ class StageSuite extends CatsEffectSuite {
   private def loc[A](a: A)(using l: Location): (A, Location) = (a, l)
 
   test("raises an error when compileStage is not present") {
-    val program = Stage.unchunked[IO].flatMap { case t @ (given Stage[IO]) =>
+    val program = Scape.unchunked[IO].flatMap { case t @ (given Scape[IO]) =>
       t.events(
         Stream("Mao")[IO]
           .stage("source")
@@ -105,7 +105,7 @@ class StageSuite extends CatsEffectSuite {
   }
 
   test("raises an error when compileStage is not present") {
-    val program = Stage.unchunked[IO].flatMap { case t @ (given Stage[IO]) =>
+    val program = Scape.unchunked[IO].flatMap { case t @ (given Scape[IO]) =>
       t.events(
         Stream("Mao")[IO]
           .stage("source")
@@ -308,7 +308,7 @@ class StageSuite extends CatsEffectSuite {
     assertEvents(actual, expected)
   }
 
-  def bracket(suffix: String = "")(using t: Stage[IO]): Stream[IO, Unit] =
+  def bracket(suffix: String = "")(using t: Scape[IO]): Stream[IO, Unit] =
     Stream
       .bracket(IO(s"acquire$suffix").trace().void)(_ =>
         IO(s"release$suffix").trace().void

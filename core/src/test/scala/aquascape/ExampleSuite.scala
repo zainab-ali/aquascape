@@ -27,7 +27,7 @@ import munit.*
 
 trait LowPriorityShow {
   given Show[Either[Throwable, Char]] = {
-    case Left(Stage.Caught(err)) => s"Left(${err.getMessage})"
+    case Left(Scape.Caught(err)) => s"Left(${err.getMessage})"
     case Left(err)               => s"Left(${err.getMessage})"
     case Right(c)                => s"Right(${c.show})"
   }
