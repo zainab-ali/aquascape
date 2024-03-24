@@ -1,1 +1,1 @@
-Diagrams for [fs2](https://github.com/typelevel/fs2).
+Visit the [website](https://zainab-ali.github.io/aquascape/) for more details.
