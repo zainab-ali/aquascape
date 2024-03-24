@@ -29,8 +29,8 @@ lazy val core = crossProject(JVMPlatform)
     name := "aquascape",
     fork := true,
     libraryDependencies ++= Seq(
-      "co.fs2" %%% "fs2-core" % "3.9.4",
-      "co.fs2" %%% "fs2-io" % "3.9.4",
+      "co.fs2" %%% "fs2-core" % "3.10.1",
+      "co.fs2" %%% "fs2-io" % "3.10.1",
       ("org.creativescala" %%% "doodle" % "0.21.0")
         .exclude(org = "com.lihaoyi", name = "sourcecode_3"),
       "org.typelevel" %%% "cats-core" % "2.10.0",
