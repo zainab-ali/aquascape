@@ -40,7 +40,7 @@ lazy val core = crossProject(JVMPlatform)
       ("org.scalameta" %%% "scalameta" % "4.9.2" % Test)
         .cross(CrossVersion.for3Use2_13),
       "org.typelevel" %%% "munit-cats-effect-3" % "1.0.7" % Test,
-      ("org.scalameta" %% "scalafmt-core" % "3.8.0" % Test)
+      ("org.scalameta" %% "scalafmt-core" % "3.8.1" % Test)
         .cross(CrossVersion.for3Use2_13),
       ("com.lihaoyi" %% "sourcecode" % "0.3.1" % Test)
         .cross(CrossVersion.for3Use2_13),
