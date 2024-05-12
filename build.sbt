@@ -1,3 +1,5 @@
+import com.typesafe.tools.mima.core._
+
 Global / onChangedBuildSource := ReloadOnSourceChanges
 // https://typelevel.org/sbt-typelevel/faq.html#what-is-a-base-version-anyway
 ThisBuild / tlBaseVersion := "0.1" // your current series x.y
@@ -48,7 +50,11 @@ lazy val core = crossProject(JVMPlatform)
         .cross(CrossVersion.for3Use2_13)
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
-    buildInfoPackage := "aquascape"
+    buildInfoPackage := "aquascape",
+    mimaBinaryIssueFilters += ProblemFilters
+      .exclude[DirectMissingMethodProblem](
+        "aquascape.drawing.Config.minProgressWidth"
+      )
   )
   .enablePlugins(BuildInfoPlugin)
 
