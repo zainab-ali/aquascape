@@ -44,7 +44,7 @@ lazy val core = crossProject(JVMPlatform)
         .cross(CrossVersion.for3Use2_13),
       ("com.lihaoyi" %% "sourcecode" % "0.3.1" % Test)
         .cross(CrossVersion.for3Use2_13),
-      ("com.lihaoyi" %% "pprint" % "0.8.1" % Test)
+      ("com.lihaoyi" %% "pprint" % "0.9.0" % Test)
         .cross(CrossVersion.for3Use2_13)
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
