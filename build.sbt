@@ -24,8 +24,7 @@ ThisBuild / scalaVersion := Scala3 // the default Scala
 
 lazy val root = tlCrossRootProject.aggregate(core)
 
-lazy val core = crossProject(JVMPlatform)
-  .crossType(CrossType.Pure)
+lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
   .settings(
     name := "aquascape",
@@ -33,8 +32,8 @@ lazy val core = crossProject(JVMPlatform)
     libraryDependencies ++= Seq(
       "co.fs2" %%% "fs2-core" % "3.10.2",
       "co.fs2" %%% "fs2-io" % "3.10.2",
-      ("org.creativescala" %%% "doodle" % "0.22.0")
-        .exclude(org = "com.lihaoyi", name = "sourcecode_3"),
+      ("org.creativescala" %%% "doodle-core" % "0.22.0")
+        .excludeAll("com.lihaoyi"),
       "org.typelevel" %%% "cats-core" % "2.10.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
       "org.typelevel" %% "cats-effect-testkit" % "3.5.4" % Test,
@@ -42,11 +41,7 @@ lazy val core = crossProject(JVMPlatform)
       ("org.scalameta" %%% "scalameta" % "4.9.3" % Test)
         .cross(CrossVersion.for3Use2_13),
       "org.typelevel" %%% "munit-cats-effect-3" % "1.0.7" % Test,
-      ("org.scalameta" %% "scalafmt-core" % "3.8.1" % Test)
-        .cross(CrossVersion.for3Use2_13),
-      ("com.lihaoyi" %% "sourcecode" % "0.4.1" % Test)
-        .cross(CrossVersion.for3Use2_13),
-      ("com.lihaoyi" %% "pprint" % "0.9.0" % Test)
+      ("com.lihaoyi" %%% "pprint" % "0.9.0" % Test)
         .cross(CrossVersion.for3Use2_13)
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
@@ -55,6 +50,21 @@ lazy val core = crossProject(JVMPlatform)
       .exclude[DirectMissingMethodProblem](
         "aquascape.drawing.Config.minProgressWidth"
       )
+  )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "org.creativescala" %% "doodle-java2d" % "0.22.0",
+      ("org.scalameta" %% "scalafmt-core" % "3.8.1" % Test)
+        .cross(CrossVersion.for3Use2_13),
+      ("com.lihaoyi" %% "sourcecode" % "0.4.1" % Test)
+        .cross(CrossVersion.for3Use2_13)
+    )
+  )
+  .jsSettings(
+    Test / fork := false,
+    libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.22.0")
+      .excludeAll("com.lihaoyi"),
+    mimaPreviousArtifacts := Set.empty
   )
   .enablePlugins(BuildInfoPlugin)
 
