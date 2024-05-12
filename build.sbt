@@ -31,7 +31,7 @@ lazy val core = crossProject(JVMPlatform)
     libraryDependencies ++= Seq(
       "co.fs2" %%% "fs2-core" % "3.10.2",
       "co.fs2" %%% "fs2-io" % "3.10.2",
-      ("org.creativescala" %%% "doodle" % "0.21.0")
+      ("org.creativescala" %%% "doodle" % "0.22.0")
         .exclude(org = "com.lihaoyi", name = "sourcecode_3"),
       "org.typelevel" %%% "cats-core" % "2.10.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",

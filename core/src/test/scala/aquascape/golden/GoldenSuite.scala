@@ -81,7 +81,7 @@ trait GoldenSuite extends CatsEffectSuite {
   }
 }
 
-import doodle.effect.Writer
+import doodle.effect.FileWriter
 import doodle.core.format.Format
 
 private def drawStream[Fmt <: Format, Frame](
@@ -89,7 +89,7 @@ private def drawStream[Fmt <: Format, Frame](
     exampleName: ExampleName
 )(using
     Scape[IO],
-    Writer[aquascape.drawing.Picture.Algebra, Frame, Fmt]
+    FileWriter[aquascape.drawing.Picture.Algebra, Frame, Fmt]
 ): IO[Unit] =
   import aquascape.*
   import doodle.syntax.all.*
