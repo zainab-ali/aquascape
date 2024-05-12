@@ -80,18 +80,18 @@ private[drawing] def diagramToPicture(
           .font(config.font)
         val length = i.from - i.to
         val picture =
-          text.width.flatMap { width =>
+          (text.width, text.height).flatMapN { case (width, height) =>
             // Draw an arrow upwards
             arrow(config)(length * config.stageHeight - 5)
               // Reflect in the X axis such that the arrow head is in negative Y
               .verticalReflection
-              // Move the origin to the centre of the arrow line.
-              .originAt(0.0, -(length * config.stageHeight - 5).abs * 0.5)
+              // Move the origin to just beyond the start of the arrow line.
+              .originAt(0.0, -(height * 0.5))
               .beside(text)
-              // Position the origin at the top
+              // Position the origin at the top left
               .originAt(
                 -((width / 2.0)),
-                (length * config.stageHeight + 5).abs * 0.5
+                height * 0.5
               )
               // Position the base of the arrow at the "from" stage
               .at(
@@ -115,7 +115,7 @@ private[drawing] def diagramToPicture(
         picture.width.map(w =>
           (
             picture.on(pullToOutput),
-            w.toInt
+            w.toInt + config.outputPaddingRight
           )
         )
       case i: Item.Output =>
@@ -125,23 +125,24 @@ private[drawing] def diagramToPicture(
           .text(i.value)
           .font(config.font)
           .strokeColor(config.outputColor)
-        val picture = text.width.flatMap { width =>
-          // Draw an arrow upwards
-          arrow(config)(length * config.stageHeight - 5)
-            // Reflect in the X axis such that the arrow head is in negative Y
-            .verticalReflection
-            // Move the origin to the centre of the arrow line.
-            .originAt(0.0, -(length * config.stageHeight - 5).abs * 0.5)
-            // Position "beside" the text. The origin is at the centre X and 0Y.
-            .beside(text)
-            // Position the origin at the top left
-            .originAt(
-              -(config.arrowBaseHalfWidth + (width / 2.0)),
-              (length * config.stageHeight + 5).abs * 0.5
-            )
-            .at(progressOffset, i.from * config.stageHeight)
-            .strokeColor(config.outputColor)
-            .fillColor(config.outputColor)
+        val picture = (text.width, text.height).flatMapN {
+          case (width, height) =>
+            // Draw an arrow upwards
+            arrow(config)(length * config.stageHeight - 5)
+              // Reflect in the X axis such that the arrow head is in negative Y
+              .verticalReflection
+              // Move the origin to just beyond the start of the arrow line.
+              .originAt(0.0, -(height * 0.5))
+              // Position "beside" the text. The origin is at the centre X and 0Y.
+              .beside(text)
+              // Position the origin at the top left
+              .originAt(
+                -(config.arrowBaseHalfWidth + (width / 2.0)),
+                (height * 0.5)
+              )
+              .at(progressOffset, i.from * config.stageHeight)
+              .strokeColor(config.outputColor)
+              .fillColor(config.outputColor)
         }
         val pullOffset = offsets(i.pullProgress)
         val pullToOutput = OpenPath.empty
@@ -157,7 +158,7 @@ private[drawing] def diagramToPicture(
         picture.width.map(w =>
           (
             picture.on(pullToOutput),
-            w.toInt
+            w.toInt + config.outputPaddingRight
           )
         )
       case i: Item.Eval =>
