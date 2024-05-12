@@ -20,8 +20,8 @@ import aquascape.*
 import cats.effect.*
 import cats.syntax.all.*
 import fs2.*
-import fs2.io.file.Path
 import fs2.io.file.*
+import fs2.io.file.Path
 import org.scalafmt.Scalafmt
 import org.scalafmt.config.ScalafmtConfig
 
