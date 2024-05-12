@@ -53,8 +53,9 @@ final case class Config(
     stageHeight: Int,
     // The halfwidth of the base of the arrowheads
     arrowBaseHalfWidth: Int,
-    minProgressWidth: Int,
     progressPaddingLeft: Int,
+    // The space to the right of each output element.
+    outputPaddingRight: Int,
     // The color of the label font and boxes
     labelColor: Color,
     // Padding around the label text box
@@ -79,8 +80,8 @@ final case class Config(
   def scale(factor: Int) = copy(
     stageHeight = stageHeight * factor,
     arrowBaseHalfWidth = arrowBaseHalfWidth * factor,
-    minProgressWidth = minProgressWidth * factor,
     progressPaddingLeft = progressPaddingLeft * factor,
+    outputPaddingRight = outputPaddingRight * factor,
     labelPaddingWidth = labelPaddingWidth * factor,
     labelPaddingHeight = labelPaddingHeight * factor,
     textBoxPaddingWidth = textBoxPaddingWidth * factor,
@@ -97,8 +98,8 @@ object Config {
     stageColor = Color.black,
     stageHeight = 80,
     arrowBaseHalfWidth = 4,
-    minProgressWidth = 10,
     progressPaddingLeft = 8,
+    outputPaddingRight = 24,
     labelColor = Color.black,
     labelPaddingWidth = 8,
     labelPaddingHeight = 8,
