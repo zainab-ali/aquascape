@@ -16,11 +16,11 @@
 
 package aquascape
 
+import cats.*
 import cats.effect.*
 import fs2.*
 import munit.CatsEffectSuite
 import munit.Location
-import cats.*
 class ScapeSuite extends CatsEffectSuite {
   object Boom extends Throwable("BOOM!")
 
