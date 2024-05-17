@@ -18,7 +18,7 @@ ThisBuild / tlSonatypeUseLegacyHost := true
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala3 = "3.4.1"
+val Scala3 = "3.4.2"
 ThisBuild / crossScalaVersions := Seq(Scala3)
 ThisBuild / scalaVersion := Scala3 // the default Scala
 
