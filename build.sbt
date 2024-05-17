@@ -32,8 +32,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "co.fs2" %%% "fs2-core" % "3.10.2",
       "co.fs2" %%% "fs2-io" % "3.10.2",
-      ("org.creativescala" %%% "doodle-core" % "0.22.0")
-        .excludeAll("com.lihaoyi"),
+      ("org.creativescala" %%% "doodle-core" % "0.22.0"),
       "org.typelevel" %%% "cats-core" % "2.10.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
       "org.typelevel" %% "cats-effect-testkit" % "3.5.4" % Test,
@@ -55,15 +54,15 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "org.creativescala" %% "doodle-java2d" % "0.22.0",
       ("org.scalameta" %% "scalafmt-core" % "3.8.1" % Test)
-        .cross(CrossVersion.for3Use2_13),
-      ("com.lihaoyi" %% "sourcecode" % "0.4.1" % Test)
         .cross(CrossVersion.for3Use2_13)
     )
   )
   .jsSettings(
     Test / fork := false,
     libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.22.0")
-      .excludeAll("com.lihaoyi"),
+      .excludeAll(
+        "com.lihaoyi"
+      ), // Both doodle-svg and pprint include sourcecode.
     mimaPreviousArtifacts := Set.empty
   )
   .enablePlugins(BuildInfoPlugin)
