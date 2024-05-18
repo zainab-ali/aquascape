@@ -16,16 +16,17 @@
 
 package aquascape
 
+import cats.*
 import cats.effect.*
 import fs2.*
 import munit.CatsEffectSuite
 import munit.Location
-
 class ScapeSuite extends CatsEffectSuite {
   object Boom extends Throwable("BOOM!")
 
   import Event.*
 
+  implicit val showUnit: Show[Unit] = _ => "()"
   val t = new Unique.Token()
   private def replaceToken: Event => Event = {
     case Pull(to, from, _) => Pull(to, from, t)
