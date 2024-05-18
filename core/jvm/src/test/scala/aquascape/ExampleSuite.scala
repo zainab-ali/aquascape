@@ -24,6 +24,7 @@ import cats.syntax.all.*
 import fs2.*
 import fs2.io.file.Path
 import munit.*
+
 import scala.concurrent.duration.*
 
 trait LowPriorityShow {
