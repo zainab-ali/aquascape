@@ -24,6 +24,7 @@ import cats.syntax.all.*
 import fs2.*
 import fs2.io.file.Path
 import munit.*
+import scala.concurrent.duration.*
 
 trait LowPriorityShow {
   given Show[Either[Throwable, Char]] = {
@@ -407,7 +408,6 @@ class Examples extends GoldenSuite with LowPriorityShow {
     )
   }
   group("broadcastThrough") {
-    import scala.concurrent.duration.*
     test("broadcastThrough")(
       example("basic", DrawChunked.OnlyChunked)(
         range(
@@ -522,26 +522,30 @@ class Examples extends GoldenSuite with LowPriorityShow {
       ),
       example("parEvalMap")(
         range(
-          Stream('a', 'b', 'c')
-            .stage("Stream('a','b','c')", "upstream")
+          Stream('a', 'b', 'c', 'd', 'e')
+            .stage("Stream('a','b','c', 'd', 'e')", "upstream")
             .fork("root", "upstream")
-            .parEvalMap(2)(_.pure[IO].trace())
+            .parEvalMap(2)(char =>
+              IO.sleep((105 - char.toInt).seconds).as(char).trace()
+            )
             .stage("parEvalMap(2)(…)")
             .compile
-            .drain
-            .compileStage("compile.drain")
+            .toList
+            .compileStage("compile.toList")
         )
       ),
       example("parEvalMapUnordered")(
         range(
-          Stream('a', 'b', 'c')
-            .stage("Stream('a','b','c')", "upstream")
+          Stream('a', 'b', 'c', 'd', 'e')
+            .stage("Stream('a','b','c', 'd', 'e')", "upstream")
             .fork("root", "upstream")
-            .parEvalMapUnordered(2)(_.pure[IO].trace())
+            .parEvalMapUnordered(2)(char =>
+              IO.sleep((105 - char.toInt).seconds).as(char).trace()
+            )
             .stage("parEvalMapUnordered(2)(…)")
             .compile
-            .drain
-            .compileStage("compile.drain")
+            .toList
+            .compileStage("compile.toList")
         )
       )
     )
@@ -726,7 +730,6 @@ class Examples extends GoldenSuite with LowPriorityShow {
       )
     )
   }
-  import scala.concurrent.duration.*
   group("time") {
     test("time")(
       example("awakeEvery", DrawChunked.OnlyChunked)(
