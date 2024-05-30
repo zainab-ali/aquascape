@@ -33,7 +33,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "co.fs2" %%% "fs2-core" % "3.10.2",
       "co.fs2" %%% "fs2-io" % "3.10.2",
       ("org.creativescala" %%% "doodle-core" % "0.22.0"),
-      "org.typelevel" %%% "cats-core" % "2.10.0",
+      "org.typelevel" %%% "cats-core" % "2.12.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
       "org.typelevel" %% "cats-effect-testkit" % "3.5.4" % Test,
       "org.scalameta" %%% "munit" % "0.7.29" % Test,
