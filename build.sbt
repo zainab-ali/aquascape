@@ -53,7 +53,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .jvmSettings(
     libraryDependencies ++= Seq(
       "org.creativescala" %% "doodle-java2d" % "0.22.0",
-      ("org.scalameta" %% "scalafmt-core" % "3.8.1" % Test)
+      ("org.scalameta" %% "scalafmt-core" % "3.8.2" % Test)
         .cross(CrossVersion.for3Use2_13)
     )
   )
