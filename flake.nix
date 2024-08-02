@@ -17,6 +17,7 @@
       in
       {
         devShell = pkgs.devshell.mkShell {
+          packages = [pkgs.althttpd];
           imports = [ typelevel-nix.typelevelShell ];
           name = "aquascape-shell";
           typelevelShell = {

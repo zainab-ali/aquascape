@@ -1,5 +1,5 @@
 import com.typesafe.tools.mima.core._
-
+import aquascapebuild.AquascapeDirectives
 Global / onChangedBuildSource := ReloadOnSourceChanges
 // https://typelevel.org/sbt-typelevel/faq.html#what-is-a-base-version-anyway
 ThisBuild / tlBaseVersion := "0.1" // your current series x.y
@@ -67,6 +67,23 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .enablePlugins(BuildInfoPlugin)
 
+lazy val examples = project
+  .in(file("examples"))
+  .settings(
+    libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.22.0")
+      .exclude(
+        "com.lihaoyi",
+        "sourcecode_sjs1_3"
+      ), // Both doodle-svg and scalameta include sourcecode.
+    libraryDependencies += ("org.scalameta" %%% "scalameta" % "4.9.9" % Compile)
+      .cross(CrossVersion.for3Use2_13),
+    libraryDependencies += ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Compile)
+      .cross(CrossVersion.for3Use2_13),
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0"
+  )
+  .dependsOn(core.js)
+  .enablePlugins(ScalaJSPlugin)
+
 import laika.format._
 import laika.ast.Path.Root
 
@@ -76,7 +93,12 @@ lazy val docs = project
   .settings(
     tlSiteKeepFiles := false,
     tlSiteHelium := tlSiteHelium.value.site
-      .internalCSS(Root / "main.css"),
+      .internalCSS(Root / "main.css")
+      .site
+      .internalJS(Root / "main.js"),
+    laikaExtensions += AquascapeDirectives,
+    Laika / sourceDirectories += (examples / Compile / fastOptJS / artifactPath).value
+      .getParentFile() / s"${(examples / moduleName).value}-fastopt",
     tlSite := Def
       .sequential(
         Compile / clean,

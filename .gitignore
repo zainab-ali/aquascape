@@ -21,6 +21,7 @@ tags
 .bloop/
 metals.sbt
 .vscode
+.scala-build
 
 # npm
 node_modules/

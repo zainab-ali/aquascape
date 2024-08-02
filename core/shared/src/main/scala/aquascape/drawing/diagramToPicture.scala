@@ -96,7 +96,7 @@ private[drawing] def diagramToPicture(
               // Position the base of the arrow at the "from" stage
               .at(
                 progressOffset + config.arrowBaseHalfWidth,
-                i.from * config.stageHeight
+                i.from * config.stageHeight - 5
               )
               .strokeColor(config.doneColor)
               .fillColor(config.doneColor)
@@ -140,7 +140,7 @@ private[drawing] def diagramToPicture(
                 -(config.arrowBaseHalfWidth + (width / 2.0)),
                 (height * 0.5)
               )
-              .at(progressOffset, i.from * config.stageHeight)
+              .at(progressOffset, i.from * config.stageHeight - 5)
               .strokeColor(config.outputColor)
               .fillColor(config.outputColor)
         }
@@ -280,6 +280,7 @@ private[drawing] def diagramToPicture(
           .text(i.value)
           .font(config.font)
           .strokeColor(color)
+          .fillColor(color)
         text.width.map { width =>
           val picture = innerCircle
             .on(outerCircle)
@@ -326,6 +327,7 @@ private[drawing] def diagramToPicture(
       val labelBoxWidth = width + config.labelPaddingWidth
       Picture
         .text(text)
+        .fillColor(config.labelColor)
         .on(
           Picture.rectangle(
             width = labelBoxWidth,
