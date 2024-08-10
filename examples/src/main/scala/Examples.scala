@@ -884,6 +884,7 @@ object TimeDebounce extends Example {
 
 @JSExportTopLevel("TimeDebounceAwake")
 object TimeDebounceAwake extends Example {
+  // TODO: Zainab - Run time examples with cats-effect-testkit
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
