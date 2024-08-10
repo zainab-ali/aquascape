@@ -747,3 +747,156 @@ object ErrorsHandlingErrorsAttempts extends Example {
 
   }
 }
+
+@JSExportTopLevel("ResourcesBracket")
+object ResourcesBracket extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream
+      .bracket(IO("abc").trace())(_ => IO("d").trace().void)
+      .stage("Stream.bracket(…)")
+      .flatMap { str =>
+        Stream
+          .emits(str.toList)
+          .stage("Stream.emits(str.toList)")
+      }
+      .stage("flatMap {…}")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+@JSExportTopLevel("ResourcesBracketRaisingErrors")
+object ResourcesBracketRaisingErrors extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream
+      .bracket(IO("abc").trace())(_ => IO("d").trace().void)
+      .stage("Stream.bracket(…)")
+      .flatMap { str =>
+        Stream
+          .emits(str.toList)
+          .stage("Stream.emits(str.toList)")
+          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+          .stage("evalTap(…)")
+      }
+      .stage("flatMap {…}")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ResourcesBracketHandlingErrors")
+object ResourcesBracketHandlingErrors extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream
+      .bracket(IO("abc").trace())(_ => IO("d").trace().void)
+      .stage("Stream.bracket(…)")
+      .flatMap { str =>
+        Stream
+          .emits(str.toList)
+          .stage("Stream.emits(str.toList)")
+          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+          .stage("evalTap(…)")
+      }
+      .stage("flatMap1")
+      .flatMap { str =>
+        Stream(str)
+          .repeatN(2)
+          .stage("Stream.(str).repeatN(2)")
+          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+          .stage("evalTap1(…)")
+      }
+      .stage("flatMap {…}")
+      .handleErrorWith(_ => Stream('e', 'f').stage("Stream('e','f')"))
+      .stage("handleErrorWith(…)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("TimeAwakeEvery")
+object TimeAwakeEvery extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream
+      .awakeEvery[IO](5.seconds)
+      .map(_.toSeconds)
+      .stage("Stream.awakeEvery(5.seconds).map(…)")
+      .take(2)
+      .stage("take(2)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("TimeDelayBy")
+object TimeDelayBy extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .chunkLimit(1)
+      .unchunks
+      .stage("Stream('a','b','c')…unchunks")
+      .delayBy(5.seconds)
+      .stage("delayBy(5.seconds)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("TimeMetered")
+object TimeMetered extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .chunkLimit(1)
+      .unchunks
+      .stage("Stream('a','b','c')…unchunks")
+      .metered(5.seconds)
+      .stage("metered(5.seconds)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("TimeDebounce")
+object TimeDebounce extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .chunkLimit(1)
+      .unchunks
+      .stage("Stream('a','b','c')…unchunks")
+      .debounce(5.seconds)
+      .stage("debounce(5.seconds)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("TimeDebounceAwake")
+object TimeDebounceAwake extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream
+      .awakeEvery[IO](1.seconds)
+      .map(_.toSeconds)
+      .stage("Stream.awakeEvery(1.seconds)…take(5)", "upstream")
+      .fork("root", "upstream")
+      .debounce(2.seconds)
+      .stage("debounce(2.seconds)")
+      .take(2)
+      .stage("take(2)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
