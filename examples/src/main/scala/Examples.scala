@@ -4,6 +4,7 @@ import aquascape.*
 import cats.effect.*
 import cats.effect.IO
 import fs2.*
+import cats.syntax.all.*
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 import cats.Show
@@ -256,5 +257,179 @@ object ChunkingChunkRepartition extends Example {
       .compile
       .toList
       .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("BufferingBuffer")
+object BufferingBuffer extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .chunkLimit(1)
+      .unchunks
+      .stage("Stream('a','b','c')…unchunks")
+      .buffer(2)
+      .stage("buffer(2)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("BufferingBufferAll")
+object BufferingBufferAll extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .chunkLimit(1)
+      .unchunks
+      .stage("Stream('a','b','c')…unchunks")
+      .bufferAll
+      .stage("bufferAll")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("BufferingBufferBy")
+object BufferingBufferBy extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .chunkLimit(1)
+      .unchunks
+      .stage("Stream('a','b','c')…unchunks")
+      .bufferBy(_ != 'b')
+      .stage("bufferBy")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("CombiningAppend")
+object CombiningAppend extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      (Stream('a', 'b')
+        .stage("Stream('a','b')")
+        ++ Stream('c').stage("Stream('c')"))
+      .stage("++")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("CombiningFlatMap")
+object CombiningFlatMap extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream("abc")
+      .stage("""Stream("abc")""")
+      .flatMap { str =>
+        Stream
+          .emits(str.toList)
+          .stage("Stream.emits(str.toList)")
+      }
+      .stage("flatMap {…}")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+object Err extends Throwable("Err")
+
+@JSExportTopLevel("CombiningFlatMapErrorPropagation")
+object CombiningFlatMapErrorPropagation extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream("abc")
+      .stage("""Stream("abc")""")
+      .flatMap { _ =>
+        Stream
+          .raiseError[IO](Err)
+          .stage("Stream.raiseError(Err)")
+      }
+      .stage("flatMap {…}")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("CombiningFlatMapErrorHandling")
+object CombiningFlatMapErrorHandling extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream("abc")
+      .stage("""Stream("abc")""")
+      .flatMap { _ =>
+        Stream
+          .raiseError[IO](Err)
+          .stage("Stream.raiseError(Err)")
+      }
+      .stage("flatMap {…}")
+      .handleError(_ => 'a')
+      .stage("handleError(_ => 'a')")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("CombiningFlatMapBracket")
+object CombiningFlatMapBracket extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .stage("""Stream('a','b','c')""")
+      .flatMap { x =>
+        Stream.bracket(IO(s"<$x").trace())(_ => IO(s"$x>").trace().void)
+      }
+      .stage("flatMap {…}")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("CombiningMerge")
+object CombiningMerge extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a')
+      .stage("Stream('a')", branch = "left")
+      .fork("root", "left")
+      .merge(
+        Stream('b')
+        .stage("Stream('b')", branch = "right")
+        .fork("root", "right")
+      )
+      .stage("merge")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("CombiningParZip")
+object CombiningParZip extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .stage("Stream('a','b','c')", "left")
+      .fork("root", "left")
+      .parZip(
+        Stream('d', 'e')
+        .stage("Stream('d','e')", "right")
+        .fork("root", "right")
+      )
+      .stage("parZip(…)")
+      .compile
+      .drain
+      .compileStage("compile.drain")
     )
 }
