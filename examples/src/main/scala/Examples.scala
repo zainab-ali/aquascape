@@ -6,6 +6,8 @@ import cats.effect.IO
 import fs2.*
 
 import scala.scalajs.js.annotation.JSExportTopLevel
+import cats.Show
+given Show[Nothing] = _ => sys.error("Unreachable code.")
 
 @JSExportTopLevel("BasicCompileToList")
 object BasicCompileToList extends Example {
@@ -21,6 +23,7 @@ object BasicCompileToList extends Example {
 
 @JSExportTopLevel("BasicCompileDrain")
 object BasicCompileDrain extends Example {
+  // TODO: Zainab - We get undefined rendered
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -50,7 +53,7 @@ object BasicCompileCount extends Example {
       Stream('a', 'b', 'c')
         .stage("Stream('a','b','c')")
         .compile
-        .last
+        .count
         .compileStage("compile.count")
     )
 }
@@ -72,13 +75,19 @@ object TakeFewer extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .take(2)
-      .stage("take(2)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .take(2)
+        .stage("take(2)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
+}
+
+object Keys {
+  val examples = List(TakeMore, TakeFewer).map { e =>
+    e.getClass.getSimpleName.stripSuffix("$")
+  }
 }
 
 @JSExportTopLevel("TakeMore")
@@ -86,12 +95,12 @@ object TakeMore extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .take(5)
-      .stage("take(5)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .take(5)
+        .stage("take(5)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("TakeFromAnInfiniteStream")
@@ -99,12 +108,12 @@ object TakeFromAnInfiniteStream extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a').repeat
-      .stage("Stream('a').repeat")
-      .take(2)
-      .stage("take(2)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a').repeat")
+        .take(2)
+        .stage("take(2)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("TakeFromADrainedStream")
@@ -112,14 +121,14 @@ object TakeFromADrainedStream extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .drain
-      .stage("drain")
-      .take(2)
-      .stage("take(2)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .drain
+        .stage("drain")
+        .take(2)
+        .stage("take(2)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("DropFewer")
@@ -127,12 +136,12 @@ object DropFewer extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .drop(2)
-      .stage("drop(2)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .drop(2)
+        .stage("drop(2)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -141,12 +150,12 @@ object DropMore extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .drop(5)
-      .stage("drop(5)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .drop(5)
+        .stage("drop(5)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("FilteringFilter")
@@ -154,12 +163,12 @@ object FilteringFilter extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .filter(_ == 'b')
-      .stage("filter(_ == 'b')")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .filter(_ == 'b')
+        .stage("filter(_ == 'b')")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("FilteringExists")
@@ -167,12 +176,12 @@ object FilteringExists extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .exists(_ == 'b')
-      .stage("exists(_ == 'b')")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .exists(_ == 'b')
+        .stage("exists(_ == 'b')")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("FilteringForall")
@@ -180,12 +189,12 @@ object FilteringForall extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .forall(_ == 'b')
-      .stage("forall(_ == 'b')")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .forall(_ == 'b')
+        .stage("forall(_ == 'b')")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("FilteringChanges")
@@ -193,11 +202,11 @@ object FilteringChanges extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'b', 'a', 'c')
-      .stage("Stream('a','b','b','a','c')")
-      .changes
-      .stage("changes")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','b','a','c')")
+        .changes
+        .stage("changes")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }

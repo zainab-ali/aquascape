@@ -70,7 +70,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
 lazy val examples = project
   .in(file("examples"))
   .settings(
-    libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.22.0")
+    libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.23.0")
       .exclude(
         "com.lihaoyi",
         "sourcecode_sjs1_3"
@@ -102,7 +102,6 @@ lazy val docs = project
     tlSite := Def
       .sequential(
         Compile / clean,
-        (core.jvm / Test / test),
         mdoc.toTask(""),
         laikaSite
       )
