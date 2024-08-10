@@ -210,3 +210,51 @@ object FilteringChanges extends Example {
         .compileStage("compile.toList")
     )
 }
+
+@JSExportTopLevel("ChunkingChunkChunkLimit")
+object ChunkingChunkChunkLimit extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .stage("Stream('a','b','c')")
+      .chunkLimit(2)
+      .unchunks
+      .stage("chunkLimit(2).unchunks")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ChunkingChunkChunkMin")
+object ChunkingChunkChunkMin extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+      .chunkLimit(1)
+      .unchunks
+      .stage("Stream('a','b','c')…unchunks")
+      .chunkMin(2)
+      .unchunks
+      .stage("chunkMin(2).unchunks")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ChunkingChunkRepartition")
+object ChunkingChunkRepartition extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream("Hel", "l", "o Wor", "ld")
+      .chunkLimit(1)
+      .unchunks
+      .stage("""Stream(…)…unchunks""")
+      .repartition(s => Chunk.array(s.split(" ")))
+      .stage("repartition(…)")
+      .compile
+      .toList
+      .compileStage("compile.toList")
+    )
+}

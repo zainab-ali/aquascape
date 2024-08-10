@@ -14,31 +14,54 @@ object AquascapeDirectives extends DirectiveRegistry {
   val example: BlockDirectives.Directive =
     BlockDirectives.create("example") {
       import BlockDirectives.dsl.*
-      (attribute(0).as[String], attribute(1).as[Boolean].optional)
-        .mapN { case (example, chunked) =>
-          val frameId = example
+      (attribute(0).as[String], attribute("drawChunked").as[Boolean].optional)
+        .mapN { case (example, drawChunked) =>
           val codeId = s"${example}Code"
+          val unchunkedFrameId = example
           val chunkedFrameId = s"${example}Chunked"
+          val unchunkedSnippet = Seq(
+            RawContent(
+              NonEmptySet.one("html"),
+              s"""<div id="$unchunkedFrameId" class="example-frame"></div>"""
+            )
+          )
+          val chunkedSnippet = Seq(
+            RawContent(NonEmptySet.one("html"), "<h3>chunked</h3>"),
+            RawContent(
+              NonEmptySet.one("html"),
+              s"""<div id="$chunkedFrameId" class="example-frame"></div>"""
+            )
+          )
+
+          val (snippet, frameIds) = drawChunked match {
+            case None =>
+              (
+                unchunkedSnippet ++ chunkedSnippet,
+                s"""ExampleFrameIds.both("$unchunkedFrameId", "$chunkedFrameId")"""
+              )
+            case Some(true) =>
+              (
+                chunkedSnippet,
+                s"""ExampleFrameIds.chunked("$chunkedFrameId")"""
+              )
+            case Some(false) =>
+              (
+                unchunkedSnippet,
+                s"""ExampleFrameIds.chunked("$chunkedFrameId")"""
+              )
+          }
           BlockSequence(
             Seq(
               RawContent(
                 NonEmptySet.one("html"),
                 // TODO: Zainab - Laika's in-built syntax highlighting is not dynamic, so doesn't work with these code blocks.
                 s"""<pre><code id="$codeId"></code></pre>"""
-              ),
+              )
+            ) ++ snippet ++ Seq(
               RawContent(
                 NonEmptySet.one("html"),
-                s"""<div id="$frameId" class="example-frame"></div>"""
-              ),
-              RawContent(NonEmptySet.one("html"), "<h3>chunked</h3>"),
-              RawContent(
-                NonEmptySet.one("html"),
-                s"""<div id="$chunkedFrameId" class="example-frame"></div>"""
-              ),
-              RawContent(
-                NonEmptySet.one("html"),
-                s"""<script>${example}.draw("$codeId", "$frameId", "$chunkedFrameId")</script>"""
-              ),
+                s"""<script>${example}.draw("$codeId", $frameIds)</script>"""
+              )
             )
           )
         }
