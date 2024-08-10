@@ -35,6 +35,7 @@ trait LowPriorityShow {
   }
 }
 
+
 class Examples extends GoldenSuite with LowPriorityShow {
 
   given GroupName = GroupName(
@@ -43,73 +44,6 @@ class Examples extends GoldenSuite with LowPriorityShow {
 
   given Show[Nothing] = _ => sys.error("Unreachable code.")
 
-  group("broadcastThrough") {
-    test("broadcastThrough")(
-      example("basic", DrawChunked.OnlyChunked)(
-        range(
-          Stream('a', 'b', 'c')
-            .chunkLimit(1)
-            .unchunks
-            .stage("Stream('a','b','c')", branch = "upstream")
-            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .stage("evalTap(…)", branch = "upstream")
-            .fork("root", "upstream")
-            .broadcastThrough(in =>
-              in.metered(1.second)
-                .stage("in.metered(…)", branch = "broadcast")
-                .fork("root", "broadcast")
-            )
-            .stage("broadcastThrough")
-            .compile
-            .toList
-            .compileStage("compile.toList")
-        )
-      ),
-      example("error propagation", DrawChunked.OnlyChunked)(
-        range(
-          Stream('a', 'b', 'c')
-            .chunkLimit(1)
-            .unchunks
-            .stage("Stream('a','b','c')", branch = "upstream")
-            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .stage("evalTap(…)", branch = "upstream")
-            .fork("root", "upstream")
-            .broadcastThrough(in =>
-              in.metered(1.second)
-                .stage("in.metered(…)", branch = "broadcast")
-                .fork("root", "broadcast")
-            )
-            .stage("broadcastThrough")
-            .compile
-            .toList
-            .compileStage("compile.toList")
-        )
-      ),
-      example("different rates", DrawChunked.OnlyChunked)(
-        range(
-          Stream('a', 'b', 'c')
-            .chunkLimit(1)
-            .unchunks
-            .stage("Stream('a','b', 'c')…", branch = "upstream")
-            .fork("root", "upstream")
-            .broadcastThrough(
-              in =>
-                in.metered(1.second)
-                  .stage("in.metered(1s)", branch = "broadcast1")
-                  .fork("root", "broadcast1"),
-              in =>
-                in.metered(100.second)
-                  .stage("in.metered(100s)", branch = "broadcast2")
-                  .fork("root", "broadcast2")
-            )
-            .stage("broadcastThrough")
-            .compile
-            .toList
-            .compileStage("compile.toList")
-        )
-      )
-    )
-  }
   group("effects") {
     test("effects")(
       example("evalMap")(

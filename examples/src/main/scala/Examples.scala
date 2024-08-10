@@ -8,7 +8,19 @@ import cats.syntax.all.*
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 import cats.Show
-given Show[Nothing] = _ => sys.error("Unreachable code.")
+import scala.concurrent.duration.*
+
+object EitherThrowableCharShow {
+  given Show[Either[Throwable, Char]] = {
+    case Left(Scape.Caught(err)) => s"Left(${err.getMessage})"
+    case Left(err)               => s"Left(${err.getMessage})"
+    case Right(c)                => s"Right(${c.show})"
+  }
+}
+
+object NothingShow {
+  given Show[Nothing] = _ => sys.error("Unreachable code.")
+}
 
 @JSExportTopLevel("BasicCompileToList")
 object BasicCompileToList extends Example {
@@ -119,6 +131,7 @@ object TakeFromAnInfiniteStream extends Example {
 }
 @JSExportTopLevel("TakeFromADrainedStream")
 object TakeFromADrainedStream extends Example {
+  import NothingShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -217,13 +230,13 @@ object ChunkingChunkChunkLimit extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')")
-      .chunkLimit(2)
-      .unchunks
-      .stage("chunkLimit(2).unchunks")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a','b','c')")
+        .chunkLimit(2)
+        .unchunks
+        .stage("chunkLimit(2).unchunks")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -232,15 +245,15 @@ object ChunkingChunkChunkMin extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .chunkLimit(1)
-      .unchunks
-      .stage("Stream('a','b','c')…unchunks")
-      .chunkMin(2)
-      .unchunks
-      .stage("chunkMin(2).unchunks")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')…unchunks")
+        .chunkMin(2)
+        .unchunks
+        .stage("chunkMin(2).unchunks")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -249,14 +262,14 @@ object ChunkingChunkRepartition extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream("Hel", "l", "o Wor", "ld")
-      .chunkLimit(1)
-      .unchunks
-      .stage("""Stream(…)…unchunks""")
-      .repartition(s => Chunk.array(s.split(" ")))
-      .stage("repartition(…)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("""Stream(…)…unchunks""")
+        .repartition(s => Chunk.array(s.split(" ")))
+        .stage("repartition(…)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -265,14 +278,14 @@ object BufferingBuffer extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .chunkLimit(1)
-      .unchunks
-      .stage("Stream('a','b','c')…unchunks")
-      .buffer(2)
-      .stage("buffer(2)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')…unchunks")
+        .buffer(2)
+        .stage("buffer(2)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -281,14 +294,14 @@ object BufferingBufferAll extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .chunkLimit(1)
-      .unchunks
-      .stage("Stream('a','b','c')…unchunks")
-      .bufferAll
-      .stage("bufferAll")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')…unchunks")
+        .bufferAll
+        .stage("bufferAll")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -297,14 +310,14 @@ object BufferingBufferBy extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .chunkLimit(1)
-      .unchunks
-      .stage("Stream('a','b','c')…unchunks")
-      .bufferBy(_ != 'b')
-      .stage("bufferBy")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')…unchunks")
+        .bufferBy(_ != 'b')
+        .stage("bufferBy")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -315,10 +328,10 @@ object CombiningAppend extends Example {
       (Stream('a', 'b')
         .stage("Stream('a','b')")
         ++ Stream('c').stage("Stream('c')"))
-      .stage("++")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("++")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -327,16 +340,16 @@ object CombiningFlatMap extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream("abc")
-      .stage("""Stream("abc")""")
-      .flatMap { str =>
-        Stream
-          .emits(str.toList)
-          .stage("Stream.emits(str.toList)")
-      }
-      .stage("flatMap {…}")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("""Stream("abc")""")
+        .flatMap { str =>
+          Stream
+            .emits(str.toList)
+            .stage("Stream.emits(str.toList)")
+        }
+        .stage("flatMap {…}")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -344,39 +357,42 @@ object Err extends Throwable("Err")
 
 @JSExportTopLevel("CombiningFlatMapErrorPropagation")
 object CombiningFlatMapErrorPropagation extends Example {
+  import EitherThrowableCharShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream("abc")
-      .stage("""Stream("abc")""")
-      .flatMap { _ =>
-        Stream
-          .raiseError[IO](Err)
-          .stage("Stream.raiseError(Err)")
-      }
-      .stage("flatMap {…}")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("""Stream("abc")""")
+        .flatMap { _ =>
+          Stream
+            .raiseError[IO](Err)
+            .stage("Stream.raiseError(Err)")
+        }
+        .stage("flatMap {…}")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
 @JSExportTopLevel("CombiningFlatMapErrorHandling")
 object CombiningFlatMapErrorHandling extends Example {
+  import NothingShow.given
+
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream("abc")
-      .stage("""Stream("abc")""")
-      .flatMap { _ =>
-        Stream
-          .raiseError[IO](Err)
-          .stage("Stream.raiseError(Err)")
-      }
-      .stage("flatMap {…}")
-      .handleError(_ => 'a')
-      .stage("handleError(_ => 'a')")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("""Stream("abc")""")
+        .flatMap { _ =>
+          Stream
+            .raiseError[IO](Err)
+            .stage("Stream.raiseError(Err)")
+        }
+        .stage("flatMap {…}")
+        .handleError(_ => 'a')
+        .stage("handleError(_ => 'a')")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -385,14 +401,14 @@ object CombiningFlatMapBracket extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("""Stream('a','b','c')""")
-      .flatMap { x =>
-        Stream.bracket(IO(s"<$x").trace())(_ => IO(s"$x>").trace().void)
-      }
-      .stage("flatMap {…}")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("""Stream('a','b','c')""")
+        .flatMap { x =>
+          Stream.bracket(IO(s"<$x").trace())(_ => IO(s"$x>").trace().void)
+        }
+        .stage("flatMap {…}")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -401,17 +417,17 @@ object CombiningMerge extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a')
-      .stage("Stream('a')", branch = "left")
-      .fork("root", "left")
-      .merge(
-        Stream('b')
-        .stage("Stream('b')", branch = "right")
-        .fork("root", "right")
-      )
-      .stage("merge")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .stage("Stream('a')", branch = "left")
+        .fork("root", "left")
+        .merge(
+          Stream('b')
+            .stage("Stream('b')", branch = "right")
+            .fork("root", "right")
+        )
+        .stage("merge")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -420,16 +436,314 @@ object CombiningParZip extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .stage("Stream('a','b','c')", "left")
-      .fork("root", "left")
-      .parZip(
-        Stream('d', 'e')
-        .stage("Stream('d','e')", "right")
-        .fork("root", "right")
-      )
-      .stage("parZip(…)")
-      .compile
-      .drain
-      .compileStage("compile.drain")
+        .stage("Stream('a','b','c')", "left")
+        .fork("root", "left")
+        .parZip(
+          Stream('d', 'e')
+            .stage("Stream('d','e')", "right")
+            .fork("root", "right")
+        )
+        .stage("parZip(…)")
+        .compile
+        .drain
+        .compileStage("compile.drain")
     )
+}
+@JSExportTopLevel("BroadcastThroughBasic")
+object BroadcastThroughBasic extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')", branch = "upstream")
+        .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+        .stage("evalTap(…)", branch = "upstream")
+        .fork("root", "upstream")
+        .broadcastThrough(in =>
+          in.metered(1.second)
+            .stage("in.metered(…)", branch = "broadcast")
+            .fork("root", "broadcast")
+        )
+        .stage("broadcastThrough")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("BroadcastThroughErrorPropagation")
+object BroadcastThroughErrorPropagation extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')", branch = "upstream")
+        .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+        .stage("evalTap(…)", branch = "upstream")
+        .fork("root", "upstream")
+        .broadcastThrough(in =>
+          in.metered(1.second)
+            .stage("in.metered(…)", branch = "broadcast")
+            .fork("root", "broadcast")
+        )
+        .stage("broadcastThrough")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("BroadcastThroughDifferentRates")
+object BroadcastThroughDifferentRates extends Example {
+  // TODO: Zainab - This is not rendering correctly
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b', 'c')…", branch = "upstream")
+        .fork("root", "upstream")
+        .broadcastThrough(
+          in =>
+            in.metered(1.second)
+              .stage("in.metered(1s)", branch = "broadcast1")
+              .fork("root", "broadcast1"),
+          in =>
+            in.metered(100.second)
+              .stage("in.metered(100s)", branch = "broadcast2")
+              .fork("root", "broadcast2")
+        )
+        .stage("broadcastThrough")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("EffectsEvalMap")
+object EffectsEvalMap extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalMap(_.pure[IO].trace())
+        .stage("evalMap")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("EffectsEvalMap2")
+object EffectsEvalMap2 extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalTap(char => IO(s"$char 1").trace())
+        .stage("evalTap1")
+        .evalTap(char => IO(s"$char 2").trace())
+        .stage("evalTap2")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("EffectsExec")
+object EffectsExec extends Example {
+  import EitherThrowableCharShow.given
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream
+        .exec(IO('a').trace().void)
+        .stage("Stream.exec(…)")
+        .compile
+        .last
+        .compileStage("compile.last")
+    )
+}
+
+@JSExportTopLevel("EffectsEval")
+object EffectsEval extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream
+        .eval(IO('a').trace())
+        .stage("Stream.eval(…)")
+        .compile
+        .last
+        .compileStage("compile.last")
+    )
+}
+
+@JSExportTopLevel("EffectsParEvalMap")
+object EffectsParEvalMap extends Example {
+  // TODO: Zainab - This isn't rendering
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c', 'd', 'e')
+        .stage("Stream('a','b','c', 'd', 'e')", "upstream")
+        .fork("root", "upstream")
+        .parEvalMap(2)(char =>
+          IO.sleep((105 - char.toInt).seconds).as(char).trace()
+        )
+        .stage("parEvalMap(2)(…)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("EffectsParEvalMapUnordered")
+object EffectsParEvalMapUnordered extends Example {
+  // TODO: Zainab - This isn't rendering
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c', 'd', 'e')
+        .stage("Stream('a','b','c', 'd', 'e')", "upstream")
+        .fork("root", "upstream")
+        .parEvalMapUnordered(2)(char =>
+          IO.sleep((105 - char.toInt).seconds).as(char).trace()
+        )
+        .stage("parEvalMapUnordered(2)(…)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ErrorsRaisingErrorsRaiseError")
+object ErrorsRaisingErrorsRaiseError extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      (Stream.raiseError[IO](Err) ++ Stream('a'))
+        .stage("Stream.raiseError[IO](Err)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ErrorsRaisingErrorsInEvalMap")
+object ErrorsRaisingErrirsInEvalMap extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalMap(x => IO.raiseWhen(x == 'b')(Err).trace())
+        .stage("evalMap(IO.raiseWhen(_ == 'b')(Err))")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ErrorsRaisingErrorsPropagation")
+object ErrorsRaisingErrorsPropagation extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalMap(x => IO.raiseWhen(x == 'b')(Err))
+        .stage("evalMap(IO.raiseWhen(_ == 'b')(Err))")
+        .map(identity)
+        .stage("map(identity)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ErrorsHandlingErrorsHandleError")
+object ErrorsHandlingErrorsHandleError extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+        .stage("evalTap(IO.raiseWhen(_ == 'b')(Err))")
+        .handleError(_ => 'd')
+        .stage("handleError(_ => 'd')")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+@JSExportTopLevel("ErrorsHandlingErrorsHandleError2")
+object ErrorsHandlingErrorsHandleError2 extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalMap(x =>
+          IO.raiseWhen(x == 'b')(Err)
+            .as(x)
+            .handleError(_ => 'd')
+            .trace()
+        )
+        .stage("evalTap(…)")
+        .handleError(_ => 'd')
+        .stage("handleError(_ => 'd')")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+@JSExportTopLevel("ErrorsHandlingErrorsHandleErrorWith")
+object ErrorsHandlingErrorsHandleErrorWith extends Example {
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+        .stage("evalTap(…)")
+        .handleErrorWith(_ =>
+          Stream('d', 'e', 'f').stage("Stream('d','e','f')")
+        )
+        .stage("handleErrorWith(_ => …)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ErrorsHandlingErrorsAttempt")
+object ErrorsHandlingErrorsAttempt extends Example {
+  import EitherThrowableCharShow.given
+  def apply(using Scape[IO]): StreamCode =
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+        .stage("evalTap(…)")
+        .attempt
+        .stage("attempt")
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+}
+
+@JSExportTopLevel("ErrorsHandlingErrorsAttempts")
+object ErrorsHandlingErrorsAttempts extends Example {
+
+  import EitherThrowableCharShow.given
+  def apply(using Scape[IO]): StreamCode = {
+    code(
+      Stream('a', 'b', 'c')
+        .stage("Stream('a','b','c')")
+        .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+        .stage("evalTap(…)")
+        .attempts(Stream.empty)
+        .stage("attempts")
+        .take(4)
+        .compile
+        .toList
+        .compileStage("compile.toList")
+    )
+
+  }
 }
