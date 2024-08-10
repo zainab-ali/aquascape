@@ -1,6 +1,5 @@
 ## aquascape
 
-@:example(TakeScape)
 Aquascape is a diagramming tool for [fs2](https://github.com/typelevel/fs2).
 
 ## The basic idea
