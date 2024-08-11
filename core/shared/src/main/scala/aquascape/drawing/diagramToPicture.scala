@@ -162,23 +162,27 @@ private[drawing] def diagramToPicture(
           )
         )
       case i: Item.Eval =>
-        val box = Picture.text(i.value).font(config.font)
+        val box = Picture
+          .text(i.value)
+          .font(config.font)
+          .strokeColor(config.evalColor)
+          .fillColor(config.evalColor)
         val picture = (box.width, box.height).flatMapN { (width, height) =>
           box
             .on(
-              Picture.rectangle(
-                width = width + config.textBoxPaddingWidth,
-                height = height + config.textBoxPaddingHeight
-              )
+              Picture
+                .rectangle(
+                  width = width + config.textBoxPaddingWidth,
+                  height = height + config.textBoxPaddingHeight
+                )
+                .fillColor(Color.white)
             )
             .originAt(-width / 2.0, 0.0)
             .at(
               progressOffset + config.arrowBaseWidth + config.textBoxPaddingWidth,
               i.at * config.stageHeight
             )
-            .font(config.font)
             .strokeColor(config.evalColor)
-            .fillColor(Color.white)
         }
         picture.width.map(w => (picture, w.toInt))
       case i: Item.Time =>
