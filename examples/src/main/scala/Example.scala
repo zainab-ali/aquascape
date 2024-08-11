@@ -19,11 +19,11 @@ package aquascape.examples
 import aquascape.*
 import cats.effect.*
 import cats.effect.IO
+import cats.effect.testkit.*
 import cats.effect.unsafe.implicits.global
 import doodle.svg.*
 import doodle.syntax.all.*
 import org.scalajs.dom
-import cats.effect.testkit.*
 
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExportTopLevel

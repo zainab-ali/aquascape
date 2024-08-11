@@ -17,14 +17,14 @@
 package aquascape.examples
 
 import aquascape.*
+import cats.Show
 import cats.effect.*
 import cats.effect.IO
-import fs2.*
 import cats.syntax.all.*
+import fs2.*
 
-import scala.scalajs.js.annotation.JSExportTopLevel
-import cats.Show
 import scala.concurrent.duration.*
+import scala.scalajs.js.annotation.JSExportTopLevel
 
 object EitherThrowableCharShow {
   given Show[Either[Throwable, Char]] = {
