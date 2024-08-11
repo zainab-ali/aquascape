@@ -7,6 +7,7 @@ import cats.effect.unsafe.implicits.global
 import doodle.svg.*
 import doodle.syntax.all.*
 import org.scalajs.dom
+import cats.effect.testkit.*
 
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExportTopLevel
@@ -69,7 +70,10 @@ private def drawFrame(frameId: String, chunked: Boolean)(
     t <- if (chunked) Scape.chunked[IO] else Scape.unchunked[IO]
     given Scape[IO] = t
     streamCode = stream(using t)
-    picture <- streamCode.stream.attempt.void.draw()
+    picture <- TestControl.executeEmbed(
+      streamCode.stream.attempt.void.draw(),
+      seed = Some("MTIzNDU=")
+    )
     _ <- picture.drawWithFrameToIO(frame)
   } yield streamCode
 }

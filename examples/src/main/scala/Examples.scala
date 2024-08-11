@@ -497,7 +497,6 @@ object BroadcastThroughErrorPropagation extends Example {
 
 @JSExportTopLevel("BroadcastThroughDifferentRates")
 object BroadcastThroughDifferentRates extends Example {
-  // TODO: Zainab - This is not rendering correctly
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -581,7 +580,6 @@ object EffectsEval extends Example {
 
 @JSExportTopLevel("EffectsParEvalMap")
 object EffectsParEvalMap extends Example {
-  // TODO: Zainab - This isn't rendering
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c', 'd', 'e')
@@ -599,7 +597,6 @@ object EffectsParEvalMap extends Example {
 
 @JSExportTopLevel("EffectsParEvalMapUnordered")
 object EffectsParEvalMapUnordered extends Example {
-  // TODO: Zainab - This isn't rendering
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c', 'd', 'e')
@@ -753,17 +750,17 @@ object ResourcesBracket extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
-      .bracket(IO("abc").trace())(_ => IO("d").trace().void)
-      .stage("Stream.bracket(…)")
-      .flatMap { str =>
-        Stream
-          .emits(str.toList)
-          .stage("Stream.emits(str.toList)")
-      }
-      .stage("flatMap {…}")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .bracket(IO("abc").trace())(_ => IO("d").trace().void)
+        .stage("Stream.bracket(…)")
+        .flatMap { str =>
+          Stream
+            .emits(str.toList)
+            .stage("Stream.emits(str.toList)")
+        }
+        .stage("flatMap {…}")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 @JSExportTopLevel("ResourcesBracketRaisingErrors")
@@ -771,19 +768,19 @@ object ResourcesBracketRaisingErrors extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
-      .bracket(IO("abc").trace())(_ => IO("d").trace().void)
-      .stage("Stream.bracket(…)")
-      .flatMap { str =>
-        Stream
-          .emits(str.toList)
-          .stage("Stream.emits(str.toList)")
-          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-          .stage("evalTap(…)")
-      }
-      .stage("flatMap {…}")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .bracket(IO("abc").trace())(_ => IO("d").trace().void)
+        .stage("Stream.bracket(…)")
+        .flatMap { str =>
+          Stream
+            .emits(str.toList)
+            .stage("Stream.emits(str.toList)")
+            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+            .stage("evalTap(…)")
+        }
+        .stage("flatMap {…}")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -792,29 +789,29 @@ object ResourcesBracketHandlingErrors extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
-      .bracket(IO("abc").trace())(_ => IO("d").trace().void)
-      .stage("Stream.bracket(…)")
-      .flatMap { str =>
-        Stream
-          .emits(str.toList)
-          .stage("Stream.emits(str.toList)")
-          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-          .stage("evalTap(…)")
-      }
-      .stage("flatMap1")
-      .flatMap { str =>
-        Stream(str)
-          .repeatN(2)
-          .stage("Stream.(str).repeatN(2)")
-          .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-          .stage("evalTap1(…)")
-      }
-      .stage("flatMap {…}")
-      .handleErrorWith(_ => Stream('e', 'f').stage("Stream('e','f')"))
-      .stage("handleErrorWith(…)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .bracket(IO("abc").trace())(_ => IO("d").trace().void)
+        .stage("Stream.bracket(…)")
+        .flatMap { str =>
+          Stream
+            .emits(str.toList)
+            .stage("Stream.emits(str.toList)")
+            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+            .stage("evalTap(…)")
+        }
+        .stage("flatMap1")
+        .flatMap { str =>
+          Stream(str)
+            .repeatN(2)
+            .stage("Stream.(str).repeatN(2)")
+            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
+            .stage("evalTap1(…)")
+        }
+        .stage("flatMap {…}")
+        .handleErrorWith(_ => Stream('e', 'f').stage("Stream('e','f')"))
+        .stage("handleErrorWith(…)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -823,14 +820,14 @@ object TimeAwakeEvery extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
-      .awakeEvery[IO](5.seconds)
-      .map(_.toSeconds)
-      .stage("Stream.awakeEvery(5.seconds).map(…)")
-      .take(2)
-      .stage("take(2)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .awakeEvery[IO](5.seconds)
+        .map(_.toSeconds)
+        .stage("Stream.awakeEvery(5.seconds).map(…)")
+        .take(2)
+        .stage("take(2)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -839,14 +836,14 @@ object TimeDelayBy extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .chunkLimit(1)
-      .unchunks
-      .stage("Stream('a','b','c')…unchunks")
-      .delayBy(5.seconds)
-      .stage("delayBy(5.seconds)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')…unchunks")
+        .delayBy(5.seconds)
+        .stage("delayBy(5.seconds)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -855,14 +852,14 @@ object TimeMetered extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .chunkLimit(1)
-      .unchunks
-      .stage("Stream('a','b','c')…unchunks")
-      .metered(5.seconds)
-      .stage("metered(5.seconds)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')…unchunks")
+        .metered(5.seconds)
+        .stage("metered(5.seconds)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
@@ -871,33 +868,32 @@ object TimeDebounce extends Example {
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
-      .chunkLimit(1)
-      .unchunks
-      .stage("Stream('a','b','c')…unchunks")
-      .debounce(5.seconds)
-      .stage("debounce(5.seconds)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .chunkLimit(1)
+        .unchunks
+        .stage("Stream('a','b','c')…unchunks")
+        .debounce(5.seconds)
+        .stage("debounce(5.seconds)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }
 
 @JSExportTopLevel("TimeDebounceAwake")
 object TimeDebounceAwake extends Example {
-  // TODO: Zainab - Run time examples with cats-effect-testkit
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
-      .awakeEvery[IO](1.seconds)
-      .map(_.toSeconds)
-      .stage("Stream.awakeEvery(1.seconds)…take(5)", "upstream")
-      .fork("root", "upstream")
-      .debounce(2.seconds)
-      .stage("debounce(2.seconds)")
-      .take(2)
-      .stage("take(2)")
-      .compile
-      .toList
-      .compileStage("compile.toList")
+        .awakeEvery[IO](1.seconds)
+        .map(_.toSeconds)
+        .stage("Stream.awakeEvery(1.seconds)…take(5)", "upstream")
+        .fork("root", "upstream")
+        .debounce(2.seconds)
+        .stage("debounce(2.seconds)")
+        .take(2)
+        .stage("take(2)")
+        .compile
+        .toList
+        .compileStage("compile.toList")
     )
 }

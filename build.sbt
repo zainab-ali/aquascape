@@ -79,7 +79,8 @@ lazy val examples = project
       .cross(CrossVersion.for3Use2_13),
     libraryDependencies += ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Compile)
       .cross(CrossVersion.for3Use2_13),
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0"
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0",
+    libraryDependencies += "org.typelevel" %%% "cats-effect-testkit" % "3.5.4",
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
