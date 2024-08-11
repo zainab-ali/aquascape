@@ -22,6 +22,10 @@ object NothingShow {
   given Show[Nothing] = _ => sys.error("Unreachable code.")
 }
 
+object UnitShow {
+  given Show[Unit] = _ => "()"
+}
+
 @JSExportTopLevel("BasicCompileToList")
 object BasicCompileToList extends Example {
   def apply(using Scape[IO]): StreamCode =
@@ -36,7 +40,7 @@ object BasicCompileToList extends Example {
 
 @JSExportTopLevel("BasicCompileDrain")
 object BasicCompileDrain extends Example {
-  // TODO: Zainab - We get undefined rendered
+  import UnitShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -433,6 +437,7 @@ object CombiningMerge extends Example {
 
 @JSExportTopLevel("CombiningParZip")
 object CombiningParZip extends Example {
+  import UnitShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
