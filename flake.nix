@@ -21,7 +21,7 @@
           imports = [ typelevel-nix.typelevelShell ];
           name = "aquascape-shell";
           typelevelShell = {
-		        jdk.package = pkgs.jdk21;
+            jdk.package = pkgs.jdk21;
             native.enable = false;
             nodejs.enable = true;
           };
