@@ -80,7 +80,7 @@ lazy val examples = project
     libraryDependencies += ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Compile)
       .cross(CrossVersion.for3Use2_13),
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.8.0",
-    libraryDependencies += "org.typelevel" %%% "cats-effect-testkit" % "3.5.4",
+    libraryDependencies += "org.typelevel" %%% "cats-effect-testkit" % "3.5.4"
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin)
@@ -96,7 +96,13 @@ lazy val docs = project
     tlSiteHelium := tlSiteHelium.value.site
       .internalCSS(Root / "main.css")
       .site
-      .internalJS(Root / "main.js"),
+      .internalJS(Root / "main.js")
+      .site
+      .internalJS(Root / "highlight.min.js")
+      .site
+      .internalJS(Root / "highlightWrapper.js")
+      .site
+      .internalCSS(Root / "a11y-dark.min.css"),
     laikaExtensions += AquascapeDirectives,
     Laika / sourceDirectories += (examples / Compile / fastOptJS / artifactPath).value
       .getParentFile() / s"${(examples / moduleName).value}-fastopt",

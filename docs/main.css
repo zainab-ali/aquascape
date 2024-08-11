@@ -5,10 +5,11 @@ main.content img {
     margin-bottom:24px;
 }
 
-div.example-frame {
+div.example-frame svg {
+    width: 100%;
     background-color: white;
 }
 
-div.example-frame svg {
-    width: 100%;
+pre.example-code {
+    padding: 0;
 }
