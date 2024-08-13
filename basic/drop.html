@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,9 +107,7 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#fewer">fewer</a></li>
-    <li class="level1 nav-leaf"><a href="#fewer-with-chunks">fewer (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#more">more</a></li>
-    <li class="level1 nav-leaf"><a href="#more-with-chunks">more (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -117,20 +119,24 @@
         <h1 id="drop" class="title">drop</h1>
         
         <h2 id="fewer" class="section"><a class="anchor-link left" href="#fewer"><i class="icofont-laika link">&#xef71;</i></a>fewer</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/fewer.png" alt="diagram"></p>
-        
-        <h2 id="fewer-with-chunks" class="section"><a class="anchor-link left" href="#fewer-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>fewer (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/fewer--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="DropFewerCode" class="language-scala"></code></pre>
+        <div id="DropFewer" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="DropFewerChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("DropFewerCode");
+ DropFewer.draw("DropFewerCode", ExampleFrameIds.both("DropFewer", "DropFewerChunked"));
+</script>
         
         <h2 id="more" class="section"><a class="anchor-link left" href="#more"><i class="icofont-laika link">&#xef71;</i></a>more</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">5</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/more.png" alt="diagram"></p>
-        
-        <h2 id="more-with-chunks" class="section"><a class="anchor-link left" href="#more-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>more (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drop</span><span>(</span><span class="number-literal">5</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="drop/more--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="DropMoreCode" class="language-scala"></code></pre>
+        <div id="DropMore" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="DropMoreChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("DropMoreCode");
+ DropMore.draw("DropMoreCode", ExampleFrameIds.both("DropMore", "DropMoreChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

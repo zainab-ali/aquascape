@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,11 +107,8 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#bracket-2">bracket</a></li>
-    <li class="level1 nav-leaf"><a href="#bracket-with-chunks">bracket (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#raising-errors">raising errors</a></li>
-    <li class="level1 nav-leaf"><a href="#raising-errors-with-chunks">raising errors (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#handing-errors">handing errors</a></li>
-    <li class="level1 nav-leaf"><a href="#handing-errors-with-chunks">handing errors (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -119,72 +120,34 @@
         <h1 id="bracket-1" class="title">bracket</h1>
         
         <h2 id="bracket-2" class="section"><a class="anchor-link left" href="#bracket-2"><i class="icofont-laika link">&#xef71;</i></a>bracket</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
-  .</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;d&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="bracket/bracket.png" alt="diagram"></p>
-        
-        <h2 id="bracket-with-chunks" class="section"><a class="anchor-link left" href="#bracket-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>bracket (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
-  .</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;d&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="bracket/bracket--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ResourcesBracketCode" class="language-scala"></code></pre>
+        <div id="ResourcesBracket" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ResourcesBracketChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ResourcesBracketCode");
+ ResourcesBracket.draw("ResourcesBracketCode", ExampleFrameIds.both("ResourcesBracket", "ResourcesBracketChunked"));
+</script>
         
         <h2 id="raising-errors" class="section"><a class="anchor-link left" href="#raising-errors"><i class="icofont-laika link">&#xef71;</i></a>raising errors</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
-  .</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;d&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>).</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="bracket/raising-errors.png" alt="diagram"></p>
-        
-        <h2 id="raising-errors-with-chunks" class="section"><a class="anchor-link left" href="#raising-errors-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>raising errors (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
-  .</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;d&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>).</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="bracket/raising-errors--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ResourcesBracketRaisingErrorsCode" class="language-scala"></code></pre>
+        <div id="ResourcesBracketRaisingErrors" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ResourcesBracketRaisingErrorsChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ResourcesBracketRaisingErrorsCode");
+ ResourcesBracketRaisingErrors.draw("ResourcesBracketRaisingErrorsCode", ExampleFrameIds.both("ResourcesBracketRaisingErrors", "ResourcesBracketRaisingErrorsChunked"));
+</script>
         
         <h2 id="handing-errors" class="section"><a class="anchor-link left" href="#handing-errors"><i class="icofont-laika link">&#xef71;</i></a>handing errors</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
-  .</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;d&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>).</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  }
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>(</span><span class="identifier">str</span><span>).</span><span class="identifier">repeatN</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  }
-  .</span><span class="identifier">handleErrorWith</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;e&#39;</span><span>, </span><span class="char-literal">&#39;f&#39;</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="bracket/handing-errors.png" alt="diagram"></p>
-        
-        <h2 id="handing-errors-with-chunks" class="section"><a class="anchor-link left" href="#handing-errors-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>handing errors (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
-  .</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">&quot;d&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>).</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  }
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>(</span><span class="identifier">str</span><span>).</span><span class="identifier">repeatN</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  }
-  .</span><span class="identifier">handleErrorWith</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;e&#39;</span><span>, </span><span class="char-literal">&#39;f&#39;</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="bracket/handing-errors--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ResourcesBracketHandlingErrorsCode" class="language-scala"></code></pre>
+        <div id="ResourcesBracketHandlingErrors" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ResourcesBracketHandlingErrorsChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ResourcesBracketHandlingErrorsCode");
+ ResourcesBracketHandlingErrors.draw("ResourcesBracketHandlingErrorsCode", ExampleFrameIds.both("ResourcesBracketHandlingErrors", "ResourcesBracketHandlingErrorsChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

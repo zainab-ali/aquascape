@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,13 +107,9 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#fewer">fewer</a></li>
-    <li class="level1 nav-leaf"><a href="#fewer-with-chunks">fewer (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#more">more</a></li>
-    <li class="level1 nav-leaf"><a href="#more-with-chunks">more (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#from-an-infinite-stream">from an infinite stream</a></li>
-    <li class="level1 nav-leaf"><a href="#from-an-infinite-stream-with-chunks">from an infinite stream (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#from-a-drained-stream">from a drained stream</a></li>
-    <li class="level1 nav-leaf"><a href="#from-a-drained-stream-with-chunks">from a drained stream (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -121,36 +121,44 @@
         <h1 id="take" class="title">take</h1>
         
         <h2 id="fewer" class="section"><a class="anchor-link left" href="#fewer"><i class="icofont-laika link">&#xef71;</i></a>fewer</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/fewer.png" alt="diagram"></p>
-        
-        <h2 id="fewer-with-chunks" class="section"><a class="anchor-link left" href="#fewer-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>fewer (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/fewer--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TakeFewerCode" class="language-scala"></code></pre>
+        <div id="TakeFewer" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="TakeFewerChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TakeFewerCode");
+ TakeFewer.draw("TakeFewerCode", ExampleFrameIds.both("TakeFewer", "TakeFewerChunked"));
+</script>
         
         <h2 id="more" class="section"><a class="anchor-link left" href="#more"><i class="icofont-laika link">&#xef71;</i></a>more</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">take</span><span>(</span><span class="number-literal">5</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/more.png" alt="diagram"></p>
-        
-        <h2 id="more-with-chunks" class="section"><a class="anchor-link left" href="#more-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>more (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">take</span><span>(</span><span class="number-literal">5</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/more--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TakeMoreCode" class="language-scala"></code></pre>
+        <div id="TakeMore" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="TakeMoreChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TakeMoreCode");
+ TakeMore.draw("TakeMoreCode", ExampleFrameIds.both("TakeMore", "TakeMoreChunked"));
+</script>
         
         <h2 id="from-an-infinite-stream" class="section"><a class="anchor-link left" href="#from-an-infinite-stream"><i class="icofont-laika link">&#xef71;</i></a>from an infinite stream</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>).</span><span class="identifier">repeat</span><span>.</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/from-an-infinite-stream.png" alt="diagram"></p>
-        
-        <h2 id="from-an-infinite-stream-with-chunks" class="section"><a class="anchor-link left" href="#from-an-infinite-stream-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>from an infinite stream (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>).</span><span class="identifier">repeat</span><span>.</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/from-an-infinite-stream--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TakeFromAnInfiniteStreamCode" class="language-scala"></code></pre>
+        <div id="TakeFromAnInfiniteStream" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="TakeFromAnInfiniteStreamChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TakeFromAnInfiniteStreamCode");
+ TakeFromAnInfiniteStream.draw("TakeFromAnInfiniteStreamCode", ExampleFrameIds.both("TakeFromAnInfiniteStream", "TakeFromAnInfiniteStreamChunked"));
+</script>
         
         <h2 id="from-a-drained-stream" class="section"><a class="anchor-link left" href="#from-a-drained-stream"><i class="icofont-laika link">&#xef71;</i></a>from a drained stream</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drain</span><span>.</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/from-a-drained-stream.png" alt="diagram"></p>
-        
-        <h2 id="from-a-drained-stream-with-chunks" class="section"><a class="anchor-link left" href="#from-a-drained-stream-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>from a drained stream (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">drain</span><span>.</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="take/from-a-drained-stream--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TakeFromADrainedStreamCode" class="language-scala"></code></pre>
+        <div id="TakeFromADrainedStream" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="TakeFromADrainedStreamChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TakeFromADrainedStreamCode");
+ TakeFromADrainedStream.draw("TakeFromADrainedStreamCode", ExampleFrameIds.both("TakeFromADrainedStream", "TakeFromADrainedStreamChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

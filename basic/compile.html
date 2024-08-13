@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,15 +107,10 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#tolist">toList</a></li>
-    <li class="level1 nav-leaf"><a href="#tolist-with-chunks">toList (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#drain">drain</a></li>
-    <li class="level1 nav-leaf"><a href="#drain-with-chunks">drain (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#last">last</a></li>
-    <li class="level1 nav-leaf"><a href="#last-with-chunks">last (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#count">count</a></li>
-    <li class="level1 nav-leaf"><a href="#count-with-chunks">count (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#onlyorerror">onlyOrError</a></li>
-    <li class="level1 nav-leaf"><a href="#onlyorerror-with-chunks">onlyOrError (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -123,44 +122,54 @@
         <h1 id="compile" class="title">compile</h1>
         
         <h2 id="tolist" class="section"><a class="anchor-link left" href="#tolist"><i class="icofont-laika link">&#xef71;</i></a>toList</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="compile/toList.png" alt="diagram"></p>
-        
-        <h2 id="tolist-with-chunks" class="section"><a class="anchor-link left" href="#tolist-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>toList (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="compile/toList--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BasicCompileToListCode" class="language-scala"></code></pre>
+        <div id="BasicCompileToList" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="BasicCompileToListChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BasicCompileToListCode");
+ BasicCompileToList.draw("BasicCompileToListCode", ExampleFrameIds.both("BasicCompileToList", "BasicCompileToListChunked"));
+</script>
         
         <h2 id="drain" class="section"><a class="anchor-link left" href="#drain"><i class="icofont-laika link">&#xef71;</i></a>drain</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">drain</span></code></pre>
-        <p><img src="compile/drain.png" alt="diagram"></p>
-        
-        <h2 id="drain-with-chunks" class="section"><a class="anchor-link left" href="#drain-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>drain (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">drain</span></code></pre>
-        <p><img src="compile/drain--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BasicCompileDrainCode" class="language-scala"></code></pre>
+        <div id="BasicCompileDrain" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="BasicCompileDrainChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BasicCompileDrainCode");
+ BasicCompileDrain.draw("BasicCompileDrainCode", ExampleFrameIds.both("BasicCompileDrain", "BasicCompileDrainChunked"));
+</script>
         
         <h2 id="last" class="section"><a class="anchor-link left" href="#last"><i class="icofont-laika link">&#xef71;</i></a>last</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">last</span></code></pre>
-        <p><img src="compile/last.png" alt="diagram"></p>
-        
-        <h2 id="last-with-chunks" class="section"><a class="anchor-link left" href="#last-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>last (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">last</span></code></pre>
-        <p><img src="compile/last--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BasicCompileLastCode" class="language-scala"></code></pre>
+        <div id="BasicCompileLast" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="BasicCompileLastChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BasicCompileLastCode");
+ BasicCompileLast.draw("BasicCompileLastCode", ExampleFrameIds.both("BasicCompileLast", "BasicCompileLastChunked"));
+</script>
         
         <h2 id="count" class="section"><a class="anchor-link left" href="#count"><i class="icofont-laika link">&#xef71;</i></a>count</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">count</span></code></pre>
-        <p><img src="compile/count.png" alt="diagram"></p>
-        
-        <h2 id="count-with-chunks" class="section"><a class="anchor-link left" href="#count-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>count (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">count</span></code></pre>
-        <p><img src="compile/count--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BasicCompileCountCode" class="language-scala"></code></pre>
+        <div id="BasicCompileCount" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="BasicCompileCountChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BasicCompileCountCode");
+ BasicCompileCount.draw("BasicCompileCountCode", ExampleFrameIds.both("BasicCompileCount", "BasicCompileCountChunked"));
+</script>
         
         <h2 id="onlyorerror" class="section"><a class="anchor-link left" href="#onlyorerror"><i class="icofont-laika link">&#xef71;</i></a>onlyOrError</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">onlyOrError</span></code></pre>
-        <p><img src="compile/onlyOrError.png" alt="diagram"></p>
-        
-        <h2 id="onlyorerror-with-chunks" class="section"><a class="anchor-link left" href="#onlyorerror-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>onlyOrError (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">onlyOrError</span></code></pre>
-        <p><img src="compile/onlyOrError--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BasicCompileOnlyOrErrorCode" class="language-scala"></code></pre>
+        <div id="BasicCompileOnlyOrError" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="BasicCompileOnlyOrErrorChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BasicCompileOnlyOrErrorCode");
+ BasicCompileOnlyOrError.draw("BasicCompileOnlyOrErrorCode", ExampleFrameIds.both("BasicCompileOnlyOrError", "BasicCompileOnlyOrErrorChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

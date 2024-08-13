@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -118,30 +122,49 @@
         <h1 id="time" class="title">time</h1>
         
         <h2 id="awakeevery-with-chunks" class="section"><a class="anchor-link left" href="#awakeevery-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>awakeEvery (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>.</span><span class="identifier">awakeEvery</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">toSeconds</span><span>).</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="time/awakeEvery--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TimeAwakeEveryCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="TimeAwakeEveryChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TimeAwakeEveryCode");
+ TimeAwakeEvery.draw("TimeAwakeEveryCode", ExampleFrameIds.chunked("TimeAwakeEveryChunked"));
+</script>
         
         <h2 id="delayby-with-chunks" class="section"><a class="anchor-link left" href="#delayby-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>delayBy (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">delayBy</span><span>(</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="time/delayBy--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TimeDelayByCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="TimeDelayByChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TimeDelayByCode");
+ TimeDelayBy.draw("TimeDelayByCode", ExampleFrameIds.chunked("TimeDelayByChunked"));
+</script>
         
         <h2 id="metered-with-chunks" class="section"><a class="anchor-link left" href="#metered-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>metered (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">metered</span><span>(</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="time/metered--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TimeMeteredCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="TimeMeteredChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TimeMeteredCode");
+ TimeMetered.draw("TimeMeteredCode", ExampleFrameIds.chunked("TimeMeteredChunked"));
+</script>
         
         <h2 id="debounce-with-chunks" class="section"><a class="anchor-link left" href="#debounce-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>debounce (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">debounce</span><span>(</span><span class="number-literal">5</span><span>.</span><span class="identifier">seconds</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="time/debounce--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TimeDebounceCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="TimeDebounceChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TimeDebounceCode");
+ TimeDebounce.draw("TimeDebounceCode", ExampleFrameIds.chunked("TimeDebounceChunked"));
+</script>
         
         <h2 id="debounce-awake-with-chunks" class="section"><a class="anchor-link left" href="#debounce-awake-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>debounce awake (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>
-  .</span><span class="identifier">awakeEvery</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="number-literal">1</span><span>.</span><span class="identifier">seconds</span><span>)
-  .</span><span class="identifier">map</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">toSeconds</span><span>)
-  .</span><span class="identifier">debounce</span><span>(</span><span class="number-literal">2</span><span>.</span><span class="identifier">seconds</span><span>)
-  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="time/debounce-awake--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="TimeDebounceAwakeCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="TimeDebounceAwakeChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("TimeDebounceAwakeCode");
+ TimeDebounceAwake.draw("TimeDebounceAwakeCode", ExampleFrameIds.chunked("TimeDebounceAwakeChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

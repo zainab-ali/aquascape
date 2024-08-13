@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,13 +107,9 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#flatmap-2">flatMap</a></li>
-    <li class="level1 nav-leaf"><a href="#flatmap-with-chunks">flatMap (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#error-propagation">error propagation</a></li>
-    <li class="level1 nav-leaf"><a href="#error-propagation-with-chunks">error propagation (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#error-handling">error handling</a></li>
-    <li class="level1 nav-leaf"><a href="#error-handling-with-chunks">error handling (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#bracket">bracket</a></li>
-    <li class="level1 nav-leaf"><a href="#bracket-with-chunks">bracket (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -121,78 +121,44 @@
         <h1 id="flatmap-1" class="title">flatMap</h1>
         
         <h2 id="flatmap-2" class="section"><a class="anchor-link left" href="#flatmap-2"><i class="icofont-laika link">&#xef71;</i></a>flatMap</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/flatMap.png" alt="diagram"></p>
-        
-        <h2 id="flatmap-with-chunks" class="section"><a class="anchor-link left" href="#flatmap-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>flatMap (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">str</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">emits</span><span>(</span><span class="identifier">str</span><span>.</span><span class="identifier">toList</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/flatMap--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="CombiningFlatMapCode" class="language-scala"></code></pre>
+        <div id="CombiningFlatMap" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="CombiningFlatMapChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("CombiningFlatMapCode");
+ CombiningFlatMap.draw("CombiningFlatMapCode", ExampleFrameIds.both("CombiningFlatMap", "CombiningFlatMapChunked"));
+</script>
         
         <h2 id="error-propagation" class="section"><a class="anchor-link left" href="#error-propagation"><i class="icofont-laika link">&#xef71;</i></a>error propagation</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">_</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">raiseError</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="type-name">Err</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/error-propagation.png" alt="diagram"></p>
-        
-        <h2 id="error-propagation-with-chunks" class="section"><a class="anchor-link left" href="#error-propagation-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>error propagation (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">_</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">raiseError</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="type-name">Err</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/error-propagation--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="CombiningFlatMapErrorPropagationCode" class="language-scala"></code></pre>
+        <div id="CombiningFlatMapErrorPropagation" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="CombiningFlatMapErrorPropagationChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("CombiningFlatMapErrorPropagationCode");
+ CombiningFlatMapErrorPropagation.draw("CombiningFlatMapErrorPropagationCode", ExampleFrameIds.both("CombiningFlatMapErrorPropagation", "CombiningFlatMapErrorPropagationChunked"));
+</script>
         
         <h2 id="error-handling" class="section"><a class="anchor-link left" href="#error-handling"><i class="icofont-laika link">&#xef71;</i></a>error handling</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">_</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">raiseError</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="type-name">Err</span><span>)
-  }
-  .</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;a&#39;</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/error-handling.png" alt="diagram"></p>
-        
-        <h2 id="error-handling-with-chunks" class="section"><a class="anchor-link left" href="#error-handling-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>error handling (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="string-literal">&quot;abc&quot;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">_</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">raiseError</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="type-name">Err</span><span>)
-  }
-  .</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;a&#39;</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/error-handling--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="CombiningFlatMapErrorHandlingCode" class="language-scala"></code></pre>
+        <div id="CombiningFlatMapErrorHandling" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="CombiningFlatMapErrorHandlingChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("CombiningFlatMapErrorHandlingCode");
+ CombiningFlatMapErrorHandling.draw("CombiningFlatMapErrorHandlingCode", ExampleFrameIds.both("CombiningFlatMapErrorHandling", "CombiningFlatMapErrorHandlingChunked"));
+</script>
         
         <h2 id="bracket" class="section"><a class="anchor-link left" href="#bracket"><i class="icofont-laika link">&#xef71;</i></a>bracket</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">x</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;&lt;</span><span class="substitution">$x</span><span class="string-literal">&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;</span><span class="substitution">$x</span><span class="string-literal">&gt;&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/bracket.png" alt="diagram"></p>
-        
-        <h2 id="bracket-with-chunks" class="section"><a class="anchor-link left" href="#bracket-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>bracket (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">flatMap</span><span> { </span><span class="identifier">x</span><span> =&gt;
-    </span><span class="type-name">Stream</span><span>.</span><span class="identifier">bracket</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;&lt;</span><span class="substitution">$x</span><span class="string-literal">&quot;</span><span>))(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;</span><span class="substitution">$x</span><span class="string-literal">&gt;&quot;</span><span>).</span><span class="identifier">void</span><span>)
-  }
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="flatMap/bracket--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="CombiningFlatMapBracketCode" class="language-scala"></code></pre>
+        <div id="CombiningFlatMapBracket" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="CombiningFlatMapBracketChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("CombiningFlatMapBracketCode");
+ CombiningFlatMapBracket.draw("CombiningFlatMapBracketCode", ExampleFrameIds.both("CombiningFlatMapBracket", "CombiningFlatMapBracketChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

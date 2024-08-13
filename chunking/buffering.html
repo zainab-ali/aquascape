@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -116,16 +120,31 @@
         <h1 id="buffering" class="title">buffering</h1>
         
         <h2 id="buffer-with-chunks" class="section"><a class="anchor-link left" href="#buffer-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>buffer (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">buffer</span><span>(</span><span class="number-literal">2</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="buffering/buffer--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BufferingBufferCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="BufferingBufferChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BufferingBufferCode");
+ BufferingBuffer.draw("BufferingBufferCode", ExampleFrameIds.chunked("BufferingBufferChunked"));
+</script>
         
         <h2 id="bufferall-with-chunks" class="section"><a class="anchor-link left" href="#bufferall-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>bufferAll (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferAll</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="buffering/bufferAll--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BufferingBufferAllCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="BufferingBufferAllChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BufferingBufferAllCode");
+ BufferingBufferAll.draw("BufferingBufferAllCode", ExampleFrameIds.chunked("BufferingBufferAllChunked"));
+</script>
         
         <h2 id="bufferby-with-chunks" class="section"><a class="anchor-link left" href="#bufferby-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>bufferBy (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">chunkLimit</span><span>(</span><span class="number-literal">1</span><span>).</span><span class="identifier">unchunks</span><span>.</span><span class="identifier">bufferBy</span><span>(</span><span class="identifier">_</span><span> != </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="buffering/bufferBy--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="BufferingBufferByCode" class="language-scala"></code></pre>
+        <h3>chunked</h3>
+        <div id="BufferingBufferByChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("BufferingBufferByCode");
+ BufferingBufferBy.draw("BufferingBufferByCode", ExampleFrameIds.chunked("BufferingBufferByChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

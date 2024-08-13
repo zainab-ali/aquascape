@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,11 +107,8 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#raiseerror">raiseError</a></li>
-    <li class="level1 nav-leaf"><a href="#raiseerror-with-chunks">raiseError (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#in-evalmap">in evalMap</a></li>
-    <li class="level1 nav-leaf"><a href="#in-evalmap-with-chunks">in evalMap (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#propagation">propagation</a></li>
-    <li class="level1 nav-leaf"><a href="#propagation-with-chunks">propagation (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -119,36 +120,34 @@
         <h1 id="raising-errors" class="title">raising errors</h1>
         
         <h2 id="raiseerror" class="section"><a class="anchor-link left" href="#raiseerror"><i class="icofont-laika link">&#xef71;</i></a>raiseError</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="type-name">Stream</span><span>.</span><span class="identifier">raiseError</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="type-name">Err</span><span>) ++ </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="raising-errors/raiseError.png" alt="diagram"></p>
-        
-        <h2 id="raiseerror-with-chunks" class="section"><a class="anchor-link left" href="#raiseerror-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>raiseError (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>(</span><span class="type-name">Stream</span><span>.</span><span class="identifier">raiseError</span><span>[</span><span class="type-name">IO</span><span>](</span><span class="type-name">Err</span><span>) ++ </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="raising-errors/raiseError--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsRaisingErrorsRaiseErrorCode" class="language-scala"></code></pre>
+        <div id="ErrorsRaisingErrorsRaiseError" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsRaisingErrorsRaiseErrorChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsRaisingErrorsRaiseErrorCode");
+ ErrorsRaisingErrorsRaiseError.draw("ErrorsRaisingErrorsRaiseErrorCode", ExampleFrameIds.both("ErrorsRaisingErrorsRaiseError", "ErrorsRaisingErrorsRaiseErrorChunked"));
+</script>
         
         <h2 id="in-evalmap" class="section"><a class="anchor-link left" href="#in-evalmap"><i class="icofont-laika link">&#xef71;</i></a>in evalMap</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="raising-errors/in-evalMap.png" alt="diagram"></p>
-        
-        <h2 id="in-evalmap-with-chunks" class="section"><a class="anchor-link left" href="#in-evalmap-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>in evalMap (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="raising-errors/in-evalMap--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsRaisingErrorsInEvalMapCode" class="language-scala"></code></pre>
+        <div id="ErrorsRaisingErrorsInEvalMap" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsRaisingErrorsInEvalMapChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsRaisingErrorsInEvalMapCode");
+ ErrorsRaisingErrorsInEvalMap.draw("ErrorsRaisingErrorsInEvalMapCode", ExampleFrameIds.both("ErrorsRaisingErrorsInEvalMap", "ErrorsRaisingErrorsInEvalMapChunked"));
+</script>
         
         <h2 id="propagation" class="section"><a class="anchor-link left" href="#propagation"><i class="icofont-laika link">&#xef71;</i></a>propagation</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">map</span><span>(</span><span class="identifier">identity</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="raising-errors/propagation.png" alt="diagram"></p>
-        
-        <h2 id="propagation-with-chunks" class="section"><a class="anchor-link left" href="#propagation-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>propagation (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">map</span><span>(</span><span class="identifier">identity</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="raising-errors/propagation--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsRaisingErrorsPropagationCode" class="language-scala"></code></pre>
+        <div id="ErrorsRaisingErrorsPropagation" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsRaisingErrorsPropagationChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsRaisingErrorsPropagationCode");
+ ErrorsRaisingErrorsPropagation.draw("ErrorsRaisingErrorsPropagationCode", ExampleFrameIds.both("ErrorsRaisingErrorsPropagation", "ErrorsRaisingErrorsPropagationChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

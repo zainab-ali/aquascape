@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,13 +107,9 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#filter">filter</a></li>
-    <li class="level1 nav-leaf"><a href="#filter-with-chunks">filter (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#exists">exists</a></li>
-    <li class="level1 nav-leaf"><a href="#exists-with-chunks">exists (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#forall">forall</a></li>
-    <li class="level1 nav-leaf"><a href="#forall-with-chunks">forall (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#changes">changes</a></li>
-    <li class="level1 nav-leaf"><a href="#changes-with-chunks">changes (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -121,36 +121,44 @@
         <h1 id="filtering" class="title">filtering</h1>
         
         <h2 id="filter" class="section"><a class="anchor-link left" href="#filter"><i class="icofont-laika link">&#xef71;</i></a>filter</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">filter</span><span>(</span><span class="identifier">_</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/filter.png" alt="diagram"></p>
-        
-        <h2 id="filter-with-chunks" class="section"><a class="anchor-link left" href="#filter-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>filter (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">filter</span><span>(</span><span class="identifier">_</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/filter--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="FilteringFilterCode" class="language-scala"></code></pre>
+        <div id="FilteringFilter" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="FilteringFilterChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("FilteringFilterCode");
+ FilteringFilter.draw("FilteringFilterCode", ExampleFrameIds.both("FilteringFilter", "FilteringFilterChunked"));
+</script>
         
         <h2 id="exists" class="section"><a class="anchor-link left" href="#exists"><i class="icofont-laika link">&#xef71;</i></a>exists</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">exists</span><span>(</span><span class="identifier">_</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/exists.png" alt="diagram"></p>
-        
-        <h2 id="exists-with-chunks" class="section"><a class="anchor-link left" href="#exists-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>exists (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">exists</span><span>(</span><span class="identifier">_</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/exists--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="FilteringExistsCode" class="language-scala"></code></pre>
+        <div id="FilteringExists" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="FilteringExistsChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("FilteringExistsCode");
+ FilteringExists.draw("FilteringExistsCode", ExampleFrameIds.both("FilteringExists", "FilteringExistsChunked"));
+</script>
         
         <h2 id="forall" class="section"><a class="anchor-link left" href="#forall"><i class="icofont-laika link">&#xef71;</i></a>forall</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">forall</span><span>(</span><span class="identifier">_</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/forall.png" alt="diagram"></p>
-        
-        <h2 id="forall-with-chunks" class="section"><a class="anchor-link left" href="#forall-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>forall (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">forall</span><span>(</span><span class="identifier">_</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/forall--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="FilteringForallCode" class="language-scala"></code></pre>
+        <div id="FilteringForall" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="FilteringForallChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("FilteringForallCode");
+ FilteringForall.draw("FilteringForallCode", ExampleFrameIds.both("FilteringForall", "FilteringForallChunked"));
+</script>
         
         <h2 id="changes" class="section"><a class="anchor-link left" href="#changes"><i class="icofont-laika link">&#xef71;</i></a>changes</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">changes</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/changes.png" alt="diagram"></p>
-        
-        <h2 id="changes-with-chunks" class="section"><a class="anchor-link left" href="#changes-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>changes (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">changes</span><span>.</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="filtering/changes--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="FilteringChangesCode" class="language-scala"></code></pre>
+        <div id="FilteringChanges" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="FilteringChangesChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("FilteringChangesCode");
+ FilteringChanges.draw("FilteringChangesCode", ExampleFrameIds.both("FilteringChanges", "FilteringChangesChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,15 +107,10 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#handleerror">handleError</a></li>
-    <li class="level1 nav-leaf"><a href="#handleerror-with-chunks">handleError (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#handleerror2">handleError2</a></li>
-    <li class="level1 nav-leaf"><a href="#handleerror2-with-chunks">handleError2 (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#handleerrorwith">handleErrorWith</a></li>
-    <li class="level1 nav-leaf"><a href="#handleerrorwith-with-chunks">handleErrorWith (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#attempt">attempt</a></li>
-    <li class="level1 nav-leaf"><a href="#attempt-with-chunks">attempt (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#attempts">attempts</a></li>
-    <li class="level1 nav-leaf"><a href="#attempts-with-chunks">attempts (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -123,86 +122,54 @@
         <h1 id="handling-errors" class="title">handling errors</h1>
         
         <h2 id="handleerror" class="section"><a class="anchor-link left" href="#handleerror"><i class="icofont-laika link">&#xef71;</i></a>handleError</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;d&#39;</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/handleError.png" alt="diagram"></p>
-        
-        <h2 id="handleerror-with-chunks" class="section"><a class="anchor-link left" href="#handleerror-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>handleError (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;d&#39;</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/handleError--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsHandlingErrorsHandleErrorCode" class="language-scala"></code></pre>
+        <div id="ErrorsHandlingErrorsHandleError" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsHandlingErrorsHandleErrorChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsHandlingErrorsHandleErrorCode");
+ ErrorsHandlingErrorsHandleError.draw("ErrorsHandlingErrorsHandleErrorCode", ExampleFrameIds.both("ErrorsHandlingErrorsHandleError", "ErrorsHandlingErrorsHandleErrorChunked"));
+</script>
         
         <h2 id="handleerror2" class="section"><a class="anchor-link left" href="#handleerror2"><i class="icofont-laika link">&#xef71;</i></a>handleError2</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>).</span><span class="identifier">as</span><span>(</span><span class="identifier">x</span><span>).</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;d&#39;</span><span>))
-  .</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;d&#39;</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/handleError2.png" alt="diagram"></p>
-        
-        <h2 id="handleerror2-with-chunks" class="section"><a class="anchor-link left" href="#handleerror2-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>handleError2 (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>).</span><span class="identifier">as</span><span>(</span><span class="identifier">x</span><span>).</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;d&#39;</span><span>))
-  .</span><span class="identifier">handleError</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="char-literal">&#39;d&#39;</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/handleError2--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsHandlingErrorsHandleError2Code" class="language-scala"></code></pre>
+        <div id="ErrorsHandlingErrorsHandleError2" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsHandlingErrorsHandleError2Chunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsHandlingErrorsHandleError2Code");
+ ErrorsHandlingErrorsHandleError2.draw("ErrorsHandlingErrorsHandleError2Code", ExampleFrameIds.both("ErrorsHandlingErrorsHandleError2", "ErrorsHandlingErrorsHandleError2Chunked"));
+</script>
         
         <h2 id="handleerrorwith" class="section"><a class="anchor-link left" href="#handleerrorwith"><i class="icofont-laika link">&#xef71;</i></a>handleErrorWith</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">handleErrorWith</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;d&#39;</span><span>, </span><span class="char-literal">&#39;e&#39;</span><span>, </span><span class="char-literal">&#39;f&#39;</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/handleErrorWith.png" alt="diagram"></p>
-        
-        <h2 id="handleerrorwith-with-chunks" class="section"><a class="anchor-link left" href="#handleerrorwith-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>handleErrorWith (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">handleErrorWith</span><span>(</span><span class="identifier">_</span><span> =&gt; </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;d&#39;</span><span>, </span><span class="char-literal">&#39;e&#39;</span><span>, </span><span class="char-literal">&#39;f&#39;</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/handleErrorWith--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsHandlingErrorsHandleErrorWithCode" class="language-scala"></code></pre>
+        <div id="ErrorsHandlingErrorsHandleErrorWith" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsHandlingErrorsHandleErrorWithChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsHandlingErrorsHandleErrorWithCode");
+ ErrorsHandlingErrorsHandleErrorWith.draw("ErrorsHandlingErrorsHandleErrorWithCode", ExampleFrameIds.both("ErrorsHandlingErrorsHandleErrorWith", "ErrorsHandlingErrorsHandleErrorWithChunked"));
+</script>
         
         <h2 id="attempt" class="section"><a class="anchor-link left" href="#attempt"><i class="icofont-laika link">&#xef71;</i></a>attempt</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">attempt</span><span>
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/attempt.png" alt="diagram"></p>
-        
-        <h2 id="attempt-with-chunks" class="section"><a class="anchor-link left" href="#attempt-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>attempt (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">attempt</span><span>
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/attempt--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsHandlingErrorsAttemptCode" class="language-scala"></code></pre>
+        <div id="ErrorsHandlingErrorsAttempt" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsHandlingErrorsAttemptChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsHandlingErrorsAttemptCode");
+ ErrorsHandlingErrorsAttempt.draw("ErrorsHandlingErrorsAttemptCode", ExampleFrameIds.both("ErrorsHandlingErrorsAttempt", "ErrorsHandlingErrorsAttemptChunked"));
+</script>
         
         <h2 id="attempts" class="section"><a class="anchor-link left" href="#attempts"><i class="icofont-laika link">&#xef71;</i></a>attempts</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">attempts</span><span>(</span><span class="type-name">Stream</span><span>.</span><span class="identifier">empty</span><span>)
-  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">4</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/attempts.png" alt="diagram"></p>
-        
-        <h2 id="attempts-with-chunks" class="section"><a class="anchor-link left" href="#attempts-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>attempts (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">attempts</span><span>(</span><span class="type-name">Stream</span><span>.</span><span class="identifier">empty</span><span>)
-  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">4</span><span>)
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="handling-errors/attempts--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="ErrorsHandlingErrorsAttemptsCode" class="language-scala"></code></pre>
+        <div id="ErrorsHandlingErrorsAttempts" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="ErrorsHandlingErrorsAttemptsChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("ErrorsHandlingErrorsAttemptsCode");
+ ErrorsHandlingErrorsAttempts.draw("ErrorsHandlingErrorsAttemptsCode", ExampleFrameIds.both("ErrorsHandlingErrorsAttempts", "ErrorsHandlingErrorsAttemptsChunked"));
+</script>
 
         
 <hr class="footer-rule"/>

@@ -23,7 +23,11 @@
   <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
     <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
   <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../highlightWrapper.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -103,17 +107,11 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#evalmap">evalMap</a></li>
-    <li class="level1 nav-leaf"><a href="#evalmap-with-chunks">evalMap (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#evalmap2">evalMap2</a></li>
-    <li class="level1 nav-leaf"><a href="#evalmap2-with-chunks">evalMap2 (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#exec">exec</a></li>
-    <li class="level1 nav-leaf"><a href="#exec-with-chunks">exec (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#eval">eval</a></li>
-    <li class="level1 nav-leaf"><a href="#eval-with-chunks">eval (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#parevalmap">parEvalMap</a></li>
-    <li class="level1 nav-leaf"><a href="#parevalmap-with-chunks">parEvalMap (with chunks)</a></li>
     <li class="level1 nav-leaf"><a href="#parevalmapunordered">parEvalMapUnordered</a></li>
-    <li class="level1 nav-leaf"><a href="#parevalmapunordered-with-chunks">parEvalMapUnordered (with chunks)</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -125,72 +123,64 @@
         <h1 id="effects" class="title">effects</h1>
         
         <h2 id="evalmap" class="section"><a class="anchor-link left" href="#evalmap"><i class="icofont-laika link">&#xef71;</i></a>evalMap</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/evalMap.png" alt="diagram"></p>
-        
-        <h2 id="evalmap-with-chunks" class="section"><a class="anchor-link left" href="#evalmap-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>evalMap (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>).</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>]).</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/evalMap--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="EffectsEvalMapCode" class="language-scala"></code></pre>
+        <div id="EffectsEvalMap" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="EffectsEvalMapChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("EffectsEvalMapCode");
+ EffectsEvalMap.draw("EffectsEvalMapCode", ExampleFrameIds.both("EffectsEvalMap", "EffectsEvalMapChunked"));
+</script>
         
         <h2 id="evalmap2" class="section"><a class="anchor-link left" href="#evalmap2"><i class="icofont-laika link">&#xef71;</i></a>evalMap2</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;</span><span class="substitution">$char</span><span class="string-literal"> 1&quot;</span><span>))
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;</span><span class="substitution">$char</span><span class="string-literal"> 2&quot;</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/evalMap2.png" alt="diagram"></p>
-        
-        <h2 id="evalmap2-with-chunks" class="section"><a class="anchor-link left" href="#evalmap2-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>evalMap2 (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;</span><span class="substitution">$char</span><span class="string-literal"> 1&quot;</span><span>))
-  .</span><span class="identifier">evalTap</span><span>(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="string-literal">s&quot;</span><span class="substitution">$char</span><span class="string-literal"> 2&quot;</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/evalMap2--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="EffectsEvalMap2Code" class="language-scala"></code></pre>
+        <div id="EffectsEvalMap2" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="EffectsEvalMap2Chunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("EffectsEvalMap2Code");
+ EffectsEvalMap2.draw("EffectsEvalMap2Code", ExampleFrameIds.both("EffectsEvalMap2", "EffectsEvalMap2Chunked"));
+</script>
         
         <h2 id="exec" class="section"><a class="anchor-link left" href="#exec"><i class="icofont-laika link">&#xef71;</i></a>exec</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>.</span><span class="identifier">exec</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>).</span><span class="identifier">void</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">last</span></code></pre>
-        <p><img src="effects/exec.png" alt="diagram"></p>
-        
-        <h2 id="exec-with-chunks" class="section"><a class="anchor-link left" href="#exec-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>exec (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>.</span><span class="identifier">exec</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>).</span><span class="identifier">void</span><span>).</span><span class="identifier">compile</span><span>.</span><span class="identifier">last</span></code></pre>
-        <p><img src="effects/exec--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="EffectsExecCode" class="language-scala"></code></pre>
+        <div id="EffectsExec" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="EffectsExecChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("EffectsExecCode");
+ EffectsExec.draw("EffectsExecCode", ExampleFrameIds.both("EffectsExec", "EffectsExecChunked"));
+</script>
         
         <h2 id="eval" class="section"><a class="anchor-link left" href="#eval"><i class="icofont-laika link">&#xef71;</i></a>eval</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>.</span><span class="identifier">eval</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">last</span></code></pre>
-        <p><img src="effects/eval.png" alt="diagram"></p>
-        
-        <h2 id="eval-with-chunks" class="section"><a class="anchor-link left" href="#eval-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>eval (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>.</span><span class="identifier">eval</span><span>(</span><span class="type-name">IO</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>)).</span><span class="identifier">compile</span><span>.</span><span class="identifier">last</span></code></pre>
-        <p><img src="effects/eval--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="EffectsEvalCode" class="language-scala"></code></pre>
+        <div id="EffectsEval" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="EffectsEvalChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("EffectsEvalCode");
+ EffectsEval.draw("EffectsEvalCode", ExampleFrameIds.both("EffectsEval", "EffectsEvalChunked"));
+</script>
         
         <h2 id="parevalmap" class="section"><a class="anchor-link left" href="#parevalmap"><i class="icofont-laika link">&#xef71;</i></a>parEvalMap</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>, </span><span class="char-literal">&#39;d&#39;</span><span>, </span><span class="char-literal">&#39;e&#39;</span><span>)
-  .</span><span class="identifier">parEvalMap</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">sleep</span><span>((</span><span class="number-literal">105</span><span> - </span><span class="identifier">char</span><span>.</span><span class="identifier">toInt</span><span>).</span><span class="identifier">seconds</span><span>).</span><span class="identifier">as</span><span>(</span><span class="identifier">char</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/parEvalMap.png" alt="diagram"></p>
-        
-        <h2 id="parevalmap-with-chunks" class="section"><a class="anchor-link left" href="#parevalmap-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>parEvalMap (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>, </span><span class="char-literal">&#39;d&#39;</span><span>, </span><span class="char-literal">&#39;e&#39;</span><span>)
-  .</span><span class="identifier">parEvalMap</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">sleep</span><span>((</span><span class="number-literal">105</span><span> - </span><span class="identifier">char</span><span>.</span><span class="identifier">toInt</span><span>).</span><span class="identifier">seconds</span><span>).</span><span class="identifier">as</span><span>(</span><span class="identifier">char</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/parEvalMap--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="EffectsParEvalMapCode" class="language-scala"></code></pre>
+        <div id="EffectsParEvalMap" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="EffectsParEvalMapChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("EffectsParEvalMapCode");
+ EffectsParEvalMap.draw("EffectsParEvalMapCode", ExampleFrameIds.both("EffectsParEvalMap", "EffectsParEvalMapChunked"));
+</script>
         
         <h2 id="parevalmapunordered" class="section"><a class="anchor-link left" href="#parevalmapunordered"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnordered</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>, </span><span class="char-literal">&#39;d&#39;</span><span>, </span><span class="char-literal">&#39;e&#39;</span><span>)
-  .</span><span class="identifier">parEvalMapUnordered</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">sleep</span><span>((</span><span class="number-literal">105</span><span> - </span><span class="identifier">char</span><span>.</span><span class="identifier">toInt</span><span>).</span><span class="identifier">seconds</span><span>).</span><span class="identifier">as</span><span>(</span><span class="identifier">char</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/parEvalMapUnordered.png" alt="diagram"></p>
-        
-        <h2 id="parevalmapunordered-with-chunks" class="section"><a class="anchor-link left" href="#parevalmapunordered-with-chunks"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnordered (with chunks)</h2>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>, </span><span class="char-literal">&#39;d&#39;</span><span>, </span><span class="char-literal">&#39;e&#39;</span><span>)
-  .</span><span class="identifier">parEvalMapUnordered</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">char</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">sleep</span><span>((</span><span class="number-literal">105</span><span> - </span><span class="identifier">char</span><span>.</span><span class="identifier">toInt</span><span>).</span><span class="identifier">seconds</span><span>).</span><span class="identifier">as</span><span>(</span><span class="identifier">char</span><span>))
-  .</span><span class="identifier">compile</span><span>
-  .</span><span class="identifier">toList</span></code></pre>
-        <p><img src="effects/parEvalMapUnordered--with-chunks-.png" alt="diagram"></p>
+        <pre class="example-code"><code id="EffectsParEvalMapUnorderedCode" class="language-scala"></code></pre>
+        <div id="EffectsParEvalMapUnordered" class="example-frame"></div>
+        <h3>chunked</h3>
+        <div id="EffectsParEvalMapUnorderedChunked" class="example-frame"></div>
+        <script>
+ hljsWrapper.highlightExampleCode("EffectsParEvalMapUnorderedCode");
+ EffectsParEvalMapUnordered.draw("EffectsParEvalMapUnorderedCode", ExampleFrameIds.both("EffectsParEvalMapUnordered", "EffectsParEvalMapUnorderedChunked"));
+</script>
 
         
 <hr class="footer-rule"/>
