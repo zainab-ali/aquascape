@@ -117,12 +117,6 @@ object TakeFewer extends Example {
     )
 }
 
-object Keys {
-  val examples = List(TakeMore, TakeFewer).map { e =>
-    e.getClass.getSimpleName.stripSuffix("$")
-  }
-}
-
 @JSExportTopLevel("TakeMore")
 object TakeMore extends Example {
   def apply(using Scape[IO]): StreamCode =
