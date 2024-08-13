@@ -81,7 +81,7 @@ lazy val examples = project
     )
   )
   .dependsOn(core.js)
-  .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(ScalaJSPlugin, NoPublishPlugin)
 
 import laika.format._
 import laika.ast.Path.Root
@@ -115,4 +115,4 @@ lazy val docs = project
       )
       .value
   )
-  .enablePlugins(TypelevelSitePlugin)
+  .enablePlugins(TypelevelSitePlugin, NoPublishPlugin)
