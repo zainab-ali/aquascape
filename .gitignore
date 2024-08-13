@@ -21,10 +21,10 @@ tags
 .bloop/
 metals.sbt
 .vscode
+.scala-build
 
 # npm
 node_modules/
 
 # Generated docs
-docs/**/**.md
 docs/**/**/**.png

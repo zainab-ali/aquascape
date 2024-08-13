@@ -1,5 +1,5 @@
 import com.typesafe.tools.mima.core._
-
+import aquascapebuild.AquascapeDirectives
 Global / onChangedBuildSource := ReloadOnSourceChanges
 // https://typelevel.org/sbt-typelevel/faq.html#what-is-a-base-version-anyway
 ThisBuild / tlBaseVersion := "0.1" // your current series x.y
@@ -35,10 +35,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       ("org.creativescala" %%% "doodle-core" % "0.23.0"),
       "org.typelevel" %%% "cats-core" % "2.12.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
-      "org.typelevel" %% "cats-effect-testkit" % "3.5.4" % Test,
       "org.scalameta" %%% "munit" % "1.0.0" % Test,
-      ("org.scalameta" %%% "scalameta" % "4.9.9" % Test)
-        .cross(CrossVersion.for3Use2_13),
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
       ("com.lihaoyi" %%% "pprint" % "0.9.0" % Test)
         .cross(CrossVersion.for3Use2_13)
@@ -52,20 +49,39 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.creativescala" %% "doodle-java2d" % "0.23.0",
-      ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Test)
-        .cross(CrossVersion.for3Use2_13)
+      "org.creativescala" %% "doodle-java2d" % "0.23.0"
     )
   )
   .jsSettings(
     Test / fork := false,
     libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.23.0")
       .excludeAll(
-        "com.lihaoyi"
+        "com.lihaoyi",
+        "sourcecode_sjs1_3"
       ), // Both doodle-svg and pprint include sourcecode.
     mimaPreviousArtifacts := Set.empty
   )
   .enablePlugins(BuildInfoPlugin)
+
+lazy val examples = project
+  .in(file("examples"))
+  .settings(
+    libraryDependencies ++= Seq(
+      ("org.creativescala" %%% "doodle-svg" % "0.23.0")
+        .exclude(
+          "com.lihaoyi",
+          "sourcecode_sjs1_3"
+        ), // Both doodle-svg and scalameta include sourcecode.
+      ("org.scalameta" %%% "scalameta" % "4.9.9" % Compile)
+        .cross(CrossVersion.for3Use2_13),
+      ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Compile)
+        .cross(CrossVersion.for3Use2_13),
+      "org.scala-js" %%% "scalajs-dom" % "2.8.0",
+      "org.typelevel" %%% "cats-effect-testkit" % "3.5.4"
+    )
+  )
+  .dependsOn(core.js)
+  .enablePlugins(ScalaJSPlugin, NoPublishPlugin)
 
 import laika.format._
 import laika.ast.Path.Root
@@ -76,14 +92,27 @@ lazy val docs = project
   .settings(
     tlSiteKeepFiles := false,
     tlSiteHelium := tlSiteHelium.value.site
-      .internalCSS(Root / "main.css"),
+      .internalCSS(Root / "main.css")
+      .site
+      .internalJS(Root / "main.js")
+      .site
+      // Add highlight.js for code examples
+      .internalJS(Root / "highlight.min.js")
+      .site
+      .internalJS(Root / "highlightWrapper.js")
+      .site
+      .internalCSS(Root / "a11y-dark.min.css"),
+    laikaExtensions += AquascapeDirectives,
+    // Add examples JS
+    Laika / sourceDirectories += (examples / Compile / fastOptJS / artifactPath).value
+      .getParentFile() / s"${(examples / moduleName).value}-fastopt",
     tlSite := Def
       .sequential(
         Compile / clean,
-        (core.jvm / Test / test),
+        examples / Compile / fastOptJS,
         mdoc.toTask(""),
         laikaSite
       )
       .value
   )
-  .enablePlugins(TypelevelSitePlugin)
+  .enablePlugins(TypelevelSitePlugin, NoPublishPlugin)

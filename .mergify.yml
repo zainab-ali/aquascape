@@ -22,6 +22,14 @@ pull_request_rules:
       add:
       - core
       remove: []
+- name: Label examples PRs
+  conditions:
+  - files~=^examples/
+  actions:
+    label:
+      add:
+      - examples
+      remove: []
 - name: Label site PRs
   conditions:
   - files~=^site/

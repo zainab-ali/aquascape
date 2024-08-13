@@ -113,6 +113,6 @@ object Config {
     outputColor = Color.rgb(6, 68, 88),
     doneColor = Color.green,
     startDotColor = Color.black,
-    font = Font.defaultSansSerif.family(FontFamily.monospaced).size(12)
-  ).scale(4)
+    font = Font.defaultSansSerif.family(FontFamily.named("monospace")).size(12)
+  )
 }

@@ -4,3 +4,12 @@ main.content img {
     margin-top: 12px;
     margin-bottom:24px;
 }
+
+div.example-frame svg {
+    width: 100%;
+    background-color: white;
+}
+
+pre.example-code {
+    padding: 0;
+}
