@@ -99,7 +99,7 @@ lazy val docs = project
       // Add highlight.js for code examples
       .internalJS(Root / "highlight.min.js")
       .site
-      .internalJS(Root / "highlightWrapper.js")
+      .internalJS(Root / "aquascape.js")
       .site
       .internalCSS(Root / "a11y-dark.min.css"),
     laikaExtensions += AquascapeDirectives,

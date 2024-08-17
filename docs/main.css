@@ -13,3 +13,17 @@ div.example-frame svg {
 pre.example-code {
     padding: 0;
 }
+
+div.example-input {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+div.example-input > label {
+    font-size: var(--header3-font-size);
+    
+}    
+
+div.example-input > input {
+    padding: 12px;
+}
