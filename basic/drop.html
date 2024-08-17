@@ -27,7 +27,7 @@
   <script src="../helium/site/laika-helium.js"></script>
     <script src="../main.js"></script>
     <script src="../highlight.min.js"></script>
-    <script src="../highlightWrapper.js"></script>
+    <script src="../aquascape.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -124,8 +124,7 @@
         <h3>chunked</h3>
         <div id="DropFewerChunked" class="example-frame"></div>
         <script>
- hljsWrapper.highlightExampleCode("DropFewerCode");
- DropFewer.draw("DropFewerCode", ExampleFrameIds.both("DropFewer", "DropFewerChunked"));
+ aquascape.example(DropFewer, "DropFewerCode", ExampleFrameIds.both("DropFewer", "DropFewerChunked"));
 </script>
         
         <h2 id="more" class="section"><a class="anchor-link left" href="#more"><i class="icofont-laika link">&#xef71;</i></a>more</h2>
@@ -134,8 +133,7 @@
         <h3>chunked</h3>
         <div id="DropMoreChunked" class="example-frame"></div>
         <script>
- hljsWrapper.highlightExampleCode("DropMoreCode");
- DropMore.draw("DropMoreCode", ExampleFrameIds.both("DropMore", "DropMoreChunked"));
+ aquascape.example(DropMore, "DropMoreCode", ExampleFrameIds.both("DropMore", "DropMoreChunked"));
 </script>
 
         

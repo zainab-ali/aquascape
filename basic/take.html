@@ -27,7 +27,7 @@
   <script src="../helium/site/laika-helium.js"></script>
     <script src="../main.js"></script>
     <script src="../highlight.min.js"></script>
-    <script src="../highlightWrapper.js"></script>
+    <script src="../aquascape.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -106,10 +106,8 @@
   <p class="header"><a href="#">take</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#fewer">fewer</a></li>
-    <li class="level1 nav-leaf"><a href="#more">more</a></li>
-    <li class="level1 nav-leaf"><a href="#from-an-infinite-stream">from an infinite stream</a></li>
-    <li class="level1 nav-leaf"><a href="#from-a-drained-stream">from a drained stream</a></li>
+    <li class="level1 nav-leaf"><a href="#take-from-finite-streams"><code>take</code> from finite streams</a></li>
+    <li class="level1 nav-leaf"><a href="#drained-streams">Drained streams</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -119,45 +117,36 @@
       <main class="content">
 
         <h1 id="take" class="title">take</h1>
-        
-        <h2 id="fewer" class="section"><a class="anchor-link left" href="#fewer"><i class="icofont-laika link">&#xef71;</i></a>fewer</h2>
-        <pre class="example-code"><code id="TakeFewerCode" class="language-scala"></code></pre>
-        <div id="TakeFewer" class="example-frame"></div>
-        <h3>chunked</h3>
-        <div id="TakeFewerChunked" class="example-frame"></div>
-        <script>
- hljsWrapper.highlightExampleCode("TakeFewerCode");
- TakeFewer.draw("TakeFewerCode", ExampleFrameIds.both("TakeFewer", "TakeFewerChunked"));
-</script>
-        
-        <h2 id="more" class="section"><a class="anchor-link left" href="#more"><i class="icofont-laika link">&#xef71;</i></a>more</h2>
-        <pre class="example-code"><code id="TakeMoreCode" class="language-scala"></code></pre>
-        <div id="TakeMore" class="example-frame"></div>
-        <h3>chunked</h3>
-        <div id="TakeMoreChunked" class="example-frame"></div>
-        <script>
- hljsWrapper.highlightExampleCode("TakeMoreCode");
- TakeMore.draw("TakeMoreCode", ExampleFrameIds.both("TakeMore", "TakeMoreChunked"));
-</script>
-        
-        <h2 id="from-an-infinite-stream" class="section"><a class="anchor-link left" href="#from-an-infinite-stream"><i class="icofont-laika link">&#xef71;</i></a>from an infinite stream</h2>
+        <p>Experiment with taking a number of elements from an infinite stream.</p>
+        <p>Note that the resulting stream is finite because a fixed number of elements are pulled.</p>
+        <div class="example-input">
+          <label id="TakeFromAnInfiniteStreamLabel" for="TakeFromAnInfiniteStreamInput"></label>
+          <input id="TakeFromAnInfiniteStreamInput"></input>
+        </div>
         <pre class="example-code"><code id="TakeFromAnInfiniteStreamCode" class="language-scala"></code></pre>
         <div id="TakeFromAnInfiniteStream" class="example-frame"></div>
-        <h3>chunked</h3>
-        <div id="TakeFromAnInfiniteStreamChunked" class="example-frame"></div>
         <script>
- hljsWrapper.highlightExampleCode("TakeFromAnInfiniteStreamCode");
- TakeFromAnInfiniteStream.draw("TakeFromAnInfiniteStreamCode", ExampleFrameIds.both("TakeFromAnInfiniteStream", "TakeFromAnInfiniteStreamChunked"));
+ aquascape.exampleWithInput(TakeFromAnInfiniteStream, "TakeFromAnInfiniteStreamCode", ExampleFrameIds.unchunked("TakeFromAnInfiniteStream"), "TakeFromAnInfiniteStreamLabel", "TakeFromAnInfiniteStreamInput");
 </script>
         
-        <h2 id="from-a-drained-stream" class="section"><a class="anchor-link left" href="#from-a-drained-stream"><i class="icofont-laika link">&#xef71;</i></a>from a drained stream</h2>
+        <h2 id="take-from-finite-streams" class="section"><a class="anchor-link left" href="#take-from-finite-streams"><i class="icofont-laika link">&#xef71;</i></a><code>take</code> from finite streams</h2>
+        <p>Experiment with taking a number of elements from a finite stream.</p>
+        <div class="example-input">
+          <label id="TakeFromAFiniteStreamLabel" for="TakeFromAFiniteStreamInput"></label>
+          <input id="TakeFromAFiniteStreamInput"></input>
+        </div>
+        <pre class="example-code"><code id="TakeFromAFiniteStreamCode" class="language-scala"></code></pre>
+        <div id="TakeFromAFiniteStream" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(TakeFromAFiniteStream, "TakeFromAFiniteStreamCode", ExampleFrameIds.unchunked("TakeFromAFiniteStream"), "TakeFromAFiniteStreamLabel", "TakeFromAFiniteStreamInput");
+</script>
+        
+        <h2 id="drained-streams" class="section"><a class="anchor-link left" href="#drained-streams"><i class="icofont-laika link">&#xef71;</i></a>Drained streams</h2>
+        <p>Drained streams output no elements, but may still capture side-effects.</p>
         <pre class="example-code"><code id="TakeFromADrainedStreamCode" class="language-scala"></code></pre>
         <div id="TakeFromADrainedStream" class="example-frame"></div>
-        <h3>chunked</h3>
-        <div id="TakeFromADrainedStreamChunked" class="example-frame"></div>
         <script>
- hljsWrapper.highlightExampleCode("TakeFromADrainedStreamCode");
- TakeFromADrainedStream.draw("TakeFromADrainedStreamCode", ExampleFrameIds.both("TakeFromADrainedStream", "TakeFromADrainedStreamChunked"));
+ aquascape.example(TakeFromADrainedStream, "TakeFromADrainedStreamCode", ExampleFrameIds.unchunked("TakeFromADrainedStream"));
 </script>
 
         
