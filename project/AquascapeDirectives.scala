@@ -32,59 +32,96 @@ object AquascapeDirectives extends DirectiveRegistry {
   // Parameter is the name of the JS instance of aquascape.example.Example
   val example: BlockDirectives.Directive =
     BlockDirectives.create("example") {
-      import BlockDirectives.dsl.*
-      (attribute(0).as[String], attribute("drawChunked").as[Boolean].optional)
+      exampleAttributes
         .mapN { case (example, drawChunked) =>
           val codeId = s"${example}Code"
 
-          val (svgEls, frameIds) = {
-            val unchunkedFrameId = example
-            val chunkedFrameId = s"${example}Chunked"
-            val unchunkedSnippet = Seq(
-              html(
-                s"""<div id="$unchunkedFrameId" class="example-frame"></div>"""
-              )
-            )
-            val chunkedSnippet = Seq(
-              html("<h3>chunked</h3>"),
-              html(
-                s"""<div id="$chunkedFrameId" class="example-frame"></div>"""
-              )
-            )
-            drawChunked match {
-              case None =>
-                (
-                  unchunkedSnippet ++ chunkedSnippet,
-                  s"""ExampleFrameIds.both("$unchunkedFrameId", "$chunkedFrameId")"""
-                )
-              case Some(true) =>
-                (
-                  chunkedSnippet,
-                  s"""ExampleFrameIds.chunked("$chunkedFrameId")"""
-                )
-              case Some(false) =>
-                (
-                  unchunkedSnippet,
-                  s"""ExampleFrameIds.chunked("$chunkedFrameId")"""
-                )
-            }
-          }
-          val codeEl = html(
-            s"""<pre class="example-code"><code id="$codeId" class="language-scala"></code></pre>"""
+          val (svgEls, frameIds) = frameElsAndIds(example, drawChunked)
+
+          val scriptEl = html(
+            s"""<script>
+                   | aquascape.example($example, "$codeId", $frameIds);
+                   |</script>""".stripMargin
+          )
+          BlockSequence(codeEl(codeId) +: svgEls :+ scriptEl)
+        }
+    }
+  val exampleWithInput: BlockDirectives.Directive =
+    BlockDirectives.create("exampleWithInput") {
+      exampleAttributes
+        .mapN { case (example, drawChunked) =>
+          val codeId = s"${example}Code"
+          val (svgEls, frameIds) = frameElsAndIds(example, drawChunked)
+
+          val labelId = s"${example}Label"
+          val inputId = s"${example}Input"
+          val inputEls = BlockSequence(
+            Seq(
+              html(s"""<label id="$labelId" for="$inputId"></label>"""),
+              html(s"""<input id="$inputId"></input>""")
+            ),
+            Options(styles = Set("example-input"))
           )
 
           val scriptEl = html(
             s"""<script>
-                   | hljsWrapper.highlightExampleCode("$codeId");
-                   | ${example}.draw("$codeId", $frameIds);
+                   | aquascape.exampleWithInput($example, "$codeId", $frameIds, "$labelId", "$inputId");
                    |</script>""".stripMargin
           )
-          BlockSequence(codeEl +: svgEls :+ scriptEl)
+          BlockSequence(inputEls +: (codeEl(codeId) +: svgEls :+ scriptEl))
         }
     }
 
+  private def exampleAttributes: (
+      BlockDirectives.DirectivePart[String],
+      BlockDirectives.DirectivePart[Option[Boolean]]
+  ) = {
+    import BlockDirectives.dsl.*
+    (attribute(0).as[String], attribute("drawChunked").as[Boolean].optional)
+  }
+  private def codeEl(codeId: String): RawContent = {
+    html(
+      s"""<pre class="example-code"><code id="$codeId" class="language-scala"></code></pre>"""
+    )
+  }
+
+  private def frameElsAndIds(
+      example: String,
+      drawChunked: Option[Boolean]
+  ): (Seq[RawContent], String) = {
+    val unchunkedFrameId = example
+    val chunkedFrameId = s"${example}Chunked"
+    val unchunkedSnippet = Seq(
+      html(
+        s"""<div id="$unchunkedFrameId" class="example-frame"></div>"""
+      )
+    )
+    val chunkedSnippet = Seq(
+      html("<h3>chunked</h3>"),
+      html(
+        s"""<div id="$chunkedFrameId" class="example-frame"></div>"""
+      )
+    )
+    drawChunked match {
+      case None =>
+        (
+          unchunkedSnippet ++ chunkedSnippet,
+          s"""ExampleFrameIds.both("$unchunkedFrameId", "$chunkedFrameId")"""
+        )
+      case Some(true) =>
+        (
+          chunkedSnippet,
+          s"""ExampleFrameIds.chunked("$chunkedFrameId")"""
+        )
+      case Some(false) =>
+        (
+          unchunkedSnippet,
+          s"""ExampleFrameIds.unchunked("$unchunkedFrameId")"""
+        )
+    }
+  }
   val spanDirectives = Seq.empty
-  val blockDirectives = Seq(example)
+  val blockDirectives = Seq(example, exampleWithInput)
   val templateDirectives = Seq.empty
   val linkDirectives = Seq.empty
 }

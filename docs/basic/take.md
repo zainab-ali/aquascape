@@ -1,16 +1,26 @@
 # take
-## fewer
 
-@:example(TakeFewer)
+Experiment with taking a number of elements from an infinite stream.
 
-## more
+Note that the resulting stream is finite because a fixed number of elements are pulled.
 
-@:example(TakeMore)
+@:exampleWithInput(TakeFromAnInfiniteStream) {
+  drawChunked = false
+}
 
-## from an infinite stream
 
-@:example(TakeFromAnInfiniteStream)
+## `take` from finite streams
 
-## from a drained stream
+Experiment with taking a number of elements from a finite stream.
 
-@:example(TakeFromADrainedStream)
+@:exampleWithInput(TakeFromAFiniteStream) {
+  drawChunked = false
+}
+
+## Drained streams
+
+Drained streams output no elements, but may still capture side-effects.
+
+@:example(TakeFromADrainedStream) {
+  drawChunked = false
+}

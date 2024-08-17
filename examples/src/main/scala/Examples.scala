@@ -103,46 +103,47 @@ object BasicCompileOnlyOrError extends Example {
     )
 }
 
-@JSExportTopLevel("TakeFewer")
-object TakeFewer extends Example {
-  def apply(using Scape[IO]): StreamCode =
+import formCodecs.given
+
+@JSExportTopLevel("TakeFromAnInfiniteStream")
+object TakeFromAnInfiniteStream extends ExampleWithInput[Int] {
+
+  def label: String = "n (number of elements to take)"
+
+  def default: Int = 3
+
+  def apply(n: Int)(using Scape[IO]): StreamCode =
     code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .take(2)
-        .stage("take(2)")
+      Stream('a').repeat
+        .stage("Stream('a').repeat")
+        .take(n)
+        .stage(s"take($n)")
         .compile
         .toList
         .compileStage("compile.toList")
     )
 }
 
-@JSExportTopLevel("TakeMore")
-object TakeMore extends Example {
-  def apply(using Scape[IO]): StreamCode =
+@JSExportTopLevel("TakeFromAFiniteStream")
+object TakeFromAFiniteStream extends ExampleWithInput[Int] {
+
+  def label: String = "n (number of elements to take)"
+
+  def default: Int = 2
+
+  def apply(n: Int)(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
         .stage("Stream('a','b','c')")
-        .take(5)
-        .stage("take(5)")
+        .take(n)
+        .stage(s"take($n)")
         .compile
         .toList
         .compileStage("compile.toList")
     )
 }
-@JSExportTopLevel("TakeFromAnInfiniteStream")
-object TakeFromAnInfiniteStream extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a').repeat
-        .stage("Stream('a').repeat")
-        .take(2)
-        .stage("take(2)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
+
+
 @JSExportTopLevel("TakeFromADrainedStream")
 object TakeFromADrainedStream extends Example {
   import NothingShow.given
@@ -912,3 +913,5 @@ object TimeDebounceAwake extends Example {
         .compileStage("compile.toList")
     )
 }
+
+
