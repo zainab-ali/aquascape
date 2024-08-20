@@ -17,10 +17,10 @@
 package aquascape.examples
 
 object formCodecs {
-  given FormCodec[Int] = new FormCodec[Int] {
+  def intCodec(min: Int, max: Int): FormCodec[Int] = new FormCodec[Int] {
     def attributes: Map[String, String] = Map(
-      "min" -> "0",
-      "max" -> "10"
+      "min" -> min.toString,
+      "max" -> max.toString
     )
     def inputType: String = "number"
     def encode(i: Int): String = i.toString
