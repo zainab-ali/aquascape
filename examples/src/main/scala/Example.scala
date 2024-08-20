@@ -21,10 +21,10 @@ import cats.effect.*
 import cats.effect.IO
 import cats.effect.testkit.*
 import cats.effect.unsafe.implicits.global
+import cats.syntax.all.*
 import doodle.svg.*
 import doodle.syntax.all.*
 import org.scalajs.dom
-import cats.syntax.all.*
 
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExportTopLevel
@@ -72,7 +72,9 @@ trait FormCodec[A] {
   def encode(a: A): String
 }
 
-trait ExampleWithInput[A: FormCodec] {
+trait ExampleWithInput[A] {
+
+  given codec: FormCodec[A]
 
   def label: String
   def default: A

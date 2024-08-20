@@ -53,8 +53,9 @@ private def stripStageCalls(tree: Tree): Tree = {
   tree.transform {
     case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("fork")), _) =>
       stripStageCalls(t)
-    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("stage")), _) => t
-    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace")), _) => t
+    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("stage")), _)  => t
+    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace")), _)  => t
+    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace_")), _) => t
     case Term.Apply
           .After_4_6_0(Term.Select(t, Term.Name("compileStage")), _) =>
       t
