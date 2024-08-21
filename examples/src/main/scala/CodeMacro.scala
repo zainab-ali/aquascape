@@ -62,9 +62,20 @@ private def stripStageCalls(tree: Tree): Tree = {
   }
 }
 
+private def prettySyntax(tree: Tree): String = tree match {
+  case Term.Block(stats @ (_ :: _ :: _)) =>
+    // Blocks should be treated as separate statements to avoid printing {}.
+    // The last statement should be given an extra line spacing to stand out.
+    val lines = stats.map(_.syntax)
+    (lines.init :+ "\n" :+ lines.last).mkString("\n")
+  case Term.Block(stat :: Nil) => stat.syntax
+  case singleStat              => singleStat.syntax
+}
+
 private def format(code: Tree): String = {
   import scala.meta.dialects.Scala3
+  val text = prettySyntax(code)
   Scalafmt
-    .format(code.syntax, style = ScalafmtConfig.default.withDialect(Scala3))
+    .format(text, style = ScalafmtConfig.default.withDialect(Scala3))
     .get // Throw an error at compile time if we cannot format the code
 }
