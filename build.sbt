@@ -1,4 +1,5 @@
 import com.typesafe.tools.mima.core._
+import snapshot4s.BuildInfo.snapshot4sVersion
 import aquascapebuild.AquascapeDirectives
 Global / onChangedBuildSource := ReloadOnSourceChanges
 // https://typelevel.org/sbt-typelevel/faq.html#what-is-a-base-version-anyway
@@ -66,6 +67,9 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
 lazy val examples = project
   .in(file("examples"))
   .settings(
+    Test / scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.CommonJSModule)
+    },
     libraryDependencies ++= Seq(
       ("org.creativescala" %%% "doodle-svg" % "0.23.0")
         .exclude(
@@ -77,11 +81,17 @@ lazy val examples = project
       ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Compile)
         .cross(CrossVersion.for3Use2_13),
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
-      "org.typelevel" %%% "cats-effect-testkit" % "3.5.4"
+      "org.typelevel" %%% "cats-effect-testkit" % "3.5.4",
+      "org.scalameta" %%% "munit" % "1.0.1" % Test,
+      ("com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test)
+        .exclude(
+          "com.lihaoyi",
+          "sourcecode_sjs1_3"
+        ) // Both snapshot4s and scalameta include sourcecode.
     )
   )
   .dependsOn(core.js)
-  .enablePlugins(ScalaJSPlugin, NoPublishPlugin)
+  .enablePlugins(ScalaJSPlugin, NoPublishPlugin, Snapshot4sPlugin)
 
 import laika.format._
 import laika.ast.Path.Root
