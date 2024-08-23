@@ -200,7 +200,7 @@ object merge {
   }
 
   @JSExport
-  val resourcesExitCase = new ExampleWithInput[Int] {
+  val errorExitCase = new ExampleWithInput[Int] {
     val inputBox: InputBox[Int] = secondsBeforeErrorInputBox(4)
     given Show[Resource.ExitCase] = {
       case Resource.ExitCase.Canceled   => "Canceled"
@@ -213,7 +213,7 @@ object merge {
         val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))
 
         val xy = Stream('x', 'y')
-          .onFinalizeCase(exitCase => IO(exitCase).trace_())
+          .onFinalizeCase(exitCase => IO(show"xy-$exitCase").trace_())
           .metered[IO](1.second)
         ab
           .stage("ab", branch = "left")
@@ -260,11 +260,11 @@ object merge {
       code {
         val ab =
           Stream('a', 'b')
-            .onFinalize(IO("AB").trace_())
+            .onFinalize(IO("ab").trace_())
             .metered[IO](n.second)
 
         val xy = Stream('x', 'y')
-          .onFinalize(IO("XY").trace_())
+          .onFinalize(IO("xy").trace_())
           .metered[IO](1.second)
         ab
           .stage("ab", branch = "left")
@@ -289,10 +289,10 @@ object merge {
     def apply(n: Int)(using Scape[IO]): StreamCode =
       code {
         val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))
-          .onFinalize(IO("AB").trace_())
+          .onFinalize(IO("ab").trace_())
 
         val xy = Stream('x', 'y')
-          .onFinalize(IO("XY").trace_())
+          .onFinalize(IO("xy").trace_())
           .metered[IO](1.second)
         ab
           .stage("ab", branch = "left")

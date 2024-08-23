@@ -123,7 +123,7 @@ In this example, the `ab` stream raises an error when it is pulled on for the se
 
 If the `xy` stream is stopped due to an error raised by the `ab` stream, its exit case is `Canceled`.
 
-@:exampleWithInput(resourcesExitCase) {
+@:exampleWithInput(errorExitCase) {
   drawChunked = false
 }
 
@@ -144,11 +144,9 @@ Experiment with the delay before the error.
 
 The left or right streams may have finalizers associated with them. These finalizers are executed when their associated stream terminates.
 
-In thid example, an `AB` finalizer is associated with the `ab` stream and an `XY` finalizer is associated with the `xy` stream.
+In thid example, finalizers are associated with the `ab` and `xy` streams.
 
-Experiment with different delays for `ab`. Note that the `AB` finalizer is executed when the `ab` stream is done, not when the resulting stream is done. Similarly, the `XY` finalizer is executed when the `xy` stream is done.
-
-Note that the finalizer `AB` is run when the `ab` stream is done, and not when the resulting stream terminates.
+Experiment with different delays for `ab`. Note that the `ab` finalizer is executed when the `ab` stream is done, not when the resulting stream is done. Similarly, the `xy` finalizer is executed when the `xy` stream is done.
 
 @:exampleWithInput(resources) {
   drawChunked = false
@@ -158,12 +156,12 @@ Note that the finalizer `AB` is run when the `ab` stream is done, and not when t
 
 If an error is raised in either the left or right stream, the finalizers are run.
 
-In this example, the `ab` stream raises an error when it is pulled for the second time. As before, an `AB` finalizer is associated with the `ab` stream and an `XY` finalizer is associated with the `xy` stream.
+In this example, the `ab` stream raises an error when it is pulled for the second time. As before, finalizers are associated with the `ab` and `xy` streams.
 
-Experiment with the delay before the error. Notice that the `AB` and `XY` finalizers are always run, provided that their respective streams are pulled on.
+Experiment with the delay before the error. Notice that the `ab` and `xy` finalizers are always run, provided that their respective streams are pulled on.
 
 @:exampleWithInput(resourcesError) {
   drawChunked = false
 }
 
-Note that when `ab` raises an error immediately (the delay before the error is `0`), the `XY` finalizer is not run. The error is raised before the `xy` stream is pulled on.
+Note that when `ab` raises an error immediately (the delay before the error is `0`), the `xy` finalizer is not run. The error is raised before the `xy` stream is pulled on.
