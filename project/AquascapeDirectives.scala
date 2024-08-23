@@ -31,9 +31,11 @@ object AquascapeDirectives extends DirectiveRegistry {
 
   // Parameter is the name of the JS instance of aquascape.example.Example
   val example: BlockDirectives.Directive =
+    // TODO: Access the cursor and 
     BlockDirectives.create("example") {
       exampleAttributes
-        .mapN { case (example, drawChunked) =>
+        .mapN { case (cursor, exampleName, drawChunked) =>
+          val example = cursor.config.get[String]("pageid").fold(_ => exampleName, id => s"$id.$exampleName")
           val codeId = s"${example}Code"
 
           val (svgEls, frameIds) = frameElsAndIds(example, drawChunked)
@@ -49,7 +51,8 @@ object AquascapeDirectives extends DirectiveRegistry {
   val exampleWithInput: BlockDirectives.Directive =
     BlockDirectives.create("exampleWithInput") {
       exampleAttributes
-        .mapN { case (example, drawChunked) =>
+        .mapN { case (cursor, exampleName, drawChunked) =>
+          val example = cursor.config.get[String]("pageid").fold(_ => exampleName, id => s"$id.$exampleName")
           val codeId = s"${example}Code"
           val (svgEls, frameIds) = frameElsAndIds(example, drawChunked)
 
@@ -73,11 +76,12 @@ object AquascapeDirectives extends DirectiveRegistry {
     }
 
   private def exampleAttributes: (
+      BlockDirectives.DirectivePart[DocumentCursor],
       BlockDirectives.DirectivePart[String],
       BlockDirectives.DirectivePart[Option[Boolean]]
   ) = {
     import BlockDirectives.dsl.*
-    (attribute(0).as[String], attribute("drawChunked").as[Boolean].optional)
+    (cursor, attribute(0).as[String], attribute("drawChunked").as[Boolean].optional)
   }
   private def codeEl(codeId: String): RawContent = {
     html(

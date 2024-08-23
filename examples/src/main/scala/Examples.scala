@@ -103,14 +103,15 @@ object BasicCompileOnlyOrError extends Example {
     )
 }
 
-import formCodecs.*
-
 @JSExportTopLevel("TakeFromAnInfiniteStream")
 object TakeFromAnInfiniteStream extends ExampleWithInput[Int] {
 
-  given codec: FormCodec[Int] = intCodec(0, 4)
-
-  def label: String = "n (number of elements to take)"
+  given inputBox: InputBox[Int] = InputBox.int(
+    labelText = "n (number of elements to take)",
+    min = 0,
+    max = 4,
+    defaultValue = 3
+  )
 
   def default: Int = 3
 
@@ -129,7 +130,12 @@ object TakeFromAnInfiniteStream extends ExampleWithInput[Int] {
 @JSExportTopLevel("TakeFromAFiniteStream")
 object TakeFromAFiniteStream extends ExampleWithInput[Int] {
 
-  given codec: FormCodec[Int] = intCodec(0, 4)
+  given inputBox: InputBox[Int] = InputBox.int(
+    labelText = "n (number of elements to take)",
+    min = 0,
+    max = 4,
+    defaultValue = 3
+  )
 
   def label: String = "n (number of elements to take)"
 

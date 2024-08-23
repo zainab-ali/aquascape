@@ -49,35 +49,15 @@ object FrameIds {
 trait Example {
   @JSExport
   final def draw(codeId: String, frameIds: FrameIds): Unit = {
-    drawFrames(codeId, frameIds)(apply).unsafeRunAsync {
-      case Left(err) => throw err
-      case Right(_)  => ()
-    }
+    drawFrames(codeId, frameIds)(apply).unsafeRunAsync(getOrThrow)
   }
 
   def apply(using Scape[IO]): StreamCode
 }
 
-/** Describes how a value encodes to and from an <input> element.
-  *
-  * In practice, this only works for numbers. More work is needed to support
-  * coproducts (e.g. with radio buttons).
-  */
-trait FormCodec[A] {
-
-  def attributes: Map[String, String]
-  def inputType: String
-
-  def decode(text: String): Option[A]
-  def encode(a: A): String
-}
-
 trait ExampleWithInput[A] {
 
-  given codec: FormCodec[A]
-
-  def label: String
-  def default: A
+  def inputBox: InputBox[A]
 
   @JSExport
   final def setup(
@@ -87,28 +67,27 @@ trait ExampleWithInput[A] {
       frameIds: FrameIds
   ): Unit = {
     val program = for {
-      _ <- drawFrames(codeId, frameIds)(apply(default))
-      _ <- drawLabel(labelId, label)
-      _ <- setValue(inputId, default)
+      _ <- drawFrames(codeId, frameIds)(apply(inputBox.default))
+      _ <- drawLabel(labelId, inputBox.label)
+      _ <- setValue(inputBox, inputId)
     } yield ()
-    program.unsafeRunAsync {
-      case Left(err) => throw err
-      case Right(_)  => ()
-    }
+    program.unsafeRunAsync(getOrThrow)
   }
 
   @JSExport
   final def draw(codeId: String, frameIds: FrameIds, param: String): Unit = {
-    summon[FormCodec[A]]
+    inputBox
       .decode(param)
       .traverse_ { a => drawFrames(codeId, frameIds)(apply(a)) }
-      .unsafeRunAsync {
-        case Left(err) => throw err
-        case Right(_)  => ()
-      }
+      .unsafeRunAsync(getOrThrow)
   }
 
   def apply(a: A)(using Scape[IO]): StreamCode
+}
+
+private def getOrThrow(either: Either[Throwable, Unit]): Unit = either match {
+  case Left(err) => throw err
+  case Right(_)  => ()
 }
 
 private def drawFrames(
@@ -116,30 +95,25 @@ private def drawFrames(
     frameIds: FrameIds
 )(stream: Scape[IO] ?=> StreamCode): IO[Unit] = {
   for {
-    code <- {
-      frameIds match {
-        case FrameIds.Unchunked(id) => drawFrame(id, false)(stream)
-        case FrameIds.Chunked(id)   => drawFrame(id, true)(stream)
-        case FrameIds.Both(unchunkedId, chunkedId) =>
-          drawFrame(unchunkedId, false)(stream) *> drawFrame(chunkedId, true)(
-            stream
-          )
-      }
+    code <- frameIds match {
+      case FrameIds.Unchunked(id) => drawFrame(id, false)(stream)
+      case FrameIds.Chunked(id)   => drawFrame(id, true)(stream)
+      case FrameIds.Both(unchunkedId, chunkedId) =>
+        drawFrame(unchunkedId, false)(stream) *> drawFrame(chunkedId, true)(
+          stream
+        )
     }
-    codeEl <- IO(dom.document.getElementById(codeId))
-    _ <- IO(codeEl.textContent = code.code)
-      .whenA(codeEl.textContent.trim.isEmpty)
+    _ <- drawCode(codeId, code.code)
   } yield ()
 }
 
 private def drawFrame(frameId: String, chunked: Boolean)(
     stream: Scape[IO] ?=> StreamCode
 ): IO[StreamCode] = {
-  val frame = Frame(frameId)
   for {
-    t <- if (chunked) Scape.chunked[IO] else Scape.unchunked[IO]
-    given Scape[IO] = t
-    streamCode = stream(using t)
+    scape <- if (chunked) Scape.chunked[IO] else Scape.unchunked[IO]
+    given Scape[IO] = scape
+    streamCode = stream(using scape)
     picture <- TestControl.executeEmbed(
       streamCode.stream.attempt.void.draw(),
       seed = Some("MTIzNDU=")
@@ -149,23 +123,27 @@ private def drawFrame(frameId: String, chunked: Boolean)(
     _ <- IO(
       Option(frameEl.firstChild).foreach(child => frameEl.removeChild(child))
     )
-    _ <- picture.drawWithFrameToIO(frame)
+    _ <- picture.drawWithFrameToIO(Frame(frameId))
   } yield streamCode
 }
 
+private def drawCode(codeId: String, codeText: String): IO[Unit] = for {
+  codeEl <- IO(dom.document.getElementById(codeId))
+  _ <- IO(codeEl.textContent = codeText)
+    .whenA(codeEl.textContent.trim.isEmpty)
+} yield ()
 private def drawLabel(labelId: String, label: String): IO[Unit] = {
   for {
     labelEl <- IO(dom.document.getElementById(labelId))
     _ <- IO(labelEl.textContent = label)
   } yield ()
 }
-private def setValue[A: FormCodec](inputId: String, default: A): IO[Unit] = {
+private def setValue[A](inputBox: InputBox[A], inputId: String): IO[Unit] = {
   for {
     inputEl <- IO(dom.document.getElementById(inputId))
-    codec = summon[FormCodec[A]]
-    _ <- IO(inputEl.setAttribute("type", codec.inputType))
-    _ <- IO(inputEl.setAttribute("value", codec.encode(default)))
-    _ <- codec.attributes.toList.traverse_ { case (k, v) =>
+    _ <- IO(inputEl.setAttribute("type", inputBox.inputType))
+    _ <- IO(inputEl.setAttribute("value", inputBox.encode(inputBox.default)))
+    _ <- inputBox.attributes.toList.traverse_ { case (k, v) =>
       IO(inputEl.setAttribute(k, v))
     }
   } yield ()
