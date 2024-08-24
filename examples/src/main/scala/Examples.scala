@@ -87,59 +87,6 @@ object BasicCompileOnlyOrError extends Example {
     )
 }
 
-@JSExportTopLevel("FilteringFilter")
-object FilteringFilter extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .filter(_ == 'b')
-        .stage("filter(_ == 'b')")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-@JSExportTopLevel("FilteringExists")
-object FilteringExists extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .exists(_ == 'b')
-        .stage("exists(_ == 'b')")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-@JSExportTopLevel("FilteringForall")
-object FilteringForall extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .forall(_ == 'b')
-        .stage("forall(_ == 'b')")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-@JSExportTopLevel("FilteringChanges")
-object FilteringChanges extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'b', 'a', 'c')
-        .stage("Stream('a','b','b','a','c')")
-        .changes
-        .stage("changes")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
 @JSExportTopLevel("ChunkingChunkChunkLimit")
 object ChunkingChunkChunkLimit extends Example {
   def apply(using Scape[IO]): StreamCode =
