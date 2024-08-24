@@ -83,6 +83,7 @@ lazy val examples = project
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
       "org.typelevel" %%% "cats-effect-testkit" % "3.5.4",
       "org.scalameta" %%% "munit" % "1.0.1" % Test,
+      "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
       ("com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test)
         .exclude(
           "com.lihaoyi",

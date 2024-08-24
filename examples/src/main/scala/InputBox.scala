@@ -16,12 +16,35 @@
 
 package aquascape.examples
 
-object formCodecs {
-  def intCodec(min: Int, max: Int): FormCodec[Int] = new FormCodec[Int] {
+/** Describes how a value encodes to and from an <input> element.
+  *
+  * In practice, this only works for numbers. More work is needed to support
+  * coproducts (e.g. with radio buttons).
+  */
+trait InputBox[A] {
+
+  def attributes: Map[String, String]
+  def inputType: String
+  def label: String
+  def default: A
+
+  def decode(text: String): Option[A]
+  def encode(a: A): String
+}
+
+object InputBox {
+  def int(
+      labelText: String,
+      min: Int,
+      max: Int,
+      defaultValue: Int
+  ): InputBox[Int] = new InputBox[Int] {
     def attributes: Map[String, String] = Map(
       "min" -> min.toString,
       "max" -> max.toString
     )
+    def default: Int = defaultValue
+    def label: String = labelText
     def inputType: String = "number"
     def encode(i: Int): String = i.toString
     def decode(text: String): Option[Int] =

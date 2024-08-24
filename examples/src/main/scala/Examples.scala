@@ -17,6 +17,7 @@
 package aquascape.examples
 
 import aquascape.*
+import aquascape.examples.syntax.given
 import cats.Show
 import cats.effect.*
 import cats.effect.IO
@@ -25,22 +26,6 @@ import fs2.*
 
 import scala.concurrent.duration.*
 import scala.scalajs.js.annotation.JSExportTopLevel
-
-object EitherThrowableCharShow {
-  given Show[Either[Throwable, Char]] = {
-    case Left(Scape.Caught(err)) => s"Left(${err.getMessage})"
-    case Left(err)               => s"Left(${err.getMessage})"
-    case Right(c)                => s"Right(${c.show})"
-  }
-}
-
-object NothingShow {
-  given Show[Nothing] = _ => sys.error("Unreachable code.")
-}
-
-object UnitShow {
-  given Show[Unit] = _ => "()"
-}
 
 @JSExportTopLevel("BasicCompileToList")
 object BasicCompileToList extends Example {
@@ -56,7 +41,6 @@ object BasicCompileToList extends Example {
 
 @JSExportTopLevel("BasicCompileDrain")
 object BasicCompileDrain extends Example {
-  import UnitShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -103,14 +87,15 @@ object BasicCompileOnlyOrError extends Example {
     )
 }
 
-import formCodecs.*
-
 @JSExportTopLevel("TakeFromAnInfiniteStream")
 object TakeFromAnInfiniteStream extends ExampleWithInput[Int] {
 
-  given codec: FormCodec[Int] = intCodec(0, 4)
-
-  def label: String = "n (number of elements to take)"
+  given inputBox: InputBox[Int] = InputBox.int(
+    labelText = "n (number of elements to take)",
+    min = 0,
+    max = 4,
+    defaultValue = 3
+  )
 
   def default: Int = 3
 
@@ -129,7 +114,12 @@ object TakeFromAnInfiniteStream extends ExampleWithInput[Int] {
 @JSExportTopLevel("TakeFromAFiniteStream")
 object TakeFromAFiniteStream extends ExampleWithInput[Int] {
 
-  given codec: FormCodec[Int] = intCodec(0, 4)
+  given inputBox: InputBox[Int] = InputBox.int(
+    labelText = "n (number of elements to take)",
+    min = 0,
+    max = 4,
+    defaultValue = 3
+  )
 
   def label: String = "n (number of elements to take)"
 
@@ -149,7 +139,6 @@ object TakeFromAFiniteStream extends ExampleWithInput[Int] {
 
 @JSExportTopLevel("TakeFromADrainedStream")
 object TakeFromADrainedStream extends Example {
-  import NothingShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -353,105 +342,10 @@ object CombiningAppend extends Example {
     )
 }
 
-@JSExportTopLevel("CombiningFlatMap")
-object CombiningFlatMap extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream("abc")
-        .stage("""Stream("abc")""")
-        .flatMap { str =>
-          Stream
-            .emits(str.toList)
-            .stage("Stream.emits(str.toList)")
-        }
-        .stage("flatMap {…}")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
 object Err extends Throwable("Err")
-
-@JSExportTopLevel("CombiningFlatMapErrorPropagation")
-object CombiningFlatMapErrorPropagation extends Example {
-  import EitherThrowableCharShow.given
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream("abc")
-        .stage("""Stream("abc")""")
-        .flatMap { _ =>
-          Stream
-            .raiseError[IO](Err)
-            .stage("Stream.raiseError(Err)")
-        }
-        .stage("flatMap {…}")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("CombiningFlatMapErrorHandling")
-object CombiningFlatMapErrorHandling extends Example {
-  import NothingShow.given
-
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream("abc")
-        .stage("""Stream("abc")""")
-        .flatMap { _ =>
-          Stream
-            .raiseError[IO](Err)
-            .stage("Stream.raiseError(Err)")
-        }
-        .stage("flatMap {…}")
-        .handleError(_ => 'a')
-        .stage("handleError(_ => 'a')")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("CombiningFlatMapBracket")
-object CombiningFlatMapBracket extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("""Stream('a','b','c')""")
-        .flatMap { x =>
-          Stream.bracket(IO(s"<$x").trace())(_ => IO(s"$x>").trace().void)
-        }
-        .stage("flatMap {…}")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("CombiningMerge")
-object CombiningMerge extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a')
-        .stage("Stream('a')", branch = "left")
-        .fork("root", "left")
-        .merge(
-          Stream('b')
-            .stage("Stream('b')", branch = "right")
-            .fork("root", "right")
-        )
-        .stage("merge")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
 
 @JSExportTopLevel("CombiningParZip")
 object CombiningParZip extends Example {
-  import UnitShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -572,7 +466,6 @@ object EffectsEvalMap2 extends Example {
 
 @JSExportTopLevel("EffectsExec")
 object EffectsExec extends Example {
-  import EitherThrowableCharShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
@@ -728,7 +621,6 @@ object ErrorsHandlingErrorsHandleErrorWith extends Example {
 
 @JSExportTopLevel("ErrorsHandlingErrorsAttempt")
 object ErrorsHandlingErrorsAttempt extends Example {
-  import EitherThrowableCharShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -746,7 +638,6 @@ object ErrorsHandlingErrorsAttempt extends Example {
 @JSExportTopLevel("ErrorsHandlingErrorsAttempts")
 object ErrorsHandlingErrorsAttempts extends Example {
 
-  import EitherThrowableCharShow.given
   def apply(using Scape[IO]): StreamCode = {
     code(
       Stream('a', 'b', 'c')

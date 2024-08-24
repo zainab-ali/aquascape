@@ -78,4 +78,5 @@ private def format(code: Tree): String = {
   Scalafmt
     .format(text, style = ScalafmtConfig.default.withDialect(Scala3))
     .get // Throw an error at compile time if we cannot format the code
+    .trim
 }

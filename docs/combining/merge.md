@@ -1,3 +1,7 @@
+{%
+  pageid = DocsReferenceMerge
+%}
+
 # merge
 
 @:todo(
@@ -30,7 +34,7 @@ The following examples merge two streams of characters.
 
 Experiment with different delays for `ab`. 
 
-@:exampleWithInput(CombiningStreamsMerge) {
+@:exampleWithInput(merge) {
   drawChunked = false
 }
 
@@ -50,7 +54,7 @@ The resulting stream of `mergeHaltBoth` terminates when either input stream is d
 
 The following example combines `ab` and `xy` with `mergeHaltBoth`. Experiment with different delays for `ab`. Note that if `ab` is done first, no more elements are pulled from `xy` and the resulting stream terminates. Conversely, if `xy` is done first, no more elements are pulled from `ab`.
 
-@:exampleWithInput(CombiningStreamsMergeHaltBoth) {
+@:exampleWithInput(mergeHaltBoth) {
   drawChunked = false
 }
 
@@ -62,7 +66,7 @@ The resulting stream of `mergeHaltL` terminates when the left input stream is do
 
 The following example combines `ab` and `xy` with `mergeHaltL`. Experiment with different delays for `ab`. Note that the resulting stream always terminates when `ab` is done.
 
-@:exampleWithInput(CombiningStreamsMergeHaltL) {
+@:exampleWithInput(mergeHaltL) {
   drawChunked = false
 }
 
@@ -75,7 +79,7 @@ The resulting stream of `mergeHaltR` terminates when the right input stream is d
 The following example combines `ab` and `xy` with `mergeHaltR`. Experiment with different delays for `ab`. Note that the resulting stream always terminates when `xy` is done.
 
 
-@:exampleWithInput(CombiningStreamsMergeHaltR) {
+@:exampleWithInput(mergeHaltR) {
   drawChunked = false
 }
 
@@ -97,7 +101,7 @@ The following example shows the exit cases of both input streams when merged wit
 
 Experiment with varying the delay of `ab`. Note that if the `ab` stream is done first, the `xy` stream has an exit case of `Canceled`. Conversely, if the `xy` stream is done, the `ab` stream has an exit case of `Canceled`.
 
-@:exampleWithInput(CombiningStreamsMergeHaltBothExitCase) {
+@:exampleWithInput(mergeHaltBothExitCase) {
   drawChunked = false
 }
 
@@ -107,7 +111,7 @@ If a fixed number of elements are requested from the resulting stream, it may te
 
 The following example shows the exit cases when a single element is pulled from the resulting stream. Both `ab` and `xy` are canceled.
 
-@:example(CombiningStreamsTakeExitCase) {
+@:example(takeExitCase) {
   drawChunked = false
 }
 
@@ -119,7 +123,7 @@ In this example, the `ab` stream raises an error when it is pulled on for the se
 
 If the `xy` stream is stopped due to an error raised by the `ab` stream, its exit case is `Canceled`.
 
-@:exampleWithInput(CombiningStreamsResourcesExitCase) {
+@:exampleWithInput(errorExitCase) {
   drawChunked = false
 }
 
@@ -131,7 +135,7 @@ In the following example, the `ab` stream raises an error when it is pulled on f
 
 Experiment with the delay before the error.
 
-@:exampleWithInput(CombiningStreamsMergeError) {
+@:exampleWithInput(mergeError) {
   drawChunked = false
 }
 
@@ -140,13 +144,11 @@ Experiment with the delay before the error.
 
 The left or right streams may have finalizers associated with them. These finalizers are executed when their associated stream terminates.
 
-In thid example, an `AB` finalizer is associated with the `ab` stream and an `XY` finalizer is associated with the `xy` stream.
+In thid example, finalizers are associated with the `ab` and `xy` streams.
 
-Experiment with different delays for `ab`. Note that the `AB` finalizer is executed when the `ab` stream is done, not when the resulting stream is done. Similarly, the `XY` finalizer is executed when the `xy` stream is done.
+Experiment with different delays for `ab`. Note that the `ab` finalizer is executed when the `ab` stream is done, not when the resulting stream is done. Similarly, the `xy` finalizer is executed when the `xy` stream is done.
 
-Note that the finalizer `AB` is run when the `ab` stream is done, and not when the resulting stream terminates.
-
-@:exampleWithInput(CombiningStreamsResources) {
+@:exampleWithInput(resources) {
   drawChunked = false
 }
 
@@ -154,12 +156,12 @@ Note that the finalizer `AB` is run when the `ab` stream is done, and not when t
 
 If an error is raised in either the left or right stream, the finalizers are run.
 
-In this example, the `ab` stream raises an error when it is pulled for the second time. As before, an `AB` finalizer is associated with the `ab` stream and an `XY` finalizer is associated with the `xy` stream.
+In this example, the `ab` stream raises an error when it is pulled for the second time. As before, finalizers are associated with the `ab` and `xy` streams.
 
-Experiment with the delay before the error. Notice that the `AB` and `XY` finalizers are always run, provided that their respective streams are pulled on.
+Experiment with the delay before the error. Notice that the `ab` and `xy` finalizers are always run, provided that their respective streams are pulled on.
 
-@:exampleWithInput(CombiningStreamsResourcesError) {
+@:exampleWithInput(resourcesError) {
   drawChunked = false
 }
 
-Note that when `ab` raises an error immediately (the delay before the error is `0`), the `XY` finalizer is not run. The error is raised before the `xy` stream is pulled on.
+Note that when `ab` raises an error immediately (the delay before the error is `0`), the `xy` finalizer is not run. The error is raised before the `xy` stream is pulled on.

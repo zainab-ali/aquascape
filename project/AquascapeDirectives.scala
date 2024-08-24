@@ -33,10 +33,14 @@ object AquascapeDirectives extends DirectiveRegistry {
   val example: BlockDirectives.Directive =
     BlockDirectives.create("example") {
       exampleAttributes
-        .mapN { case (example, drawChunked) =>
-          val codeId = s"${example}Code"
+        .mapN { case (cursor, exampleName, drawChunked, maybeSuffix) =>
+          val example = cursor.config
+            .get[String]("pageid")
+            .fold(_ => exampleName, id => s"$id.$exampleName")
+          val suffix = maybeSuffix.getOrElse("")
+          val codeId = s"${example}${suffix}Code"
 
-          val (svgEls, frameIds) = frameElsAndIds(example, drawChunked)
+          val (svgEls, frameIds) = frameElsAndIds(example, drawChunked, suffix)
 
           val scriptEl = html(
             s"""<script>
@@ -49,12 +53,16 @@ object AquascapeDirectives extends DirectiveRegistry {
   val exampleWithInput: BlockDirectives.Directive =
     BlockDirectives.create("exampleWithInput") {
       exampleAttributes
-        .mapN { case (example, drawChunked) =>
-          val codeId = s"${example}Code"
-          val (svgEls, frameIds) = frameElsAndIds(example, drawChunked)
+        .mapN { case (cursor, exampleName, drawChunked, maybeSuffix) =>
+          val example = cursor.config
+            .get[String]("pageid")
+            .fold(_ => exampleName, id => s"$id.$exampleName")
+          val suffix = maybeSuffix.getOrElse("")
+          val codeId = s"${example}${suffix}Code"
+          val (svgEls, frameIds) = frameElsAndIds(example, drawChunked, suffix)
 
-          val labelId = s"${example}Label"
-          val inputId = s"${example}Input"
+          val labelId = s"${example}${suffix}Label"
+          val inputId = s"${example}${suffix}Input"
           val inputEls = BlockSequence(
             Seq(
               html(s"""<label id="$labelId" for="$inputId"></label>"""),
@@ -73,11 +81,18 @@ object AquascapeDirectives extends DirectiveRegistry {
     }
 
   private def exampleAttributes: (
+      BlockDirectives.DirectivePart[DocumentCursor],
       BlockDirectives.DirectivePart[String],
-      BlockDirectives.DirectivePart[Option[Boolean]]
+      BlockDirectives.DirectivePart[Option[Boolean]],
+      BlockDirectives.DirectivePart[Option[String]]
   ) = {
     import BlockDirectives.dsl.*
-    (attribute(0).as[String], attribute("drawChunked").as[Boolean].optional)
+    (
+      cursor,
+      attribute(0).as[String],
+      attribute("drawChunked").as[Boolean].optional,
+      attribute("suffix").as[String].optional
+    )
   }
   private def codeEl(codeId: String): RawContent = {
     html(
@@ -87,35 +102,32 @@ object AquascapeDirectives extends DirectiveRegistry {
 
   private def frameElsAndIds(
       example: String,
-      drawChunked: Option[Boolean]
+      drawChunked: Option[Boolean],
+      suffix: String
   ): (Seq[RawContent], String) = {
-    val unchunkedFrameId = example
-    val chunkedFrameId = s"${example}Chunked"
-    val unchunkedSnippet = Seq(
-      html(
-        s"""<div id="$unchunkedFrameId" class="example-frame"></div>"""
-      )
+    val unchunkedFrameId = s"${example}${suffix}"
+    val chunkedFrameId = s"${example}${suffix}Chunked"
+    val unchunkedSnippet = html(
+      s"""<div id="$unchunkedFrameId" class="example-frame"></div>"""
     )
-    val chunkedSnippet = Seq(
-      html("<h3>chunked</h3>"),
-      html(
-        s"""<div id="$chunkedFrameId" class="example-frame"></div>"""
-      )
+    val chunkedSnippet = html(
+      s"""<div id="$chunkedFrameId" class="example-frame"></div>"""
     )
+    val chunkedHeader = html("<h3>chunked</h3>")
     drawChunked match {
       case None =>
         (
-          unchunkedSnippet ++ chunkedSnippet,
+          Seq(unchunkedSnippet, chunkedHeader, chunkedSnippet),
           s"""ExampleFrameIds.both("$unchunkedFrameId", "$chunkedFrameId")"""
         )
       case Some(true) =>
         (
-          chunkedSnippet,
+          Seq(chunkedSnippet),
           s"""ExampleFrameIds.chunked("$chunkedFrameId")"""
         )
       case Some(false) =>
         (
-          unchunkedSnippet,
+          Seq(unchunkedSnippet),
           s"""ExampleFrameIds.unchunked("$unchunkedFrameId")"""
         )
     }
