@@ -106,7 +106,12 @@
   <p class="header"><a href="#">append</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#append-2">append</a></li>
+    <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#a-finite-resulting-stream">A finite resulting stream</a></li>
+    <li class="level2 nav-leaf"><a href="#lazy-construction-of-infinite-streams">Lazy construction of infinite streams</a></li>
+    <li class="level1 nav-leaf"><a href="#chunk-preservation">Chunk preservation</a></li>
+    <li class="level1 nav-leaf"><a href="#error-propagation">Error propagation</a></li>
+    <li class="level1 nav-leaf"><a href="#finalizers">Finalizers</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -115,15 +120,90 @@
 
       <main class="content">
 
-        <h1 id="append-1" class="title">append</h1>
+        <h1 id="append" class="title">append</h1>
+        <p>The <code>++</code> operator is an alias for to <code>append</code>.</p>
+        <p>This page is a reference guide to <code>append</code>. It describes:</p>
+        <ul>
+          <li>The behaviour of <code>append</code>.</li>
+        </ul>
+        <ul>
+          <li>How it preserves chunking.</li>
+        </ul>
+        <ul>
+          <li>How it propagates errors.</li>
+        </ul>
+        <ul>
+          <li>When finalizers are executed.</li>
+        </ul>
         
-        <h2 id="append-2" class="section"><a class="anchor-link left" href="#append-2"><i class="icofont-laika link">&#xef71;</i></a>append</h2>
-        <pre class="example-code"><code id="CombiningAppendCode" class="language-scala"></code></pre>
-        <div id="CombiningAppend" class="example-frame"></div>
-        <h3>chunked</h3>
-        <div id="CombiningAppendChunked" class="example-frame"></div>
+        <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
+        <p>The <code>append</code> operator constructs a resulting stream from a left and right input stream, by pulling on the left until it is done, then pulling on the right. It is analagous to appending lists with the <code>++</code> list concatenation operator.</p>
+        <p>In following example a stream of <code>a</code> and <code>b</code> characters is appended to a stream of <code>x</code> and <code>y</code>.</p>
+        <p>Note that the <code>xy</code> stream is only pulled on once the <code>ab</code> stream is done. </p>
+        <pre class="example-code"><code id="DocsReferenceAppend.basicCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceAppend.basic" class="example-frame"></div>
         <script>
- aquascape.example(CombiningAppend, "CombiningAppendCode", ExampleFrameIds.both("CombiningAppend", "CombiningAppendChunked"));
+ aquascape.example(DocsReferenceAppend.basic, "DocsReferenceAppend.basicCode", ExampleFrameIds.unchunked("DocsReferenceAppend.basic"));
+</script>
+        
+        <h3 id="a-finite-resulting-stream" class="section"><a class="anchor-link left" href="#a-finite-resulting-stream"><i class="icofont-laika link">&#xef71;</i></a>A finite resulting stream</h3>
+        <p>If a limited number of elements are pulled from the resulting stream, the right input stream may never be executed. </p>
+        <p>The example below uses the <code>take</code> operator to limit the resulting stream. Experiment with the number of elements taken. </p>
+        <div class="example-input">
+          <label id="DocsReferenceAppend.finiteLabel" for="DocsReferenceAppend.finiteInput"></label>
+          <input id="DocsReferenceAppend.finiteInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceAppend.finiteCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceAppend.finite" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceAppend.finite, "DocsReferenceAppend.finiteCode", ExampleFrameIds.unchunked("DocsReferenceAppend.finite"), "DocsReferenceAppend.finiteLabel", "DocsReferenceAppend.finiteInput");
+</script>
+        <p>Note that for two or fewer elements, the right input stream is never pulled on.</p>
+        
+        <h3 id="lazy-construction-of-infinite-streams" class="section"><a class="anchor-link left" href="#lazy-construction-of-infinite-streams"><i class="icofont-laika link">&#xef71;</i></a>Lazy construction of infinite streams</h3>
+        <p>The right input stream is lazily constructed. This <code>append</code> operator can therefore be used to create infinite streams.</p>
+        <p>The following example appends the resulting stream onto <code>ab</code> using a recursive function. This produces an infinite stream of <code>a</code> and <code>b</code> characters. Experiment with it by taking a finite number of elements.</p>
+        <div class="example-input">
+          <label id="DocsReferenceAppend.infiniteLabel" for="DocsReferenceAppend.infiniteInput"></label>
+          <input id="DocsReferenceAppend.infiniteInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceAppend.infiniteCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceAppend.infinite" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceAppend.infinite, "DocsReferenceAppend.infiniteCode", ExampleFrameIds.unchunked("DocsReferenceAppend.infinite"), "DocsReferenceAppend.infiniteLabel", "DocsReferenceAppend.infiniteInput");
+</script>
+        <p>Using <code>append</code> recursively is equivalent to the <code>repeat</code> operator. As recursion can be easliy misused to create stack-unsafe code, using <code>repeat</code> is preferred to explicit recursion.</p>
+        
+        <h2 id="chunk-preservation" class="section"><a class="anchor-link left" href="#chunk-preservation"><i class="icofont-laika link">&#xef71;</i></a>Chunk preservation</h2>
+        <p>The <code>append</code> operator preserves the chunking of its left and right streams.</p>
+        <p>The following example shows the chunks outputted. The <code>ab</code> stream outputs a single chunk of characters <code>[a, b]</code>. This is propagated to the resulting stream. Similarly, the <code>xy</code> stream outputs a single chunk of <code>[x, y]</code> that is also propagated.</p>
+        <pre class="example-code"><code id="DocsReferenceAppend.basicchunkedCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceAppend.basicchunkedChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceAppend.basic, "DocsReferenceAppend.basicchunkedCode", ExampleFrameIds.chunked("DocsReferenceAppend.basicchunkedChunked"));
+</script>
+        
+        <h2 id="error-propagation" class="section"><a class="anchor-link left" href="#error-propagation"><i class="icofont-laika link">&#xef71;</i></a>Error propagation</h2>
+        <p>The <code>append</code> operator has no special error propagation semantics. Errors in either input stream are propagated to the resulting stream.</p>
+        <p>In the following example, an error is raised in the right input stream. The entire program terminates with the error.</p>
+        <pre class="example-code"><code id="DocsReferenceAppend.errorsCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceAppend.errors" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceAppend.errors, "DocsReferenceAppend.errorsCode", ExampleFrameIds.unchunked("DocsReferenceAppend.errors"));
+</script>
+        
+        <h2 id="finalizers" class="section"><a class="anchor-link left" href="#finalizers"><i class="icofont-laika link">&#xef71;</i></a>Finalizers</h2>
+        <p>Finalizers can be attached to the left of right stream. They are executed when the input stream is done.</p>
+        <p>In the following example, finalizers are attached to both the left and right stream. Experiment with taking a fixed number of elements from the resulting stream.</p>
+        <p>Notice that the <code>ab</code> finalizer is executed when the <code>ab</code> stream is done, and before <code>xy</code> is pulled on.</p>
+        <div class="example-input">
+          <label id="DocsReferenceAppend.finalizersLabel" for="DocsReferenceAppend.finalizersInput"></label>
+          <input id="DocsReferenceAppend.finalizersInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceAppend.finalizersCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceAppend.finalizers" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceAppend.finalizers, "DocsReferenceAppend.finalizersCode", ExampleFrameIds.unchunked("DocsReferenceAppend.finalizers"), "DocsReferenceAppend.finalizersLabel", "DocsReferenceAppend.finalizersInput");
 </script>
 
         
