@@ -18,6 +18,7 @@ package docs.reference
 
 import aquascape.*
 import aquascape.examples.*
+import aquascape.examples.syntax.given
 import cats.Show
 import cats.effect.*
 import cats.effect.IO
@@ -25,8 +26,8 @@ import cats.syntax.all.*
 import fs2.*
 
 import scala.concurrent.duration.*
-import scala.scalajs.js.annotation.JSExportTopLevel
 import scala.scalajs.js.annotation.JSExport
+import scala.scalajs.js.annotation.JSExportTopLevel
 
 @JSExportTopLevel("DocsReferenceMerge")
 object merge {
@@ -137,12 +138,6 @@ object merge {
   val mergeHaltBothExitCase = new ExampleWithInput[Int] {
     val inputBox: InputBox[Int] = secondsBeforeAbInputBox(4)
 
-    given Show[Resource.ExitCase] = {
-      case Resource.ExitCase.Canceled   => "Canceled"
-      case _: Resource.ExitCase.Errored => "Errored"
-      case Resource.ExitCase.Succeeded  => "Succeeded"
-    }
-
     def apply(n: Int)(using Scape[IO]): StreamCode =
       code {
         val ab = Stream('a', 'b')
@@ -168,12 +163,6 @@ object merge {
 
   @JSExport
   val takeExitCase = new Example {
-
-    given Show[Resource.ExitCase] = {
-      case Resource.ExitCase.Canceled   => "Canceled"
-      case _: Resource.ExitCase.Errored => "Errored"
-      case Resource.ExitCase.Succeeded  => "Succeeded"
-    }
 
     def apply(using Scape[IO]): StreamCode =
       code {
@@ -202,12 +191,6 @@ object merge {
   @JSExport
   val errorExitCase = new ExampleWithInput[Int] {
     val inputBox: InputBox[Int] = secondsBeforeErrorInputBox(4)
-    given Show[Resource.ExitCase] = {
-      case Resource.ExitCase.Canceled   => "Canceled"
-      case _: Resource.ExitCase.Errored => "Errored"
-      case Resource.ExitCase.Succeeded  => "Succeeded"
-    }
-
     def apply(n: Int)(using Scape[IO]): StreamCode =
       code {
         val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))

@@ -15,7 +15,7 @@ This is a reference guide to `flatMap`. It describes:
 
 The `flatMap` operator pulls on an input stream and constructs a child stream for each element. The child stream is pulled on by the resulting stream.
 
-In the following example, the input stream contains a single `"ab"` element. When pulled on by `flatMap` a child stream is constructed. When pulled on, this outputs elements `'a'` and `'b'`. The final output is a list of the pulled characters.
+In the following example, the input stream contains a single `"ab"` string. When pulled on by `flatMap` a child stream is constructed. When pulled on, this outputs characters `'a'` and `'b'`. The final output is a list of the pulled characters.
 
 @:example(basic) {
   drawChunked = false
@@ -23,7 +23,7 @@ In the following example, the input stream contains a single `"ab"` element. Whe
 
 ### Termination of the child stream
 
-If the child stream is done, the next element of the input stream is pulled and a new child stream is constructed.
+If the child stream is done, the input stream is pulled on once more and a new child stream is constructed.
 
 The following example shows an input stream with two elements `"ab"` and `"xy"`. Note that the pull for the second `"xy"` element occurs after elements `'a'` and `'b'` have been outputted by the first child stream.
 
@@ -33,17 +33,16 @@ The following example shows an input stream with two elements `"ab"` and `"xy"`.
 
 ## Chunk propagation
 
-The `flatMap` operator preserves chunks from the child stream. 
+The `flatMap` operator preserves the chunks of the child stream. 
 
 The following example shows a chunked view of the same input stream with `"ab"` and `"xy"` elements.
 
-@:todo(we want the code snippet here too, and remove the chunked heading)
-
 @:example(multipleInputElements) {
   drawChunked = true
+  suffix = chunked
 }
 
-Note that the chunks from the child streams `[a, b]` and `[x,y]` are outputted by the `flatMap` operator.
+Note that the child streams output chunks `[a, b]` and `[x,y]` respectively. These are outputted to the resulting stream by the `flatMap` operator.
 
 ## Error propagation
 
@@ -57,7 +56,7 @@ In the following example, an error is raised when the child stream is pulled on.
 
 ### Handling errors raised in the child stream
 
-Errors raised in the child stream can be handled in the resulting stream.
+Errors raised in the child stream can be handled in the resulting stream using the `handleError` operator.
 
 In the following example, the raised error is handled by outputting the characer `'z'`.
 
@@ -78,9 +77,10 @@ In the following example, the input stream raises an error when pulled on. The e
 ## Resource finalizers
 
 ### Input stream finalizers
+
 The input stream may have finalizers associated with it. These are executed when the resulting stream terminates.
 
-The following example has a finalizer associated with the input stream. Note that the finalizer is executed after all child streams are done.
+The following example has a `abxy` finalizer associated with the input stream. Note that the finalizer is executed after all child streams are done.
 
 @:example(finalizerInput) {
   drawChunked = false

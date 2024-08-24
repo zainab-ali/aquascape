@@ -17,6 +17,7 @@
 package aquascape.examples
 
 import aquascape.*
+import aquascape.examples.syntax.given
 import cats.Show
 import cats.effect.*
 import cats.effect.IO
@@ -25,22 +26,6 @@ import fs2.*
 
 import scala.concurrent.duration.*
 import scala.scalajs.js.annotation.JSExportTopLevel
-
-object EitherThrowableCharShow {
-  given Show[Either[Throwable, Char]] = {
-    case Left(Scape.Caught(err)) => s"Left(${err.getMessage})"
-    case Left(err)               => s"Left(${err.getMessage})"
-    case Right(c)                => s"Right(${c.show})"
-  }
-}
-
-object NothingShow {
-  given Show[Nothing] = _ => sys.error("Unreachable code.")
-}
-
-object UnitShow {
-  given Show[Unit] = _ => "()"
-}
 
 @JSExportTopLevel("BasicCompileToList")
 object BasicCompileToList extends Example {
@@ -56,7 +41,6 @@ object BasicCompileToList extends Example {
 
 @JSExportTopLevel("BasicCompileDrain")
 object BasicCompileDrain extends Example {
-  import UnitShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -155,7 +139,6 @@ object TakeFromAFiniteStream extends ExampleWithInput[Int] {
 
 @JSExportTopLevel("TakeFromADrainedStream")
 object TakeFromADrainedStream extends Example {
-  import NothingShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -363,7 +346,6 @@ object Err extends Throwable("Err")
 
 @JSExportTopLevel("CombiningParZip")
 object CombiningParZip extends Example {
-  import UnitShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -484,7 +466,6 @@ object EffectsEvalMap2 extends Example {
 
 @JSExportTopLevel("EffectsExec")
 object EffectsExec extends Example {
-  import EitherThrowableCharShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream
@@ -640,7 +621,6 @@ object ErrorsHandlingErrorsHandleErrorWith extends Example {
 
 @JSExportTopLevel("ErrorsHandlingErrorsAttempt")
 object ErrorsHandlingErrorsAttempt extends Example {
-  import EitherThrowableCharShow.given
   def apply(using Scape[IO]): StreamCode =
     code(
       Stream('a', 'b', 'c')
@@ -658,7 +638,6 @@ object ErrorsHandlingErrorsAttempt extends Example {
 @JSExportTopLevel("ErrorsHandlingErrorsAttempts")
 object ErrorsHandlingErrorsAttempts extends Example {
 
-  import EitherThrowableCharShow.given
   def apply(using Scape[IO]): StreamCode = {
     code(
       Stream('a', 'b', 'c')
