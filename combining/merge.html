@@ -160,13 +160,13 @@
         </ul>
         <p>Experiment with different delays for <code>ab</code>. </p>
         <div class="example-input">
-          <label id="CombiningStreamsMergeLabel" for="CombiningStreamsMergeInput"></label>
-          <input id="CombiningStreamsMergeInput"></input>
+          <label id="DocsReferenceMerge.mergeLabel" for="DocsReferenceMerge.mergeInput"></label>
+          <input id="DocsReferenceMerge.mergeInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsMergeCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsMerge" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.mergeCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.merge" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsMerge, "CombiningStreamsMergeCode", ExampleFrameIds.unchunked("CombiningStreamsMerge"), "CombiningStreamsMergeLabel", "CombiningStreamsMergeInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.merge, "DocsReferenceMerge.mergeCode", ExampleFrameIds.unchunked("DocsReferenceMerge.merge"), "DocsReferenceMerge.mergeLabel", "DocsReferenceMerge.mergeInput");
 </script>
         <p>Note how decreasing the delay makes the <code>a</code> and <code>b</code> elements appear earlier in the output, while increasing it makes them appear later. The actual output order is non-deterministic.</p>
         <p>Unlike sequential methods of combination, <code>merge</code> pulls on both its input streams when it is pulled on. This can be seen in the example for all non-zero delays. When <code>merge</code> is first pulled on, it pulls on both <code>ab</code> and <code>xy</code> concurrently.</p>
@@ -179,13 +179,13 @@
         <p>The resulting stream of <code>mergeHaltBoth</code> terminates when either input stream is done.</p>
         <p>The following example combines <code>ab</code> and <code>xy</code> with <code>mergeHaltBoth</code>. Experiment with different delays for <code>ab</code>. Note that if <code>ab</code> is done first, no more elements are pulled from <code>xy</code> and the resulting stream terminates. Conversely, if <code>xy</code> is done first, no more elements are pulled from <code>ab</code>.</p>
         <div class="example-input">
-          <label id="CombiningStreamsMergeHaltBothLabel" for="CombiningStreamsMergeHaltBothInput"></label>
-          <input id="CombiningStreamsMergeHaltBothInput"></input>
+          <label id="DocsReferenceMerge.mergeHaltBothLabel" for="DocsReferenceMerge.mergeHaltBothInput"></label>
+          <input id="DocsReferenceMerge.mergeHaltBothInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsMergeHaltBothCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsMergeHaltBoth" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.mergeHaltBothCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.mergeHaltBoth" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsMergeHaltBoth, "CombiningStreamsMergeHaltBothCode", ExampleFrameIds.unchunked("CombiningStreamsMergeHaltBoth"), "CombiningStreamsMergeHaltBothLabel", "CombiningStreamsMergeHaltBothInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.mergeHaltBoth, "DocsReferenceMerge.mergeHaltBothCode", ExampleFrameIds.unchunked("DocsReferenceMerge.mergeHaltBoth"), "DocsReferenceMerge.mergeHaltBothLabel", "DocsReferenceMerge.mergeHaltBothInput");
 </script>
         <p>Note that when <code>ab</code> emits all elements immediately (the seconds between <code>ab</code> elements is <code>0</code>), the <code>xy</code> stream is not run at all. The <code>ab</code> stream is done before the <code>xy</code> stream is pulled on.</p>
         
@@ -193,13 +193,13 @@
         <p>The resulting stream of <code>mergeHaltL</code> terminates when the left input stream is done.</p>
         <p>The following example combines <code>ab</code> and <code>xy</code> with <code>mergeHaltL</code>. Experiment with different delays for <code>ab</code>. Note that the resulting stream always terminates when <code>ab</code> is done.</p>
         <div class="example-input">
-          <label id="CombiningStreamsMergeHaltLLabel" for="CombiningStreamsMergeHaltLInput"></label>
-          <input id="CombiningStreamsMergeHaltLInput"></input>
+          <label id="DocsReferenceMerge.mergeHaltLLabel" for="DocsReferenceMerge.mergeHaltLInput"></label>
+          <input id="DocsReferenceMerge.mergeHaltLInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsMergeHaltLCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsMergeHaltL" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.mergeHaltLCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.mergeHaltL" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsMergeHaltL, "CombiningStreamsMergeHaltLCode", ExampleFrameIds.unchunked("CombiningStreamsMergeHaltL"), "CombiningStreamsMergeHaltLLabel", "CombiningStreamsMergeHaltLInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.mergeHaltL, "DocsReferenceMerge.mergeHaltLCode", ExampleFrameIds.unchunked("DocsReferenceMerge.mergeHaltL"), "DocsReferenceMerge.mergeHaltLLabel", "DocsReferenceMerge.mergeHaltLInput");
 </script>
         <p>The last element of the stream is not guaranteed to be an output of the left stream. If an element is outputted by the right stream concurrently to the termination of the left stream, it may be outputted as the last element.</p>
         
@@ -207,13 +207,13 @@
         <p>The resulting stream of <code>mergeHaltR</code> terminates when the right input stream is done.</p>
         <p>The following example combines <code>ab</code> and <code>xy</code> with <code>mergeHaltR</code>. Experiment with different delays for <code>ab</code>. Note that the resulting stream always terminates when <code>xy</code> is done.</p>
         <div class="example-input">
-          <label id="CombiningStreamsMergeHaltRLabel" for="CombiningStreamsMergeHaltRInput"></label>
-          <input id="CombiningStreamsMergeHaltRInput"></input>
+          <label id="DocsReferenceMerge.mergeHaltRLabel" for="DocsReferenceMerge.mergeHaltRInput"></label>
+          <input id="DocsReferenceMerge.mergeHaltRInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsMergeHaltRCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsMergeHaltR" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.mergeHaltRCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.mergeHaltR" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsMergeHaltR, "CombiningStreamsMergeHaltRCode", ExampleFrameIds.unchunked("CombiningStreamsMergeHaltR"), "CombiningStreamsMergeHaltRLabel", "CombiningStreamsMergeHaltRInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.mergeHaltR, "DocsReferenceMerge.mergeHaltRCode", ExampleFrameIds.unchunked("DocsReferenceMerge.mergeHaltR"), "DocsReferenceMerge.mergeHaltRLabel", "DocsReferenceMerge.mergeHaltRInput");
 </script>
         <p>As with <code>mergeHaltL</code>, the last element of the stream is not guaranteed to be an output of the right stream. If an element is outputted by the left stream concurrently to the termination of the right stream, it may be outputted as the last element.</p>
         
@@ -234,22 +234,22 @@
         <p>The following example shows the exit cases of both input streams when merged with <code>mergeHaltBoth</code>.</p>
         <p>Experiment with varying the delay of <code>ab</code>. Note that if the <code>ab</code> stream is done first, the <code>xy</code> stream has an exit case of <code>Canceled</code>. Conversely, if the <code>xy</code> stream is done, the <code>ab</code> stream has an exit case of <code>Canceled</code>.</p>
         <div class="example-input">
-          <label id="CombiningStreamsMergeHaltBothExitCaseLabel" for="CombiningStreamsMergeHaltBothExitCaseInput"></label>
-          <input id="CombiningStreamsMergeHaltBothExitCaseInput"></input>
+          <label id="DocsReferenceMerge.mergeHaltBothExitCaseLabel" for="DocsReferenceMerge.mergeHaltBothExitCaseInput"></label>
+          <input id="DocsReferenceMerge.mergeHaltBothExitCaseInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsMergeHaltBothExitCaseCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsMergeHaltBothExitCase" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.mergeHaltBothExitCaseCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.mergeHaltBothExitCase" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsMergeHaltBothExitCase, "CombiningStreamsMergeHaltBothExitCaseCode", ExampleFrameIds.unchunked("CombiningStreamsMergeHaltBothExitCase"), "CombiningStreamsMergeHaltBothExitCaseLabel", "CombiningStreamsMergeHaltBothExitCaseInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.mergeHaltBothExitCase, "DocsReferenceMerge.mergeHaltBothExitCaseCode", ExampleFrameIds.unchunked("DocsReferenceMerge.mergeHaltBothExitCase"), "DocsReferenceMerge.mergeHaltBothExitCaseLabel", "DocsReferenceMerge.mergeHaltBothExitCaseInput");
 </script>
         
         <h3 id="exit-cases-on-resulting-stream-termination" class="section"><a class="anchor-link left" href="#exit-cases-on-resulting-stream-termination"><i class="icofont-laika link">&#xef71;</i></a>Exit cases on resulting stream termination</h3>
         <p>If a fixed number of elements are requested from the resulting stream, it may terminate before the input streams are done. The input streams are canceled.</p>
         <p>The following example shows the exit cases when a single element is pulled from the resulting stream. Both <code>ab</code> and <code>xy</code> are canceled.</p>
-        <pre class="example-code"><code id="CombiningStreamsTakeExitCaseCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsTakeExitCase" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.takeExitCaseCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.takeExitCase" class="example-frame"></div>
         <script>
- aquascape.example(CombiningStreamsTakeExitCase, "CombiningStreamsTakeExitCaseCode", ExampleFrameIds.unchunked("CombiningStreamsTakeExitCase"));
+ aquascape.example(DocsReferenceMerge.takeExitCase, "DocsReferenceMerge.takeExitCaseCode", ExampleFrameIds.unchunked("DocsReferenceMerge.takeExitCase"));
 </script>
         
         <h3 id="exit-cases-on-error" class="section"><a class="anchor-link left" href="#exit-cases-on-error"><i class="icofont-laika link">&#xef71;</i></a>Exit cases on error</h3>
@@ -257,13 +257,13 @@
         <p>In this example, the <code>ab</code> stream raises an error when it is pulled on for the second time.</p>
         <p>If the <code>xy</code> stream is stopped due to an error raised by the <code>ab</code> stream, its exit case is <code>Canceled</code>.</p>
         <div class="example-input">
-          <label id="CombiningStreamsResourcesExitCaseLabel" for="CombiningStreamsResourcesExitCaseInput"></label>
-          <input id="CombiningStreamsResourcesExitCaseInput"></input>
+          <label id="DocsReferenceMerge.errorExitCaseLabel" for="DocsReferenceMerge.errorExitCaseInput"></label>
+          <input id="DocsReferenceMerge.errorExitCaseInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsResourcesExitCaseCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsResourcesExitCase" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.errorExitCaseCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.errorExitCase" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsResourcesExitCase, "CombiningStreamsResourcesExitCaseCode", ExampleFrameIds.unchunked("CombiningStreamsResourcesExitCase"), "CombiningStreamsResourcesExitCaseLabel", "CombiningStreamsResourcesExitCaseInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.errorExitCase, "DocsReferenceMerge.errorExitCaseCode", ExampleFrameIds.unchunked("DocsReferenceMerge.errorExitCase"), "DocsReferenceMerge.errorExitCaseLabel", "DocsReferenceMerge.errorExitCaseInput");
 </script>
         
         <h2 id="error-propagation" class="section"><a class="anchor-link left" href="#error-propagation"><i class="icofont-laika link">&#xef71;</i></a>Error propagation</h2>
@@ -271,44 +271,43 @@
         <p>In the following example, the <code>ab</code> stream raises an error when it is pulled on for the second time. The error is propagated to the resulting stream, causing the entire program to terminate with the error.</p>
         <p>Experiment with the delay before the error.</p>
         <div class="example-input">
-          <label id="CombiningStreamsMergeErrorLabel" for="CombiningStreamsMergeErrorInput"></label>
-          <input id="CombiningStreamsMergeErrorInput"></input>
+          <label id="DocsReferenceMerge.mergeErrorLabel" for="DocsReferenceMerge.mergeErrorInput"></label>
+          <input id="DocsReferenceMerge.mergeErrorInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsMergeErrorCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsMergeError" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.mergeErrorCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.mergeError" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsMergeError, "CombiningStreamsMergeErrorCode", ExampleFrameIds.unchunked("CombiningStreamsMergeError"), "CombiningStreamsMergeErrorLabel", "CombiningStreamsMergeErrorInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.mergeError, "DocsReferenceMerge.mergeErrorCode", ExampleFrameIds.unchunked("DocsReferenceMerge.mergeError"), "DocsReferenceMerge.mergeErrorLabel", "DocsReferenceMerge.mergeErrorInput");
 </script>
         
         <h2 id="resource-management" class="section"><a class="anchor-link left" href="#resource-management"><i class="icofont-laika link">&#xef71;</i></a>Resource management</h2>
         <p>The left or right streams may have finalizers associated with them. These finalizers are executed when their associated stream terminates.</p>
-        <p>In thid example, an <code>AB</code> finalizer is associated with the <code>ab</code> stream and an <code>XY</code> finalizer is associated with the <code>xy</code> stream.</p>
-        <p>Experiment with different delays for <code>ab</code>. Note that the <code>AB</code> finalizer is executed when the <code>ab</code> stream is done, not when the resulting stream is done. Similarly, the <code>XY</code> finalizer is executed when the <code>xy</code> stream is done.</p>
-        <p>Note that the finalizer <code>AB</code> is run when the <code>ab</code> stream is done, and not when the resulting stream terminates.</p>
+        <p>In thid example, finalizers are associated with the <code>ab</code> and <code>xy</code> streams.</p>
+        <p>Experiment with different delays for <code>ab</code>. Note that the <code>ab</code> finalizer is executed when the <code>ab</code> stream is done, not when the resulting stream is done. Similarly, the <code>xy</code> finalizer is executed when the <code>xy</code> stream is done.</p>
         <div class="example-input">
-          <label id="CombiningStreamsResourcesLabel" for="CombiningStreamsResourcesInput"></label>
-          <input id="CombiningStreamsResourcesInput"></input>
+          <label id="DocsReferenceMerge.resourcesLabel" for="DocsReferenceMerge.resourcesInput"></label>
+          <input id="DocsReferenceMerge.resourcesInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsResourcesCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsResources" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.resourcesCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.resources" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsResources, "CombiningStreamsResourcesCode", ExampleFrameIds.unchunked("CombiningStreamsResources"), "CombiningStreamsResourcesLabel", "CombiningStreamsResourcesInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.resources, "DocsReferenceMerge.resourcesCode", ExampleFrameIds.unchunked("DocsReferenceMerge.resources"), "DocsReferenceMerge.resourcesLabel", "DocsReferenceMerge.resourcesInput");
 </script>
         
         <h3 id="resource-management-on-error" class="section"><a class="anchor-link left" href="#resource-management-on-error"><i class="icofont-laika link">&#xef71;</i></a>Resource management on error</h3>
         <p>If an error is raised in either the left or right stream, the finalizers are run.</p>
-        <p>In this example, the <code>ab</code> stream raises an error when it is pulled for the second time. As before, an <code>AB</code> finalizer is associated with the <code>ab</code> stream and an <code>XY</code> finalizer is associated with the <code>xy</code> stream.</p>
-        <p>Experiment with the delay before the error. Notice that the <code>AB</code> and <code>XY</code> finalizers are always run, provided that their respective streams are pulled on.</p>
+        <p>In this example, the <code>ab</code> stream raises an error when it is pulled for the second time. As before, finalizers are associated with the <code>ab</code> and <code>xy</code> streams.</p>
+        <p>Experiment with the delay before the error. Notice that the <code>ab</code> and <code>xy</code> finalizers are always run, provided that their respective streams are pulled on.</p>
         <div class="example-input">
-          <label id="CombiningStreamsResourcesErrorLabel" for="CombiningStreamsResourcesErrorInput"></label>
-          <input id="CombiningStreamsResourcesErrorInput"></input>
+          <label id="DocsReferenceMerge.resourcesErrorLabel" for="DocsReferenceMerge.resourcesErrorInput"></label>
+          <input id="DocsReferenceMerge.resourcesErrorInput"></input>
         </div>
-        <pre class="example-code"><code id="CombiningStreamsResourcesErrorCode" class="language-scala"></code></pre>
-        <div id="CombiningStreamsResourcesError" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceMerge.resourcesErrorCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceMerge.resourcesError" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(CombiningStreamsResourcesError, "CombiningStreamsResourcesErrorCode", ExampleFrameIds.unchunked("CombiningStreamsResourcesError"), "CombiningStreamsResourcesErrorLabel", "CombiningStreamsResourcesErrorInput");
+ aquascape.exampleWithInput(DocsReferenceMerge.resourcesError, "DocsReferenceMerge.resourcesErrorCode", ExampleFrameIds.unchunked("DocsReferenceMerge.resourcesError"), "DocsReferenceMerge.resourcesErrorLabel", "DocsReferenceMerge.resourcesErrorInput");
 </script>
-        <p>Note that when <code>ab</code> raises an error immediately (the delay before the error is <code>0</code>), the <code>XY</code> finalizer is not run. The error is raised before the <code>xy</code> stream is pulled on.</p>
+        <p>Note that when <code>ab</code> raises an error immediately (the delay before the error is <code>0</code>), the <code>xy</code> finalizer is not run. The error is raised before the <code>xy</code> stream is pulled on.</p>
 
         
 <hr class="footer-rule"/>
