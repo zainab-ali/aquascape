@@ -434,36 +434,6 @@ object BroadcastThroughDifferentRates extends Example {
     )
 }
 
-@JSExportTopLevel("EffectsEvalMap")
-object EffectsEvalMap extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .evalMap(_.pure[IO].trace())
-        .stage("evalMap")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("EffectsEvalMap2")
-object EffectsEvalMap2 extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .evalTap(char => IO(s"$char 1").trace())
-        .stage("evalTap1")
-        .evalTap(char => IO(s"$char 2").trace())
-        .stage("evalTap2")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
 @JSExportTopLevel("EffectsExec")
 object EffectsExec extends Example {
   def apply(using Scape[IO]): StreamCode =
