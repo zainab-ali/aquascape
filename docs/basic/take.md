@@ -15,7 +15,7 @@ As `take` operators have no special error handling or finalizer handling semanti
 
 ### take
 
-The `take` operator pulls a number of elements from an input stream. It is analagous to `take` on lists.
+The `take` operator pulls a number of elements from an input stream. It is analogous to `take` on lists.
 
 The following example takes a varying number of elements from an infinite stream of `a` characters.
 
@@ -29,7 +29,7 @@ Note that the resulting stream is always finite.
 
 ### takeWhile
 
-The `takeWhile` operator pulls and outputs elements from an input stream, provided the elements satisfy a given predicate. It is analagous to `takeWhile` on lists.
+The `takeWhile` operator pulls and outputs elements from an input stream, provided the elements satisfy a given predicate. It is analogous to `takeWhile` on lists.
 
 In the following example, `takeWhile` pulls characters from an input stream and tests that they are not equal to `b`. The first character `a` passes the test and is outputted. The second character `b` fails the test. The resulting stream is then done. Note that `c` is never outputted by the input stream.
 
@@ -53,7 +53,7 @@ Note that, as with `takeWhile`, the character `c` is never pulled.
 
 ### takeRight
 
-The `takeRight` operator drops all but the given number of elements from an input stream. It is analagous to `takeRight` on lists.
+The `takeRight` operator drops all but the given number of elements from an input stream. It is analogous to `takeRight` on lists.
 
 The following example shows how `takeRight` operates on an input stream of six characters. Experiment with varying the number of elements taken.
 
