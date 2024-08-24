@@ -16,7 +16,7 @@ This page is a reference guide to `append`. It describes:
 
 ## Behaviour
 
-The `append` operator constructs a resulting stream from a left and right input stream, by pulling on the left until it is done, then pulling on the right. It is analagous to appending lists with the `++` list concatenation operator.
+The `append` operator constructs a resulting stream from a left and right input stream, by pulling on the left until it is done, then pulling on the right. It is analogous to appending lists with the `++` list concatenation operator.
 
 In following example a stream of `a` and `b` characters is appended to a stream of `x` and `y`.
 
