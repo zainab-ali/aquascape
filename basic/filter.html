@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>filter</title>
+  
+  <meta name="author" content="Zainab Ali"/>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
+  <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../aquascape.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">basic</li>
+    <li class="level2 nav-leaf"><a href="compile.html">compile</a></li>
+    <li class="level2 nav-leaf"><a href="drop.html">drop</a></li>
+    <li class="level2 active nav-leaf"><a href="#">filter</a></li>
+    <li class="level2 nav-leaf"><a href="take.html">take</a></li>
+    <li class="level1 nav-header">broadcastThrough</li>
+    <li class="level2 nav-leaf"><a href="../broadcastThrough/broadcastThrough.html">broadcastThrough</a></li>
+    <li class="level1 nav-header">chunking</li>
+    <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
+    <li class="level2 nav-leaf"><a href="../chunking/chunk.html">chunk</a></li>
+    <li class="level1 nav-header">combining</li>
+    <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/merge.html">merge</a></li>
+    <li class="level1 nav-header">effects</li>
+    <li class="level2 nav-leaf"><a href="../effects/effects.html">exec</a></li>
+    <li class="level2 nav-leaf"><a href="../effects/evalMap.html">evalMap</a></li>
+    <li class="level1 nav-header">errors</li>
+    <li class="level2 nav-leaf"><a href="../errors/errors.html">errors</a></li>
+    <li class="level1 nav-header">resources</li>
+    <li class="level2 nav-leaf"><a href="../resources/bracket.html">bracket</a></li>
+    <li class="level1 nav-header">time</li>
+    <li class="level2 nav-leaf"><a href="../time/time.html">time</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">filter</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#filter-2">filter</a></li>
+    <li class="level2 nav-leaf"><a href="#filternot">filterNot</a></li>
+    <li class="level2 nav-leaf"><a href="#filterwithprevious-1">filterWithPrevious</a></li>
+    <li class="level2 nav-leaf"><a href="#changes">changes</a></li>
+    <li class="level2 nav-leaf"><a href="#mapfilter">mapFilter</a></li>
+    <li class="level1 nav-node"><a href="#chunk-propagation">Chunk propagation</a></li>
+    <li class="level2 nav-leaf"><a href="#filter-3">filter</a></li>
+    <li class="level2 nav-leaf"><a href="#filterwithprevious-2">filterWithPrevious</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="filter-1" class="title">filter</h1>
+        <p>This page is a reference guide for the <code>filter</code> family of operators. It describes:</p>
+        <ul>
+          <li>The behaviour of the <code>filter</code>, <code>filterNot</code>, <code>filterWithPrevious</code>, <code>changes</code> and <code>mapFilter</code> operators.</li>
+        </ul>
+        <ul>
+          <li>How <code>filter</code> operators propagate chunks.</li>
+        </ul>
+        <p>As the <code>filter</code> family of operators have normal error propagation and finalizer handling, these are not described.</p>
+        
+        <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
+        
+        <h3 id="filter-2" class="section"><a class="anchor-link left" href="#filter-2"><i class="icofont-laika link">&#xef71;</i></a>filter</h3>
+        <p>The <code>filter</code> operator pulls elements from an input stream and outputs them if they satisfy a given predicate. It is analogous to <code>filter</code> on lists.</p>
+        <p>In the following example, <code>filter</code> operates on an input stream of characters. It filters all characters that are equal to <code>b</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceFilter.filterCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceFilter.filter" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceFilter.filter, "DocsReferenceFilter.filterCode", ExampleFrameIds.unchunked("DocsReferenceFilter.filter"));
+</script>
+        
+        <h3 id="filternot" class="section"><a class="anchor-link left" href="#filternot"><i class="icofont-laika link">&#xef71;</i></a>filterNot</h3>
+        <p>The <code>filter</code> operator pulls elements from an input stream and outputs them if they do not satisfy the given predicate. It is analogous to <code>filterNot</code> on lists.</p>
+        <p>In the following example, <code>filter</code> operates on an input stream of characters. It discards all characters that are equal to <code>b</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceFilter.filterNotCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceFilter.filterNot" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceFilter.filterNot, "DocsReferenceFilter.filterNotCode", ExampleFrameIds.unchunked("DocsReferenceFilter.filterNot"));
+</script>
+        <p><code>filterNot(p)</code> is equivalent to <code>filter(a =&gt; !p(a))</code></p>
+        
+        <h3 id="filterwithprevious-1" class="section"><a class="anchor-link left" href="#filterwithprevious-1"><i class="icofont-laika link">&#xef71;</i></a>filterWithPrevious</h3>
+        <p>The <code>filterWithPrevious</code> operator is similar to <code>filter</code>. It pulls elements from an input stream and outputs them if they satisfy a given predicate. It uses the previously outputted element to evaluate the predicate.</p>
+        <p>In the following example, <code>filterWithPrevious</code> pulls from an input stream of characters. It outputs characters that are greater than or equal to the previously outputted character.</p>
+        <pre class="example-code"><code id="DocsReferenceFilter.filterWithPreviousCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceFilter.filterWithPrevious" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceFilter.filterWithPrevious, "DocsReferenceFilter.filterWithPreviousCode", ExampleFrameIds.unchunked("DocsReferenceFilter.filterWithPrevious"));
+</script>
+        <p>Each element is pulled and evaluated as follows:</p>
+        <ul>
+          <li><code>a</code> is outputted because there is no previous value. </li>
+          <li><code>b</code> satisfies <code>a &lt;= b</code>, so is outputted.</li>
+          <li><code>c</code> satisfies <code>b &lt;= c</code>, so is outputted.</li>
+          <li><code>a</code> does not satisfy <code>c &lt;= a</code>, so is discarded.</li>
+          <li><code>b</code> does not satisfy <code>c &lt;= b</code>, so is discarded. Note that the comparison is made with the previously outputted <code>c</code>, and not the previously pulled <code>a</code>.</li>
+          <li><code>c</code> satisfies <code>c &lt;= c</code>, so is outputted.</li>
+        </ul>
+        
+        <h3 id="changes" class="section"><a class="anchor-link left" href="#changes"><i class="icofont-laika link">&#xef71;</i></a>changes</h3>
+        <p>The <code>changes</code> operator discards elements that are equal to the previously outputted value.</p>
+        <p>In the following example, the <code>changes</code> operator pulls from an input stream of characters.</p>
+        <p>Note that the repeated characters are not outputted.</p>
+        <pre class="example-code"><code id="DocsReferenceFilter.changesCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceFilter.changes" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceFilter.changes, "DocsReferenceFilter.changesCode", ExampleFrameIds.unchunked("DocsReferenceFilter.changes"));
+</script>
+        <p><code>changes</code> is equivalent to <code>filterWithPrevious(_ != _)</code>.</p>
+        
+        
+        <h3 id="mapfilter" class="section"><a class="anchor-link left" href="#mapfilter"><i class="icofont-laika link">&#xef71;</i></a>mapFilter</h3>
+        <p>The <code>mapFilter</code> operator maps each element to an option, and outputs the value if defined.</p>
+        <p>The following example maps an input stream of characters to their integer values if the character is equal to <code>b</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceFilter.mapFilterCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceFilter.mapFilter" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceFilter.mapFilter, "DocsReferenceFilter.mapFilterCode", ExampleFrameIds.unchunked("DocsReferenceFilter.mapFilter"));
+</script>
+        <p><code>mapFilter(f)</code> is equivalent to <code>map(f).unNone</code>.</p>
+        
+        <h2 id="chunk-propagation" class="section"><a class="anchor-link left" href="#chunk-propagation"><i class="icofont-laika link">&#xef71;</i></a>Chunk propagation</h2>
+        
+        <h3 id="filter-3" class="section"><a class="anchor-link left" href="#filter-3"><i class="icofont-laika link">&#xef71;</i></a>filter</h3>
+        <p>The <code>filter</code>, <code>filterNot</code> and <code>mapFilter</code> operators preserve the chunking of their input stream.</p>
+        <p>In the following example, two chunks of <code>[a, b, c]</code> are pulled. The <code>filter</code> operator discards all <code>b</code> characters to output <code>[a, c]</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceFilter.filterChunkedCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceFilter.filterChunkedChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceFilter.filterChunked, "DocsReferenceFilter.filterChunkedCode", ExampleFrameIds.chunked("DocsReferenceFilter.filterChunkedChunked"));
+</script>
+        
+        <h3 id="filterwithprevious-2" class="section"><a class="anchor-link left" href="#filterwithprevious-2"><i class="icofont-laika link">&#xef71;</i></a>filterWithPrevious</h3>
+        <p>The <code>filterWithPrevious</code> operator also preserves the chunking of its input stream, with the exception of the first chunk.</p>
+        <p>The first element of the input stream is pulled and outputted as a singleton chunk. The remaining elements in the chunk are filtered according to the predicate and outputted as one chunk. Subsequent chunks are preserved.</p>
+        <p>This is shown in the following example. The <code>filterWithPrevious</code> operator pulls a chunk <code>[a, b, c]</code> from its input. It outputs a singleton chunk <code>[a]</code>. When next pulled, it outputs <code>[b, c]</code> as these satisfy the predicate. It then pulls the next chunk <code>[a, b, c]</code> and outputs <code>[c]</code> as the only element satisfying the predicate.</p>
+        <pre class="example-code"><code id="DocsReferenceFilter.filterWithPreviouschunkedCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceFilter.filterWithPreviouschunkedChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceFilter.filterWithPrevious, "DocsReferenceFilter.filterWithPreviouschunkedCode", ExampleFrameIds.chunked("DocsReferenceFilter.filterWithPreviouschunkedChunked"));
+</script>
+        <p>The chunk propagation of <code>changes</code> is similar to <code>filterWithPrevious</code>.</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

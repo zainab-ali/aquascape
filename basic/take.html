@@ -75,22 +75,22 @@
     <li class="level1 nav-header">basic</li>
     <li class="level2 nav-leaf"><a href="compile.html">compile</a></li>
     <li class="level2 nav-leaf"><a href="drop.html">drop</a></li>
-    <li class="level2 nav-leaf"><a href="filtering.html">filtering</a></li>
+    <li class="level2 nav-leaf"><a href="filter.html">filter</a></li>
     <li class="level2 active nav-leaf"><a href="#">take</a></li>
     <li class="level1 nav-header">broadcastThrough</li>
     <li class="level2 nav-leaf"><a href="../broadcastThrough/broadcastThrough.html">broadcastThrough</a></li>
     <li class="level1 nav-header">chunking</li>
     <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
-    <li class="level2 nav-leaf"><a href="../chunking/chunks.html">chunks</a></li>
+    <li class="level2 nav-leaf"><a href="../chunking/chunk.html">chunk</a></li>
     <li class="level1 nav-header">combining</li>
     <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
     <li class="level2 nav-leaf"><a href="../combining/merge.html">merge</a></li>
     <li class="level1 nav-header">effects</li>
-    <li class="level2 nav-leaf"><a href="../effects/effects.html">effects</a></li>
+    <li class="level2 nav-leaf"><a href="../effects/effects.html">exec</a></li>
+    <li class="level2 nav-leaf"><a href="../effects/evalMap.html">evalMap</a></li>
     <li class="level1 nav-header">errors</li>
-    <li class="level2 nav-leaf"><a href="../errors/handling-errors.html">handling errors</a></li>
-    <li class="level2 nav-leaf"><a href="../errors/raising-errors.html">raising errors</a></li>
+    <li class="level2 nav-leaf"><a href="../errors/errors.html">errors</a></li>
     <li class="level1 nav-header">resources</li>
     <li class="level2 nav-leaf"><a href="../resources/bracket.html">bracket</a></li>
     <li class="level1 nav-header">time</li>
@@ -106,8 +106,14 @@
   <p class="header"><a href="#">take</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#take-from-finite-streams"><code>take</code> from finite streams</a></li>
-    <li class="level1 nav-leaf"><a href="#drained-streams">Drained streams</a></li>
+    <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#take-2">take</a></li>
+    <li class="level2 nav-leaf"><a href="#takewhile">takeWhile</a></li>
+    <li class="level2 nav-leaf"><a href="#takethrough">takeThrough</a></li>
+    <li class="level2 nav-leaf"><a href="#takeright-1">takeRight</a></li>
+    <li class="level1 nav-node"><a href="#chunk-propagation">Chunk propagation</a></li>
+    <li class="level2 nav-leaf"><a href="#take-3">take</a></li>
+    <li class="level2 nav-leaf"><a href="#takeright-2">takeRight</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -116,37 +122,94 @@
 
       <main class="content">
 
-        <h1 id="take" class="title">take</h1>
-        <p>Experiment with taking a number of elements from an infinite stream.</p>
-        <p>Note that the resulting stream is finite because a fixed number of elements are pulled.</p>
+        <h1 id="take-1" class="title">take</h1>
+        <p>This page is a reference guide to the <code>take</code> family of operators. It describes:</p>
+        <ul>
+          <li>The basic behaviour of <code>take</code>, <code>takeWhile</code>, <code>takeThrough</code> and <code>takeRight</code>.</li>
+        </ul>
+        <ul>
+          <li>How <code>take</code> operators propagate chunks.</li>
+        </ul>
+        <p>As <code>take</code> operators have no special error handling or finalizer handling semantics, these are not described.</p>
+        
+        <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
+        
+        <h3 id="take-2" class="section"><a class="anchor-link left" href="#take-2"><i class="icofont-laika link">&#xef71;</i></a>take</h3>
+        <p>The <code>take</code> operator pulls a number of elements from an input stream. It is analogous to <code>take</code> on lists.</p>
+        <p>The following example takes a varying number of elements from an infinite stream of <code>a</code> characters.</p>
+        <p>Experiment with taking different numbers of elements.</p>
         <div class="example-input">
-          <label id="TakeFromAnInfiniteStreamLabel" for="TakeFromAnInfiniteStreamInput"></label>
-          <input id="TakeFromAnInfiniteStreamInput"></input>
+          <label id="DocsReferenceTake.basicLabel" for="DocsReferenceTake.basicInput"></label>
+          <input id="DocsReferenceTake.basicInput"></input>
         </div>
-        <pre class="example-code"><code id="TakeFromAnInfiniteStreamCode" class="language-scala"></code></pre>
-        <div id="TakeFromAnInfiniteStream" class="example-frame"></div>
+        <pre class="example-code"><code id="DocsReferenceTake.basicCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceTake.basic" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(TakeFromAnInfiniteStream, "TakeFromAnInfiniteStreamCode", ExampleFrameIds.unchunked("TakeFromAnInfiniteStream"), "TakeFromAnInfiniteStreamLabel", "TakeFromAnInfiniteStreamInput");
+ aquascape.exampleWithInput(DocsReferenceTake.basic, "DocsReferenceTake.basicCode", ExampleFrameIds.unchunked("DocsReferenceTake.basic"), "DocsReferenceTake.basicLabel", "DocsReferenceTake.basicInput");
+</script>
+        <p>Note that the resulting stream is always finite.</p>
+        
+        <h3 id="takewhile" class="section"><a class="anchor-link left" href="#takewhile"><i class="icofont-laika link">&#xef71;</i></a>takeWhile</h3>
+        <p>The <code>takeWhile</code> operator pulls and outputs elements from an input stream, provided the elements satisfy a given predicate. It is analogous to <code>takeWhile</code> on lists.</p>
+        <p>In the following example, <code>takeWhile</code> pulls characters from an input stream and tests that they are not equal to <code>b</code>. The first character <code>a</code> passes the test and is outputted. The second character <code>b</code> fails the test. The resulting stream is then done. Note that <code>c</code> is never outputted by the input stream.</p>
+        <pre class="example-code"><code id="DocsReferenceTake.takeWhileCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceTake.takeWhile" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceTake.takeWhile, "DocsReferenceTake.takeWhileCode", ExampleFrameIds.unchunked("DocsReferenceTake.takeWhile"));
 </script>
         
-        <h2 id="take-from-finite-streams" class="section"><a class="anchor-link left" href="#take-from-finite-streams"><i class="icofont-laika link">&#xef71;</i></a><code>take</code> from finite streams</h2>
-        <p>Experiment with taking a number of elements from a finite stream.</p>
-        <div class="example-input">
-          <label id="TakeFromAFiniteStreamLabel" for="TakeFromAFiniteStreamInput"></label>
-          <input id="TakeFromAFiniteStreamInput"></input>
-        </div>
-        <pre class="example-code"><code id="TakeFromAFiniteStreamCode" class="language-scala"></code></pre>
-        <div id="TakeFromAFiniteStream" class="example-frame"></div>
+        <h3 id="takethrough" class="section"><a class="anchor-link left" href="#takethrough"><i class="icofont-laika link">&#xef71;</i></a>takeThrough</h3>
+        <p>The <code>takeThrough</code> operator behaves similarly to <code>takeWhile</code>. It pulls and outputs elements from an input stream, provided they satisfy a given predicate. Unlike <code>takeWhile</code>, it outputs the first element that tests <code>false</code>.</p>
+        <p>In the following example, <code>takeThrough</code> pulls characters from an input stream and tests that they are not equal to <code>b</code>. The first character <code>a</code> passes the test and is outputted. The second character <code>b</code> fails the test, but is also outputted. </p>
+        <p>The resulting stream is then done. </p>
+        <pre class="example-code"><code id="DocsReferenceTake.takeThroughCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceTake.takeThrough" class="example-frame"></div>
         <script>
- aquascape.exampleWithInput(TakeFromAFiniteStream, "TakeFromAFiniteStreamCode", ExampleFrameIds.unchunked("TakeFromAFiniteStream"), "TakeFromAFiniteStreamLabel", "TakeFromAFiniteStreamInput");
+ aquascape.example(DocsReferenceTake.takeThrough, "DocsReferenceTake.takeThroughCode", ExampleFrameIds.unchunked("DocsReferenceTake.takeThrough"));
 </script>
+        <p>Note that, as with <code>takeWhile</code>, the character <code>c</code> is never pulled.</p>
         
-        <h2 id="drained-streams" class="section"><a class="anchor-link left" href="#drained-streams"><i class="icofont-laika link">&#xef71;</i></a>Drained streams</h2>
-        <p>Drained streams output no elements, but may still capture side-effects.</p>
-        <pre class="example-code"><code id="TakeFromADrainedStreamCode" class="language-scala"></code></pre>
-        <div id="TakeFromADrainedStream" class="example-frame"></div>
+        <h3 id="takeright-1" class="section"><a class="anchor-link left" href="#takeright-1"><i class="icofont-laika link">&#xef71;</i></a>takeRight</h3>
+        <p>The <code>takeRight</code> operator drops all but the given number of elements from an input stream. It is analogous to <code>takeRight</code> on lists.</p>
+        <p>The following example shows how <code>takeRight</code> operates on an input stream of six characters. Experiment with varying the number of elements taken.</p>
+        <div class="example-input">
+          <label id="DocsReferenceTake.takeRightLabel" for="DocsReferenceTake.takeRightInput"></label>
+          <input id="DocsReferenceTake.takeRightInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceTake.takeRightCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceTake.takeRight" class="example-frame"></div>
         <script>
- aquascape.example(TakeFromADrainedStream, "TakeFromADrainedStreamCode", ExampleFrameIds.unchunked("TakeFromADrainedStream"));
+ aquascape.exampleWithInput(DocsReferenceTake.takeRight, "DocsReferenceTake.takeRightCode", ExampleFrameIds.unchunked("DocsReferenceTake.takeRight"), "DocsReferenceTake.takeRightLabel", "DocsReferenceTake.takeRightInput");
+</script>
+        <p>Note that <code>takeRight</code> only outputs elements after the input stream is done. As a consequence, it should only be used with finite input streams. </p>
+        <p>Internally, <code>takeRight(n)</code> keeps an in-memory buffer of <code>n</code> elements. Using <code>takeRight</code> with large values of <code>n</code> may therefore cause memory performance problems.</p>
+        
+        <h2 id="chunk-propagation" class="section"><a class="anchor-link left" href="#chunk-propagation"><i class="icofont-laika link">&#xef71;</i></a>Chunk propagation</h2>
+        
+        <h3 id="take-3" class="section"><a class="anchor-link left" href="#take-3"><i class="icofont-laika link">&#xef71;</i></a>take</h3>
+        <p><code>take</code> preserves the chunking of its input stream. If the  number of elements to take falls between a chunk, part of the chunk is outputted and the rest discarded.</p>
+        <p>The following example shows an input stream that repeatedly outputs chunks of <code>[a, b]</code>. Experiment with taking different numbers of elements from it.</p>
+        <div class="example-input">
+          <label id="DocsReferenceTake.basicchunkedLabel" for="DocsReferenceTake.basicchunkedInput"></label>
+          <input id="DocsReferenceTake.basicchunkedInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceTake.basicchunkedCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceTake.basicchunkedChunked" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceTake.basic, "DocsReferenceTake.basicchunkedCode", ExampleFrameIds.chunked("DocsReferenceTake.basicchunkedChunked"), "DocsReferenceTake.basicchunkedLabel", "DocsReferenceTake.basicchunkedInput");
+</script>
+        <p>The <code>takeWhile</code> and <code>takeThrough</code> operators propagate chunks similarly to <code>take</code>.</p>
+        
+        <h3 id="takeright-2" class="section"><a class="anchor-link left" href="#takeright-2"><i class="icofont-laika link">&#xef71;</i></a>takeRight</h3>
+        <p>The <code>takeRight</code> operator outputs a single chunk of its elements, regardless of how its input stream is chunked. Experiment with this using the example below.</p>
+        <div class="example-input">
+          <label id="DocsReferenceTake.takeRightchunkedLabel" for="DocsReferenceTake.takeRightchunkedInput"></label>
+          <input id="DocsReferenceTake.takeRightchunkedInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceTake.takeRightchunkedCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceTake.takeRightchunkedChunked" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceTake.takeRight, "DocsReferenceTake.takeRightchunkedCode", ExampleFrameIds.chunked("DocsReferenceTake.takeRightchunkedChunked"), "DocsReferenceTake.takeRightchunkedLabel", "DocsReferenceTake.takeRightchunkedInput");
 </script>
 
         

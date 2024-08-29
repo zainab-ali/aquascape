@@ -75,22 +75,22 @@
     <li class="level1 nav-header">basic</li>
     <li class="level2 nav-leaf"><a href="compile.html">compile</a></li>
     <li class="level2 active nav-leaf"><a href="#">drop</a></li>
-    <li class="level2 nav-leaf"><a href="filtering.html">filtering</a></li>
+    <li class="level2 nav-leaf"><a href="filter.html">filter</a></li>
     <li class="level2 nav-leaf"><a href="take.html">take</a></li>
     <li class="level1 nav-header">broadcastThrough</li>
     <li class="level2 nav-leaf"><a href="../broadcastThrough/broadcastThrough.html">broadcastThrough</a></li>
     <li class="level1 nav-header">chunking</li>
     <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
-    <li class="level2 nav-leaf"><a href="../chunking/chunks.html">chunks</a></li>
+    <li class="level2 nav-leaf"><a href="../chunking/chunk.html">chunk</a></li>
     <li class="level1 nav-header">combining</li>
     <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
     <li class="level2 nav-leaf"><a href="../combining/merge.html">merge</a></li>
     <li class="level1 nav-header">effects</li>
-    <li class="level2 nav-leaf"><a href="../effects/effects.html">effects</a></li>
+    <li class="level2 nav-leaf"><a href="../effects/effects.html">exec</a></li>
+    <li class="level2 nav-leaf"><a href="../effects/evalMap.html">evalMap</a></li>
     <li class="level1 nav-header">errors</li>
-    <li class="level2 nav-leaf"><a href="../errors/handling-errors.html">handling errors</a></li>
-    <li class="level2 nav-leaf"><a href="../errors/raising-errors.html">raising errors</a></li>
+    <li class="level2 nav-leaf"><a href="../errors/errors.html">errors</a></li>
     <li class="level1 nav-header">resources</li>
     <li class="level2 nav-leaf"><a href="../resources/bracket.html">bracket</a></li>
     <li class="level1 nav-header">time</li>
@@ -106,8 +106,15 @@
   <p class="header"><a href="#">drop</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#fewer">fewer</a></li>
-    <li class="level1 nav-leaf"><a href="#more">more</a></li>
+    <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#drop-2">drop</a></li>
+    <li class="level2 nav-leaf"><a href="#dropwhile">dropWhile</a></li>
+    <li class="level2 nav-leaf"><a href="#dropthrough">dropThrough</a></li>
+    <li class="level2 nav-leaf"><a href="#droplast-1">dropLast</a></li>
+    <li class="level2 nav-leaf"><a href="#droplastif">dropLastIf</a></li>
+    <li class="level1 nav-node"><a href="#chunk-propagation">Chunk propagation</a></li>
+    <li class="level2 nav-leaf"><a href="#drop-3">drop</a></li>
+    <li class="level2 nav-leaf"><a href="#droplast-2">dropLast</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -116,25 +123,111 @@
 
       <main class="content">
 
-        <h1 id="drop" class="title">drop</h1>
+        <h1 id="drop-1" class="title">drop</h1>
+        <p>This page is a reference guide for the <code>drop</code> family of operators. It describes:</p>
+        <ul>
+          <li>The behaviour of <code>drop</code>, <code>dropWhile</code>, <code>dropThrough</code>, <code>dropLast</code> and <code>dropLastIf</code>.</li>
+        </ul>
+        <ul>
+          <li>How <code>drop</code> operators propagate chunks.</li>
+        </ul>
+        <p>As the <code>drop</code> family of operators have normal error propagation and finalizer handling, these are not described.</p>
         
-        <h2 id="fewer" class="section"><a class="anchor-link left" href="#fewer"><i class="icofont-laika link">&#xef71;</i></a>fewer</h2>
-        <pre class="example-code"><code id="DropFewerCode" class="language-scala"></code></pre>
-        <div id="DropFewer" class="example-frame"></div>
-        <h3>chunked</h3>
-        <div id="DropFewerChunked" class="example-frame"></div>
+        <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
+        
+        <h3 id="drop-2" class="section"><a class="anchor-link left" href="#drop-2"><i class="icofont-laika link">&#xef71;</i></a>drop</h3>
+        <p>The <code>drop</code> operator pulls a given number of elements from an input stream and discards them, then pulls and outputs the remaining elements. It is analogous to <code>drop</code> on lists.</p>
+        <p>The following example drops a varying number of elements from a stream of characters.</p>
+        <p>Experiment with dropping different numbers of elements.</p>
+        <div class="example-input">
+          <label id="DocsReferenceDrop.basicLabel" for="DocsReferenceDrop.basicInput"></label>
+          <input id="DocsReferenceDrop.basicInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceDrop.basicCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceDrop.basic" class="example-frame"></div>
         <script>
- aquascape.example(DropFewer, "DropFewerCode", ExampleFrameIds.both("DropFewer", "DropFewerChunked"));
+ aquascape.exampleWithInput(DocsReferenceDrop.basic, "DocsReferenceDrop.basicCode", ExampleFrameIds.unchunked("DocsReferenceDrop.basic"), "DocsReferenceDrop.basicLabel", "DocsReferenceDrop.basicInput");
+</script>
+        <p>Notice that after discarding the given number of elements, <code>drop</code> behaves as an identity operation.</p>
+        <p><code>drop(1)</code> is equivalent to <code>tail</code>.</p>
+        
+        <h3 id="dropwhile" class="section"><a class="anchor-link left" href="#dropwhile"><i class="icofont-laika link">&#xef71;</i></a>dropWhile</h3>
+        <p>The <code>dropWhile</code> operator discards elements that satisfy a given predicate. It is analogous to <code>dropWhile</code> on lists.</p>
+        <p>In the following example, <code>dropWhile</code> pulls a character from the input stream and discards it if it is not equal to <code>b</code>.</p>
+        <p>The first character <code>a</code> is discarded. The second character <code>b</code> tests <code>false</code>, so is outputted. The third character <code>c</code> is then pulled and outputted.</p>
+        <pre class="example-code"><code id="DocsReferenceDrop.dropWhileCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceDrop.dropWhile" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceDrop.dropWhile, "DocsReferenceDrop.dropWhileCode", ExampleFrameIds.unchunked("DocsReferenceDrop.dropWhile"));
 </script>
         
-        <h2 id="more" class="section"><a class="anchor-link left" href="#more"><i class="icofont-laika link">&#xef71;</i></a>more</h2>
-        <pre class="example-code"><code id="DropMoreCode" class="language-scala"></code></pre>
-        <div id="DropMore" class="example-frame"></div>
-        <h3>chunked</h3>
-        <div id="DropMoreChunked" class="example-frame"></div>
+        <h3 id="dropthrough" class="section"><a class="anchor-link left" href="#dropthrough"><i class="icofont-laika link">&#xef71;</i></a>dropThrough</h3>
+        <p>The <code>dropThrough</code> operator behaves similarly to <code>dropWhile</code>, however it also drops the element for which the predicate tests <code>false</code>.</p>
+        <p>In the following example, <code>dropWhile</code> pulls a character from the input stream and discards it if it is not equal to <code>b</code>.</p>
+        <p>The first character <code>a</code> is discarded. The second character <code>b</code> tests <code>false</code>, but is also discarded. The third character <code>c</code> is then pulled and outputted.</p>
+        <pre class="example-code"><code id="DocsReferenceDrop.dropThroughCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceDrop.dropThrough" class="example-frame"></div>
         <script>
- aquascape.example(DropMore, "DropMoreCode", ExampleFrameIds.both("DropMore", "DropMoreChunked"));
+ aquascape.example(DocsReferenceDrop.dropThrough, "DocsReferenceDrop.dropThroughCode", ExampleFrameIds.unchunked("DocsReferenceDrop.dropThrough"));
 </script>
+        <p><code>dropThrough(p)</code> is equivalent to <code>dropWhile(p).drop(1)</code>.</p>
+        
+        <h3 id="droplast-1" class="section"><a class="anchor-link left" href="#droplast-1"><i class="icofont-laika link">&#xef71;</i></a>dropLast</h3>
+        <p>The <code>dropLast</code> operator drops the last element of the input stream. It is analogous to <code>init</code> on lists.</p>
+        <p>In the following example, <code>dropLast</code> pulls from an input stream of characters. The last character <code>c</code> is discarded.</p>
+        <p>The last character is dropped.</p>
+        <pre class="example-code"><code id="DocsReferenceDrop.dropLastCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceDrop.dropLast" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceDrop.dropLast, "DocsReferenceDrop.dropLastCode", ExampleFrameIds.unchunked("DocsReferenceDrop.dropLast"));
+</script>
+        <p>When it is first pulled on, <code>dropLast</code> pulls two characters from the input stream. It outputs <code>a</code> after pulling the second character <code>b</code>. It must do so to verify that <code>a</code> is not the last character.</p>
+        <p>Note that <code>dropLast</code> has no effect if the input stream is infinite. It is only useful on finite streams.</p>
+        
+        <h3 id="droplastif" class="section"><a class="anchor-link left" href="#droplastif"><i class="icofont-laika link">&#xef71;</i></a>dropLastIf</h3>
+        <p>The <code>dropLastIf</code> operator behaves similarly to <code>dropLast</code>, but only discards the last element if it satisfies the given predicate.</p>
+        <p>In the following example, the <code>dropLastIf</code> operator discards the last element if it is not equal to <code>b</code>.</p>
+        <p>The input stream is constructed by taking a varying number of characters from a stream of <code>a</code>, <code>b</code> and <code>c</code>. Experiment with different numbers of characters to see how <code>dropLastIf</code> behaves.</p>
+        <div class="example-input">
+          <label id="DocsReferenceDrop.dropLastIfLabel" for="DocsReferenceDrop.dropLastIfInput"></label>
+          <input id="DocsReferenceDrop.dropLastIfInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceDrop.dropLastIfCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceDrop.dropLastIf" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceDrop.dropLastIf, "DocsReferenceDrop.dropLastIfCode", ExampleFrameIds.unchunked("DocsReferenceDrop.dropLastIf"), "DocsReferenceDrop.dropLastIfLabel", "DocsReferenceDrop.dropLastIfInput");
+</script>
+        <p>If the number of characters taken is <code>1</code> or <code>3</code>, the last element outputted by the input stream is <code>a</code> or <code>c</code> respectively. The characters satisfy the predicate of <code>dropLastIf</code>, so are not outputted.</p>
+        <p>If the number of characters taken is <code>2</code>, the last element outputted by the input stream is <code>b</code>. The predicate is not satisfied and <code>b</code> is outputted.</p>
+        
+        <h1 id="chunk-propagation" class="section"><a class="anchor-link left" href="#chunk-propagation"><i class="icofont-laika link">&#xef71;</i></a>Chunk propagation</h1>
+        
+        <h2 id="drop-3" class="section"><a class="anchor-link left" href="#drop-3"><i class="icofont-laika link">&#xef71;</i></a>drop</h2>
+        <p>The <code>drop</code> operator preserves the chunks of its input stream. If the number of elements dropped falls between a chunk, the chunk is partitioned and the start of it is discarded.</p>
+        <p>In the following example, the input stream outputs two chunks of <code>[a, b]</code>. Experiment with varying the number of elements dropped.</p>
+        <div class="example-input">
+          <label id="DocsReferenceDrop.dropChunksLabel" for="DocsReferenceDrop.dropChunksInput"></label>
+          <input id="DocsReferenceDrop.dropChunksInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceDrop.dropChunksCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceDrop.dropChunksChunked" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceDrop.dropChunks, "DocsReferenceDrop.dropChunksCode", ExampleFrameIds.chunked("DocsReferenceDrop.dropChunksChunked"), "DocsReferenceDrop.dropChunksLabel", "DocsReferenceDrop.dropChunksInput");
+</script>
+        <p>Notice that if an odd number of elements is dropped, the chunk is partitioned into <code>[a]</code> and <code>[b]</code>, and the last partition <code>[b]</code> is outputted.</p>
+        <p>The <code>dropWhile</code> and <code>dropThrough</code> operators propagate chunks similarly to <code>drop</code>.</p>
+        
+        <h2 id="droplast-2" class="section"><a class="anchor-link left" href="#droplast-2"><i class="icofont-laika link">&#xef71;</i></a>dropLast</h2>
+        <p>The <code>dropLast</code> operator also preserves the chunks of its input.</p>
+        <p>In the following example, the input stream outputs three chunks of <code>[a, b]</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceDrop.dropLastChunksCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceDrop.dropLastChunksChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceDrop.dropLastChunks, "DocsReferenceDrop.dropLastChunksCode", ExampleFrameIds.chunked("DocsReferenceDrop.dropLastChunksChunked"));
+</script>
+        <p>Note that when <code>dropLast</code> is pulled on for the first time, it pulls two chunks from the input stream before outputting the first chunk.</p>
+        <p>The <code>dropLastIf</code> operator propagates chunks similarly to <code>dropLast</code>.</p>
+        
 
         
 <hr class="footer-rule"/>

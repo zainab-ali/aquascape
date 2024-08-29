@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>evalMap</title>
+  
+  <meta name="author" content="Zainab Ali"/>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
+  <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../aquascape.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">basic</li>
+    <li class="level2 nav-leaf"><a href="../basic/compile.html">compile</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/filter.html">filter</a></li>
+    <li class="level2 nav-leaf"><a href="../basic/take.html">take</a></li>
+    <li class="level1 nav-header">broadcastThrough</li>
+    <li class="level2 nav-leaf"><a href="../broadcastThrough/broadcastThrough.html">broadcastThrough</a></li>
+    <li class="level1 nav-header">chunking</li>
+    <li class="level2 nav-leaf"><a href="../chunking/buffering.html">buffering</a></li>
+    <li class="level2 nav-leaf"><a href="../chunking/chunk.html">chunk</a></li>
+    <li class="level1 nav-header">combining</li>
+    <li class="level2 nav-leaf"><a href="../combining/append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="../combining/merge.html">merge</a></li>
+    <li class="level1 nav-header">effects</li>
+    <li class="level2 nav-leaf"><a href="effects.html">exec</a></li>
+    <li class="level2 active nav-leaf"><a href="#">evalMap</a></li>
+    <li class="level1 nav-header">errors</li>
+    <li class="level2 nav-leaf"><a href="../errors/errors.html">errors</a></li>
+    <li class="level1 nav-header">resources</li>
+    <li class="level2 nav-leaf"><a href="../resources/bracket.html">bracket</a></li>
+    <li class="level1 nav-header">time</li>
+    <li class="level2 nav-leaf"><a href="../time/time.html">time</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">evalMap</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#evalmap-2">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="#evaltap">evalTap</a></li>
+    <li class="level2 nav-leaf"><a href="#evalmapchunk">evalMapChunk</a></li>
+    <li class="level1 nav-node"><a href="#chunk-propagation">Chunk propagation</a></li>
+    <li class="level2 nav-leaf"><a href="#evalmap-and-evaltap-1">evalMap and evalTap</a></li>
+    <li class="level2 nav-leaf"><a href="#evalmapchunk-and-evaltapchunk-1">evalMapChunk and evalTapChunk</a></li>
+    <li class="level2 nav-leaf"><a href="#excess-effect-evaluation">Excess effect evaluation</a></li>
+    <li class="level1 nav-node"><a href="#error-propagation">Error propagation</a></li>
+    <li class="level2 nav-leaf"><a href="#evalmap-and-evaltap-2">evalMap and evalTap</a></li>
+    <li class="level2 nav-leaf"><a href="#evalmapchunk-and-evaltapchunk-2">evalMapChunk and evalTapChunk</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="evalmap-1" class="title">evalMap</h1>
+        <p>This page is a reference guide to the <code>evalMap</code> family of operators. It describes:</p>
+        <ul>
+          <li>The behaviour of <code>evalMap</code>.</li>
+        </ul>
+        <ul>
+          <li>The differences between <code>evalMap</code>, <code>evalTap</code>, <code>evalMapChunk</code> and <code>evalTapChunk</code>.</li>
+        </ul>
+        <ul>
+          <li>How each operator propagates chunks.</li>
+        </ul>
+        <ul>
+          <li>How each operator propagates errors. </li>
+        </ul>
+        
+        <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
+        
+        <h3 id="evalmap-2" class="section"><a class="anchor-link left" href="#evalmap-2"><i class="icofont-laika link">&#xef71;</i></a>evalMap</h3>
+        <p>The <code>evalMap</code> operator evaluates effects as part of a stream.</p>
+        <p>In the following example, an <code>IO(c.toInt)</code> effect is evaluated for each character in a stream. When pulled on, <code>evalMap</code> pulls on its input stream to obtain a character. It then evaluates the <code>IO</code> effect to produce an integer value. The integer is outputted.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.basicCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.basic" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.basic, "DocsReferenceEvalMap.basicCode", ExampleFrameIds.unchunked("DocsReferenceEvalMap.basic"));
+</script>
+        
+        <h3 id="evaltap" class="section"><a class="anchor-link left" href="#evaltap"><i class="icofont-laika link">&#xef71;</i></a>evalTap</h3>
+        <p>The <code>evalTap</code> operator evaluates effects in a similar way, however &quot;taps&quot; instead of maps. It evaluates an effect, but discards the output, and instead outputs the originally pulled value.</p>
+        <p>The following example shows how <code>evalTap</code> behaves with the same effect.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.evalTapCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.evalTap" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.evalTap, "DocsReferenceEvalMap.evalTapCode", ExampleFrameIds.unchunked("DocsReferenceEvalMap.evalTap"));
+</script>
+        <p>Note that the characters <code>a</code> and <code>b</code> are outputted.</p>
+        
+        <h3 id="evalmapchunk" class="section"><a class="anchor-link left" href="#evalmapchunk"><i class="icofont-laika link">&#xef71;</i></a>evalMapChunk</h3>
+        <p><code>evalMapChunk</code> and <code>evalTap</code> chunk are similar to <code>evalMap</code> and <code>evalTap</code> respectively, but with different chunk propagation and error handling semantics. These are described later.</p>
+        
+        <p>When no errors are raised, the <code>evalMapChunk</code> operator behaves identically to <code>evalMap</code>.</p>
+        
+        <h2 id="chunk-propagation" class="section"><a class="anchor-link left" href="#chunk-propagation"><i class="icofont-laika link">&#xef71;</i></a>Chunk propagation</h2>
+        
+        <h3 id="evalmap-and-evaltap-1" class="section"><a class="anchor-link left" href="#evalmap-and-evaltap-1"><i class="icofont-laika link">&#xef71;</i></a>evalMap and evalTap</h3>
+        <p>The <code>evalMap</code> operator does not chunk its output. When pulled on, it evaluates a single effect and outputs the result. </p>
+        <p>The following example shows how chunks are outputted.</p>
+        <p>When pulled on, <code>evalMap</code> pulls a single chunk of <code>[a, b]</code>. It then evaluates <code>IO(a.toInt)</code> to output a singleton chunk of <code>[97]</code>. When next pulled on, it evaluates <code>IO(b.toInt)</code> to output a singleton chunk of <code>[98]</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.basicchunkedCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.basicchunkedChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.basic, "DocsReferenceEvalMap.basicchunkedCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.basicchunkedChunked"));
+</script>
+        <p>This chunking strategy ensures that the number of effects evaluated matches the number of elements requested.</p>
+        <p>Experiment with evaluating a different number of effects with the example below. </p>
+        <div class="example-input">
+          <label id="DocsReferenceEvalMap.evalMapTakeLabel" for="DocsReferenceEvalMap.evalMapTakeInput"></label>
+          <input id="DocsReferenceEvalMap.evalMapTakeInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.evalMapTakeCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.evalMapTakeChunked" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceEvalMap.evalMapTake, "DocsReferenceEvalMap.evalMapTakeCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.evalMapTakeChunked"), "DocsReferenceEvalMap.evalMapTakeLabel", "DocsReferenceEvalMap.evalMapTakeInput");
+</script>
+        <p>Note that the number of effects evaluated always matches the number of elements taken.</p>
+        <p>The <code>evalTap</code> operator has an identical chunking strategy to <code>evalMap</code>. It evaluates a single effect and outputs a singleton chunk.</p>
+        
+        <h3 id="evalmapchunk-and-evaltapchunk-1" class="section"><a class="anchor-link left" href="#evalmapchunk-and-evaltapchunk-1"><i class="icofont-laika link">&#xef71;</i></a>evalMapChunk and evalTapChunk</h3>
+        <p>The <code>evalMapChunk</code> operator evaluates effects while preserving chunks.</p>
+        <p>When pulled on, it pulls a chunk from its input stream and evaluates its effect for all elements in the chunk.</p>
+        <p>This is shown in the example below. The <code>IO(&#39;a&#39;.toInt)</code> and <code>IO(&#39;b&#39;.toInt)</code> effects are evaluated together, and a single chunk of <code>[97, 98]</code> is outputted.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.evalMapChunkCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.evalMapChunkChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.evalMapChunk, "DocsReferenceEvalMap.evalMapChunkCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.evalMapChunkChunked"));
+</script>
+        
+        <h3 id="excess-effect-evaluation" class="section"><a class="anchor-link left" href="#excess-effect-evaluation"><i class="icofont-laika link">&#xef71;</i></a>Excess effect evaluation</h3>
+        <p>As a result of preserving chunks, the number of effects evaluated may not match the number of elements taken.</p>
+        <p>Consider taking a single element from the resulting stream, as demonstrated in the example below. Because effects are evaluated for entire chunks, the <code>IO(&#39;b&#39;.toInt)</code> effect is still evaluated. However, since only the head element was requested, the result <code>98</code> is never outputted.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.evalMapChunkHeadCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.evalMapChunkHeadChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.evalMapChunkHead, "DocsReferenceEvalMap.evalMapChunkHeadCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.evalMapChunkHeadChunked"));
+</script>
+        <p>As this can be misleading, it is recommended to use <code>evalMap</code> in cases where chunk preservation is not necessary.</p>
+        <p>The <code>evalTapChunk</code> operator preserves chunks in a similar way to <code>evalMapChunk</code>.</p>
+        
+        <h2 id="error-propagation" class="section"><a class="anchor-link left" href="#error-propagation"><i class="icofont-laika link">&#xef71;</i></a>Error propagation</h2>
+        
+        <h3 id="evalmap-and-evaltap-2" class="section"><a class="anchor-link left" href="#evalmap-and-evaltap-2"><i class="icofont-laika link">&#xef71;</i></a>evalMap and evalTap</h3>
+        <p>If the effect evaluated by <code>evalMap</code> or <code>evalTap</code> raises an error, this error is raised into the stream.</p>
+        <p>In the following example, an error is raised with <code>IO.raiseError</code>. This is propagated to the stream, and the entire program terminates with an error.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.errorCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.error" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.error, "DocsReferenceEvalMap.errorCode", ExampleFrameIds.unchunked("DocsReferenceEvalMap.error"));
+</script>
+        
+        <h3 id="evalmapchunk-and-evaltapchunk-2" class="section"><a class="anchor-link left" href="#evalmapchunk-and-evaltapchunk-2"><i class="icofont-laika link">&#xef71;</i></a>evalMapChunk and evalTapChunk</h3>
+        <p>The <code>evalTapChunk</code> operator also raises errors into the resulting stream. Errors are raised when the chunk of effects is evaluated, so the termination behaviour is slightly different to <code>evalMap</code>.</p>
+        <p>To illustrate, consider chaining two <code>evalMap</code> operators. The first evaluates <code>c.toInt</code>, but raises an error on the second character <code>b</code>. The second evaluates an <code>isEven</code> effect.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.errorEvalMapCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.errorEvalMapChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.errorEvalMap, "DocsReferenceEvalMap.errorEvalMapCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.errorEvalMapChunked"));
+</script>
+        <p>Because <code>evalMap</code> produces singleton chunks, the <code>isEven(97)</code> is evaluated and its result <code>[false]</code> is outputted as a singleton chunk.</p>
+        <p>This is not the case for <code>evalMapChunk</code>. Since the error is raised when evaluating effects for the entire chunk, <code>97</code> is never outputted and <code>isEven(97)</code> is never evaluated.</p>
+        <pre class="example-code"><code id="DocsReferenceEvalMap.errorEvalMapChunkCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceEvalMap.errorEvalMapChunkChunked" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceEvalMap.errorEvalMapChunk, "DocsReferenceEvalMap.errorEvalMapChunkCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.errorEvalMapChunkChunked"));
+</script>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
