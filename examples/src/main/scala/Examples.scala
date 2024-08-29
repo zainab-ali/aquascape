@@ -86,38 +86,6 @@ object BasicCompileOnlyOrError extends Example {
     )
 }
 
-@JSExportTopLevel("ChunkingChunkChunkLimit")
-object ChunkingChunkChunkLimit extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .chunkLimit(2)
-        .unchunks
-        .stage("chunkLimit(2).unchunks")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("ChunkingChunkChunkMin")
-object ChunkingChunkChunkMin extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .chunkLimit(1)
-        .unchunks
-        .stage("Stream('a','b','c')…unchunks")
-        .chunkMin(2)
-        .unchunks
-        .stage("chunkMin(2).unchunks")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
 @JSExportTopLevel("ChunkingChunkRepartition")
 object ChunkingChunkRepartition extends Example {
   def apply(using Scape[IO]): StreamCode =
@@ -176,20 +144,6 @@ object BufferingBufferBy extends Example {
         .stage("Stream('a','b','c')…unchunks")
         .bufferBy(_ != 'b')
         .stage("bufferBy")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("CombiningAppend")
-object CombiningAppend extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      (Stream('a', 'b')
-        .stage("Stream('a','b')")
-        ++ Stream('c').stage("Stream('c')"))
-        .stage("++")
         .compile
         .toList
         .compileStage("compile.toList")
