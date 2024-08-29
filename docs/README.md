@@ -2,6 +2,10 @@
 
 Aquascape is a diagramming tool for [fs2](https://github.com/typelevel/fs2).
 
+The diagrams can be used to illustrate the behaviour of fs2 operators. By reading the diagrams, you will learn more about the operators and streams.
+
+This website contains an aquascape-based reference guide to fs2, based on aquascapes. Read it [here](reference/README.md).
+
 ## The basic idea
 
 A stream is built from **stages**. When evaluated:
