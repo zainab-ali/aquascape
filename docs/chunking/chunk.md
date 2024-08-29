@@ -6,6 +6,8 @@
 
 This page is a reference guide for the `chunk` family of operators. It describes the behaviour of `chunks`, `unchunks`, `chunkLimit`, `chunkMin` and `chunkN`.
 
+As chunk operators have no special error handling or finalizer handling semantics, these are not described.
+
 The following examples operate on an input stream of charaters, shown below.
 
 @:example(input) {
