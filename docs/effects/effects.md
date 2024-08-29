@@ -1,12 +1,3 @@
-# effects
-## evalMap
-
-@:example(EffectsEvalMap)
-
-## evalMap2
-
-@:example(EffectsEvalMap2)
-
 ## exec
 
 @:example(EffectsExec)

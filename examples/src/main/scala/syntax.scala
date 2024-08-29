@@ -19,6 +19,7 @@ import aquascape.Scape
 import cats.*
 import cats.effect.Resource
 import cats.syntax.all.*
+import fs2.Chunk
 
 private trait LowPriorityShow {
   given Show[Unit] = _ => "()"
@@ -34,6 +35,7 @@ private trait LowPriorityShow {
     case Resource.ExitCase.Succeeded  => "Succeeded"
   }
 
+  given Show[Chunk[Char]] = cs => s"[${cs.toList.mkString(",")}]"
 }
 
 object syntax extends LowPriorityShow {
