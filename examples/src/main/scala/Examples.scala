@@ -86,38 +86,6 @@ object BasicCompileOnlyOrError extends Example {
     )
 }
 
-@JSExportTopLevel("ChunkingChunkChunkLimit")
-object ChunkingChunkChunkLimit extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .chunkLimit(2)
-        .unchunks
-        .stage("chunkLimit(2).unchunks")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("ChunkingChunkChunkMin")
-object ChunkingChunkChunkMin extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .chunkLimit(1)
-        .unchunks
-        .stage("Stream('a','b','c')…unchunks")
-        .chunkMin(2)
-        .unchunks
-        .stage("chunkMin(2).unchunks")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
 @JSExportTopLevel("ChunkingChunkRepartition")
 object ChunkingChunkRepartition extends Example {
   def apply(using Scape[IO]): StreamCode =
@@ -176,20 +144,6 @@ object BufferingBufferBy extends Example {
         .stage("Stream('a','b','c')…unchunks")
         .bufferBy(_ != 'b')
         .stage("bufferBy")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("CombiningAppend")
-object CombiningAppend extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      (Stream('a', 'b')
-        .stage("Stream('a','b')")
-        ++ Stream('c').stage("Stream('c')"))
-        .stage("++")
         .compile
         .toList
         .compileStage("compile.toList")
@@ -342,76 +296,6 @@ object EffectsParEvalMapUnordered extends Example {
           IO.sleep((105 - char.toInt).seconds).as(char).trace()
         )
         .stage("parEvalMapUnordered(2)(…)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("ResourcesBracket")
-object ResourcesBracket extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream
-        .bracket(IO("abc").trace())(_ => IO("d").trace().void)
-        .stage("Stream.bracket(…)")
-        .flatMap { str =>
-          Stream
-            .emits(str.toList)
-            .stage("Stream.emits(str.toList)")
-        }
-        .stage("flatMap {…}")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-@JSExportTopLevel("ResourcesBracketRaisingErrors")
-object ResourcesBracketRaisingErrors extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream
-        .bracket(IO("abc").trace())(_ => IO("d").trace().void)
-        .stage("Stream.bracket(…)")
-        .flatMap { str =>
-          Stream
-            .emits(str.toList)
-            .stage("Stream.emits(str.toList)")
-            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .stage("evalTap(…)")
-        }
-        .stage("flatMap {…}")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("ResourcesBracketHandlingErrors")
-object ResourcesBracketHandlingErrors extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream
-        .bracket(IO("abc").trace())(_ => IO("d").trace().void)
-        .stage("Stream.bracket(…)")
-        .flatMap { str =>
-          Stream
-            .emits(str.toList)
-            .stage("Stream.emits(str.toList)")
-            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .stage("evalTap(…)")
-        }
-        .stage("flatMap1")
-        .flatMap { str =>
-          Stream(str)
-            .repeatN(2)
-            .stage("Stream.(str).repeatN(2)")
-            .evalTap(x => IO.raiseWhen(x == 'b')(Err))
-            .stage("evalTap1(…)")
-        }
-        .stage("flatMap {…}")
-        .handleErrorWith(_ => Stream('e', 'f').stage("Stream('e','f')"))
-        .stage("handleErrorWith(…)")
         .compile
         .toList
         .compileStage("compile.toList")
