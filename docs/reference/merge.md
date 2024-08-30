@@ -1,5 +1,6 @@
 {%
   pageid = DocsReferenceMerge
+  helium.site.pageNavigation.keepOnSmallScreens = true
 %}
 
 # merge

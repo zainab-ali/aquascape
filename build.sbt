@@ -96,6 +96,7 @@ lazy val examples = project
 
 import laika.format._
 import laika.ast.Path.Root
+import laika.helium.config.{ThemeNavigationSection, TextLink}
 
 lazy val docs = project
   .in(file("site"))
@@ -103,6 +104,15 @@ lazy val docs = project
   .settings(
     tlSiteKeepFiles := false,
     tlSiteHelium := tlSiteHelium.value.site
+      .mainNavigation(
+        prependLinks = Seq(
+          ThemeNavigationSection(
+            "About",
+            TextLink.internal(Root / "README.md", "About aquascape")
+          )
+        )
+      )
+      .site
       .internalCSS(Root / "main.css")
       .site
       .internalJS(Root / "main.js")
