@@ -137,11 +137,13 @@ private def eventsToDiagram[F[_]: Foldable](
   ): (Diagram, TokenMap, Option[Time]) = {
     val (event, curTime) = te
     val (prevDiagram, tokenMap, prevTime) = acc
-    val opAcc = (prevDiagram, tokenMap)
-    val (diagram, tokens) = op(opAcc, event)
-    val nextItems =
-      prevTime.flatMap(time(_, curTime)).fold(diagram.items)(_ :: diagram.items)
-    val nextDiagram = diagram.copy(items = nextItems)
+    val itemsWithTime =
+      prevTime
+        .flatMap(time(_, curTime))
+        .fold(prevDiagram.items)(_ :: prevDiagram.items)
+    val diagramWithTime = prevDiagram.copy(items = itemsWithTime)
+    val opAcc = (diagramWithTime, tokenMap)
+    val (nextDiagram, tokens) = op(opAcc, event)
     (nextDiagram, tokens, Some(curTime))
   }
   val (diagram, _, _) = events.foldLeft(empty)(foldOp)
