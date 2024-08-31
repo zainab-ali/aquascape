@@ -186,22 +186,27 @@ private[drawing] def diagramToPicture(
         }
         picture.width.map(w => (picture, w.toInt))
       case i: Item.Time =>
-        val box = Picture.text(s"${i.value}s").font(config.font)
+        val box = Picture
+          .text(s"${i.value}s")
+          .font(config.font)
+          .strokeColor(config.timeColor)
+          .fillColor(config.timeColor)
+
         val picture = (box.width, box.height).flatMapN { (width, height) =>
           box
             .on(
-              Picture.circle(
-                diameter = width + config.textBoxPaddingWidth
-              )
+              Picture
+                .circle(
+                  diameter = width + config.textBoxPaddingWidth
+                )
+                .strokeColor(config.timeColor)
+                .fillColor(Color.white)
             )
             .originAt(-width / 2.0, 0.0)
             .at(
               progressOffset + config.arrowBaseWidth + config.textBoxPaddingWidth,
               0
             )
-            .font(config.font)
-            .strokeColor(config.timeColor)
-            .fillColor(Color.white)
         }
         picture.width.map(w => (picture, w.toInt))
       case i: Item.Error =>
