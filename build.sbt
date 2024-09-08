@@ -31,8 +31,8 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     name := "aquascape",
     fork := true,
     libraryDependencies ++= Seq(
-      "co.fs2" %%% "fs2-core" % "3.10.2",
-      "co.fs2" %%% "fs2-io" % "3.10.2",
+      "co.fs2" %%% "fs2-core" % "3.11.0",
+      "co.fs2" %%% "fs2-io" % "3.11.0",
       ("org.creativescala" %%% "doodle-core" % "0.23.0"),
       "org.typelevel" %%% "cats-core" % "2.12.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
