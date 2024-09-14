@@ -26,18 +26,6 @@ import fs2.*
 import scala.concurrent.duration.*
 import scala.scalajs.js.annotation.JSExportTopLevel
 
-@JSExportTopLevel("BasicCompileToList")
-object BasicCompileToList extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
 @JSExportTopLevel("BasicCompileDrain")
 object BasicCompileDrain extends Example {
   def apply(using Scape[IO]): StreamCode =
@@ -47,42 +35,6 @@ object BasicCompileDrain extends Example {
         .compile
         .drain
         .compileStage("compile.drain")
-    )
-}
-
-@JSExportTopLevel("BasicCompileLast")
-object BasicCompileLast extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .compile
-        .last
-        .compileStage("compile.last")
-    )
-}
-
-@JSExportTopLevel("BasicCompileCount")
-object BasicCompileCount extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .compile
-        .count
-        .compileStage("compile.count")
-    )
-}
-
-@JSExportTopLevel("BasicCompileOnlyOrError")
-object BasicCompileOnlyOrError extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')")
-        .compile
-        .onlyOrError
-        .compileStage("compile.onlyOrError")
     )
 }
 

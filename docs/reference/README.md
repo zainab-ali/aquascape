@@ -4,6 +4,7 @@ This is an aquascape-based reference guide to fs2.
 
 Learn [how to read aquascapes](../README.md#how-to-read-the-diagrams), then learn about an operator:
 
+ - [compile.toList, compile.last, compile.onlyOrError, compile.count, compile.drain](compile.md)
  - [take, takeWhile, takeThrough, takeRight](take.md)
  - [drop, dropWhile, dropThrough, dropLast, dropLastIf](drop.md)
  - [filter, filterNot, filterWithPrevious, changes, mapFilter](filter.md)
