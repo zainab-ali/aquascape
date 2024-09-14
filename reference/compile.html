@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>compile</title>
+  
+  <meta name="author" content="Zainab Ali"/>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
+  <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../aquascape.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">About</li>
+    <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
+    <li class="level2 nav-leaf"><a href="append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
+    <li class="level2 nav-leaf"><a href="chunk.html">chunk</a></li>
+    <li class="level2 active nav-leaf"><a href="#">compile</a></li>
+    <li class="level2 nav-leaf"><a href="drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="errors.html">errors</a></li>
+    <li class="level2 nav-leaf"><a href="evalMap.html">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="filter.html">filter</a></li>
+    <li class="level2 nav-leaf"><a href="flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="merge.html">merge</a></li>
+    <li class="level2 nav-leaf"><a href="take.html">take</a></li>
+    <li class="level2 nav-leaf"><a href="time.html">time</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">compile</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#tolist">toList</a></li>
+    <li class="level2 nav-leaf"><a href="#last">last</a></li>
+    <li class="level2 nav-leaf"><a href="#onlyorerror">onlyOrError</a></li>
+    <li class="level2 nav-leaf"><a href="#count">count</a></li>
+    <li class="level2 nav-leaf"><a href="#drain">drain</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="compile" class="title">compile</h1>
+        <p>This page is a reference guide for the <code>compile</code> operations. It describes the behaviour of <code>compile.toList</code>, <code>compile.last</code>, <code>compile.onlyOrError</code>, <code>compile.count</code> and <code>compile.drain</code>.</p>
+        
+        <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
+        <p>The <code>compile</code> operations are used to convert a stream into a single value or effect. Compiling a stream is analagous to compiling a program.</p>
+        <p>Streams with no side effects are termed pure streams and have the effect type of <code>Pure</code>. These are converted directly into a value. For example, <code>Stream(&#39;a&#39;,&#39;b&#39;).compile.toList</code> is an expression of type <code>List[Char]</code> which evaluates to the value <code>List(&#39;a&#39;,&#39;b&#39;)</code>.</p>
+        <p>Streams with side effects are converted into their effect type. For example, <code>Stream[IO, Char](&#39;a&#39;,&#39;b&#39;).compile.toList</code> is an expression of type <code>IO[List[Char]]</code>. When run, it evaluates to <code>List(&#39;a&#39;, &#39;b&#39;)</code>.</p>
+        
+        <h3 id="tolist" class="section"><a class="anchor-link left" href="#tolist"><i class="icofont-laika link">&#xef71;</i></a>toList</h3>
+        <p>The <code>compile.toList</code> operation repeatedly pulls on a stream until it is done, then results in a list of outputted values.</p>
+        <p>The following example, a pure input stream outputting the characters <code>&#39;a&#39;</code> and <code>&#39;b&#39;</code> is compiled to a value of <code>List(&#39;a&#39;, &#39;b&#39;)</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceCompile.toListCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceCompile.toList" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceCompile.toList, "DocsReferenceCompile.toListCode", ExampleFrameIds.unchunked("DocsReferenceCompile.toList"));
+</script>
+        <p><code>compile.toList</code> can be used on pure or side-effecting streams for which the output can be held in memory.</p>
+        <p>Using <code>compile.toList</code> on large streams will result in memory issues as the output is accumulated in a list.</p>
+        
+        <h3 id="last" class="section"><a class="anchor-link left" href="#last"><i class="icofont-laika link">&#xef71;</i></a>last</h3>
+        <p>The <code>compile.last</code> operation repeatedly pulls on a stream until it is done, then results in the last outputted value.</p>
+        <p>Experiment with the behaviour of <code>compile.last</code> on non-empty and empty streams using the following example.</p>
+        <div class="example-input">
+          <label id="DocsReferenceCompile.lastLabel" for="DocsReferenceCompile.lastInput"></label>
+          <input id="DocsReferenceCompile.lastInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceCompile.lastCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceCompile.last" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceCompile.last, "DocsReferenceCompile.lastCode", ExampleFrameIds.unchunked("DocsReferenceCompile.last"), "DocsReferenceCompile.lastLabel", "DocsReferenceCompile.lastInput");
+</script>
+        <p>Note that if the stream outputs no elements, the result of <code>compile.last</code> is <code>None</code>.</p>
+        <p><code>compile.last</code> can be used on pure or side-effecting streams. The input stream must be finite for <code>compile.last</code> to terminate.</p>
+        
+        <h3 id="onlyorerror" class="section"><a class="anchor-link left" href="#onlyorerror"><i class="icofont-laika link">&#xef71;</i></a>onlyOrError</h3>
+        <p>The <code>compile.onlyOrError</code> operation pulls on a stream and outputs the first value.</p>
+        <p>It expects a singleton stream. If the stream outputs more than one element, or does not output any elements, an error is raised. </p>
+        <p>Experiment with the behaviour of <code>compile.onlyOrError</code> on empty, singleton, and non-empty streams using the following example.</p>
+        <div class="example-input">
+          <label id="DocsReferenceCompile.onlyOrErrorLabel" for="DocsReferenceCompile.onlyOrErrorInput"></label>
+          <input id="DocsReferenceCompile.onlyOrErrorInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceCompile.onlyOrErrorCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceCompile.onlyOrError" class="example-frame"></div>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceCompile.onlyOrError, "DocsReferenceCompile.onlyOrErrorCode", ExampleFrameIds.unchunked("DocsReferenceCompile.onlyOrError"), "DocsReferenceCompile.onlyOrErrorLabel", "DocsReferenceCompile.onlyOrErrorInput");
+</script>
+        <p><code>compile.onlyOrError</code> can be used on effectful streams with a monad error instance. The input stream must be finite for <code>compile.onlyOrError</code> to terminate.</p>
+        
+        <h3 id="count" class="section"><a class="anchor-link left" href="#count"><i class="icofont-laika link">&#xef71;</i></a>count</h3>
+        <p>The <code>compile.count</code> operation repeatedly pulls on a stream until it is done, then results in a count of the number of elements outputted.</p>
+        <pre class="example-code"><code id="DocsReferenceCompile.countCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceCompile.count" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceCompile.count, "DocsReferenceCompile.countCode", ExampleFrameIds.unchunked("DocsReferenceCompile.count"));
+</script>
+        <p><code>compile.count</code> can be used on pure or side-effecting streams. The input stream must be finite for <code>compile.count</code> to terminate.</p>
+        
+        <h3 id="drain" class="section"><a class="anchor-link left" href="#drain"><i class="icofont-laika link">&#xef71;</i></a>drain</h3>
+        <p>The <code>compile.drain</code> operation repeatedly oulls on a stream until it is done, then results in a <code>()</code> value.</p>
+        <p>In the following example, the input stream executes side effect <code>97</code> before outputting <code>a</code>, then executes side-effect <code>98</code> before outputting <code>b</code>. Both <code>a</code> and <code>b</code> are discarded, but the side effects are still run.</p>
+        <pre class="example-code"><code id="DocsReferenceCompile.drainCode" class="language-scala"></code></pre>
+        <div id="DocsReferenceCompile.drain" class="example-frame"></div>
+        <script>
+ aquascape.example(DocsReferenceCompile.drain, "DocsReferenceCompile.drainCode", ExampleFrameIds.unchunked("DocsReferenceCompile.drain"));
+</script>
+        <p><code>compile.drain</code> is used for input streams which are side-effecting. The side-effects in the stream are run, and the output is discarded. If the input is infinite, it will continue to pull on the stream and will never terminate.</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
