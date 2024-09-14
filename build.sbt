@@ -36,7 +36,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       ("org.creativescala" %%% "doodle-core" % "0.23.0"),
       "org.typelevel" %%% "cats-core" % "2.12.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
-      "org.scalameta" %%% "munit" % "1.0.1" % Test,
+      "org.scalameta" %%% "munit" % "1.0.2" % Test,
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
       ("com.lihaoyi" %%% "pprint" % "0.9.0" % Test)
         .cross(CrossVersion.for3Use2_13)
@@ -82,7 +82,7 @@ lazy val examples = project
         .cross(CrossVersion.for3Use2_13),
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
       "org.typelevel" %%% "cats-effect-testkit" % "3.5.4",
-      "org.scalameta" %%% "munit" % "1.0.1" % Test,
+      "org.scalameta" %%% "munit" % "1.0.2" % Test,
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
       ("com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test)
         .exclude(
