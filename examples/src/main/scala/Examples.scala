@@ -302,54 +302,6 @@ object EffectsParEvalMapUnordered extends Example {
     )
 }
 
-@JSExportTopLevel("TimeAwakeEvery")
-object TimeAwakeEvery extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream
-        .awakeEvery[IO](5.seconds)
-        .map(_.toSeconds)
-        .stage("Stream.awakeEvery(5.seconds).map(…)")
-        .take(2)
-        .stage("take(2)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("TimeDelayBy")
-object TimeDelayBy extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .chunkLimit(1)
-        .unchunks
-        .stage("Stream('a','b','c')…unchunks")
-        .delayBy(5.seconds)
-        .stage("delayBy(5.seconds)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
-@JSExportTopLevel("TimeMetered")
-object TimeMetered extends Example {
-  def apply(using Scape[IO]): StreamCode =
-    code(
-      Stream('a', 'b', 'c')
-        .chunkLimit(1)
-        .unchunks
-        .stage("Stream('a','b','c')…unchunks")
-        .metered(5.seconds)
-        .stage("metered(5.seconds)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
-    )
-}
-
 @JSExportTopLevel("TimeDebounce")
 object TimeDebounce extends Example {
   def apply(using Scape[IO]): StreamCode =

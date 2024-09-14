@@ -14,4 +14,4 @@ Learn [how to read aquascapes](../README.md#how-to-read-the-diagrams), then lear
  - [append, `++`](append.md)
  - [raiseError, handleError, handleErrorWith, attempt](errors.md)
  - [chunks, unchunks, chunkLimit, chunkMin, chunkN](chunk.md)
-
+ - [sleep, delayBy, fixedDelay, awakeDelay, fixedRate, fixedRateStartImmediately, awakeEvery, spaced, metered, meteredStartImmediately](time.md)
