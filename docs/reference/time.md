@@ -5,18 +5,26 @@
 
 # time
 
-This is a reference guide to the time delay family of operators. It describes the behaviour of `sleep`, `delayBy`, `fixedDelay`, `awakeDelay`, `fixedRate`, `awakeEvery`, `spaced` and `metered` and their `startImmediately` variants.
+This is a reference guide to the time family of operators. It describes:
+
+ - the behaviour of `sleep`, `delayBy`, `fixedDelay`, `awakeDelay`, `fixedRate`, `awakeEvery`, `spaced` and `metered` and their `startImmediately` variants.
+ - How each operator propagates chunks.
+
+As the time family of operators have normal error propagation and finalizer handling, these are not described.
 
 ## Behaviour
 
-All operators introduce delays. They are distinguished by:
- - whether they introduce a delay after the pull or the last outputted element. The `fixedDelay` family of operators introduce delays after the pull, whereas `fixedRate` introduces a delay after the last outputted element.
- - Whether they accept an input stream, or construct a stream. `delayBy`, `spaced` and `metered` operate on an input stream, but all other operators construct a stream.
+The time family of operators manipulate time by introducing delays. When pulled on, an operator delays for a certain length of time before outputting an element.
+
+Operators are distinguished by:
+
+ - Whether they calculate the delay using the time of the pull or the time of the last outputted element. The `fixedDelay` family of operators calculate delays using the time of the pull, whereas `fixedRate` operators calculate delays using the time of the last outputted element.
+  - Whether they operate on an input stream, or construct a stream. `delayBy`, `spaced` and `metered` operate on an input stream, but `fixedTate`, `fixedRate`, `awakeDelay` and `awakeEvery` construct a stream.
  - Whether they output a unit value `()` or the elapsed time. Operators prefixed by `fixed` output a unit value, but operators prefixed by `awake` output the elapsed time.
  
 This is summarized in the table below.
 
-| output value  | delay after pull | delay after output |
+| output value  | delay using pull time | delay using output time |
 |---------------|-----------------|-------------------|
 | unit          | `fixedDelay`    | `fixedRate`       |
 | elapsed time  | `awakeDelay`    | `awakeEvery`      |
@@ -24,7 +32,7 @@ This is summarized in the table below.
 
 ### sleep
 
-The `sleep` operator sleeps for a given amount of time. When pulled on, it waits for the given time to elapse before outputting the unit value `()`. The stream is then done.
+The `sleep` operator sleeps for a given amount of time before outputting a single unit value`()`. When pulled on, it waits for the given time to elapse before outputting the unit value `()`. The stream is then done.
 
 @:example(sleep) {
   drawChunked = false
@@ -43,7 +51,7 @@ In the following example, the input stream of characters is delayed by one secon
 
 ### fixedDelay
 
-The `fixedDelay` operator repeatedly sleeps for a given amount of time.
+The `fixedDelay` operator constructs a stream that repeatedly sleeps for a given amount of time.
 
 Each time it is pulled on, it waits for the given time to elapse before outputting an element.
 
@@ -66,7 +74,9 @@ This is shown in the following example.  The resulting stream is operated on by 
 
 ### awakeDelay
 
-The `awakeDelay` operator is similar to `fixedDelay`. It sleeps for a given amount of time before outputting a duration, then repeats infinitely. The duration corresponds to the elapsed time since the resulting stream was first pulled on.
+The `awakeDelay` operator is similar to `fixedDelay`, but outputs the elapsed time. 
+
+It sleeps for a given amount of time before outputting a duration, then repeats infinitely. The duration corresponds to the elapsed time since the resulting stream was first pulled on.
 
 @:example(awakeDelay) {
   drawChunked = false
@@ -214,12 +224,16 @@ The `meteredStartImmediately` operator is similar to `metered`, however pulls on
 
 By necessity, operators that introduce time delays output singleton chunks.
 
+The `fixedRate` and `fixedDelay` operators output singleton chunks of the unit value `()`. The `awakeDelay` and `awakeEvery` operators output singleton chunks of the elapsed time.
+
 ### delayBy
 
 The `delayBy` operator preserves the chunks of its input stream.
 
+In the following example, the input stream of a single chunk of characters `[a, b]` is delayed by one second. The resulting stream outputs the same chunk of characters.
+
 @:example(delayBy) {
-  prefix = chunked
+  suffix = chunked
   drawChunked = true
 }
 
@@ -227,17 +241,21 @@ The `delayBy` operator preserves the chunks of its input stream.
 
 The `spaced` operator outputs singleton chunks.
 
+In the following example, the input stream outputs a single chunk of characters `[a, b]`. When pulled on, the resulting stream outputs a singleton chunk of `[a]`, then a singleton chunk of `[b]`.
+
 @:example(spaced) {
-  prefix = chunked
+  suffix = chunked
   drawChunked = true
 }
 
 ### metered
 
-The `metered` operator outputs singleton chunks.
+The `metered` operator also outputs singleton chunks.
+
+In the following example, the input stream outputs a single chunk of characters `[a, b]`. When pulled on, the resulting stream outputs a singleton chunk of `[a]`, then a singleton chunk of `[b]`.
 
 @:example(metered) {
-  prefix = chunked
+  suffix = chunked
   drawChunked = true
 }
 
