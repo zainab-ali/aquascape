@@ -94,9 +94,34 @@ object AquascapeDirectives extends DirectiveRegistry {
       attribute("suffix").as[String].optional
     )
   }
+
+  val symbol: BlockDirectives.Directive = {
+    import BlockDirectives.dsl.*
+    BlockDirectives.create("symbol") {
+      (attribute(0).as[String], parsedBody)
+        .mapN { case (name, body) =>
+          val id = s"${name}Symbol"
+          val scriptEl = html(
+            s"""<script>
+                   | SymbolGuide.$name.draw("$id");
+                   |</script>""".stripMargin
+          )
+          BlockSequence(
+            scriptEl,
+            BlockSequence(symbolEl(id) +: body, options = Styles("symbol"))
+          )
+        }
+    }
+  }
   private def codeEl(codeId: String): RawContent = {
     html(
       s"""<pre class="example-code"><code id="$codeId" class="language-scala"></code></pre>"""
+    )
+  }
+
+  private def symbolEl(id: String): RawContent = {
+    html(
+      s"""<div id="$id"></div>"""
     )
   }
 
@@ -108,10 +133,16 @@ object AquascapeDirectives extends DirectiveRegistry {
     val unchunkedFrameId = s"${example}${suffix}"
     val chunkedFrameId = s"${example}${suffix}Chunked"
     val unchunkedSnippet = html(
-      s"""<div id="$unchunkedFrameId" class="example-frame"></div>"""
+      s"""<section>
+            <div id="$unchunkedFrameId" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>"""
     )
     val chunkedSnippet = html(
-      s"""<div id="$chunkedFrameId" class="example-frame"></div>"""
+      s"""<section>
+            <div id="$chunkedFrameId" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>"""
     )
     val chunkedHeader = html("<h3>chunked</h3>")
     drawChunked match {
@@ -133,7 +164,7 @@ object AquascapeDirectives extends DirectiveRegistry {
     }
   }
   val spanDirectives = Seq.empty
-  val blockDirectives = Seq(example, exampleWithInput)
+  val blockDirectives = Seq(example, exampleWithInput, symbol)
   val templateDirectives = Seq.empty
   val linkDirectives = Seq.empty
 }

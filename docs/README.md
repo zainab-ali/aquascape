@@ -18,7 +18,7 @@ A stream is built from **stages**. When evaluated:
 
 ## How to read the diagrams
 
-### Basics
+The following code snippet corresponds to the diagram below it:
 
 ```scala
 Stream('a', 'b', 'c')
@@ -28,15 +28,7 @@ Stream('a', 'b', 'c')
 
 ![diagram](basic-example.png)
 
-### Effects and errors
-
-```scala
-Stream('a', 'b', 'c')
-  .evalMap(x => IO.raiseWhen(x == 'b')(Err))
-  .compile.toList
-```
-
-![diagram](error-example.png)
+See [how to read the diagrams](how-to-read-the-diagrams.md) for a full symbol reference.
 
 ## How to write the diagrams
 
