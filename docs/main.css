@@ -27,3 +27,18 @@ div.example-input > label {
 div.example-input > input {
     padding: 12px;
 }
+
+div.symbol {
+    display: flex;
+    align-items: center;
+}
+
+div.symbol svg {
+    background-color: white;
+    margin: 12px;
+}
+
+footer.example-frame-footer {
+    text-align: left;
+    padding-bottom: 12px;
+}
