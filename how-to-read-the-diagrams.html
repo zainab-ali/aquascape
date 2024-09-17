@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>How to read the diagrams</title>
+  
+  <meta name="author" content="Zainab Ali"/>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="a11y-dark.min.css" />
+  <script src="helium/site/laika-helium.js"></script>
+    <script src="main.js"></script>
+    <script src="highlight.min.js"></script>
+    <script src="aquascape.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="index.html"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">About</li>
+    <li class="level2 nav-leaf"><a href="index.html">About aquascape</a></li>
+    <li class="level1 active nav-leaf"><a href="#">How to read the diagrams</a></li>
+    <li class="level1 nav-node"><a href="reference/">Reference Guide</a></li>
+    <li class="level2 nav-leaf"><a href="reference/append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="reference/bracket.html">bracket</a></li>
+    <li class="level2 nav-leaf"><a href="reference/chunk.html">chunk</a></li>
+    <li class="level2 nav-leaf"><a href="reference/compile.html">compile</a></li>
+    <li class="level2 nav-leaf"><a href="reference/drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="reference/errors.html">errors</a></li>
+    <li class="level2 nav-leaf"><a href="reference/evalMap.html">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="reference/filter.html">filter</a></li>
+    <li class="level2 nav-leaf"><a href="reference/flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="reference/merge.html">merge</a></li>
+    <li class="level2 nav-leaf"><a href="reference/take.html">take</a></li>
+    <li class="level2 nav-leaf"><a href="reference/time.html">time</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">How to read the diagrams</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#basics">Basics</a></li>
+    <li class="level1 nav-leaf"><a href="#effects-and-errors">Effects and errors</a></li>
+    <li class="level1 nav-node"><a href="#symbol-guide">Symbol guide</a></li>
+    <li class="level2 nav-leaf"><a href="#start">Start</a></li>
+    <li class="level2 nav-leaf"><a href="#end">End</a></li>
+    <li class="level2 nav-leaf"><a href="#stage">Stage</a></li>
+    <li class="level2 nav-leaf"><a href="#pull">Pull</a></li>
+    <li class="level2 nav-leaf"><a href="#results-of-a-pull">Results of a pull</a></li>
+    <li class="level2 nav-leaf"><a href="#evaluation">Evaluation</a></li>
+    <li class="level2 nav-leaf"><a href="#time">Time</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="how-to-read-the-diagrams" class="title">How to read the diagrams</h1>
+        <p>An aquascape is a diagram generated from a stream program.</p>
+        <p>Aquascapes can be used to illustrate the behaviour of fs2 operators. By reading the diagrams, you will learn more about the operators and streams.</p>
+        
+        <h2 id="basics" class="section"><a class="anchor-link left" href="#basics"><i class="icofont-laika link">&#xef71;</i></a>Basics</h2>
+        <p>This code snippet:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>)
+  .</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p>corresponds to the following diagram:</p>
+        <p><img src="basic-example.png" alt="diagram"></p>
+        
+        <h2 id="effects-and-errors" class="section"><a class="anchor-link left" href="#effects-and-errors"><i class="icofont-laika link">&#xef71;</i></a>Effects and errors</h2>
+        <p>Aquascapes can also show the result of evaluating effects. If the effect raises in an error, that error is also shown.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+  .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
+  .</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
+        <p><img src="error-example.png" alt="diagram"></p>
+        
+        <h1 id="symbol-guide" class="section"><a class="anchor-link left" href="#symbol-guide"><i class="icofont-laika link">&#xef71;</i></a>Symbol guide</h1>
+        <p>This section describes the different symbols used in an aquascape.</p>
+        
+        <h2 id="start" class="section"><a class="anchor-link left" href="#start"><i class="icofont-laika link">&#xef71;</i></a>Start</h2>
+        <script>
+ SymbolGuide.start.draw("startSymbol");
+</script>
+        <div class="symbol">
+          <div id="startSymbol"></div>
+          <p>A black dot corresponds to the start of the program. Start reading the diagram from here and follow the arrows upwards.</p>
+        </div>
+        
+        <h2 id="end" class="section"><a class="anchor-link left" href="#end"><i class="icofont-laika link">&#xef71;</i></a>End</h2>
+        <script>
+ SymbolGuide.finished.draw("finishedSymbol");
+</script>
+        <div class="symbol">
+          <div id="finishedSymbol"></div>
+          <p>A black dot with a rim corresponds to the end of the stream program. The text next to the dot is a string representation of the resulting value. In this example, running the stream results in the value <code>Some(a)</code>. A possible program that results in this is <code>Stream(&#39;a&#39;).compile.last</code>.</p>
+        </div>
+        
+        <h3 id="end-with-error" class="section"><a class="anchor-link left" href="#end-with-error"><i class="icofont-laika link">&#xef71;</i></a>End with error</h3>
+        <script>
+ SymbolGuide.finishedErrored.draw("finishedErroredSymbol");
+</script>
+        <div class="symbol">
+          <div id="finishedErroredSymbol"></div>
+          <p>A red dot with a rim and red text indicates that the stream program terminated with an error. The text next to the dot is a string representation of the error. </p>
+        </div>
+        
+        <h2 id="stage" class="section"><a class="anchor-link left" href="#stage"><i class="icofont-laika link">&#xef71;</i></a>Stage</h2>
+        <script>
+ SymbolGuide.label.draw("labelSymbol");
+</script>
+        <div class="symbol">
+          <div id="labelSymbol"></div>
+          <p>A box on the left hand side of the diagram is a stage of the stream. A stream is composed of several stages. For basic streams, each stage will correspond to an operator in the code snippet that generates the diagram. For example, <code>take(2)</code> may be a stage in <code>Stream(&#39;a&#39;).take(2).compile.toList</code>.</p>
+        </div>
+        
+        <h2 id="pull" class="section"><a class="anchor-link left" href="#pull"><i class="icofont-laika link">&#xef71;</i></a>Pull</h2>
+        <script>
+ SymbolGuide.pull.draw("pullSymbol");
+</script>
+        <div class="symbol">
+          <div id="pullSymbol"></div>
+          <p>An arrow up represents a pull from one stage to another. A pull always has a corresponding arrow downwards for its result.</p>
+        </div>
+        
+        <h2 id="results-of-a-pull" class="section"><a class="anchor-link left" href="#results-of-a-pull"><i class="icofont-laika link">&#xef71;</i></a>Results of a pull</h2>
+        <p>A downwards arrow is the result of a pull. A result can be an output, an error, or done.</p>
+        
+        <h3 id="output" class="section"><a class="anchor-link left" href="#output"><i class="icofont-laika link">&#xef71;</i></a>Output</h3>
+        <script>
+ SymbolGuide.output.draw("outputSymbol");
+</script>
+        <div class="symbol">
+          <div id="outputSymbol"></div>
+          <p>An arrow down with text next to it represents an outputted value. The text is a string representation of the value. For example, the text in this arrow indicates that the character <code>&#39;a&#39;</code> was outputted.</p>
+        </div>
+        
+        <h4 id="chunks" class="section"><a class="anchor-link left" href="#chunks"><i class="icofont-laika link">&#xef71;</i></a>Chunks</h4>
+        <script>
+ SymbolGuide.outputChunk.draw("outputChunkSymbol");
+</script>
+        <div class="symbol">
+          <div id="outputChunkSymbol"></div>
+          <p>If the output is surrounded by square braces, it represents a chunk of values. Most diagrams are simplified to display individual values. Diagrams that display chunks show the actual pull and output semantics of a stream.</p>
+        </div>
+        
+        <h3 id="error" class="section"><a class="anchor-link left" href="#error"><i class="icofont-laika link">&#xef71;</i></a>Error</h3>
+        <script>
+ SymbolGuide.error.draw("errorSymbol");
+</script>
+        <div class="symbol">
+          <div id="errorSymbol"></div>
+          <p>An arrow down with red text next to it corresponds to an error. The text is a string representation of the error.</p>
+        </div>
+        
+        <h3 id="done" class="section"><a class="anchor-link left" href="#done"><i class="icofont-laika link">&#xef71;</i></a>Done</h3>
+        <script>
+ SymbolGuide.done.draw("doneSymbol");
+</script>
+        <div class="symbol">
+          <div id="doneSymbol"></div>
+          <p>An arrow down with a green check mark next to it indicates that the stage is done. The stage cannot output any more elements.</p>
+        </div>
+        
+        <h2 id="evaluation" class="section"><a class="anchor-link left" href="#evaluation"><i class="icofont-laika link">&#xef71;</i></a>Evaluation</h2>
+        <script>
+ SymbolGuide.eval.draw("evalSymbol");
+</script>
+        <div class="symbol">
+          <div id="evalSymbol"></div>
+          <p>A blue box containing text represents the evaluation of an effect. The text is a string representation of the result of the effect. For example <code>a</code> indicates that the effect outputted the character <code>&#39;a&#39;</code>. The effect might have been <code>IO(&#39;a&#39;)</code>. The stage at which the effect is positioned is not important, but the order with respect to pull and output arrows is.</p>
+        </div>
+        
+        <h2 id="time" class="section"><a class="anchor-link left" href="#time"><i class="icofont-laika link">&#xef71;</i></a>Time</h2>
+        <script>
+ SymbolGuide.time.draw("timeSymbol");
+</script>
+        <div class="symbol">
+          <div id="timeSymbol"></div>
+          <p>A purple circle with a number of seconds within it corresponds to the passage of time. In this example, one second passes.</p>
+        </div>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>

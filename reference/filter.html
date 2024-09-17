@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
@@ -131,7 +132,10 @@
         <p>The <code>filter</code> operator pulls elements from an input stream and outputs them if they satisfy a given predicate. It is analogous to <code>filter</code> on lists.</p>
         <p>In the following example, <code>filter</code> operates on an input stream of characters. It filters all characters that are equal to <code>b</code>.</p>
         <pre class="example-code"><code id="DocsReferenceFilter.filterCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFilter.filter" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFilter.filter" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFilter.filter, "DocsReferenceFilter.filterCode", ExampleFrameIds.unchunked("DocsReferenceFilter.filter"));
 </script>
@@ -140,7 +144,10 @@
         <p>The <code>filter</code> operator pulls elements from an input stream and outputs them if they do not satisfy the given predicate. It is analogous to <code>filterNot</code> on lists.</p>
         <p>In the following example, <code>filter</code> operates on an input stream of characters. It discards all characters that are equal to <code>b</code>.</p>
         <pre class="example-code"><code id="DocsReferenceFilter.filterNotCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFilter.filterNot" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFilter.filterNot" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFilter.filterNot, "DocsReferenceFilter.filterNotCode", ExampleFrameIds.unchunked("DocsReferenceFilter.filterNot"));
 </script>
@@ -150,7 +157,10 @@
         <p>The <code>filterWithPrevious</code> operator is similar to <code>filter</code>. It pulls elements from an input stream and outputs them if they satisfy a given predicate. It uses the previously outputted element to evaluate the predicate.</p>
         <p>In the following example, <code>filterWithPrevious</code> pulls from an input stream of characters. It outputs characters that are greater than or equal to the previously outputted character.</p>
         <pre class="example-code"><code id="DocsReferenceFilter.filterWithPreviousCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFilter.filterWithPrevious" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFilter.filterWithPrevious" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFilter.filterWithPrevious, "DocsReferenceFilter.filterWithPreviousCode", ExampleFrameIds.unchunked("DocsReferenceFilter.filterWithPrevious"));
 </script>
@@ -169,7 +179,10 @@
         <p>In the following example, the <code>changes</code> operator pulls from an input stream of characters.</p>
         <p>Note that the repeated characters are not outputted.</p>
         <pre class="example-code"><code id="DocsReferenceFilter.changesCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFilter.changes" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFilter.changes" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFilter.changes, "DocsReferenceFilter.changesCode", ExampleFrameIds.unchunked("DocsReferenceFilter.changes"));
 </script>
@@ -180,7 +193,10 @@
         <p>The <code>mapFilter</code> operator maps each element to an option, and outputs the value if defined.</p>
         <p>The following example maps an input stream of characters to their integer values if the character is equal to <code>b</code>.</p>
         <pre class="example-code"><code id="DocsReferenceFilter.mapFilterCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFilter.mapFilter" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFilter.mapFilter" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFilter.mapFilter, "DocsReferenceFilter.mapFilterCode", ExampleFrameIds.unchunked("DocsReferenceFilter.mapFilter"));
 </script>
@@ -192,7 +208,10 @@
         <p>The <code>filter</code>, <code>filterNot</code> and <code>mapFilter</code> operators preserve the chunking of their input stream.</p>
         <p>In the following example, two chunks of <code>[a, b, c]</code> are pulled. The <code>filter</code> operator discards all <code>b</code> characters to output <code>[a, c]</code>.</p>
         <pre class="example-code"><code id="DocsReferenceFilter.filterChunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFilter.filterChunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFilter.filterChunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFilter.filterChunked, "DocsReferenceFilter.filterChunkedCode", ExampleFrameIds.chunked("DocsReferenceFilter.filterChunkedChunked"));
 </script>
@@ -202,7 +221,10 @@
         <p>The first element of the input stream is pulled and outputted as a singleton chunk. The remaining elements in the chunk are filtered according to the predicate and outputted as one chunk. Subsequent chunks are preserved.</p>
         <p>This is shown in the following example. The <code>filterWithPrevious</code> operator pulls a chunk <code>[a, b, c]</code> from its input. It outputs a singleton chunk <code>[a]</code>. When next pulled, it outputs <code>[b, c]</code> as these satisfy the predicate. It then pulls the next chunk <code>[a, b, c]</code> and outputs <code>[c]</code> as the only element satisfying the predicate.</p>
         <pre class="example-code"><code id="DocsReferenceFilter.filterWithPreviouschunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFilter.filterWithPreviouschunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFilter.filterWithPreviouschunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFilter.filterWithPrevious, "DocsReferenceFilter.filterWithPreviouschunkedCode", ExampleFrameIds.chunked("DocsReferenceFilter.filterWithPreviouschunkedChunked"));
 </script>

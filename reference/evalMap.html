@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
@@ -138,7 +139,10 @@
         <p>The <code>evalMap</code> operator evaluates effects as part of a stream.</p>
         <p>In the following example, an <code>IO(c.toInt)</code> effect is evaluated for each character in a stream. When pulled on, <code>evalMap</code> pulls on its input stream to obtain a character. It then evaluates the <code>IO</code> effect to produce an integer value. The integer is outputted.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.basicCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.basic" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.basic" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.basic, "DocsReferenceEvalMap.basicCode", ExampleFrameIds.unchunked("DocsReferenceEvalMap.basic"));
 </script>
@@ -147,7 +151,10 @@
         <p>The <code>evalTap</code> operator evaluates effects in a similar way, however &quot;taps&quot; instead of maps. It evaluates an effect, but discards the output, and instead outputs the originally pulled value.</p>
         <p>The following example shows how <code>evalTap</code> behaves with the same effect.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.evalTapCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.evalTap" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.evalTap" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.evalTap, "DocsReferenceEvalMap.evalTapCode", ExampleFrameIds.unchunked("DocsReferenceEvalMap.evalTap"));
 </script>
@@ -165,7 +172,10 @@
         <p>The following example shows how chunks are outputted.</p>
         <p>When pulled on, <code>evalMap</code> pulls a single chunk of <code>[a, b]</code>. It then evaluates <code>IO(a.toInt)</code> to output a singleton chunk of <code>[97]</code>. When next pulled on, it evaluates <code>IO(b.toInt)</code> to output a singleton chunk of <code>[98]</code>.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.basicchunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.basicchunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.basicchunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.basic, "DocsReferenceEvalMap.basicchunkedCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.basicchunkedChunked"));
 </script>
@@ -176,7 +186,10 @@
           <input id="DocsReferenceEvalMap.evalMapTakeInput"></input>
         </div>
         <pre class="example-code"><code id="DocsReferenceEvalMap.evalMapTakeCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.evalMapTakeChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.evalMapTakeChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.exampleWithInput(DocsReferenceEvalMap.evalMapTake, "DocsReferenceEvalMap.evalMapTakeCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.evalMapTakeChunked"), "DocsReferenceEvalMap.evalMapTakeLabel", "DocsReferenceEvalMap.evalMapTakeInput");
 </script>
@@ -188,7 +201,10 @@
         <p>When pulled on, it pulls a chunk from its input stream and evaluates its effect for all elements in the chunk.</p>
         <p>This is shown in the example below. The <code>IO(&#39;a&#39;.toInt)</code> and <code>IO(&#39;b&#39;.toInt)</code> effects are evaluated together, and a single chunk of <code>[97, 98]</code> is outputted.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.evalMapChunkCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.evalMapChunkChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.evalMapChunkChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.evalMapChunk, "DocsReferenceEvalMap.evalMapChunkCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.evalMapChunkChunked"));
 </script>
@@ -197,7 +213,10 @@
         <p>As a result of preserving chunks, the number of effects evaluated may not match the number of elements taken.</p>
         <p>Consider taking a single element from the resulting stream, as demonstrated in the example below. Because effects are evaluated for entire chunks, the <code>IO(&#39;b&#39;.toInt)</code> effect is still evaluated. However, since only the head element was requested, the result <code>98</code> is never outputted.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.evalMapChunkHeadCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.evalMapChunkHeadChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.evalMapChunkHeadChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.evalMapChunkHead, "DocsReferenceEvalMap.evalMapChunkHeadCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.evalMapChunkHeadChunked"));
 </script>
@@ -210,7 +229,10 @@
         <p>If the effect evaluated by <code>evalMap</code> or <code>evalTap</code> raises an error, this error is raised into the stream.</p>
         <p>In the following example, an error is raised with <code>IO.raiseError</code>. This is propagated to the stream, and the entire program terminates with an error.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.errorCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.error" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.error" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.error, "DocsReferenceEvalMap.errorCode", ExampleFrameIds.unchunked("DocsReferenceEvalMap.error"));
 </script>
@@ -219,14 +241,20 @@
         <p>The <code>evalTapChunk</code> operator also raises errors into the resulting stream. Errors are raised when the chunk of effects is evaluated, so the termination behaviour is slightly different to <code>evalMap</code>.</p>
         <p>To illustrate, consider chaining two <code>evalMap</code> operators. The first evaluates <code>c.toInt</code>, but raises an error on the second character <code>b</code>. The second evaluates an <code>isEven</code> effect.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.errorEvalMapCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.errorEvalMapChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.errorEvalMapChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.errorEvalMap, "DocsReferenceEvalMap.errorEvalMapCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.errorEvalMapChunked"));
 </script>
         <p>Because <code>evalMap</code> produces singleton chunks, the <code>isEven(97)</code> is evaluated and its result <code>[false]</code> is outputted as a singleton chunk.</p>
         <p>This is not the case for <code>evalMapChunk</code>. Since the error is raised when evaluating effects for the entire chunk, <code>97</code> is never outputted and <code>isEven(97)</code> is never evaluated.</p>
         <pre class="example-code"><code id="DocsReferenceEvalMap.errorEvalMapChunkCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceEvalMap.errorEvalMapChunkChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceEvalMap.errorEvalMapChunkChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceEvalMap.errorEvalMapChunk, "DocsReferenceEvalMap.errorEvalMapChunkCode", ExampleFrameIds.chunked("DocsReferenceEvalMap.errorEvalMapChunkChunked"));
 </script>

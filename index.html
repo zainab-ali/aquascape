@@ -75,6 +75,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 active nav-leaf"><a href="#">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="reference/">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="reference/append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="reference/bracket.html">bracket</a></li>
@@ -100,9 +101,7 @@
 
   <ul class="nav-list">
     <li class="level1 nav-leaf"><a href="#the-basic-idea">The basic idea</a></li>
-    <li class="level1 nav-node"><a href="#how-to-read-the-diagrams">How to read the diagrams</a></li>
-    <li class="level2 nav-leaf"><a href="#basics">Basics</a></li>
-    <li class="level2 nav-leaf"><a href="#effects-and-errors">Effects and errors</a></li>
+    <li class="level1 nav-leaf"><a href="#how-to-read-the-diagrams">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="#how-to-write-the-diagrams">How to write the diagrams</a></li>
     <li class="level2 nav-leaf"><a href="#writing-images">Writing images</a></li>
     <li class="level2 nav-leaf"><a href="#drawing-chunks">Drawing chunks</a></li>
@@ -140,18 +139,12 @@
         </ul>
         
         <h2 id="how-to-read-the-diagrams" class="section"><a class="anchor-link left" href="#how-to-read-the-diagrams"><i class="icofont-laika link">&#xef71;</i></a>How to read the diagrams</h2>
-        
-        <h3 id="basics" class="section"><a class="anchor-link left" href="#basics"><i class="icofont-laika link">&#xef71;</i></a>Basics</h3>
+        <p>The following code snippet corresponds to the diagram below it:</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
   .</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>)
   .</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
         <p><img src="basic-example.png" alt="diagram"></p>
-        
-        <h3 id="effects-and-errors" class="section"><a class="anchor-link left" href="#effects-and-errors"><i class="icofont-laika link">&#xef71;</i></a>Effects and errors</h3>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>.</span><span class="identifier">raiseWhen</span><span>(</span><span class="identifier">x</span><span> == </span><span class="char-literal">&#39;b&#39;</span><span>)(</span><span class="type-name">Err</span><span>))
-  .</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="error-example.png" alt="diagram"></p>
+        <p>See <a href="how-to-read-the-diagrams.html">how to read the diagrams</a> for a full symbol reference.</p>
         
         <h2 id="how-to-write-the-diagrams" class="section"><a class="anchor-link left" href="#how-to-write-the-diagrams"><i class="icofont-laika link">&#xef71;</i></a>How to write the diagrams</h2>
         <p>Include aquascape as a library dependency:</p>

@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
@@ -174,7 +175,10 @@
         <h3 id="sleep" class="section"><a class="anchor-link left" href="#sleep"><i class="icofont-laika link">&#xef71;</i></a>sleep</h3>
         <p>The <code>sleep</code> operator sleeps for a given amount of time before outputting a single unit value<code>()</code>. When pulled on, it waits for the given time to elapse before outputting the unit value <code>()</code>. The stream is then done.</p>
         <pre class="example-code"><code id="DocsReferenceTime.sleepCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.sleep" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.sleep" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.sleep, "DocsReferenceTime.sleepCode", ExampleFrameIds.unchunked("DocsReferenceTime.sleep"));
 </script>
@@ -183,7 +187,10 @@
         <p>The <code>delayBy</code> operator sleeps for a given amount of time before pulling on its input stream. </p>
         <p>In the following example, the input stream of characters is delayed by one second. When the resulting stream is pulled on, one second elapses before <code>delayBy</code> pulls on the input stream. The input stream is then pulled on as normal. </p>
         <pre class="example-code"><code id="DocsReferenceTime.delayByCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.delayBy" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.delayBy" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.delayBy, "DocsReferenceTime.delayByCode", ExampleFrameIds.unchunked("DocsReferenceTime.delayBy"));
 </script>
@@ -192,7 +199,10 @@
         <p>The <code>fixedDelay</code> operator constructs a stream that repeatedly sleeps for a given amount of time.</p>
         <p>Each time it is pulled on, it waits for the given time to elapse before outputting an element.</p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedDelayCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedDelay" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedDelay" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedDelay, "DocsReferenceTime.fixedDelayCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedDelay"));
 </script>
@@ -202,7 +212,10 @@
         <p>The <code>fixedDelay</code> operator sleeps for the given amount of time, regardless of the time elapsed since its last output.</p>
         <p>This is shown in the following example.  The resulting stream is operated on by <code>evalMap(_ =&gt; IO.sleep(2.seconds))</code>. When <code>fixedDelay</code> outputs an element, there is a delay of two seconds before it is next pulled on. This does not affect the time that <code>fixedDelay</code> sleeps for: after it is pulled on, it still delays for one second.</p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedDelaySlowElementEvalCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedDelaySlowElementEval" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedDelaySlowElementEval" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedDelaySlowElementEval, "DocsReferenceTime.fixedDelaySlowElementEvalCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedDelaySlowElementEval"));
 </script>
@@ -211,7 +224,10 @@
         <p>The <code>awakeDelay</code> operator is similar to <code>fixedDelay</code>, but outputs the elapsed time. </p>
         <p>It sleeps for a given amount of time before outputting a duration, then repeats infinitely. The duration corresponds to the elapsed time since the resulting stream was first pulled on.</p>
         <pre class="example-code"><code id="DocsReferenceTime.awakeDelayCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.awakeDelay" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.awakeDelay" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.awakeDelay, "DocsReferenceTime.awakeDelayCode", ExampleFrameIds.unchunked("DocsReferenceTime.awakeDelay"));
 </script>
@@ -222,7 +238,10 @@
         <h4 id="instant-element-evaluation" class="section"><a class="anchor-link left" href="#instant-element-evaluation"><i class="icofont-laika link">&#xef71;</i></a>Instant element evaluation</h4>
         <p>The following example constructs a stream that outputs <code>()</code> every second. </p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedRateCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedRate" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedRate" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedRate, "DocsReferenceTime.fixedRateCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedRate"));
 </script>
@@ -235,7 +254,10 @@
         <p>The resulting stream is operated on by <code>evalMap(_ =&gt; IO.sleep(1.second))</code>. This introduces a delay of one second between the output and pull of <code>fixedRate</code>.</p>
         <p>Note that the second time <code>fixedDelay</code> is pulled on, it delays by only two seconds. This ensures that the time elapsed between elements is the given rate of three seconds.</p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedRateFastElementEvalCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedRateFastElementEval" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedRateFastElementEval" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedRateFastElementEval, "DocsReferenceTime.fixedRateFastElementEvalCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedRateFastElementEval"));
 </script>
@@ -245,7 +267,10 @@
         <p>In the following example, <code>fixedRate</code> constructs a stream that outputs at most every one second. The resulting stream is operated on by <code>evalMap(_ =&gt; IO.sleep(2.seconds))</code>. This introduces a two second delay between the output and pull of <code>fixedRate</code>.</p>
         <p>Note that when the <code>fixedRate</code> operator is pulled on for the second time, it outputs <code>()</code> immediately. This is because over one second has passed since it previously outputted an element.</p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedRateSlowElementEvalCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedRateSlowElementEval" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedRateSlowElementEval" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedRateSlowElementEval, "DocsReferenceTime.fixedRateSlowElementEvalCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedRateSlowElementEval"));
 </script>
@@ -254,7 +279,10 @@
         <p>The fixedRate operator is damped. It will only output a single element, no matter the length of the elapsed time.</p>
         <p>In the following example, <code>fixedRate</code> is used to construct a stream that outputs at most every two seconds. The resulting stream is operated on by <code>evalMap</code>, which introduces a delay of five seconds before outputting the first element. All remaining elements are outputted immediately.</p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedRateDampedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedRateDamped" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedRateDamped" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedRateDamped, "DocsReferenceTime.fixedRateDampedCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedRateDamped"));
 </script>
@@ -265,7 +293,10 @@
         <p>The <code>fixedRate</code> operator accepts a second <code>dampen</code> parameter. If it is set to <code>false</code>, the operator will output as many elements as periods that have elapsed.</p>
         <p>The following example constructs the same stream as above, but <code>dampen</code> is set to <code>false</code>.</p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedRateUndampedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedRateUndamped" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedRateUndamped" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedRateUndamped, "DocsReferenceTime.fixedRateUndampedCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedRateUndamped"));
 </script>
@@ -275,7 +306,10 @@
         <h3 id="fixedratestartimmediately" class="section"><a class="anchor-link left" href="#fixedratestartimmediately"><i class="icofont-laika link">&#xef71;</i></a>fixedRateStartImmediately</h3>
         <p>The <code>fixedRateStartImmediately</code> operator is similar to <code>fixedRate</code>. It outputs elements at most every given time period. Unlike <code>fixedRate</code>, it outputs its first value without a delay.</p>
         <pre class="example-code"><code id="DocsReferenceTime.fixedRateStartImmediatelyCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.fixedRateStartImmediately" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.fixedRateStartImmediately" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.fixedRateStartImmediately, "DocsReferenceTime.fixedRateStartImmediatelyCode", ExampleFrameIds.unchunked("DocsReferenceTime.fixedRateStartImmediately"));
 </script>
@@ -283,7 +317,10 @@
         <h3 id="awakeevery" class="section"><a class="anchor-link left" href="#awakeevery"><i class="icofont-laika link">&#xef71;</i></a>awakeEvery</h3>
         <p>The <code>awakeEvery</code> operator is similar to <code>fixedRate</code>. It outputs a duration value at most every given time period. The duration corresponds to the time elapsed since the stream was first pulled on.</p>
         <pre class="example-code"><code id="DocsReferenceTime.awakeEveryCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.awakeEvery" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.awakeEvery" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.awakeEvery, "DocsReferenceTime.awakeEveryCode", ExampleFrameIds.unchunked("DocsReferenceTime.awakeEvery"));
 </script>
@@ -291,7 +328,10 @@
         <h3 id="spaced-1" class="section"><a class="anchor-link left" href="#spaced-1"><i class="icofont-laika link">&#xef71;</i></a>spaced</h3>
         <p>The <code>spaced</code> operator delays by a given time period before pulling on its input stream. It does not account for the time elapsed since its last output.</p>
         <pre class="example-code"><code id="DocsReferenceTime.spacedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.spaced" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.spaced" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.spaced, "DocsReferenceTime.spacedCode", ExampleFrameIds.unchunked("DocsReferenceTime.spaced"));
 </script>
@@ -304,7 +344,10 @@
         <h4 id="instant-evaluation" class="section"><a class="anchor-link left" href="#instant-evaluation"><i class="icofont-laika link">&#xef71;</i></a>Instant evaluation</h4>
         <p>If the input stream outputs elements instantly, and the resulting stream is pulled on directly after its outputs, then <code>metered</code> delays by the given time period.</p>
         <pre class="example-code"><code id="DocsReferenceTime.meteredCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.metered" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.metered" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.metered, "DocsReferenceTime.meteredCode", ExampleFrameIds.unchunked("DocsReferenceTime.metered"));
 </script>
@@ -313,7 +356,10 @@
         <h4 id="slow-output-evaluation" class="section"><a class="anchor-link left" href="#slow-output-evaluation"><i class="icofont-laika link">&#xef71;</i></a>Slow output evaluation</h4>
         <p>There may be a delay between the resulting stream outputting an element and being pulled on. In this case, <code>metered</code> behaves as <code>fixedRate</code> and accounts for the time elapsed since its last output.</p>
         <pre class="example-code"><code id="DocsReferenceTime.meteredSlowElementEvalCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.meteredSlowElementEval" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.meteredSlowElementEval" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.meteredSlowElementEval, "DocsReferenceTime.meteredSlowElementEvalCode", ExampleFrameIds.unchunked("DocsReferenceTime.meteredSlowElementEval"));
 </script>
@@ -321,7 +367,10 @@
         <h4 id="slow-input-stream-evaluation" class="section"><a class="anchor-link left" href="#slow-input-stream-evaluation"><i class="icofont-laika link">&#xef71;</i></a>Slow input stream evaluation</h4>
         <p>Similarly, there may be a delay between the input stream being pulled on and outputting an element. <code>metered</code> behaves accounts for the time elapsed since its last output.</p>
         <pre class="example-code"><code id="DocsReferenceTime.meteredSlowInputEvalCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.meteredSlowInputEval" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.meteredSlowInputEval" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.meteredSlowInputEval, "DocsReferenceTime.meteredSlowInputEvalCode", ExampleFrameIds.unchunked("DocsReferenceTime.meteredSlowInputEval"));
 </script>
@@ -329,7 +378,10 @@
         <h3 id="meteredstartimmediately" class="section"><a class="anchor-link left" href="#meteredstartimmediately"><i class="icofont-laika link">&#xef71;</i></a>meteredStartImmediately</h3>
         <p>The <code>meteredStartImmediately</code> operator is similar to <code>metered</code>, however pulls on its input stream immediately when it is first pulled on.</p>
         <pre class="example-code"><code id="DocsReferenceTime.meteredStartImmediatelyCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.meteredStartImmediately" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.meteredStartImmediately" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.meteredStartImmediately, "DocsReferenceTime.meteredStartImmediatelyCode", ExampleFrameIds.unchunked("DocsReferenceTime.meteredStartImmediately"));
 </script>
@@ -342,7 +394,10 @@
         <p>The <code>delayBy</code> operator preserves the chunks of its input stream.</p>
         <p>In the following example, the input stream of a single chunk of characters <code>[a, b]</code> is delayed by one second. The resulting stream outputs the same chunk of characters.</p>
         <pre class="example-code"><code id="DocsReferenceTime.delayBychunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.delayBychunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.delayBychunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.delayBy, "DocsReferenceTime.delayBychunkedCode", ExampleFrameIds.chunked("DocsReferenceTime.delayBychunkedChunked"));
 </script>
@@ -351,7 +406,10 @@
         <p>The <code>spaced</code> operator outputs singleton chunks.</p>
         <p>In the following example, the input stream outputs a single chunk of characters <code>[a, b]</code>. When pulled on, the resulting stream outputs a singleton chunk of <code>[a]</code>, then a singleton chunk of <code>[b]</code>.</p>
         <pre class="example-code"><code id="DocsReferenceTime.spacedchunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.spacedchunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.spacedchunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.spaced, "DocsReferenceTime.spacedchunkedCode", ExampleFrameIds.chunked("DocsReferenceTime.spacedchunkedChunked"));
 </script>
@@ -360,7 +418,10 @@
         <p>The <code>metered</code> operator also outputs singleton chunks.</p>
         <p>In the following example, the input stream outputs a single chunk of characters <code>[a, b]</code>. When pulled on, the resulting stream outputs a singleton chunk of <code>[a]</code>, then a singleton chunk of <code>[b]</code>.</p>
         <pre class="example-code"><code id="DocsReferenceTime.meteredchunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceTime.meteredchunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceTime.meteredchunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceTime.metered, "DocsReferenceTime.meteredchunkedCode", ExampleFrameIds.chunked("DocsReferenceTime.meteredchunkedChunked"));
 </script>

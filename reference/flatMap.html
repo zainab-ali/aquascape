@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
@@ -134,7 +135,10 @@
         <p>The <code>flatMap</code> operator pulls on an input stream and constructs a child stream for each element. The child stream is pulled on by the resulting stream.</p>
         <p>In the following example, the input stream contains a single <code>&quot;ab&quot;</code> string. When pulled on by <code>flatMap</code> a child stream is constructed. When pulled on, this outputs characters <code>&#39;a&#39;</code> and <code>&#39;b&#39;</code>. The final output is a list of the pulled characters.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.basicCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.basic" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.basic" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.basic, "DocsReferenceFlatMap.basicCode", ExampleFrameIds.unchunked("DocsReferenceFlatMap.basic"));
 </script>
@@ -143,7 +147,10 @@
         <p>If the child stream is done, the input stream is pulled on once more and a new child stream is constructed.</p>
         <p>The following example shows an input stream with two elements <code>&quot;ab&quot;</code> and <code>&quot;xy&quot;</code>. Note that the pull for the second <code>&quot;xy&quot;</code> element occurs after elements <code>&#39;a&#39;</code> and <code>&#39;b&#39;</code> have been outputted by the first child stream.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.multipleInputElementsCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.multipleInputElements" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.multipleInputElements" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.multipleInputElements, "DocsReferenceFlatMap.multipleInputElementsCode", ExampleFrameIds.unchunked("DocsReferenceFlatMap.multipleInputElements"));
 </script>
@@ -152,7 +159,10 @@
         <p>The <code>flatMap</code> operator preserves the chunks of the child stream. </p>
         <p>The following example shows a chunked view of the same input stream with <code>&quot;ab&quot;</code> and <code>&quot;xy&quot;</code> elements.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.multipleInputElementschunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.multipleInputElementschunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.multipleInputElementschunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.multipleInputElements, "DocsReferenceFlatMap.multipleInputElementschunkedCode", ExampleFrameIds.chunked("DocsReferenceFlatMap.multipleInputElementschunkedChunked"));
 </script>
@@ -162,7 +172,10 @@
         <p>Errors raised in the child stream are propagated to the resulting stream.</p>
         <p>In the following example, an error is raised when the child stream is pulled on. This is propagated to the resulting stream, and the entire program terminates with the error.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.errorPropagationCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.errorPropagation" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.errorPropagation" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.errorPropagation, "DocsReferenceFlatMap.errorPropagationCode", ExampleFrameIds.unchunked("DocsReferenceFlatMap.errorPropagation"));
 </script>
@@ -171,7 +184,10 @@
         <p>Errors raised in the child stream can be handled in the resulting stream using the <code>handleError</code> operator.</p>
         <p>In the following example, the raised error is handled by outputting the characer <code>&#39;z&#39;</code>.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.errorHandlingCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.errorHandling" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.errorHandling" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.errorHandling, "DocsReferenceFlatMap.errorHandlingCode", ExampleFrameIds.unchunked("DocsReferenceFlatMap.errorHandling"));
 </script>
@@ -180,7 +196,10 @@
         <p>Errors raised in the input stream can also be handled in the resulting stream.</p>
         <p>In the following example, the input stream raises an error when pulled on. The error is handled in the resulting stream by outputting <code>&#39;z&#39;</code>. Note that the child stream is never constructed.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.errorHandlingInputCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.errorHandlingInput" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.errorHandlingInput" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.errorHandlingInput, "DocsReferenceFlatMap.errorHandlingInputCode", ExampleFrameIds.unchunked("DocsReferenceFlatMap.errorHandlingInput"));
 </script>
@@ -191,7 +210,10 @@
         <p>The input stream may have finalizers associated with it. These are executed when the resulting stream terminates.</p>
         <p>The following example has a <code>abxy</code> finalizer associated with the input stream. Note that the finalizer is executed after all child streams are done.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.finalizerInputCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.finalizerInput" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.finalizerInput" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.finalizerInput, "DocsReferenceFlatMap.finalizerInputCode", ExampleFrameIds.unchunked("DocsReferenceFlatMap.finalizerInput"));
 </script>
@@ -200,7 +222,10 @@
         <p>Finalizers may also be associated with a child stream. If so, it is executed once the child stream is done.</p>
         <p>The following example associates finalizers with both child streams. Note that the <code>ab</code> finalizer is executed when the first child stream is done, not when the resulting stream is done.</p>
         <pre class="example-code"><code id="DocsReferenceFlatMap.finalizerChildCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceFlatMap.finalizerChild" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceFlatMap.finalizerChild" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceFlatMap.finalizerChild, "DocsReferenceFlatMap.finalizerChildCode", ExampleFrameIds.unchunked("DocsReferenceFlatMap.finalizerChild"));
 </script>

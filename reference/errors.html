@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
@@ -139,7 +140,10 @@
         <p>The stream constructed by <code>raiseError</code> cannot output elements, so has an output type of <code>Nothing</code>. The raised error is not considered an output. It is propagated via a separate error channel.</p>
         <p>In the example below, a stream is constructed by appending <code>raiseError</code> and a stream of a single character <code>a</code>. The error <code>Err</code> is raised when the stream is pulled on.</p>
         <pre class="example-code"><code id="DocsReferenceError.raiseErrorCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceError.raiseError" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceError.raiseError" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceError.raiseError, "DocsReferenceError.raiseErrorCode", ExampleFrameIds.unchunked("DocsReferenceError.raiseError"));
 </script>
@@ -149,7 +153,10 @@
         <p>The <code>handleError</code> operator captures an error and instead outputs an element. The resulting stream terminates after the element is outputted. The input stream in which the error is raised is not recovered.</p>
         <p>In the following example, the input stream raises an error <code>Err</code>. The <code>handleError</code> function outputs the character <code>x</code> on encountering the error. </p>
         <pre class="example-code"><code id="DocsReferenceError.handleErrorCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceError.handleError" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceError.handleError" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceError.handleError, "DocsReferenceError.handleErrorCode", ExampleFrameIds.unchunked("DocsReferenceError.handleError"));
 </script>
@@ -160,7 +167,10 @@
         <p>The <code>handleErrorWith</code> operator is similar to <code>handleError</code>, however on encountering an error it constructs a stream and pulls elements from it.</p>
         <p>In the following example, the input stream raises an error <code>Err</code>. The <code>handleErrorWith</code> operator constructs the stream of characters <code>a</code> and <code>b</code> on encountering the error.</p>
         <pre class="example-code"><code id="DocsReferenceError.handleErrorWithCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceError.handleErrorWith" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceError.handleErrorWith" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceError.handleErrorWith, "DocsReferenceError.handleErrorWithCode", ExampleFrameIds.unchunked("DocsReferenceError.handleErrorWith"));
 </script>
@@ -172,7 +182,10 @@
         <p><code>attempt</code> is equivalent to <code>map(Right(_)).handleError(Left(_))</code>.</p>
         <p>In the following example, the input stream outputs a character <code>&#39;a&#39;</code> before raising an error.</p>
         <pre class="example-code"><code id="DocsReferenceError.attemptCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceError.attempt" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceError.attempt" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceError.attempt, "DocsReferenceError.attemptCode", ExampleFrameIds.unchunked("DocsReferenceError.attempt"));
 </script>
@@ -184,7 +197,10 @@
         <h3 id="raiseerror-2" class="section"><a class="anchor-link left" href="#raiseerror-2"><i class="icofont-laika link">&#xef71;</i></a>raiseError</h3>
         <p>If an error is raised in a stream, it will terminate with an exit case of <code>Errored</code>. This can be observed with <code>onFinalizeCase</code>.</p>
         <pre class="example-code"><code id="DocsReferenceError.raiseErrorExitCaseCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceError.raiseErrorExitCase" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceError.raiseErrorExitCase" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceError.raiseErrorExitCase, "DocsReferenceError.raiseErrorExitCaseCode", ExampleFrameIds.unchunked("DocsReferenceError.raiseErrorExitCase"));
 </script>
@@ -192,7 +208,10 @@
         <h3 id="handleerror-2" class="section"><a class="anchor-link left" href="#handleerror-2"><i class="icofont-laika link">&#xef71;</i></a>handleError</h3>
         <p>If an error is handled with any of the <code>handleError</code> family of operators, the resulting stream exits successfully.</p>
         <pre class="example-code"><code id="DocsReferenceError.handleErrorExitCaseCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceError.handleErrorExitCase" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceError.handleErrorExitCase" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceError.handleErrorExitCase, "DocsReferenceError.handleErrorExitCaseCode", ExampleFrameIds.unchunked("DocsReferenceError.handleErrorExitCase"));
 </script>

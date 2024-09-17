@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
@@ -116,7 +117,10 @@
         <p>As chunk operators have no special error handling or finalizer handling semantics, these are not described.</p>
         <p>The following examples operate on an input stream of charaters, shown below.</p>
         <pre class="example-code"><code id="DocsReferenceChunk.inputCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceChunk.inputChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceChunk.inputChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceChunk.input, "DocsReferenceChunk.inputCode", ExampleFrameIds.chunked("DocsReferenceChunk.inputChunked"));
 </script>
@@ -127,7 +131,10 @@
         <p>If the input stream has type <code>Stream[Pure, A]</code>, the resulting stream has type <code>Stream[Pure, Chunk[A]]</code>.</p>
         <p>In the following example, the <code>chunks</code> operator pulls a chunk of <code>[a, b, c]</code> from its input stream and outputs a singleton chunk of <code>[[a, b, c]]</code>. </p>
         <pre class="example-code"><code id="DocsReferenceChunk.chunksCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceChunk.chunksChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceChunk.chunksChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceChunk.chunks, "DocsReferenceChunk.chunksCode", ExampleFrameIds.chunked("DocsReferenceChunk.chunksChunked"));
 </script>
@@ -138,7 +145,10 @@
         <p>In the following example, the input stream outputs two values of <code>[a, b, c]</code>. It has type <code>Stream[Pure, Chunk[Char]]</code>. </p>
         <p>The <code>unchunks</code> operator pulls these values and outputs them as chunks. The resulting stream is of type <code>Stream[Pure, Char]</code>, and is chunked according to the chunks of the input stream.</p>
         <pre class="example-code"><code id="DocsReferenceChunk.unchunksCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceChunk.unchunksChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceChunk.unchunksChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceChunk.unchunks, "DocsReferenceChunk.unchunksCode", ExampleFrameIds.chunked("DocsReferenceChunk.unchunksChunked"));
 </script>
@@ -153,7 +163,10 @@
           <input id="DocsReferenceChunk.chunkLimitInput"></input>
         </div>
         <pre class="example-code"><code id="DocsReferenceChunk.chunkLimitCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceChunk.chunkLimitChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceChunk.chunkLimitChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.exampleWithInput(DocsReferenceChunk.chunkLimit, "DocsReferenceChunk.chunkLimitCode", ExampleFrameIds.chunked("DocsReferenceChunk.chunkLimitChunked"), "DocsReferenceChunk.chunkLimitLabel", "DocsReferenceChunk.chunkLimitInput");
 </script>
@@ -171,7 +184,10 @@
           <input id="DocsReferenceChunk.chunkMinInput"></input>
         </div>
         <pre class="example-code"><code id="DocsReferenceChunk.chunkMinCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceChunk.chunkMinChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceChunk.chunkMinChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.exampleWithInput(DocsReferenceChunk.chunkMin, "DocsReferenceChunk.chunkMinCode", ExampleFrameIds.chunked("DocsReferenceChunk.chunkMinChunked"), "DocsReferenceChunk.chunkMinLabel", "DocsReferenceChunk.chunkMinInput");
 </script>
@@ -190,7 +206,10 @@
           <input id="DocsReferenceChunk.chunkNInput"></input>
         </div>
         <pre class="example-code"><code id="DocsReferenceChunk.chunkNCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceChunk.chunkNChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceChunk.chunkNChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.exampleWithInput(DocsReferenceChunk.chunkN, "DocsReferenceChunk.chunkNCode", ExampleFrameIds.chunked("DocsReferenceChunk.chunkNChunked"), "DocsReferenceChunk.chunkNLabel", "DocsReferenceChunk.chunkNInput");
 </script>

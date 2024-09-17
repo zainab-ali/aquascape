@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 active nav-leaf"><a href="#">append</a></li>
     <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
@@ -133,7 +134,10 @@
         <p>In following example a stream of <code>a</code> and <code>b</code> characters is appended to a stream of <code>x</code> and <code>y</code>.</p>
         <p>Note that the <code>xy</code> stream is only pulled on once the <code>ab</code> stream is done. </p>
         <pre class="example-code"><code id="DocsReferenceAppend.basicCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceAppend.basic" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceAppend.basic" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceAppend.basic, "DocsReferenceAppend.basicCode", ExampleFrameIds.unchunked("DocsReferenceAppend.basic"));
 </script>
@@ -146,7 +150,10 @@
           <input id="DocsReferenceAppend.finiteInput"></input>
         </div>
         <pre class="example-code"><code id="DocsReferenceAppend.finiteCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceAppend.finite" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceAppend.finite" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.exampleWithInput(DocsReferenceAppend.finite, "DocsReferenceAppend.finiteCode", ExampleFrameIds.unchunked("DocsReferenceAppend.finite"), "DocsReferenceAppend.finiteLabel", "DocsReferenceAppend.finiteInput");
 </script>
@@ -160,7 +167,10 @@
           <input id="DocsReferenceAppend.infiniteInput"></input>
         </div>
         <pre class="example-code"><code id="DocsReferenceAppend.infiniteCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceAppend.infinite" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceAppend.infinite" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.exampleWithInput(DocsReferenceAppend.infinite, "DocsReferenceAppend.infiniteCode", ExampleFrameIds.unchunked("DocsReferenceAppend.infinite"), "DocsReferenceAppend.infiniteLabel", "DocsReferenceAppend.infiniteInput");
 </script>
@@ -170,7 +180,10 @@
         <p>The <code>append</code> operator preserves the chunking of its left and right streams.</p>
         <p>The following example shows the chunks outputted. The <code>ab</code> stream outputs a single chunk of characters <code>[a, b]</code>. This is propagated to the resulting stream. Similarly, the <code>xy</code> stream outputs a single chunk of <code>[x, y]</code> that is also propagated.</p>
         <pre class="example-code"><code id="DocsReferenceAppend.basicchunkedCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceAppend.basicchunkedChunked" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceAppend.basicchunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceAppend.basic, "DocsReferenceAppend.basicchunkedCode", ExampleFrameIds.chunked("DocsReferenceAppend.basicchunkedChunked"));
 </script>
@@ -179,7 +192,10 @@
         <p>The <code>append</code> operator has no special error propagation semantics. Errors in either input stream are propagated to the resulting stream.</p>
         <p>In the following example, an error is raised in the right input stream. The entire program terminates with the error.</p>
         <pre class="example-code"><code id="DocsReferenceAppend.errorsCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceAppend.errors" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceAppend.errors" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceAppend.errors, "DocsReferenceAppend.errorsCode", ExampleFrameIds.unchunked("DocsReferenceAppend.errors"));
 </script>
@@ -193,7 +209,10 @@
           <input id="DocsReferenceAppend.finalizersInput"></input>
         </div>
         <pre class="example-code"><code id="DocsReferenceAppend.finalizersCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceAppend.finalizers" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceAppend.finalizers" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.exampleWithInput(DocsReferenceAppend.finalizers, "DocsReferenceAppend.finalizersCode", ExampleFrameIds.unchunked("DocsReferenceAppend.finalizers"), "DocsReferenceAppend.finalizersLabel", "DocsReferenceAppend.finalizersInput");
 </script>

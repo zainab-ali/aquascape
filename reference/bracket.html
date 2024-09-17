@@ -74,6 +74,7 @@
   <ul class="nav-list">
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
     <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="append.html">append</a></li>
     <li class="level2 active nav-leaf"><a href="#">bracket</a></li>
@@ -131,7 +132,10 @@
         <p>The <code>Stream.bracket(acquire)(release)</code> operator constructs a stream from an <code>acquire</code> and <code>release</code> effect. The stream outputs a single element as a result of running <code>acquire</code>. When the stream terminates, the <code>release</code> effect is guaranteed to run, regardless of whether the stream terminates successfully, errors or is cancelled.</p>
         <p>The following example shows how <code>Stream.bracket</code> constructs a single element stream. The <code>acquire</code> effect evaluates to a character <code>a</code>, which is outputted. When the stream is done, the <code>release</code> effect <code>IO(&#39;b&#39;)</code> is evaluated.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.bracketCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.bracket" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.bracket" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.bracket, "DocsReferenceBracket.bracketCode", ExampleFrameIds.unchunked("DocsReferenceBracket.bracket"));
 </script>
@@ -141,7 +145,10 @@
         <p>This is shown in the following example.
         The streams <code>ab</code> and <code>xy</code> are appended using the <code>++</code> operator. Both streams are constructed with <code>release</code> effects.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.bracketAppendCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.bracketAppend" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.bracketAppend" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.bracketAppend, "DocsReferenceBracket.bracketAppendCode", ExampleFrameIds.unchunked("DocsReferenceBracket.bracketAppend"));
 </script>
@@ -151,7 +158,10 @@
         <p>The <code>Stream.resource</code> operator constructs a stream from a <code>cats.effect.Resource</code>. The <code>acquire</code> and <code>release</code> effects of the resource are run similarly to <code>Stream.bracket</code>.</p>
         <p>The following example lifts a resource with an acquire effect of <code>IO(&#39;a&#39;)</code> and release effect of <code>IO(&#39;b&#39;)</code> into a stream.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.resourceCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.resource" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.resource" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.resource, "DocsReferenceBracket.resourceCode", ExampleFrameIds.unchunked("DocsReferenceBracket.resource"));
 </script>
@@ -160,20 +170,29 @@
         <p>The <code>Stream.bracketCase</code> operator behaves similarly to <code>Stream.bracket</code>, but uses the <code>ExitCase</code> to construct the <code>release</code> effect. The exit case describes how the stream terminated. It is either <code>Errored</code>, <code>Succeeded</code> or <code>Canceled</code>.</p>
         <p>The following example shows the exit case of a successful stream.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.bracketCaseCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.bracketCase" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.bracketCase" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.bracketCase, "DocsReferenceBracket.bracketCaseCode", ExampleFrameIds.unchunked("DocsReferenceBracket.bracketCase"));
 </script>
         <p>If an error is raised over the lifetime of the stream, its exit case will be <code>Errored</code>. In the following example, a stream is constructed from <code>bracketCase</code>, and then composed with an error-raising stream using <code>flatMap</code>.</p>
         <p>The stream terminates with an exit case of <code>Errored</code> due to the raised error.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.bracketCaseErroredCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.bracketCaseErrored" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.bracketCaseErrored" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.bracketCaseErrored, "DocsReferenceBracket.bracketCaseErroredCode", ExampleFrameIds.unchunked("DocsReferenceBracket.bracketCaseErrored"));
 </script>
         <p>If the stream is canceled due to fiber cancelation or interruption, its exit case will be <code>Canceled</code>. In the following example, the stream constructed from <code>bracketCase</code> is composed with a long-running <code>Stream.sleep</code>. It is then composed with a short-running <code>interruptAfter</code> operator. The resulting stream is canceled after 1 second.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.bracketCaseCanceledCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.bracketCaseCanceled" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.bracketCaseCanceled" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.bracketCaseCanceled, "DocsReferenceBracket.bracketCaseCanceledCode", ExampleFrameIds.unchunked("DocsReferenceBracket.bracketCaseCanceled"));
 </script>
@@ -184,7 +203,10 @@
         <p><code>input.onFinalize(release)</code> is equivalent to <code>Stream.bracket(IO.unit)(release).flatMap(_ =&gt; input)</code></p>
         <p>In the following example, an input stream outputs a single <code>a</code> character. Once it is done, the resource effect <code>IO(&#39;b&#39;)</code>, termed a finalizer, is run.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.onFinalizeCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.onFinalize" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.onFinalize" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.onFinalize, "DocsReferenceBracket.onFinalizeCode", ExampleFrameIds.unchunked("DocsReferenceBracket.onFinalize"));
 </script>
@@ -192,7 +214,10 @@
         <h3 id="onfinalizecase" class="section"><a class="anchor-link left" href="#onfinalizecase"><i class="icofont-laika link">&#xef71;</i></a>onFinalizeCase</h3>
         <p>The <code>onFinalizeCase</code> operator behaves similarly to <code>onFinalize</code>, but uses the exit case of the input stream to construct the release effect. The exit case is calculated similarly to <code>bracketCase</code>.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.onFinalizeCaseCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.onFinalizeCase" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.onFinalizeCase" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.onFinalizeCase, "DocsReferenceBracket.onFinalizeCaseCode", ExampleFrameIds.unchunked("DocsReferenceBracket.onFinalizeCase"));
 </script>
@@ -203,7 +228,10 @@
         <h3 id="errors-raised-in-acquire" class="section"><a class="anchor-link left" href="#errors-raised-in-acquire"><i class="icofont-laika link">&#xef71;</i></a>Errors raised in acquire</h3>
         <p>The release effect is only evaluated if the acquire effect was successful. In the following example, the acquire effect raises an error <code>Err</code>.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.bracketAcquireErrorCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.bracketAcquireError" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.bracketAcquireError" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.bracketAcquireError, "DocsReferenceBracket.bracketAcquireErrorCode", ExampleFrameIds.unchunked("DocsReferenceBracket.bracketAcquireError"));
 </script>
@@ -213,7 +241,10 @@
         <p>Raising errors in the release effect is not recommended.</p>
         <p>If an error is raised in the release effect, the exit case of the resulting stream is <code>Errored</code>. Any finalizers in the resulting stream are executed.</p>
         <pre class="example-code"><code id="DocsReferenceBracket.bracketReleaseErrorCode" class="language-scala"></code></pre>
-        <div id="DocsReferenceBracket.bracketReleaseError" class="example-frame"></div>
+        <section>
+            <div id="DocsReferenceBracket.bracketReleaseError" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
         <script>
  aquascape.example(DocsReferenceBracket.bracketReleaseError, "DocsReferenceBracket.bracketReleaseErrorCode", ExampleFrameIds.unchunked("DocsReferenceBracket.bracketReleaseError"));
 </script>
