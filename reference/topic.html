@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>Topic</title>
+  
+  <meta name="author" content="Zainab Ali"/>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
+  <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../aquascape.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">About</li>
+    <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
+    <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
+    <li class="level2 nav-leaf"><a href="append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
+    <li class="level2 nav-leaf"><a href="chunk.html">chunk</a></li>
+    <li class="level2 nav-leaf"><a href="compile.html">compile</a></li>
+    <li class="level2 nav-leaf"><a href="drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="errors.html">errors</a></li>
+    <li class="level2 nav-leaf"><a href="evalMap.html">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="filter.html">filter</a></li>
+    <li class="level2 nav-leaf"><a href="flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="merge.html">merge</a></li>
+    <li class="level2 nav-leaf"><a href="take.html">take</a></li>
+    <li class="level2 nav-leaf"><a href="time.html">time</a></li>
+    <li class="level2 active nav-leaf"><a href="#">Topic</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">Topic</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="#basic-behaviour">Basic behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#a-basic-publisher-and-subscriber">A basic publisher and subscriber</a></li>
+    <li class="level1 nav-node"><a href="#constructing-subscribers">Constructing subscribers</a></li>
+    <li class="level2 nav-leaf"><a href="#constructing-multiple-subscribers">Constructing multiple subscribers</a></li>
+    <li class="level1 nav-node"><a href="#bounds">Bounds</a></li>
+    <li class="level2 nav-leaf"><a href="#unbounded-subscribers">Unbounded subscribers</a></li>
+    <li class="level2 nav-leaf"><a href="#bounded-subscribers">Bounded subscribers</a></li>
+    <li class="level2 nav-leaf"><a href="#subscribers-with-different-bounds">Subscribers with different bounds</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="topic" class="title">Topic</h1>
+        <p>A topic allows communication between multiple concurrent streams, termed publishers and subscribers. It allows a single publisher to broadcast messages to multiple subscribers.</p>
+        <p>This guide describes:</p>
+        <ul>
+          <li>The basic behaviour of topics, publishers and subscribers.</li>
+        </ul>
+        <ul>
+          <li>How subscribers are constructed dynamically.</li>
+        </ul>
+        <ul>
+          <li>How the bound of a subscriber affects the system.</li>
+        </ul>
+        
+        <h2 id="basic-behaviour" class="section"><a class="anchor-link left" href="#basic-behaviour"><i class="icofont-laika link">&#xef71;</i></a>Basic behaviour</h2>
+        <p>A topic allows communication between multiple concurrent streams, termed publishers and subscribers. </p>
+        <ul>
+          <li>A publisher is a stream that is piped through <code>topic.publish</code>.</li>
+        </ul>
+        <ul>
+          <li>A subscriber is a stream that is constructed from <code>topic.subscribe</code> or <code>topic.subscribeUnbounded</code>.</li>
+        </ul>
+        <ul>
+          <li>A message is an element that is outputted by the publisher stream.</li>
+        </ul>
+        <p>We say that messages are sent from the publisher and received by the subscribers. Like all streams, publishers and subscribers are pull-based, iterative processes. The sending and receiving are done through pulls and outputs.</p>
+        <p>A topic is designed to have one publisher and multiple subscribers. Subscribers can be constructed dynamically, throughout the lifetime of the topic.</p>
+        <p>The subscribers associated with the topic will all receive the same messages. The topic broadcasts the messages from the publisher to all subscribers.</p>
+        
+        <h3 id="a-basic-publisher-and-subscriber" class="section"><a class="anchor-link left" href="#a-basic-publisher-and-subscriber"><i class="icofont-laika link">&#xef71;</i></a>A basic publisher and subscriber</h3>
+        <p>In the following example, the <code>pub</code> publisher stream is piped through <code>topic.publish</code>.  This pipe repeatedly pulls elements from the stream and sends them to the topic.</p>
+        <p>A subscriber stream <code>sub</code> is constructed using the <code>subscribeUnbounded</code> function. This repeatedly pulls elements off the topic.</p>
+        <p>Each stream is compiled into its own separate <code>IO</code> effect. The effects are evaluated concurrently with <code>parTupled</code>.</p>
+        <p>The publisher delays by one second before outputting the characters <code>a</code> and <code>b</code>, which are published to the topic. The subscriber stream is pulled on immediately and receives <code>a</code> and <code>b</code> after a one second delay.</p>
+        <pre class="example-code"><code id="DocsReferenceTopic.topicCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceTopic.topic" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceTopic.topic, "DocsReferenceTopic.topicCode", ExampleFrameIds.unchunked("DocsReferenceTopic.topic"));
+</script>
+        <p>Once the publisher stream is done, the topic is closed and the subscriber stream is terminated.</p>
+        
+        <h2 id="constructing-subscribers" class="section"><a class="anchor-link left" href="#constructing-subscribers"><i class="icofont-laika link">&#xef71;</i></a>Constructing subscribers</h2>
+        <p>Subscribers can be constructed with <code>topic.subscribe</code> or <code>topic.subscribeUnbounded</code>. They will only receive messages published after their construction. </p>
+        <p>In the following example, the publisher publishes <code>a</code> after two seconds and <code>b</code> after four seconds. Experiment with the time at which the subscriber is constructed.</p>
+        <p>If the construction time is one second, before <code>a</code> is published, then <code>a</code> is received. However, if the time is <code>3</code> seconds, after <code>a</code> is published, then <code>a</code> is missed.</p>
+        <div class="example-input">
+          <label id="DocsReferenceTopic.delayedSubscriberLabel" for="DocsReferenceTopic.delayedSubscriberInput"></label>
+          <input id="DocsReferenceTopic.delayedSubscriberInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceTopic.delayedSubscriberCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceTopic.delayedSubscriber" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceTopic.delayedSubscriber, "DocsReferenceTopic.delayedSubscriberCode", ExampleFrameIds.unchunked("DocsReferenceTopic.delayedSubscriber"), "DocsReferenceTopic.delayedSubscriberLabel", "DocsReferenceTopic.delayedSubscriberInput");
+</script>
+        
+        <h3 id="constructing-multiple-subscribers" class="section"><a class="anchor-link left" href="#constructing-multiple-subscribers"><i class="icofont-laika link">&#xef71;</i></a>Constructing multiple subscribers</h3>
+        <p>Multiple subscribers can be constructed concurrently with <code>topic.subscribe</code>. Each subscriber will receive the same messages. </p>
+        <p>In the following example, both <code>subA</code> and <code>subB</code> are constructed.</p>
+        <pre class="example-code"><code id="DocsReferenceTopic.multipleSubscribersCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceTopic.multipleSubscribers" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceTopic.multipleSubscribers, "DocsReferenceTopic.multipleSubscribersCode", ExampleFrameIds.unchunked("DocsReferenceTopic.multipleSubscribers"));
+</script>
+        <p>Note that both subscribers receive the messages <code>a</code> and <code>b</code>.</p>
+        
+        <h2 id="bounds" class="section"><a class="anchor-link left" href="#bounds"><i class="icofont-laika link">&#xef71;</i></a>Bounds</h2>
+        <p>Each subscriber and publisher is a different iterative process, and may proceed at different rates. A subscriber may pull messages at a rate slower than they are published.</p>
+        <p>To manage this, each subscriber maintains a buffer of messages that have been sent by the publisher, but not yet pulled. The size of this buffer is known as the bound.</p>
+        
+        <h3 id="unbounded-subscribers" class="section"><a class="anchor-link left" href="#unbounded-subscribers"><i class="icofont-laika link">&#xef71;</i></a>Unbounded subscribers</h3>
+        <p>If the subscriber is unbounded, it maintains an unlimited buffer.</p>
+        <p>In the following example, the publisher publishes the messages <code>a</code> and <code>b</code> after one second.</p>
+        <p>The subscriber is constructed immediately, and receives <code>a</code> after one second. The <code>spaced</code> operator then delays for two second before pulling on the subscriber stream again and receiving <code>b</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceTopic.slowSubscriberCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceTopic.slowSubscriber" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceTopic.slowSubscriber, "DocsReferenceTopic.slowSubscriberCode", ExampleFrameIds.unchunked("DocsReferenceTopic.slowSubscriber"));
+</script>
+        <p>There is a time delay of two seconds between <code>b</code> being published to the topic and received by the subscriber. During this time, the message is kept in the unbounded buffer.</p>
+        <p>Unbounded subscribers should be used with caution. They can result in memory errors if their buffer grows too large.</p>
+        
+        <h3 id="bounded-subscribers" class="section"><a class="anchor-link left" href="#bounded-subscribers"><i class="icofont-laika link">&#xef71;</i></a>Bounded subscribers</h3>
+        <p>Subscribers constructed with the <code>subscribe(bound)</code> function are bounded. They maintain a buffer of messages that is capped by the <code>bound</code>.</p>
+        <p>When their bound is reached, no more messages can be added to the buffer. The <code>topic.publish</code> pipe blocks the publisher until a message is removed.</p>
+        <p>In the following example, the subscriber is constructed with a given bound. The <code>spaced</code> operator pulls messages every second.</p>
+        <p>The publisher stream publishes the messages <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code>. The stream is delayed such that <code>a</code> is published after one second.</p>
+        <p>Experiment with different values for the bound.</p>
+        <div class="example-input">
+          <label id="DocsReferenceTopic.boundedSubscriberLabel" for="DocsReferenceTopic.boundedSubscriberInput"></label>
+          <input id="DocsReferenceTopic.boundedSubscriberInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceTopic.boundedSubscriberCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceTopic.boundedSubscriber" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceTopic.boundedSubscriber, "DocsReferenceTopic.boundedSubscriberCode", ExampleFrameIds.unchunked("DocsReferenceTopic.boundedSubscriber"), "DocsReferenceTopic.boundedSubscriberLabel", "DocsReferenceTopic.boundedSubscriberInput");
+</script>
+        <p>Notice that when the bound is zero, the message <code>c</code> are also delayed by one second even though no delay is specified in the publisher stream. This is caused by <code>topic.publish</code> blocking when the subscriber has not yet pulled <code>b</code>. A bound of zero keeps the publisher and subscriber in sync.</p>
+        
+        <h3 id="subscribers-with-different-bounds" class="section"><a class="anchor-link left" href="#subscribers-with-different-bounds"><i class="icofont-laika link">&#xef71;</i></a>Subscribers with different bounds</h3>
+        <p>In a system with multiple subscribers, each subscriber can have a different bound. The <code>topic.publish</code> operator blocks when any bound is reached. The system progresses as fast as the slowest subscriber.</p>
+        <p>In the following example, two subscribers are constructed. The <code>subA</code> subscriber is unbounded and pulls messages without delay. The <code>subB</code> subscriber has a bound of zero, and delays for one second between pulls using the <code>spaced</code> operator.</p>
+        <p>The publisher stream publishes the messages <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code>. The stream is delayed such that <code>a</code> is published after one second.</p>
+        <pre class="example-code"><code id="DocsReferenceTopic.multipleSubscribersBoundedCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceTopic.multipleSubscribersBounded" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceTopic.multipleSubscribersBounded, "DocsReferenceTopic.multipleSubscribersBoundedCode", ExampleFrameIds.unchunked("DocsReferenceTopic.multipleSubscribersBounded"));
+</script>
+        <p>Note that there is a one second delay before <code>c</code> is published. The <code>topic.publish</code> operator must block until <code>subB</code> pulls <code>b</code>. The <code>subA</code> subscriber is also delayed because it must wait for <code>c</code> to be published.</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
