@@ -268,12 +268,16 @@ object DiagramToPicture {
       .font(config.font)
       .strokeColor(color)
       .fillColor(color)
+    // TODO: Zainab - Calculate the y offset properly
     text.width.flatMap { width =>
       innerCircle
         .on(outerCircle)
         .beside(text.originAt(-width / 2 - config.arrowBaseHalfWidth, 0))
         .originAt(-width / 2 - config.arrowBaseHalfWidth, 0)
-        .at(progressOffset + config.arrowBaseHalfWidth, 0)
+        .at(
+          progressOffset + config.arrowBaseHalfWidth,
+          i.at * config.stageHeight
+        )
     }
   }
 

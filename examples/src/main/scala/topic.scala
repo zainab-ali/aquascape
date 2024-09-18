@@ -27,6 +27,7 @@ import fs2.concurrent.*
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExportTopLevel
 import scala.concurrent.duration.*
+import cats.syntax.all.*
 
 @JSExportTopLevel("DocsReferenceTopic")
 object topic {
@@ -42,16 +43,14 @@ object topic {
           val publisher = input
             .through(topic.publish)
             .stage("publisher", branch = "pub")
-            .fork("root", "pub")
+            .compile.drain
+            .compileStage("compile.drain", branch = "pub")
           val subscriber = topic.subscribeUnbounded
             .stage("subscriber", branch = "sub")
-            .fork("root", "sub")
+            .compile.toList
+            .compileStage("compile.toList", branch = "sub")
 
-          subscriber
-            .concurrently(publisher)
-            .compile
-            .toList
-            .compileStage("concurrently…toList")
+          (subscriber, publisher).parTupled
         }
       }
   }
@@ -66,20 +65,18 @@ object topic {
           val publisher = input
             .through(topic.publish)
             .stage("publisher", branch = "pub")
-            .fork("root", "pub")
+            .compile.drain
+            .compileStage("compile.drain", branch = "pub")
           val subscriberA = topic.subscribeUnbounded
             .stage("subscriberA", branch = "subA")
-            .fork("subs", "subA")
+            .compile.toList
+            .compileStage("subA compile.drain", branch = "subA")
           val subscriberB = topic.subscribeUnbounded
             .stage("subscriberB", branch = "subB")
-            .fork("subs", "subB")
+            .compile.toList
+            .compileStage("subB compile.drain", branch = "subB")
 
-          subscriberA.merge(subscriberB)
-            .fork("root", "subs")
-            .concurrently(publisher)
-            .compile
-            .toList
-            .compileStage("compile.toList")
+          (subscriberA, subscriberB, publisher).parTupled
         }
       }
   }
@@ -95,17 +92,15 @@ object topic {
           val publisher = input
             .through(topic.publish)
             .stage("publisher", branch = "pub")
-            .fork("root", "pub")
+            .compile.drain
+            .compileStage("compile.drain", branch = "pub")
           val subscriber = topic.subscribeUnbounded
             .delayBy(1.second)
             .stage("subscriber", branch = "sub")
-            .fork("root", "sub")
+            .compile.toList
+            .compileStage("compile.toList", branch = "sub")
 
-          subscriber
-            .concurrently(publisher)
-            .compile
-            .toList
-            .compileStage("compile.toList")
+          (subscriber, publisher).parTupled
         }
       }
   }
@@ -122,17 +117,15 @@ object topic {
           val publisher = input
             .through(topic.publish)
             .stage("publisher", branch = "pub")
-            .fork("root", "pub")
+            .compile.drain
+            .compileStage("compile.drain", branch = "pub")
           val subscriber = topic.subscribeUnbounded
             .spaced(2.seconds)
             .stage("subscriber", branch = "sub")
-            .fork("root", "sub")
+            .compile.toList
+            .compileStage("compile.toList", branch = "sub")
 
-          subscriber
-            .concurrently(publisher)
-            .compile
-            .toList
-            .compileStage("compile.toList")
+          (subscriber, publisher).parTupled
         }
       }
   }
@@ -147,18 +140,16 @@ object topic {
           val publisher = input
             .through(topic.publish)
             .stage("publisher", branch = "pub")
-            .fork("root", "pub")
+            .compile.drain
+            .compileStage("compile.drain", branch = "pub")
           val subscriber = topic.subscribe(0)
             .stage("subscriber", branch = "sub")
             .spaced(1.second)
             .stage("metered", branch = "sub")
-            .fork("root", "sub")
+            .compile.toList
+            .compileStage("compile.toList", branch = "sub")
 
-          subscriber
-            .concurrently(publisher)
-            .compile
-            .toList
-            .compileStage("compile.toList")
+          (subscriber, publisher).parTupled
         }
       }
   }
@@ -174,18 +165,16 @@ object topic {
           val publisher = input
             .through(topic.publish)
             .stage("publisher", branch = "pub")
-            .fork("root", "pub")
+            .compile.drain
+            .compileStage("compile.drain", branch = "pub")
           val subscriber = topic.subscribe(1)
             .stage("subscriber", branch = "sub")
             .spaced(1.second)
             .stage("spaced", branch = "sub")
-            .fork("root", "sub")
+            .compile.toList
+            .compileStage("compile.toList", branch = "sub")
 
-          subscriber
-            .concurrently(publisher)
-            .compile
-            .toList
-            .compileStage("compile.toList")
+          (subscriber, publisher).parTupled
         }
       }
   }
@@ -200,22 +189,20 @@ object topic {
           val publisher = input
             .through(topic.publish)
             .stage("publisher", branch = "pub")
-            .fork("root", "pub")
+            .compile.drain
+            .compileStage("compile.drain", branch = "pub")
           val subscriberA = topic.subscribeUnbounded
             .stage("subscriberA", branch = "subA")
-            .fork("subs", "subA")
+            .compile.toList
+            .compileStage("subA compile.toList", branch = "subA")
           val subscriberB = topic.subscribe(0)
             .stage("subscriberB", branch = "subB")
             .spaced(1.second)
             .stage("spaced", branch = "subB")
-            .fork("subs", "subB")
+            .compile.toList
+            .compileStage("subB compile.toList", branch = "subB")
 
-          subscriberA.merge(subscriberB)
-            .fork("root", "subs")
-            .concurrently(publisher)
-            .compile
-            .toList
-            .compileStage("compile.toList")
+          (subscriberA, subscriberB, publisher).parTupled
         }
       }
   }

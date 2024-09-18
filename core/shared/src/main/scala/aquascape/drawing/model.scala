@@ -41,7 +41,8 @@ private enum Item {
       to: Int,
       pullProgress: Int
   )
-  case Finished(value: String, errored: Boolean)
+// TODO: Zainab - This should have an index associated with it.
+  case Finished(value: String, errored: Boolean, at: Int)
 }
 
 final case class Config(

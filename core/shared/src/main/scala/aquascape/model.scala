@@ -30,5 +30,6 @@ private enum Event {
   case OutputChunk(value: fs2.Chunk[String], token: Token)
   case OpenScope(label: Label)
   case CloseScope(label: Label)
-  case Finished(errored: Boolean, value: String)
+// TODO: Zainab - This should have a label associated with it.
+  case Finished(at: String, errored: Boolean, value: String)
 }

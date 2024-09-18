@@ -18,9 +18,9 @@ package aquascape.drawing
 
 import aquascape.*
 import cats.Foldable
-import cats.effect.Unique
 import cats.data.Chain
 import cats.data.NonEmptyChain
+import cats.effect.Unique
 
 private def eventsToDiagram[F[_]: Foldable](
     events: F[(Event, Time)]
@@ -99,10 +99,12 @@ private def eventsToDiagram[F[_]: Foldable](
           value = e.value,
           pullProgress = pullCoord.progress
         )
-      case Event.Finished(errored, value) =>
+      case Event.Finished(at, errored, value) =>
+        val atIndex = labelIndex(at)
         Item.Finished(
           value = value,
-          errored = errored
+          errored = errored,
+          at = atIndex
         )
     }
     val nextTokens = maybeToken(event).fold(tokens)(tokens + _)
@@ -142,6 +144,7 @@ private def eventsToDiagram[F[_]: Foldable](
     case (Event.Pull(to, from, _), _) => Some((from, to))
     case _                            => None
   }
+  println(s"Sorting labels ${labelPairs}")
   val labels = sortLabels(labelPairs)
 
   val (diagram, _, _) = events.foldLeft(empty)(foldOp(labels))

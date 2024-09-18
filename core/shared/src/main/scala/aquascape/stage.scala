@@ -35,7 +35,7 @@ trait Scape[F[_]] {
   def fork[O](parent: Branch, child: Branch)(s: Stream[F, O]): Stream[F, O]
 
   /** Record a stage of the compile event surrounding this stream. */
-  def compileStage[O: Show](fo: F[O], label: Label): F[O]
+  def compileStage[O: Show](fo: F[O], label: Label, root: Branch): F[O]
 
   /** Given a compiled stream `fo` which has been staged, output a stream of
     * events.
@@ -67,8 +67,8 @@ object Scape {
         def fork[O](parent: Branch, child: Branch)(
             s: Stream[F, O]
         ): Stream[F, O] = fork_(pen)(parent, child)(s)
-        def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
-          compileStage_(pen, fo, branch)
+        def compileStage[O: Show](fo: F[O], label: Label, root: Branch): F[O] =
+          compileStage_(pen, fo, label, root)
 
         def events[O](fo: F[O]): F[(Vector[(Event, Time)], O)] =
           events_(pen, fo)
@@ -94,8 +94,8 @@ object Scape {
             s: Stream[F, O]
         ): Stream[F, O] = fork_(pen)(parent, child)(s)
 
-        def compileStage[O: Show](fo: F[O], branch: Branch): F[O] =
-          compileStage_(pen, fo, branch)
+        def compileStage[O: Show](fo: F[O], label: Label, root: Branch): F[O] =
+          compileStage_(pen, fo, label, root)
         def events[O](fo: F[O]): F[(Vector[(Event, Time)], O)] =
           events_(pen, fo)
       }
@@ -211,20 +211,27 @@ object Scape {
   private def compileStage_[F[_]: MonadCancelThrow: Temporal, O: Show](
       pen: Pen[F, (Event, Time)],
       fo: F[O],
-      label: Label
+      label: Label,
+      root: Branch
   ): F[O] =
-    pen.bracket(root, label)((fo.attempt, time).flatMapN {
+    pen.newRoot(root) >> pen.bracket(root, label)((fo.attempt, time).flatMapN {
       case (Right(o), t) =>
-        pen.write(root, (Event.Finished(false, o.show), t)).as(o)
+        pen.write(root, (Event.Finished(label, false, o.show), t)).as(o)
       case (Left(Caught(err)), t) =>
         pen.write(
           root,
-          (Event.Finished(true, Option(err.getMessage).getOrElse("!")), t)
+          (
+            Event.Finished(label, true, Option(err.getMessage).getOrElse("!")),
+            t
+          )
         ) >> err.raiseError
       case (Left(err), t) =>
         pen.write(
           root,
-          (Event.Finished(true, Option(err.getMessage).getOrElse("!")), t)
+          (
+            Event.Finished(label, true, Option(err.getMessage).getOrElse("!")),
+            t
+          )
         ) >> err.raiseError
     })
 

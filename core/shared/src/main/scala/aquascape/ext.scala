@@ -23,18 +23,21 @@ import cats.effect.Concurrent
 import cats.syntax.all.*
 import fs2.*
 
+private val defaultBranch: String = "root"
+
 extension [F[_], A: Show](s: Stream[F, A])(using t: Scape[F]) {
 
-  def stage(label: String, branch: String = root): Stream[F, A] =
+  def stage(label: String, branch: String = defaultBranch): Stream[F, A] =
     t.stage(label, branch)(s)
 
   def fork(from: String, to: String): Stream[F, A] = t.fork(from, to)(s)
 }
 
 extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Scape[F]) {
-  def trace(branch: String = root): F[O] = t.trace(fo, branch)
-  def trace_(branch: String = root): F[Unit] = t.trace(fo, branch).void
-  def compileStage(label: String): F[O] = t.compileStage(fo, label)
+  def trace(branch: String = defaultBranch): F[O] = t.trace(fo, branch)
+  def trace_(branch: String = defaultBranch): F[Unit] = t.trace(fo, branch).void
+  def compileStage(label: String, branch: String = defaultBranch): F[O] =
+    t.compileStage(fo, label, branch)
 }
 
 extension [F[_]: Async, O](fo: F[O])(using t: Scape[F]) {
