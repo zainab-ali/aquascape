@@ -137,7 +137,7 @@ class ScapeSuite extends CatsEffectSuite {
       loc(Pull("source", "last", t)),
       loc(Done(t)),
       loc(CloseScope(label = "source")),
-      loc(Finished(errored = false, value = "Mao"))
+      loc(Finished(at = "last", errored = false, value = "Mao"))
     )
 
     assertEvents(actual, expected)
@@ -157,7 +157,7 @@ class ScapeSuite extends CatsEffectSuite {
       loc(Pull("source", "last", t)),
       loc(Done(t)),
       loc(CloseScope("source")),
-      loc(Finished(errored = false, value = "Popcorn"))
+      loc(Finished(at = "last", errored = false, value = "Popcorn"))
     )
     assertEvents(actual, expected)
   }
@@ -185,7 +185,7 @@ class ScapeSuite extends CatsEffectSuite {
       loc(CloseScope("source")),
       loc(Done(t)),
       loc(CloseScope("map")),
-      loc(Finished(errored = false, value = "MAO"))
+      loc(Finished(at = "last", errored = false, value = "MAO"))
     )
     assertEvents(actual, expected)
   }
@@ -220,7 +220,7 @@ class ScapeSuite extends CatsEffectSuite {
       loc(CloseScope("right")),
       loc(Done(t)),
       loc(CloseScope("zip")),
-      loc(Finished(errored = false, value = "(Mao,Popcorn)"))
+      loc(Finished(at = "last", errored = false, value = "(Mao,Popcorn)"))
     )
     assertEvents(actual, expected)
   }
@@ -238,12 +238,12 @@ class ScapeSuite extends CatsEffectSuite {
     val expected = List(
       loc(OpenScope("source")),
       loc(Pull("source", "last", t)),
-      loc(Eval("source", "Mao")),
+      loc(Eval("Mao")),
       loc(Output("Mao", t)),
       loc(Pull("source", "last", t)),
       loc(Done(t)),
       loc(CloseScope("source")),
-      loc(Finished(errored = false, value = "Mao"))
+      loc(Finished(at = "last", errored = false, value = "Mao"))
     )
     assertEvents(actual, expected)
   }
@@ -267,7 +267,7 @@ class ScapeSuite extends CatsEffectSuite {
       loc(Error(value = "BOOM!", t, raisedHere = true)),
       loc(CloseScope(label = "source")),
       loc(CloseScope(label = "eval")),
-      loc(Finished(errored = true, value = "BOOM!"))
+      loc(Finished(at = "last", errored = true, value = "BOOM!"))
     )
 
     assertEvents(actual, expected)
@@ -304,7 +304,7 @@ class ScapeSuite extends CatsEffectSuite {
       loc(CloseScope("second")),
       loc(Done(t)),
       loc(CloseScope("handle")),
-      loc(Finished(errored = false, value = "()"))
+      loc(Finished(at = "drain", errored = false, value = "()"))
     )
     assertEvents(actual, expected)
   }
@@ -330,13 +330,13 @@ class ScapeSuite extends CatsEffectSuite {
       loc(Pull("eval", "drain", t)),
       loc(OpenScope("source")),
       loc(Pull("source", "eval", t)),
-      loc(Eval("source", "acquire")),
+      loc(Eval("acquire")),
       loc(Output("()", t)),
       loc(Error("BOOM!", t, raisedHere = true)),
-      loc(Eval("drain", "release")),
+      loc(Eval("release")),
       loc(CloseScope("source")),
       loc(CloseScope("eval")),
-      loc(Finished(errored = true, value = "BOOM!"))
+      loc(Finished(at = "drain", errored = true, value = "BOOM!"))
     )
     assertEvents(actual, expected)
   }
@@ -360,12 +360,12 @@ class ScapeSuite extends CatsEffectSuite {
       loc(Pull("eval", "handle", t)),
       loc(OpenScope("source")),
       loc(Pull("source", "eval", t)),
-      loc(Eval("source", "acquire")),
+      loc(Eval("acquire")),
       loc(Output("()", t)),
       loc(
         Error("BOOM!", t, raisedHere = true)
       ),
-      loc(Eval("handle", "release")),
+      loc(Eval("release")),
       loc(CloseScope("source")),
       loc(CloseScope("eval")),
       loc(OpenScope("second")),
@@ -374,7 +374,7 @@ class ScapeSuite extends CatsEffectSuite {
       loc(CloseScope("second")),
       loc(Done(t)),
       loc(CloseScope("handle")),
-      loc(Finished(errored = false, value = "()"))
+      loc(Finished(at = "drain", errored = false, value = "()"))
     )
     assertEvents(actual, expected)
   }
@@ -398,19 +398,19 @@ class ScapeSuite extends CatsEffectSuite {
       loc(Pull("eval", "drain", t)),
       loc(OpenScope("left")),
       loc(Pull("left", "eval", t)),
-      loc(Eval("left", "acquireLeft")),
+      loc(Eval("acquireLeft")),
       loc(Output("()", t)),
       loc(OpenScope("right")),
       loc(Pull("right", "eval", t)),
-      loc(Eval("right", "acquireRight")),
+      loc(Eval("acquireRight")),
       loc(Output("()", t)),
       loc(Error("BOOM!", t, raisedHere = true)),
-      loc(Eval("drain", "releaseRight")),
+      loc(Eval("releaseRight")),
       loc(CloseScope("right")),
-      loc(Eval("drain", "releaseLeft")),
+      loc(Eval("releaseLeft")),
       loc(CloseScope("left")),
       loc(CloseScope("eval")),
-      loc(Finished(errored = true, value = "BOOM!"))
+      loc(Finished(at = "drain", errored = true, value = "BOOM!"))
     )
     assertEvents(actual, expected)
   }
@@ -434,19 +434,19 @@ class ScapeSuite extends CatsEffectSuite {
       loc(Pull("zip", "drain", t)),
       loc(OpenScope("left")),
       loc(Pull("left", "zip", t)),
-      loc(Eval("left", "acquireLeft")),
+      loc(Eval("acquireLeft")),
       loc(Output("()", t)),
       loc(OpenScope("right")),
       loc(Pull("right", "zip", t)),
-      loc(Eval("right", "acquireRight")),
+      loc(Eval("acquireRight")),
       loc(Error("BOOM!", t, raisedHere = true)),
-      loc(Eval("zip", "releaseRight")),
+      loc(Eval("releaseRight")),
       loc(CloseScope("right")),
-      loc(Eval("zip", "releaseLeft")),
+      loc(Eval("releaseLeft")),
       loc(CloseScope("left")),
       loc(Error("BOOM!", t, raisedHere = false)),
       loc(CloseScope("zip")),
-      loc(Finished(errored = true, value = "BOOM!"))
+      loc(Finished(at = "drain", errored = true, value = "BOOM!"))
     )
     assertEvents(actual, expected)
   }

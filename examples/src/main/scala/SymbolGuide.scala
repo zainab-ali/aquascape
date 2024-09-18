@@ -17,10 +17,11 @@
 package aquascape.examples
 
 import aquascape.*
+import aquascape.drawing.Config
+import aquascape.drawing.Symbols
 
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExportTopLevel
-import aquascape.drawing.{Config, Symbols}
 
 @JSExportTopLevel("SymbolGuide")
 object SymbolGuide {
@@ -35,7 +36,7 @@ object SymbolGuide {
 
   @JSExport
   val finishedErrored = new Symbol(Symbols.finishedErrored(config))
-  
+
   @JSExport
   val label = new Symbol(Symbols.label(config))
 
@@ -60,4 +61,3 @@ object SymbolGuide {
   @JSExport
   val time = new Symbol(Symbols.time(config))
 }
-

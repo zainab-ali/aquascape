@@ -164,6 +164,7 @@ object DiagramToPicture {
   private[drawing] def eval(
       config: Config,
       progressOffset: Int,
+      totalNumStages: Int,
       i: Item.Eval
   ): Picture[Unit] = {
     val box = Picture
@@ -172,7 +173,7 @@ object DiagramToPicture {
       .strokeColor(config.evalColor)
       .fillColor(config.evalColor)
     (box.width, box.height).flatMapN { (width, height) =>
-      box
+      val effectBox = box
         .on(
           Picture
             .rectangle(
@@ -181,12 +182,22 @@ object DiagramToPicture {
             )
             .fillColor(Color.white)
         )
+        .strokeColor(config.evalColor)
         .originAt(-width / 2.0, 0.0)
+      val margin = Picture
+        .circle(
+          diameter = width + 4 * config.textBoxPaddingWidth
+        )
+        .noStroke
+        .noFill
+      effectGridLine(config, totalNumStages)
+        .beside(effectBox)
+        .beside(effectGridLine(config, totalNumStages))
+        .on(margin)
         .at(
           progressOffset + config.arrowBaseWidth + config.textBoxPaddingWidth,
-          i.at * config.stageHeight
+          -1 * config.stageHeight
         )
-        .strokeColor(config.evalColor)
     }
   }
   private[drawing] def error(
@@ -223,6 +234,7 @@ object DiagramToPicture {
   private[drawing] def time(
       config: Config,
       progressOffset: Int,
+      totalNumStages: Int,
       i: Item.Time
   ): Picture[Unit] = {
     val box = Picture
@@ -231,21 +243,42 @@ object DiagramToPicture {
       .strokeColor(config.timeColor)
       .fillColor(config.timeColor)
     (box.width, box.height).flatMapN { (width, height) =>
-      box
-        .on(
-          Picture
-            .circle(
-              diameter = width + config.textBoxPaddingWidth
-            )
-            .strokeColor(config.timeColor)
-            .fillColor(Color.white)
+      val circle = box.on(
+        Picture
+          .circle(
+            diameter = width + 2 * config.textBoxPaddingWidth
+          )
+          .strokeColor(config.timeColor)
+          .fillColor(Color.white)
+      )
+      val margin = Picture
+        .circle(
+          diameter = width + 4 * config.textBoxPaddingWidth
         )
-        .originAt(-width / 2.0, 0.0)
+        .noStroke
+        .noFill
+      effectGridLine(config, totalNumStages)
+        .beside(circle)
+        .beside(effectGridLine(config, totalNumStages))
+        .on(margin)
+        .originAt(-(width + 4 * config.textBoxPaddingWidth) / 2.0, 0.0)
         .at(
-          progressOffset + config.arrowBaseWidth + config.textBoxPaddingWidth,
-          0
+          progressOffset,
+          -1 * config.stageHeight
         )
     }
+  }
+
+  private def effectGridLine(
+      config: Config,
+      totalNumStages: Int
+  ): Picture[Unit] = {
+    // val line =
+    OpenPath.empty
+      .lineTo(0, (1 + totalNumStages) * config.stageHeight)
+      .path
+      .strokeColor(config.gridLineColor)
+      .strokeDash(config.gridLineStrokeDash.map(_.toDouble))
   }
 
   private[drawing] def finished(
@@ -273,7 +306,10 @@ object DiagramToPicture {
         .on(outerCircle)
         .beside(text.originAt(-width / 2 - config.arrowBaseHalfWidth, 0))
         .originAt(-width / 2 - config.arrowBaseHalfWidth, 0)
-        .at(progressOffset + config.arrowBaseHalfWidth, 0)
+        .at(
+          progressOffset + config.arrowBaseHalfWidth,
+          i.at * config.stageHeight
+        )
     }
   }
 
@@ -286,8 +322,8 @@ object DiagramToPicture {
     OpenPath.empty
       .lineTo(diagramWidth, 0)
       .path
-      .strokeColor(config.stageLineColor)
-      .strokeDash(config.stageLineStrokeDash.map(_.toDouble))
+      .strokeColor(config.gridLineColor)
+      .strokeDash(config.gridLineStrokeDash.map(_.toDouble))
       .at(0, index * config.stageHeight)
   }
 
@@ -323,8 +359,11 @@ object DiagramToPicture {
 private[drawing] def diagramToPicture(
     config: Config
 )(diagram: Diagram): Picture[Unit] = {
+  val totalNumStages: Int = diagram.items.collect { case i: Item.Pull =>
+    i.to
+  }.max
 
-  def picture(config: Config)(
+  def picture(
       item: Item,
       progressOffset: Int,
       offsets: Map[Int, Int]
@@ -354,9 +393,9 @@ private[drawing] def diagramToPicture(
         )
         output.on(pullToOutput)
       case i: Item.Eval =>
-        DiagramToPicture.eval(config, progressOffset, i)
+        DiagramToPicture.eval(config, progressOffset, totalNumStages, i)
       case i: Item.Time =>
-        DiagramToPicture.time(config, progressOffset, i)
+        DiagramToPicture.time(config, progressOffset, totalNumStages, i)
       case i: Item.Error =>
         val error = DiagramToPicture.error(config, progressOffset, i)
         val pullToOutput = DiagramToPicture.pullToOutput(
@@ -371,7 +410,6 @@ private[drawing] def diagramToPicture(
         DiagramToPicture.finished(config, progressOffset, i)
     }
   }
-
   foldLeftM(diagram.items.zipWithIndex.reverse)(
     (
       config.progressPaddingLeft,
@@ -381,18 +419,18 @@ private[drawing] def diagramToPicture(
   )((b, item) =>
     (b, item) match {
       case ((progressOffset, offsets, pics), (i, idx)) =>
-        val pic = picture(config)(i, progressOffset, offsets)
+        val pic = picture(i, progressOffset, offsets)
         pic.width.map { nextOffset =>
           val nextOffsets = offsets + ((idx, progressOffset))
           (nextOffset.toInt, nextOffsets, pic :: pics)
         }
     }
   )
-    .flatMap { case (progressOffset, _, pictures: List[Picture[Unit]]) =>
-      ((pictures ++ List(
+    .flatMap { case (progressOffset, offsets, pictures: List[Picture[Unit]]) =>
+      (pictures ++ List(
         DiagramToPicture.start(config)
       ) ++ diagram.labels.zipWithIndex.map(
         DiagramToPicture.label(config, progressOffset)
-      ))).reduce(_ on _)
+      )).reduce(_ on _)
     }
 }

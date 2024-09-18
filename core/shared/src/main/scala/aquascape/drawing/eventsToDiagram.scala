@@ -18,8 +18,9 @@ package aquascape.drawing
 
 import aquascape.*
 import cats.Foldable
+import cats.data.Chain
+import cats.data.NonEmptyChain
 import cats.effect.Unique
-import cats.syntax.all.*
 
 private def eventsToDiagram[F[_]: Foldable](
     events: F[(Event, Time)]
@@ -29,22 +30,12 @@ private def eventsToDiagram[F[_]: Foldable](
   type TokenMapEntry = (Unique.Token, PullCoord)
   type TokenMap = Map[Unique.Token, PullCoord]
 
-  def op(
+  def op(labels: List[String])(
       acc: (Diagram, TokenMap),
       event: Event
   ): (Diagram, TokenMap) = {
     val (diagram, tokens) = acc
 
-    val labels: List[Label] = {
-      val newLabels: List[Label] = event match {
-        case e: Event.Pull => List(e.from, e.to)
-        case e: Event.Eval => List(e.at)
-        case _             => Nil
-      }
-      newLabels
-        .filterNot(diagram.labels.contains)
-        .foldLeft(diagram.labels)((ls, l) => ls :+ l)
-    }
     def labelIndex(l: String): Int =
       val idx = labels.indexOf(l)
       if (idx == -1) {
@@ -98,8 +89,7 @@ private def eventsToDiagram[F[_]: Foldable](
           pullProgress = pullCoord.progress
         )
       case e: Event.Eval =>
-        val at = labelIndex(e.at)
-        Item.Eval(at = at, value = e.value)
+        Item.Eval(value = e.value)
       case e: Event.Error =>
         val pullCoord = token(e.token)
         Item.Error(
@@ -108,10 +98,12 @@ private def eventsToDiagram[F[_]: Foldable](
           value = e.value,
           pullProgress = pullCoord.progress
         )
-      case Event.Finished(errored, value) =>
+      case Event.Finished(at, errored, value) =>
+        val atIndex = labelIndex(at)
         Item.Finished(
           value = value,
-          errored = errored
+          errored = errored,
+          at = atIndex
         )
     }
     val nextTokens = maybeToken(event).fold(tokens)(tokens + _)
@@ -131,7 +123,7 @@ private def eventsToDiagram[F[_]: Foldable](
       Map.empty[Unique.Token, PullCoord],
       Option.empty[Time]
     )
-  def foldOp(
+  def foldOp(labels: List[String])(
       acc: (Diagram, TokenMap, Option[Time]),
       te: (Event, Time)
   ): (Diagram, TokenMap, Option[Time]) = {
@@ -143,9 +135,53 @@ private def eventsToDiagram[F[_]: Foldable](
         .fold(prevDiagram.items)(_ :: prevDiagram.items)
     val diagramWithTime = prevDiagram.copy(items = itemsWithTime)
     val opAcc = (diagramWithTime, tokenMap)
-    val (nextDiagram, tokens) = op(opAcc, event)
+    val (nextDiagram, tokens) = op(labels)(opAcc, event)
     (nextDiagram, tokens, Some(curTime))
   }
-  val (diagram, _, _) = events.foldLeft(empty)(foldOp)
+
+  val labelPairs: List[(String, String)] = events.toList.mapFilter {
+    case (Event.Pull(to, from, _), _) => Some((from, to))
+    case _                            => None
+  }
+  println(s"Sorting labels ${labelPairs}")
+  val labels = sortLabels(labelPairs)
+
+  val (diagram, _, _) = events.foldLeft(empty)(foldOp(labels))
   diagram.copy(items = diagram.items.reverse)
+}
+
+import cats.syntax.all.*
+
+/** Sort labels in a collection of pairs of `from` and `to` label pairs. Attempt
+  * to position adjacent next to each other.
+  */
+private def sortLabels[F[_]: Foldable](
+    pairs: F[(String, String)]
+): List[String] = {
+  val groups: Chain[NonEmptyChain[String]] =
+    pairs.foldLeft(Chain.empty[NonEmptyChain[String]]) {
+      case (groups, (from, to)) =>
+        if (groups.exists(_.contains(to))) {
+          // The `to` label is present. Do not add it again.
+          groups
+        } else {
+
+          groups.find(_.contains(from)) match {
+            case None =>
+              // Neither `from` nor `to` are present in the accumulated labels
+              groups :+ NonEmptyChain(from, to)
+            case Some(group) =>
+              // `from` is present
+              if (from === group.last) {
+                // `from` is the last element. Add `to` at the end
+                val nextGroup = group :+ to
+                groups.map { g => if (group === g) nextGroup else g }
+              } else {
+                // `from` is somewhwere in the middle. Create a new group with `to`.
+                groups :+ NonEmptyChain(to)
+              }
+          }
+        }
+    }
+  groups.flatMap(_.toChain).toList
 }

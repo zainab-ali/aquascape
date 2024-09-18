@@ -42,6 +42,9 @@ extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
         }
       }
     )
+  private[aquascape] def newRoot(root: Branch): F[Unit] = {
+    stack.update { bs => bs + ((root, Nil)) }
+  }
 
   private[aquascape] def forkTS(parent: Branch, child: Branch): F[Unit] = {
     val updateOrError = stack.modify { bs =>

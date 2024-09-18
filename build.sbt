@@ -14,7 +14,7 @@ ThisBuild / developers := List(
 )
 
 // publish to s01.oss.sonatype.org (set to true to publish to oss.sonatype.org instead)
-ThisBuild / tlSonatypeUseLegacyHost := true
+ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeLegacy
 
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
@@ -24,6 +24,8 @@ ThisBuild / crossScalaVersions := Seq(Scala3)
 ThisBuild / scalaVersion := Scala3 // the default Scala
 
 lazy val root = tlCrossRootProject.aggregate(core)
+
+ThisBuild / tlCiMimaBinaryIssueCheck := false
 
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))

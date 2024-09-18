@@ -30,18 +30,17 @@ private trait Pen[F[_], E] {
   def writeWithLast(branch: Branch, f: Label => E): F[Unit]
   def writeWithLastTwo(branch: Branch, f: (Label, Label) => E): F[Unit]
   def write(branch: Branch, e: E): F[Unit]
+  def newRoot(parent: Branch): F[Unit]
   def fork(parent: Branch, child: Branch): F[Unit]
   def events: Stream[F, E]
   def close: F[Unit]
 }
 
-val root = "root"
-
 private object Pen {
 
   def apply[F[_]: Async, E]: F[Pen[F, E]] =
     (
-      Ref.of[F, Map[Branch, (List[Label])]](Map(root -> (Nil))),
+      Ref.of[F, Map[Branch, (List[Label])]](Map.empty),
       Channel.synchronous[F, E]
     ).mapN { case (stack, chan) =>
       new {
@@ -66,6 +65,9 @@ private object Pen {
 
         def fork(parent: Branch, child: Branch): F[Unit] =
           stack.forkTS(parent, child)
+
+        def newRoot(parent: Branch): F[Unit] = stack.newRoot(parent)
+
         def events: Stream[F, E] = chan.stream
         def close: F[Unit] = chan.close.void
       }
