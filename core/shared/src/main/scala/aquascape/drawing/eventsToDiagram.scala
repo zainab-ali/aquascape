@@ -89,8 +89,7 @@ private def eventsToDiagram[F[_]: Foldable](
           pullProgress = pullCoord.progress
         )
       case e: Event.Eval =>
-        val at = labelIndex(e.at)
-        Item.Eval(at = at, value = e.value)
+        Item.Eval(value = e.value)
       case e: Event.Error =>
         val pullCoord = token(e.token)
         Item.Error(

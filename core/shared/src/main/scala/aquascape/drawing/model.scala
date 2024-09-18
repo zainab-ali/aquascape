@@ -30,10 +30,7 @@ private enum Item {
       to: Int,
       pullProgress: Int
   )
-  // TODO: Having an "at" label is misleading.
-  // While there is an order of events, there is no label to evaluate the effect "at".
-  // This is especially confusing for effects in resource finalizers. The effect is evaluated in a given order, but is marked with whatever label the scope closer has, and not the resource label.
-  case Eval(value: String, at: Int)
+  case Eval(value: String)
   case Time(value: Int)
   case Error(
       value: String,
@@ -41,15 +38,14 @@ private enum Item {
       to: Int,
       pullProgress: Int
   )
-// TODO: Zainab - This should have an index associated with it.
   case Finished(value: String, errored: Boolean, at: Int)
 }
 
 final case class Config(
-    // The dash style used to mark the horizontal stage line
-    stageLineStrokeDash: Array[Int],
-    // The color of the stage line
-    stageLineColor: Color,
+    // The dash style used to mark the grid lines
+    gridLineStrokeDash: Array[Int],
+    // The color of the grid lines
+    gridLineColor: Color,
     // The height between each stage line
     stageHeight: Int,
     // The halfwidth of the base of the arrowheads
@@ -94,8 +90,8 @@ final case class Config(
 }
 object Config {
   def default: Config = Config(
-    stageLineStrokeDash = Array(4, 4),
-    stageLineColor = Color.grey,
+    gridLineStrokeDash = Array(4, 4),
+    gridLineColor = Color.grey,
     stageColor = Color.black,
     stageHeight = 80,
     arrowBaseHalfWidth = 4,

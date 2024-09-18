@@ -67,10 +67,10 @@ object Symbols {
     )
 
   def time(config: Config): Picture[Unit] =
-    DiagramToPicture.time(config, 0, Item.Time(value = 1))
+    DiagramToPicture.time(config, 0, 0, Item.Time(value = 1))
 
   def eval(config: Config): Picture[Unit] =
-    DiagramToPicture.eval(config, 0, Item.Eval(value = "a", at = 0))
+    DiagramToPicture.eval(config, 0, 0, Item.Eval(value = "a"))
 
   def label(config: Config): Picture[Unit] =
     DiagramToPicture.label(config, 0)("take(2)", 0)

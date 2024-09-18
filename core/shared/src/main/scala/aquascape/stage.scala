@@ -194,9 +194,7 @@ object Scape {
   ): F[O] =
     fo.attempt.flatTap {
       case Right(o) =>
-        time >>= (t =>
-          pen.writeWithLast(branch, label => (Event.Eval(label, o.show), t))
-        )
+        time >>= (t => pen.write(branch, (Event.Eval(o.show), t)))
       case Left(err) =>
         time >>= (t => pen.write(branch, (Event.EvalError(err.getMessage), t)))
     }.rethrow

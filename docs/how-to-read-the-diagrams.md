@@ -117,7 +117,7 @@ An arrow down with a green check mark next to it indicates that the stage is don
 
 @:symbol(eval)
 
-A blue box containing text represents the evaluation of an effect. The text is a string representation of the result of the effect. For example `a` indicates that the effect outputted the character `'a'`. The effect might have been `IO('a')`. The stage at which the effect is positioned is not important, but the order with respect to pull and output arrows is.
+A blue box containing text represents the evaluation of an effect. The text is a string representation of the result of the effect. For example `a` indicates that the effect outputted the character `'a'`. The effect might have been `IO('a')`.
 
 @:@
 
