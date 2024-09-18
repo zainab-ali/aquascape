@@ -21,18 +21,18 @@ import aquascape.examples.syntax.given
 import cats.Show
 import cats.effect.*
 import cats.effect.IO
+import cats.syntax.all.*
 import fs2.*
 import fs2.concurrent.*
 
+import scala.concurrent.duration.*
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExportTopLevel
-import scala.concurrent.duration.*
-import cats.syntax.all.*
 
 @JSExportTopLevel("DocsReferenceTopic")
 object topic {
-  def subscriberDelay(max: Int): InputBox[Int] = InputBox.int(
-    labelText = "n (subscriber delay)",
+  def constructionTime(max: Int): InputBox[Int] = InputBox.int(
+    labelText = "n (construction time)",
     defaultValue = 1,
     min = 0,
     max = max
@@ -69,7 +69,7 @@ object topic {
 
   @JSExport
   val delayedSubscriber = new ExampleWithInput[Int] {
-    val inputBox: InputBox[Int] = subscriberDelay(5)
+    val inputBox: InputBox[Int] = constructionTime(5)
     def apply(n: Int)(using Scape[IO]): StreamCode =
       code {
         Topic[IO, Char].flatMap { topic =>
@@ -109,9 +109,9 @@ object topic {
 
           (
             subA.compile.toList
-              .compileStage("subA.compile.toList", branch = "subA"),
+              .compileStage("subA…toList", branch = "subA"),
             subB.compile.toList
-              .compileStage("subB.compile.toList", branch = "subB"),
+              .compileStage("subB…toList", branch = "subB"),
             pub
               .through(topic.publish)
               .compile
@@ -179,7 +179,7 @@ object topic {
     def apply(using Scape[IO]): StreamCode =
       code {
         Topic[IO, Char].flatMap { topic =>
-          val pub = Stream('a', 'b', 'c', 'd')
+          val pub = Stream('a', 'b', 'c')
             .delayBy[IO](1.second)
             .stage("pub", branch = "pub")
           val subA = topic.subscribeUnbounded

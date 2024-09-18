@@ -17,10 +17,11 @@
 package aquascape.examples
 
 import aquascape.*
+import aquascape.drawing.Config
+import aquascape.drawing.Symbols
 
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExportTopLevel
-import aquascape.drawing.{Config, Symbols}
 
 @JSExportTopLevel("SymbolGuide")
 object SymbolGuide {
