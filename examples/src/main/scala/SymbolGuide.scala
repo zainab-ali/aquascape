@@ -35,7 +35,7 @@ object SymbolGuide {
 
   @JSExport
   val finishedErrored = new Symbol(Symbols.finishedErrored(config))
-  
+
   @JSExport
   val label = new Symbol(Symbols.label(config))
 
@@ -60,4 +60,3 @@ object SymbolGuide {
   @JSExport
   val time = new Symbol(Symbols.time(config))
 }
-

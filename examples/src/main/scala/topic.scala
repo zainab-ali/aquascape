@@ -31,181 +31,177 @@ import cats.syntax.all.*
 
 @JSExportTopLevel("DocsReferenceTopic")
 object topic {
+  def subscriberDelay(max: Int): InputBox[Int] = InputBox.int(
+    labelText = "n (subscriber delay)",
+    defaultValue = 1,
+    min = 0,
+    max = max
+  )
+  def subscriberBound(max: Int): InputBox[Int] = InputBox.int(
+    labelText = "n (subscriber bound)",
+    defaultValue = 0,
+    min = 0,
+    max = max
+  )
 
   @JSExport
   val topic = new Example {
     def apply(using Scape[IO]): StreamCode =
       code {
         Topic[IO, Char].flatMap { topic =>
-          val input = Stream('a', 'b')
+          val pub = Stream('a', 'b')
             .delayBy[IO](1.second)
-            .stage("input", branch = "pub")
-          val publisher = input
-            .through(topic.publish)
-            .stage("publisher", branch = "pub")
-            .compile.drain
-            .compileStage("compile.drain", branch = "pub")
-          val subscriber = topic.subscribeUnbounded
-            .stage("subscriber", branch = "sub")
-            .compile.toList
-            .compileStage("compile.toList", branch = "sub")
-
-          (subscriber, publisher).parTupled
+            .stage("pub", branch = "pub")
+          val sub = topic.subscribeUnbounded
+            .stage("subscribeUnbounded", branch = "sub")
+          (
+            sub.compile.toList
+              .compileStage("sub…toList", branch = "sub"),
+            pub
+              .through(topic.publish)
+              .compile
+              .drain
+              .compileStage("pub…drain", branch = "pub")
+          ).parTupled
         }
       }
   }
+
+  @JSExport
+  val delayedSubscriber = new ExampleWithInput[Int] {
+    val inputBox: InputBox[Int] = subscriberDelay(5)
+    def apply(n: Int)(using Scape[IO]): StreamCode =
+      code {
+        Topic[IO, Char].flatMap { topic =>
+          val pub = Stream('a', 'b')
+            .spaced[IO](2.second, startImmediately = false)
+            .stage("pub", branch = "pub")
+          val sub = topic.subscribeUnbounded
+            .stage("sub", branch = "sub")
+          (
+            sub
+              .delayBy(n.seconds)
+              .compile
+              .toList
+              .compileStage(s"sub…toList", branch = "sub"),
+            pub
+              .through(topic.publish)
+              .compile
+              .drain
+              .compileStage("pub…drain", branch = "pub")
+          ).parTupled
+        }
+      }
+  }
+
   @JSExport
   val multipleSubscribers = new Example {
     def apply(using Scape[IO]): StreamCode =
       code {
         Topic[IO, Char].flatMap { topic =>
-          val input = Stream('a', 'b')
+          val pub = Stream('a', 'b')
             .delayBy[IO](1.second)
-            .stage("input", branch = "pub")
-          val publisher = input
-            .through(topic.publish)
-            .stage("publisher", branch = "pub")
-            .compile.drain
-            .compileStage("compile.drain", branch = "pub")
-          val subscriberA = topic.subscribeUnbounded
-            .stage("subscriberA", branch = "subA")
-            .compile.toList
-            .compileStage("subA compile.drain", branch = "subA")
-          val subscriberB = topic.subscribeUnbounded
-            .stage("subscriberB", branch = "subB")
-            .compile.toList
-            .compileStage("subB compile.drain", branch = "subB")
+            .stage("pub", branch = "pub")
+          val subA = topic.subscribeUnbounded
+            .stage("subA", branch = "subA")
+          val subB = topic.subscribeUnbounded
+            .stage("subB", branch = "subB")
 
-          (subscriberA, subscriberB, publisher).parTupled
+          (
+            subA.compile.toList
+              .compileStage("subA.compile.toList", branch = "subA"),
+            subB.compile.toList
+              .compileStage("subB.compile.toList", branch = "subB"),
+            pub
+              .through(topic.publish)
+              .compile
+              .drain
+              .compileStage("pub…drain", branch = "pub")
+          ).parTupled
         }
       }
   }
 
   @JSExport
-  val delayedSubscriber = new Example {
+  val slowSubscriber = new Example {
     def apply(using Scape[IO]): StreamCode =
       code {
         Topic[IO, Char].flatMap { topic =>
-          val input = Stream('a', 'b')
-            .spaced[IO](2.second)
-            .stage("input", branch = "pub")
-          val publisher = input
-            .through(topic.publish)
-            .stage("publisher", branch = "pub")
-            .compile.drain
-            .compileStage("compile.drain", branch = "pub")
-          val subscriber = topic.subscribeUnbounded
-            .delayBy(1.second)
-            .stage("subscriber", branch = "sub")
-            .compile.toList
-            .compileStage("compile.toList", branch = "sub")
-
-          (subscriber, publisher).parTupled
-        }
-      }
-  }
-
-
-  @JSExport
-  val meteredSubscriber = new Example {
-    def apply(using Scape[IO]): StreamCode =
-      code {
-        Topic[IO, Char].flatMap { topic =>
-          val input = Stream('a', 'b')
+          val pub = Stream('a', 'b')
             .delayBy[IO](1.second)
-            .stage("input", branch = "pub")
-          val publisher = input
-            .through(topic.publish)
-            .stage("publisher", branch = "pub")
-            .compile.drain
-            .compileStage("compile.drain", branch = "pub")
-          val subscriber = topic.subscribeUnbounded
+            .stage("pub", branch = "pub")
+          val sub = topic.subscribeUnbounded
             .spaced(2.seconds)
-            .stage("subscriber", branch = "sub")
-            .compile.toList
-            .compileStage("compile.toList", branch = "sub")
+            .stage("sub", branch = "sub")
 
-          (subscriber, publisher).parTupled
+          (
+            sub.compile.toList
+              .compileStage("sub…toList", branch = "sub"),
+            pub
+              .through(topic.publish)
+              .compile
+              .drain
+              .compileStage("pub…drain", branch = "pub")
+          ).parTupled
         }
       }
   }
   @JSExport
-  val boundedSubscriber = new Example {
-    def apply(using Scape[IO]): StreamCode =
+  val boundedSubscriber = new ExampleWithInput[Int] {
+
+    val inputBox: InputBox[Int] = subscriberBound(3)
+
+    def apply(n: Int)(using Scape[IO]): StreamCode =
       code {
         Topic[IO, Char].flatMap { topic =>
-          val input = Stream('a', 'b', 'c', 'd')
-            .delayBy[IO](2.second)
-            .stage("input", branch = "pub")
-          val publisher = input
-            .through(topic.publish)
-            .stage("publisher", branch = "pub")
-            .compile.drain
-            .compileStage("compile.drain", branch = "pub")
-          val subscriber = topic.subscribe(0)
-            .stage("subscriber", branch = "sub")
+          val pub = Stream('a', 'b', 'c', 'd')
+            .delayBy[IO](1.second)
+            .stage("pub", branch = "pub")
+          val sub = topic
+            .subscribe(n)
             .spaced(1.second)
-            .stage("metered", branch = "sub")
-            .compile.toList
-            .compileStage("compile.toList", branch = "sub")
-
-          (subscriber, publisher).parTupled
+            .stage("sub", branch = "sub")
+          (
+            sub.compile.toList
+              .compileStage("sub…toList", branch = "sub"),
+            pub
+              .through(topic.publish)
+              .compile
+              .drain
+              .compileStage("pub…drain", branch = "pub")
+          ).parTupled
         }
       }
   }
 
-  @JSExport
-  val boundedSubscriberBuffer = new Example {
-    def apply(using Scape[IO]): StreamCode =
-      code {
-        Topic[IO, Char].flatMap { topic =>
-          val input = Stream('a', 'b', 'c', 'd')
-            .delayBy[IO](2.second)
-            .stage("input", branch = "pub")
-          val publisher = input
-            .through(topic.publish)
-            .stage("publisher", branch = "pub")
-            .compile.drain
-            .compileStage("compile.drain", branch = "pub")
-          val subscriber = topic.subscribe(1)
-            .stage("subscriber", branch = "sub")
-            .spaced(1.second)
-            .stage("spaced", branch = "sub")
-            .compile.toList
-            .compileStage("compile.toList", branch = "sub")
-
-          (subscriber, publisher).parTupled
-        }
-      }
-  }
   @JSExport
   val multipleSubscribersBounded = new Example {
     def apply(using Scape[IO]): StreamCode =
       code {
         Topic[IO, Char].flatMap { topic =>
-          val input = Stream('a', 'b')
+          val pub = Stream('a', 'b', 'c', 'd')
             .delayBy[IO](1.second)
-            .stage("input", branch = "pub")
-          val publisher = input
-            .through(topic.publish)
-            .stage("publisher", branch = "pub")
-            .compile.drain
-            .compileStage("compile.drain", branch = "pub")
-          val subscriberA = topic.subscribeUnbounded
-            .stage("subscriberA", branch = "subA")
-            .compile.toList
-            .compileStage("subA compile.toList", branch = "subA")
-          val subscriberB = topic.subscribe(0)
-            .stage("subscriberB", branch = "subB")
+            .stage("pub", branch = "pub")
+          val subA = topic.subscribeUnbounded
+            .stage("subA", branch = "subA")
+          val subB = topic
+            .subscribe(0)
             .spaced(1.second)
-            .stage("spaced", branch = "subB")
-            .compile.toList
-            .compileStage("subB compile.toList", branch = "subB")
+            .stage("subB", branch = "subB")
 
-          (subscriberA, subscriberB, publisher).parTupled
+          (
+            subA.compile.toList
+              .compileStage("subA…toList", branch = "subA"),
+            subB.compile.toList
+              .compileStage("subB…toList", branch = "subB"),
+            pub
+              .through(topic.publish)
+              .compile
+              .drain
+              .compileStage("pub…drain", branch = "pub")
+          ).parTupled
         }
       }
   }
-
 
 }
