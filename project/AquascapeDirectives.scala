@@ -135,13 +135,13 @@ object AquascapeDirectives extends DirectiveRegistry {
     val unchunkedSnippet = html(
       s"""<section>
             <div id="$unchunkedFrameId" class="example-frame"></div>
-            <footer class="example-frame-footer">Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
           </section>"""
     )
     val chunkedSnippet = html(
       s"""<section>
             <div id="$chunkedFrameId" class="example-frame"></div>
-            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="/how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
           </section>"""
     )
     val chunkedHeader = html("<h3>chunked</h3>")
