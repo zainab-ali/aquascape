@@ -6,7 +6,7 @@ It uses diagrams, known as aquascapes, to illustrate the behaviour of fs2 operat
 
 Jump into the fs2 docs [here](reference/README.md).
 
-If you write fs2 technical articles, try [using it yourself](usage/how-to-write-the-diagrams.md). 
+If you write fs2 technical articles, try [using it yourself](how-to-write-the-diagrams.md).
 
 ## More resources
 
