@@ -32,22 +32,21 @@ See [how to read the diagrams](how-to-read-the-diagrams.md) for a full symbol re
 
 ## How to write the diagrams
 
-Include aquascape as a library dependency:
+Extend `AquascapeApp`:
 
 ```scala
-libraryDependencies += "com.github.zainab-ali" %% "aquascape" % "@VERSION@"
-```
+// TestApp.scala
+//> using dep com.github.zainab-ali::aquascape::@VERSION@
 
-Create an `AquascapeApp`:
-
-```scala mdoc
 import aquascape.*
 import cats.effect.*
 import fs2.*
 
-object App extends AquascapeApp.Simple {
+object App extends AquascapeApp {
 
-  def stream(using Scape[IO]) = {
+  def name: String = "aquascapeFrame"
+  
+  def stream(using Scape[IO]): IO[Unit] = {
     Stream(1, 2, 3)
       .stage("Stream(1, 2, 3)")       // `stage` introduces a stage.
       .evalMap(x => IO(x).trace())    // `trace` traces a side effect.
@@ -60,26 +59,47 @@ object App extends AquascapeApp.Simple {
 }
 ```
 
-### Writing images
-
-You can create a png by extending `AquascapeApp.Simple.File`.
-
-```scala mdoc:nest
-object App extends AquascapeApp.Simple.File("scape") {
-  def stream(using Scape[IO]) = ???
-}
+Run the app with Scala `3.5.0` and above:
+```sh
+scala run App.scala
 ```
 
-Running the app creates `scape.png`.
+This produces an `aquascapeFrame.png` image.
+
+
+### Embedding SVGs in HTML
+
+Package the app with Scala `3.5.0` and above to produce a `App.js` file.
+
+```sh
+scala --power package --js-version 1.16.0 --js App.scala
+```
+
+Include this as a script:
+```
+<html>
+  <head>
+    <script src="App.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="aquascapeFrame">
+  </body>
+</html>
+```
 
 ### Drawing chunks
 
-The `Aquascape.Simple` variants purposefully destroy chunks and hide them from the generated images. This lets us pretend that a single element is pulled and outputted.
+By default, the `AquascapeApp` purposefully uses singleton chunks, and hides them from the generated images. This lets us pretend that a single element is pulled and outputted.
 
-To display chunks, extend the `Aquascape.Chunked` variants instead.
+To display chunks, override the `chunked` function.
 
 ```scala mdoc:nest
-object App extends AquascapeApp.Chunked {
+import aquascape.*
+import cats.effect.*
+
+object App extends AquascapeApp {
+  def name: String = "aquascapeFrame"
+  override def chunked: Boolean = true
   def stream(using Scape[IO]) = ???
 }
 ```
@@ -94,10 +114,11 @@ The `fork` function relates two branches to each other. It must be inserted dire
 As an example, `parEvalMap` requires a `Concurrent` instance:
 
 ```scala mdoc:nest
+import fs2.*
 import cats.syntax.all.*
 
-object App extends AquascapeApp.Simple {
-
+object App extends AquascapeApp {
+  def name: String = "aquascapeFrame"
   def stream(using Scape[IO]) = {
     Stream('a', 'b', 'c')
       .stage("Stream('a','b','c')", "upstream") // This stage is part of the `upstream` branch.

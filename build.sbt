@@ -58,7 +58,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .jsSettings(
     Test / fork := false,
     libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.23.0")
-      .excludeAll(
+      .exclude(
         "com.lihaoyi",
         "sourcecode_sjs1_3"
       ), // Both doodle-svg and pprint include sourcecode.
