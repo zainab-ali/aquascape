@@ -111,6 +111,17 @@ object App extends AquascapeApp {
 }
 ```
 
-## Resources on aquascape
+## Best practices
 
-Watch the presentation on [The Pierian Stream, ScalaDays Seattle 2023](https://www.youtube.com/watch?v=q85Wi_485Es).
+A good aquascape is a simple, informative diagram. It helps readers understand how a stream system behaves.
+
+Unfortunately, aquascapes can easily become too complex to follow.
+
+Stick to these best practices to generate good aquascapes:
+
+ - Showcase a specific behaviour. Think about what you want the reader to learn when viewing the aquascape. Remove any details that aren't needed to show it, such as extra stages and data.
+ - Don't use a stream of real data. Use a stream of characters as input instead. Single characters are rendered predictably, and fit in the diagram.
+ - Use as few stages as possible, ideally no more than four. You should try to describe an operator using an input, middle, and output stage.
+ - Give stages short names that correspond to the code. Your aquascape shouldn't be full of long stage names.
+
+Good luck, and enjoy aquascaping!
