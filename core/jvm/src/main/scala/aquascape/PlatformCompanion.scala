@@ -16,7 +16,6 @@
 
 package aquascape
 
-import aquascape.drawing.Config
 import cats.effect.*
 import doodle.core.format.*
 import doodle.java2d.*
