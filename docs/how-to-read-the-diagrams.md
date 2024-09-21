@@ -4,6 +4,23 @@ An aquascape is a diagram generated from a stream program.
 
 Aquascapes can be used to illustrate the behaviour of fs2 operators. By reading the diagrams, you will learn more about the operators and streams.
 
+This page describes:
+
+ - The stage model that underpins aquascapes.
+ - How to read basic aquascapes.
+ - How to read aquascapes with effects and errors.
+ - A summary of all the symbols used in aquascapes.
+
+## The stage model
+
+A stream is built from **stages**. When evaluated:
+
+ - Each stage **pulls** on the stage above.
+ - It **outputs** an element to the stage below.
+ - If there are no more elements to output, the stage is **done**.
+ - It might also evaluate an **effect**.
+ - That effect might raise an **error**.
+
 ## Basics
 
 This code snippet:
