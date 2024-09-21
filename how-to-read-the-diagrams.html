@@ -75,6 +75,7 @@
     <li class="level1 nav-header">About</li>
     <li class="level2 nav-leaf"><a href="index.html">About aquascape</a></li>
     <li class="level1 active nav-leaf"><a href="#">How to read the diagrams</a></li>
+    <li class="level1 nav-leaf"><a href="how-to-write-the-diagrams.html">How to write the diagrams</a></li>
     <li class="level1 nav-node"><a href="reference/">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="reference/append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="reference/bracket.html">bracket</a></li>
@@ -100,6 +101,7 @@
   <p class="header"><a href="#">How to read the diagrams</a></p>
 
   <ul class="nav-list">
+    <li class="level1 nav-leaf"><a href="#the-stage-model">The stage model</a></li>
     <li class="level1 nav-leaf"><a href="#basics">Basics</a></li>
     <li class="level1 nav-leaf"><a href="#effects-and-errors">Effects and errors</a></li>
     <li class="level1 nav-node"><a href="#symbol-guide">Symbol guide</a></li>
@@ -121,6 +123,37 @@
         <h1 id="how-to-read-the-diagrams" class="title">How to read the diagrams</h1>
         <p>An aquascape is a diagram generated from a stream program.</p>
         <p>Aquascapes can be used to illustrate the behaviour of fs2 operators. By reading the diagrams, you will learn more about the operators and streams.</p>
+        <p>This page describes:</p>
+        <ul>
+          <li>The stage model that underpins aquascapes.</li>
+        </ul>
+        <ul>
+          <li>How to read basic aquascapes.</li>
+        </ul>
+        <ul>
+          <li>How to read aquascapes with effects and errors.</li>
+        </ul>
+        <ul>
+          <li>A summary of all the symbols used in aquascapes.</li>
+        </ul>
+        
+        <h2 id="the-stage-model" class="section"><a class="anchor-link left" href="#the-stage-model"><i class="icofont-laika link">&#xef71;</i></a>The stage model</h2>
+        <p>A stream is built from <strong>stages</strong>. When evaluated:</p>
+        <ul>
+          <li>Each stage <strong>pulls</strong> on the stage above.</li>
+        </ul>
+        <ul>
+          <li>It <strong>outputs</strong> an element to the stage below.</li>
+        </ul>
+        <ul>
+          <li>If there are no more elements to output, the stage is <strong>done</strong>.</li>
+        </ul>
+        <ul>
+          <li>It might also evaluate an <strong>effect</strong>.</li>
+        </ul>
+        <ul>
+          <li>That effect might raise an <strong>error</strong>.</li>
+        </ul>
         
         <h2 id="basics" class="section"><a class="anchor-link left" href="#basics"><i class="icofont-laika link">&#xef71;</i></a>Basics</h2>
         <p>This code snippet:</p>

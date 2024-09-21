@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Typelevel Laika + Helium Theme" />
-  <title>aquascape</title>
+  <title>Welcome to aquascape</title>
   
   <meta name="author" content="Zainab Ali"/>
   
@@ -76,6 +76,7 @@
     <li class="level1 nav-header">About</li>
     <li class="level2 active nav-leaf"><a href="#">About aquascape</a></li>
     <li class="level1 nav-leaf"><a href="how-to-read-the-diagrams.html">How to read the diagrams</a></li>
+    <li class="level1 nav-leaf"><a href="how-to-write-the-diagrams.html">How to write the diagrams</a></li>
     <li class="level1 nav-node"><a href="reference/">Reference Guide</a></li>
     <li class="level2 nav-leaf"><a href="reference/append.html">append</a></li>
     <li class="level2 nav-leaf"><a href="reference/bracket.html">bracket</a></li>
@@ -98,16 +99,10 @@
 
       
 <nav id="page-nav">
-  <p class="header"><a href="#">aquascape</a></p>
+  <p class="header"><a href="#">Welcome to aquascape</a></p>
 
   <ul class="nav-list">
-    <li class="level1 nav-leaf"><a href="#the-basic-idea">The basic idea</a></li>
-    <li class="level1 nav-leaf"><a href="#how-to-read-the-diagrams">How to read the diagrams</a></li>
-    <li class="level1 nav-node"><a href="#how-to-write-the-diagrams">How to write the diagrams</a></li>
-    <li class="level2 nav-leaf"><a href="#writing-images">Writing images</a></li>
-    <li class="level2 nav-leaf"><a href="#drawing-chunks">Drawing chunks</a></li>
-    <li class="level2 nav-leaf"><a href="#handling-concurrency">Handling concurrency</a></li>
-    <li class="level1 nav-leaf"><a href="#more-details">More details</a></li>
+    <li class="level1 nav-leaf"><a href="#more-resources">More resources</a></li>
   </ul>
 
   <p class="footer"></p>
@@ -116,95 +111,14 @@
 
       <main class="content">
 
-        <h1 id="aquascape" class="title">aquascape</h1>
-        <p>Aquascape is a diagramming tool for <a href="https://github.com/typelevel/fs2">fs2</a>.</p>
-        <p>The diagrams can be used to illustrate the behaviour of fs2 operators. By reading the diagrams, you will learn more about the operators and streams.</p>
-        <p>This website contains an aquascape-based reference guide to fs2, based on aquascapes. Read it <a href="reference/">here</a>.</p>
+        <h1 id="welcome-to-aquascape" class="title">Welcome to aquascape</h1>
+        <p>This website is an alternative documentation site for <a href="https://github.com/typelevel/fs2">fs2</a>.</p>
+        <p>It uses diagrams, known as aquascapes, to illustrate the behaviour of fs2 operators. By reading the diagrams, you will learn more about the operators and streams.</p>
+        <p>Jump into the fs2 docs <a href="reference/">here</a>.</p>
+        <p>If you write fs2 technical articles, try <a href="how-to-write-the-diagrams.html">using it yourself</a>.</p>
         
-        <h2 id="the-basic-idea" class="section"><a class="anchor-link left" href="#the-basic-idea"><i class="icofont-laika link">&#xef71;</i></a>The basic idea</h2>
-        <p>A stream is built from <strong>stages</strong>. When evaluated:</p>
-        <ul>
-          <li>Each stage <strong>pulls</strong> on the stage above.</li>
-        </ul>
-        <ul>
-          <li>It <strong>outputs</strong> an element to the stage below.</li>
-        </ul>
-        <ul>
-          <li>If there are no more elements to output, the stage is <strong>done</strong>.</li>
-        </ul>
-        <ul>
-          <li>It might also evaluate an <strong>effect</strong>.</li>
-        </ul>
-        <ul>
-          <li>That effect might raise an <strong>error</strong>.</li>
-        </ul>
-        
-        <h2 id="how-to-read-the-diagrams" class="section"><a class="anchor-link left" href="#how-to-read-the-diagrams"><i class="icofont-laika link">&#xef71;</i></a>How to read the diagrams</h2>
-        <p>The following code snippet corresponds to the diagram below it:</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-  .</span><span class="identifier">take</span><span>(</span><span class="number-literal">2</span><span>)
-  .</span><span class="identifier">compile</span><span>.</span><span class="identifier">toList</span></code></pre>
-        <p><img src="basic-example.png" alt="diagram"></p>
-        <p>See <a href="how-to-read-the-diagrams.html">how to read the diagrams</a> for a full symbol reference.</p>
-        
-        <h2 id="how-to-write-the-diagrams" class="section"><a class="anchor-link left" href="#how-to-write-the-diagrams"><i class="icofont-laika link">&#xef71;</i></a>How to write the diagrams</h2>
-        <p>Include aquascape as a library dependency:</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="identifier">libraryDependencies</span><span> += </span><span class="string-literal">&quot;com.github.zainab-ali&quot;</span><span> %% </span><span class="string-literal">&quot;aquascape&quot;</span><span> % </span><span class="string-literal">&quot;0.2.0&quot;</span></code></pre>
-        <p>Create an <code>AquascapeApp</code>:</p>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">aquascape</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.*
-</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.*
-
-</span><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span>.</span><span class="type-name">Simple</span><span> {
-
-  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]) = {
-    </span><span class="type-name">Stream</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="number-literal">2</span><span>, </span><span class="number-literal">3</span><span>)
-      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;Stream(1, 2, 3)&quot;</span><span>)       </span><span class="comment">// `stage` introduces a stage.
-</span><span>      .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="identifier">x</span><span>).</span><span class="identifier">trace</span><span>())    </span><span class="comment">// `trace` traces a side effect.
-</span><span>      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;evalMap(…)&quot;</span><span>)
-      .</span><span class="identifier">compile</span><span>
-      .</span><span class="identifier">toList</span><span>
-      .</span><span class="identifier">compileStage</span><span>(</span><span class="string-literal">&quot;compile.toList&quot;</span><span>) </span><span class="comment">// `compileStage` is used for the final stage.
-</span><span>      .</span><span class="identifier">void</span><span>
-  }
-}</span></code></pre>
-        
-        <h3 id="writing-images" class="section"><a class="anchor-link left" href="#writing-images"><i class="icofont-laika link">&#xef71;</i></a>Writing images</h3>
-        <p>You can create a png by extending <code>AquascapeApp.Simple.File</code>.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span>.</span><span class="type-name">Simple</span><span>.</span><span class="type-name">File</span><span>(</span><span class="string-literal">&quot;scape&quot;</span><span>) {
-  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]) = ???
-}</span></code></pre>
-        <p>Running the app creates <code>scape.png</code>.</p>
-        
-        <h3 id="drawing-chunks" class="section"><a class="anchor-link left" href="#drawing-chunks"><i class="icofont-laika link">&#xef71;</i></a>Drawing chunks</h3>
-        <p>The <code>Aquascape.Simple</code> variants purposefully destroy chunks and hide them from the generated images. This lets us pretend that a single element is pulled and outputted.</p>
-        <p>To display chunks, extend the <code>Aquascape.Chunked</code> variants instead.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span>.</span><span class="type-name">Chunked</span><span> {
-  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]) = ???
-}</span></code></pre>
-        
-        <h3 id="handling-concurrency" class="section"><a class="anchor-link left" href="#handling-concurrency"><i class="icofont-laika link">&#xef71;</i></a>Handling concurrency</h3>
-        <p>Aquascape can track most pulls and outputs by itself. It needs a bit of manual intervention for operators requiring <code>Concurrent</code>.</p>
-        <p>To achieve this, we introduce the concept of a <em>branch</em>. A branch is a portion of the scape that behaves sequentially.</p>
-        <p>The <code>fork</code> function relates two branches to each other. It must be inserted directly before each <code>Concurrent</code> operator.</p>
-        <p>As an example, <code>parEvalMap</code> requires a <code>Concurrent</code> instance:</p>
-        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">syntax</span><span>.</span><span class="identifier">all</span><span>.*
-
-</span><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span>.</span><span class="type-name">Simple</span><span> {
-
-  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]) = {
-    </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
-      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;Stream(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)&quot;</span><span>, </span><span class="string-literal">&quot;upstream&quot;</span><span>) </span><span class="comment">// This stage is part of the `upstream` branch.
-</span><span>      .</span><span class="identifier">fork</span><span>(</span><span class="string-literal">&quot;root&quot;</span><span>, </span><span class="string-literal">&quot;upstream&quot;</span><span>)                 </span><span class="comment">// Relate the `root` branch to the `upstream` branch.
-</span><span>      .</span><span class="identifier">parEvalMap</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>].</span><span class="identifier">trace</span><span>())
-      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;parEvalMap(2)(…)&quot;</span><span>)                </span><span class="comment">// This stage is part of the default `root` branch.
-</span><span>      .</span><span class="identifier">compile</span><span>
-      .</span><span class="identifier">drain</span><span>
-      .</span><span class="identifier">compileStage</span><span>(</span><span class="string-literal">&quot;compile.drain&quot;</span><span>)            </span><span class="comment">// Introduce a default branch named `root`.
-</span><span>  }
-}</span></code></pre>
-        
-        <h2 id="more-details" class="section"><a class="anchor-link left" href="#more-details"><i class="icofont-laika link">&#xef71;</i></a>More details</h2>
+        <h2 id="more-resources" class="section"><a class="anchor-link left" href="#more-resources"><i class="icofont-laika link">&#xef71;</i></a>More resources</h2>
+        <p>Subscribe to Zainab Ali&#39;s <a href="https://buttondown.com/zainab">functional stream processing newsletter</a>.</p>
         <p>Watch the presentation on <a href="https://www.youtube.com/watch?v=q85Wi_485Es">The Pierian Stream, ScalaDays Seattle 2023</a>.</p>
 
         

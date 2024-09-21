@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>How to write the diagrams</title>
+  
+  <meta name="author" content="Zainab Ali"/>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="a11y-dark.min.css" />
+  <script src="helium/site/laika-helium.js"></script>
+    <script src="main.js"></script>
+    <script src="highlight.min.js"></script>
+    <script src="aquascape.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="index.html"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">About</li>
+    <li class="level2 nav-leaf"><a href="index.html">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="how-to-read-the-diagrams.html">How to read the diagrams</a></li>
+    <li class="level1 active nav-leaf"><a href="#">How to write the diagrams</a></li>
+    <li class="level1 nav-node"><a href="reference/">Reference Guide</a></li>
+    <li class="level2 nav-leaf"><a href="reference/append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="reference/bracket.html">bracket</a></li>
+    <li class="level2 nav-leaf"><a href="reference/chunk.html">chunk</a></li>
+    <li class="level2 nav-leaf"><a href="reference/compile.html">compile</a></li>
+    <li class="level2 nav-leaf"><a href="reference/drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="reference/errors.html">errors</a></li>
+    <li class="level2 nav-leaf"><a href="reference/evalMap.html">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="reference/filter.html">filter</a></li>
+    <li class="level2 nav-leaf"><a href="reference/flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="reference/merge.html">merge</a></li>
+    <li class="level2 nav-leaf"><a href="reference/take.html">take</a></li>
+    <li class="level2 nav-leaf"><a href="reference/time.html">time</a></li>
+    <li class="level2 nav-leaf"><a href="reference/topic.html">Topic</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">How to write the diagrams</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="#quick-start">Quick start</a></li>
+    <li class="level2 nav-leaf"><a href="#write-a-png-image-file">Write a PNG image file</a></li>
+    <li class="level2 nav-leaf"><a href="#embed-an-svg-in-html">Embed an SVG in HTML</a></li>
+    <li class="level1 nav-leaf"><a href="#how-to-draw-chunks">How to draw chunks</a></li>
+    <li class="level1 nav-leaf"><a href="#how-to-draw-concurrent-processes">How to draw concurrent processes</a></li>
+    <li class="level1 nav-leaf"><a href="#best-practices">Best practices</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="how-to-write-the-diagrams" class="title">How to write the diagrams</h1>
+        <p>You can create aquascapes yourself by using the <code>aquascape</code> library.</p>
+        <p>If you&#39;re desigining a program with fs2, a custom aquascape is a good tool for understanding how it behaves.</p>
+        <p>If you write fs2 related technical articles, presentations or documentation, you can use an aquascape to enhance them.</p>
+        
+        <h2 id="quick-start" class="section"><a class="anchor-link left" href="#quick-start"><i class="icofont-laika link">&#xef71;</i></a>Quick start</h2>
+        <p>Extend <code>AquascapeApp</code>:</p>
+        <pre><code class="nohighlight"><span class="comment">// App.scala
+//&gt; using dep com.github.zainab-ali::aquascape::0.2.0
+</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">aquascape</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.*
+
+</span><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span> {
+
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">name</span><span>: </span><span class="type-name">String</span><span> = </span><span class="string-literal">&quot;aquascapeFrame&quot;</span><span> </span><span class="comment">// The name of the png file (Scala) or HTML frame id (Scala.js)
+</span><span>  
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]): </span><span class="type-name">IO</span><span>[</span><span class="type-name">Unit</span><span>] = {
+    </span><span class="type-name">Stream</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="number-literal">2</span><span>, </span><span class="number-literal">3</span><span>)
+      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;Stream(1, 2, 3)&quot;</span><span>)       </span><span class="comment">// `stage` introduces a stage.
+</span><span>      .</span><span class="identifier">evalMap</span><span>(</span><span class="identifier">x</span><span> =&gt; </span><span class="type-name">IO</span><span>(</span><span class="identifier">x</span><span>).</span><span class="identifier">trace</span><span>())    </span><span class="comment">// `trace` traces a side effect.
+</span><span>      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;evalMap(…)&quot;</span><span>)
+      .</span><span class="identifier">compile</span><span>
+      .</span><span class="identifier">toList</span><span>
+      .</span><span class="identifier">compileStage</span><span>(</span><span class="string-literal">&quot;compile.toList&quot;</span><span>) </span><span class="comment">// `compileStage` is used for the final stage.
+</span><span>      .</span><span class="identifier">void</span><span>
+  }
+}</span></code></pre>
+        
+        <h3 id="write-a-png-image-file" class="section"><a class="anchor-link left" href="#write-a-png-image-file"><i class="icofont-laika link">&#xef71;</i></a>Write a PNG image file</h3>
+        <p>Run the app with Scala <code>3.5.0</code> and above:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>scala run App.scala</span></code></pre>
+        <p>Congratulations! You&#39;ve produced an <code>aquascapeFrame.png</code> aquascape.</p>
+        
+        <h3 id="embed-an-svg-in-html" class="section"><a class="anchor-link left" href="#embed-an-svg-in-html"><i class="icofont-laika link">&#xef71;</i></a>Embed an SVG in HTML</h3>
+        <p>Package the app with Scala <code>3.5.0</code> and above to produce a <code>App.js</code> file.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>scala --power package --js-version </span><span class="number-literal">1.16.0</span><span> --js App.scala</span></code></pre>
+        <p>Include this as a script:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="tag-punctuation">&lt;</span><span class="tag-name">html</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;</span><span class="tag-name">head</span><span class="tag-punctuation">&gt;</span><span>
+    </span><span class="tag-punctuation">&lt;</span><span class="tag-name">script</span><span class="tag-punctuation"> </span><span class="attribute-name">src</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;App.js&quot;</span><span class="tag-punctuation"> </span><span class="attribute-name">type</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;text/javascript&quot;</span><span class="tag-punctuation">&gt;&lt;/</span><span class="tag-name">script</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;/</span><span class="tag-name">head</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;</span><span class="tag-name">body</span><span class="tag-punctuation">&gt;</span><span>
+    </span><span class="tag-punctuation">&lt;</span><span class="tag-name">div</span><span class="tag-punctuation"> </span><span class="attribute-name">id</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;aquascapeFrame&quot;</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;/</span><span class="tag-name">body</span><span class="tag-punctuation">&gt;</span><span>
+</span><span class="tag-punctuation">&lt;/</span><span class="tag-name">html</span><span class="tag-punctuation">&gt;</span></code></pre>
+        <p>Open up your HTML page to see your aquascape.</p>
+        
+        <h2 id="how-to-draw-chunks" class="section"><a class="anchor-link left" href="#how-to-draw-chunks"><i class="icofont-laika link">&#xef71;</i></a>How to draw chunks</h2>
+        <p>By default, the <code>AquascapeApp</code> purposefully uses singleton chunks, and hides them from the generated images. This lets us pretend that a single element is pulled and outputted.</p>
+        <p>If you want to investigate chunk preservation properties, you can leave chunks as they are and display them by overriding the <code>chunked</code> function.</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">aquascape</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.*
+
+</span><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span> {
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">name</span><span>: </span><span class="type-name">String</span><span> = </span><span class="string-literal">&quot;aquascapeFrame&quot;</span><span>
+  </span><span class="keyword">override</span><span> </span><span class="keyword">def</span><span> </span><span class="declaration-name">chunked</span><span>: </span><span class="type-name">Boolean</span><span> = </span><span class="boolean-literal">true</span><span>
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]) = ???
+}</span></code></pre>
+        
+        <h2 id="how-to-draw-concurrent-processes" class="section"><a class="anchor-link left" href="#how-to-draw-concurrent-processes"><i class="icofont-laika link">&#xef71;</i></a>How to draw concurrent processes</h2>
+        <p>Aquascape can track most pulls and outputs by itself. It needs a bit of manual intervention for operators requiring <code>Concurrent</code>.</p>
+        <p>To achieve this, we introduce the concept of a <em>branch</em>. A branch is a portion of the scape that behaves sequentially.</p>
+        <p>The <code>fork</code> function relates two branches to each other. It must be inserted directly before each <code>Concurrent</code> operator.</p>
+        <p>As an example, <code>parEvalMap</code> requires a <code>Concurrent</code> instance:</p>
+        <pre><code class="nohighlight"><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">syntax</span><span>.</span><span class="identifier">all</span><span>.*
+
+</span><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span> {
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">name</span><span>: </span><span class="type-name">String</span><span> = </span><span class="string-literal">&quot;aquascapeFrame&quot;</span><span>
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]) = {
+    </span><span class="type-name">Stream</span><span>(</span><span class="char-literal">&#39;a&#39;</span><span>, </span><span class="char-literal">&#39;b&#39;</span><span>, </span><span class="char-literal">&#39;c&#39;</span><span>)
+      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;Stream(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)&quot;</span><span>, </span><span class="string-literal">&quot;upstream&quot;</span><span>) </span><span class="comment">// This stage is part of the `upstream` branch.
+</span><span>      .</span><span class="identifier">fork</span><span>(</span><span class="string-literal">&quot;root&quot;</span><span>, </span><span class="string-literal">&quot;upstream&quot;</span><span>)                 </span><span class="comment">// Relate the `root` branch to the `upstream` branch.
+</span><span>      .</span><span class="identifier">parEvalMap</span><span>(</span><span class="number-literal">2</span><span>)(</span><span class="identifier">_</span><span>.</span><span class="identifier">pure</span><span>[</span><span class="type-name">IO</span><span>].</span><span class="identifier">trace</span><span>())
+      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;parEvalMap(2)(…)&quot;</span><span>)                </span><span class="comment">// This stage is part of the default `root` branch.
+</span><span>      .</span><span class="identifier">compile</span><span>
+      .</span><span class="identifier">drain</span><span>
+      .</span><span class="identifier">compileStage</span><span>(</span><span class="string-literal">&quot;compile.drain&quot;</span><span>)            </span><span class="comment">// Introduce a default branch named `root`.
+</span><span>  }
+}</span></code></pre>
+        
+        <h2 id="best-practices" class="section"><a class="anchor-link left" href="#best-practices"><i class="icofont-laika link">&#xef71;</i></a>Best practices</h2>
+        <p>A good aquascape is a simple, informative diagram. It helps readers understand how a stream system behaves.</p>
+        <p>Unfortunately, aquascapes can easily become too complex to follow.</p>
+        <p>Stick to these best practices to generate good aquascapes:</p>
+        <ul>
+          <li>Showcase a specific behaviour. Think about what you want the reader to learn when viewing the aquascape. Remove any details that aren&#39;t needed to show it, such as extra stages and data.</li>
+        </ul>
+        <ul>
+          <li>Don&#39;t use a stream of real data. Use a stream of characters as input instead. Single characters are rendered predictably, and fit in the diagram.</li>
+        </ul>
+        <ul>
+          <li>Use as few stages as possible, ideally no more than four. You should try to describe an operator using an input, middle, and output stage.</li>
+        </ul>
+        <ul>
+          <li>Give stages short names that correspond to the code. Your aquascape shouldn&#39;t be full of long stage names.</li>
+        </ul>
+        <p>Good luck, and enjoy aquascaping!</p>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
