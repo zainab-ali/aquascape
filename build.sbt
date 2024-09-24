@@ -35,7 +35,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "co.fs2" %%% "fs2-core" % "3.11.0",
       "co.fs2" %%% "fs2-io" % "3.11.0",
-      ("org.creativescala" %%% "doodle-core" % "0.23.0"),
+      ("org.creativescala" %%% "doodle-core" % "0.25.0"),
       "org.typelevel" %%% "cats-core" % "2.12.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
       "org.scalameta" %%% "munit" % "1.0.2" % Test,
@@ -52,12 +52,12 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.creativescala" %% "doodle-java2d" % "0.23.0"
+      "org.creativescala" %% "doodle-java2d" % "0.25.0"
     )
   )
   .jsSettings(
     Test / fork := false,
-    libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.23.0")
+    libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.25.0")
       .exclude(
         "com.lihaoyi",
         "sourcecode_sjs1_3"
@@ -73,7 +73,7 @@ lazy val examples = project
       _.withModuleKind(ModuleKind.CommonJSModule)
     },
     libraryDependencies ++= Seq(
-      ("org.creativescala" %%% "doodle-svg" % "0.23.0")
+      ("org.creativescala" %%% "doodle-svg" % "0.25.0")
         .exclude(
           "com.lihaoyi",
           "sourcecode_sjs1_3"
