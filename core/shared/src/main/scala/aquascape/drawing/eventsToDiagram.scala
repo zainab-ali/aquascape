@@ -56,10 +56,7 @@ private def eventsToDiagram[F[_]: Foldable](
       case _ => None
     }
 
-    val item: PartialFunction[
-      Event,
-      Item
-    ] = {
+    val item: Event => Item = {
       case e: Event.Pull =>
         val to = labelIndex(e.to)
         val from = labelIndex(e.from)
@@ -106,7 +103,7 @@ private def eventsToDiagram[F[_]: Foldable](
         )
     }
     val nextTokens = maybeToken(event).fold(tokens)(tokens + _)
-    val items = item.lift(event).fold(diagram.items)(_ :: diagram.items)
+    val items = item(event) :: diagram.items
     (diagram.copy(labels = labels, items = items), nextTokens)
   }
 

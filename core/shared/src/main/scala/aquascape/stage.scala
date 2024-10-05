@@ -189,12 +189,9 @@ object Scape {
       fo: F[O],
       branch: Branch
   ): F[O] =
-    fo.attempt.flatTap {
-      case Right(o) =>
-        time >>= (t => pen.write(branch, (Event.Eval(o.show), t)))
-      case Left(err) =>
-        time >>= (t => pen.write(branch, (Event.EvalError(err.getMessage), t)))
-    }.rethrow
+    fo.flatTap { o =>
+      time >>= (t => pen.write(branch, (Event.Eval(o.show), t)))
+    }
 
   private def fork_[F[_]: Monad, O, E](
       pen: Pen[F, E]

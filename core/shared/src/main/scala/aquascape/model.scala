@@ -38,11 +38,8 @@ private enum Event {
   case Pull(to: String, from: String, token: Token)
   case Done(token: Token)
   case Eval(value: String)
-  case EvalError(value: String)
   case Error(value: String, token: Token, raisedHere: Boolean)
   case Output(value: String, token: Token)
   case OutputChunk(value: List[String], token: Token)
-  case OpenScope(label: Label)
-  case CloseScope(label: Label)
   case Finished(at: String, errored: Boolean, value: String)
 }
