@@ -153,13 +153,7 @@ object Scape {
           case Some((h, t)) => output(h) >> go(t)
           case None         => Pull.done
         }
-
-    Stream.bracket(
-      time >>= (t => pen.write(branch, (Event.OpenScope(label), t)))
-    )(_ =>
-      time >>= (t => pen.write(branch: Branch, (Event.CloseScope(label), t)))
-    ) >> go(s).stream
-
+    go(s).stream
   }
 
   private[aquascape] final case class Caught(e: Throwable) extends Throwable

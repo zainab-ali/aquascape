@@ -97,12 +97,10 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "source"),
           Pull(to = "source", from = "last", token = 0),
           Output(value = "Mao", token = 0),
           Pull(to = "source", from = "last", token = 1),
           Done(token = 1),
-          CloseScope(label = "source"),
           Finished(at = "last", errored = false, value = "Mao")
         )
       )
@@ -122,12 +120,10 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "source"),
           Pull(to = "source", from = "last", token = 0),
           OutputChunk(value = List("Mao", "Popcorn"), token = 0),
           Pull(to = "source", from = "last", token = 1),
           Done(token = 1),
-          CloseScope(label = "source"),
           Finished(at = "last", errored = false, value = "Popcorn")
         )
       )
@@ -148,18 +144,14 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "map"),
           Pull(to = "map", from = "last", token = 0),
-          OpenScope(label = "source"),
           Pull(to = "source", from = "map", token = 1),
           Output(value = "Mao", token = 1),
           Output(value = "MAO", token = 0),
           Pull(to = "map", from = "last", token = 2),
           Pull(to = "source", from = "map", token = 3),
           Done(token = 3),
-          CloseScope(label = "source"),
           Done(token = 2),
-          CloseScope(label = "map"),
           Finished(at = "last", errored = false, value = "MAO")
         )
       )
@@ -183,22 +175,16 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "zip"),
           Pull(to = "zip", from = "last", token = 0),
-          OpenScope(label = "left"),
           Pull(to = "left", from = "zip", token = 1),
           Output(value = "Mao", token = 1),
-          OpenScope(label = "right"),
           Pull(to = "right", from = "zip", token = 2),
           Output(value = "Popcorn", token = 2),
           Output(value = "(Mao,Popcorn)", token = 0),
           Pull(to = "zip", from = "last", token = 3),
           Pull(to = "left", from = "zip", token = 4),
           Done(token = 4),
-          CloseScope(label = "left"),
-          CloseScope(label = "right"),
           Done(token = 3),
-          CloseScope(label = "zip"),
           Finished(at = "last", errored = false, value = "(Mao,Popcorn)")
         )
       )
@@ -219,13 +205,11 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "source"),
           Pull(to = "source", from = "last", token = 0),
           Eval(value = "Mao"),
           Output(value = "Mao", token = 0),
           Pull(to = "source", from = "last", token = 1),
           Done(token = 1),
-          CloseScope(label = "source"),
           Finished(at = "last", errored = false, value = "Mao")
         )
       )
@@ -246,14 +230,10 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "eval"),
           Pull(to = "eval", from = "last", token = 0),
-          OpenScope(label = "source"),
           Pull(to = "source", from = "eval", token = 1),
           Output(value = "Mao", token = 1),
           Error(value = "BOOM!", token = 0, raisedHere = true),
-          CloseScope(label = "source"),
-          CloseScope(label = "eval"),
           Finished(at = "last", errored = true, value = "BOOM!")
         )
       )
@@ -276,22 +256,14 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "handle"),
           Pull(to = "handle", from = "drain", token = 0),
-          OpenScope(label = "eval"),
           Pull(to = "eval", from = "handle", token = 1),
-          OpenScope(label = "source"),
           Pull(to = "source", from = "eval", token = 2),
           Output(value = "Mao", token = 2),
           Error(value = "BOOM!", token = 1, raisedHere = true),
-          CloseScope(label = "source"),
-          CloseScope(label = "eval"),
-          OpenScope(label = "second"),
           Pull(to = "second", from = "handle", token = 3),
           Done(token = 3),
-          CloseScope(label = "second"),
           Done(token = 0),
-          CloseScope(label = "handle"),
           Finished(at = "drain", errored = false, value = "()")
         )
       )
@@ -318,16 +290,12 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "eval"),
           Pull(to = "eval", from = "drain", token = 0),
-          OpenScope(label = "source"),
           Pull(to = "source", from = "eval", token = 1),
           Eval(value = "acquire"),
           Output(value = "()", token = 1),
           Error(value = "BOOM!", token = 0, raisedHere = true),
           Eval(value = "release"),
-          CloseScope(label = "source"),
-          CloseScope(label = "eval"),
           Finished(at = "drain", errored = true, value = "BOOM!")
         )
       )
@@ -350,24 +318,16 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "handle"),
           Pull(to = "handle", from = "drain", token = 0),
-          OpenScope(label = "eval"),
           Pull(to = "eval", from = "handle", token = 1),
-          OpenScope(label = "source"),
           Pull(to = "source", from = "eval", token = 2),
           Eval(value = "acquire"),
           Output(value = "()", token = 2),
           Error(value = "BOOM!", token = 1, raisedHere = true),
           Eval(value = "release"),
-          CloseScope(label = "source"),
-          CloseScope(label = "eval"),
-          OpenScope(label = "second"),
           Pull(to = "second", from = "handle", token = 3),
           Done(token = 3),
-          CloseScope(label = "second"),
           Done(token = 0),
-          CloseScope(label = "handle"),
           Finished(at = "drain", errored = false, value = "()")
         )
       )
@@ -392,22 +352,16 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "eval"),
           Pull(to = "eval", from = "drain", token = 0),
-          OpenScope(label = "left"),
           Pull(to = "left", from = "eval", token = 1),
           Eval(value = "acquireLeft"),
           Output(value = "()", token = 1),
-          OpenScope(label = "right"),
           Pull(to = "right", from = "eval", token = 2),
           Eval(value = "acquireRight"),
           Output(value = "()", token = 2),
           Error(value = "BOOM!", token = 0, raisedHere = true),
           Eval(value = "releaseRight"),
-          CloseScope(label = "right"),
           Eval(value = "releaseLeft"),
-          CloseScope(label = "left"),
-          CloseScope(label = "eval"),
           Finished(at = "drain", errored = true, value = "BOOM!")
         )
       )
@@ -432,22 +386,16 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "zip"),
           Pull(to = "zip", from = "drain", token = 0),
-          OpenScope(label = "left"),
           Pull(to = "left", from = "zip", token = 1),
           Eval(value = "acquireLeft"),
           Output(value = "()", token = 1),
-          OpenScope(label = "right"),
           Pull(to = "right", from = "zip", token = 2),
           Eval(value = "acquireRight"),
           Error(value = "BOOM!", token = 2, raisedHere = true),
           Eval(value = "releaseRight"),
-          CloseScope(label = "right"),
           Eval(value = "releaseLeft"),
-          CloseScope(label = "left"),
           Error(value = "BOOM!", token = 0, raisedHere = false),
-          CloseScope(label = "zip"),
           Finished(at = "drain", errored = true, value = "BOOM!")
         )
       )
@@ -487,26 +435,20 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          OpenScope(label = "merge"),
           Pull(to = "merge", from = "drain", token = 0),
-          OpenScope(label = "left"),
-          OpenScope(label = "right"),
+          Pull(to = "left", from = "merge", token = 1),
           Pull(to = "right", from = "merge", token = 2),
           Output(value = "Popcorn", token = 2),
-          Pull(to = "left", from = "merge", token = 1),
           Output(value = "Mao", token = 1),
-          Output(value = "Popcorn", token = 0),
+          Output(value = "Mao", token = 0),
           Pull(to = "merge", from = "drain", token = 3),
-          Output(value = "Mao", token = 3),
-          Pull(to = "merge", from = "drain", token = 4),
-          Pull(to = "left", from = "merge", token = 5),
-          Done(token = 5),
-          CloseScope(label = "left"),
+          Output(value = "Popcorn", token = 3),
+          Pull(to = "merge", from = "drain", token = 5),
+          Pull(to = "left", from = "merge", token = 4),
+          Done(token = 4),
           Pull(to = "right", from = "merge", token = 6),
           Done(token = 6),
-          CloseScope(label = "right"),
-          Done(token = 4),
-          CloseScope(label = "merge"),
+          Done(token = 5),
           Finished(at = "drain", errored = false, value = "()")
         )
       )
