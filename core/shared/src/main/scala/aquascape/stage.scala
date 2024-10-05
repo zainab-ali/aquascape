@@ -24,18 +24,24 @@ import fs2.*
 trait Scape[F[_]] {
 
   /** Record a stage of pulls and outputs surrounding this stream. */
-  def stage[O: Show](label: Label, branch: Branch)(
+  private[aquascape] def stage[O: Show](label: Label, branch: Branch)(
       s: Stream[F, O]
   ): Stream[F, O]
 
   /** Record an eval or error event after running this effect. */
-  def trace[O: Show](fo: F[O], branch: Branch): F[O]
+  private[aquascape] def trace[O: Show](fo: F[O], branch: Branch): F[O]
 
   /** Connects a parent and child branch. */
-  def fork[O](parent: Branch, child: Branch)(s: Stream[F, O]): Stream[F, O]
+  private[aquascape] def fork[O](parent: Branch, child: Branch)(
+      s: Stream[F, O]
+  ): Stream[F, O]
 
   /** Record a stage of the compile event surrounding this stream. */
-  def compileStage[O: Show](fo: F[O], label: Label, root: Branch): F[O]
+  private[aquascape] def compileStage[O: Show](
+      fo: F[O],
+      label: Label,
+      root: Branch
+  ): F[O]
 
   /** Given a compiled stream `fo` which has been staged, output a stream of
     * events.
@@ -83,7 +89,7 @@ object Scape {
         ): Stream[F, O] =
           stage_[F, O, Chunk[O]](
             _.uncons,
-            (chk, tok) => Event.OutputChunk(chk.map(_.show), tok),
+            (chk, tok) => Event.OutputChunk(chk.map(_.show).toList, tok),
             Pull.output(_),
             pen
           )(label, branch)(s)
@@ -106,45 +112,42 @@ object Scape {
 
   private def stage_[F[_]: Temporal: Unique, O, A](
       uncons: Stream.ToPull[F, O] => Pull[F, O, Option[(A, Stream[F, O])]],
-      event: (A, Unique.Token) => Event,
+      event: (A, Token.Token) => Event,
       output: A => Pull[F, O, Unit],
       pen: Pen[F, (Event, Time)]
   )(label: Label, branch: Branch)(s: Stream[F, O]): Stream[F, O] = {
 
     def go(in: Stream[F, O]): Pull[F, O, Unit] =
       pen
-        .bracket(branch, label)(
-          (Unique[F].unique.lift, time[F].lift)
-            .flatMapN { (token, t) =>
-              pen
-                .writeWithLastTwo(
-                  branch,
-                  (to, from) =>
-                    (
-                      Event
-                        .Pull(
-                          to = to,
-                          from = from,
-                          token
-                        ),
-                      t
-                    )
-                )
-                .lift >> uncons(in.pull)
-                .flatTap {
-                  case Some((h, _)) =>
-                    (time >>= (t =>
-                      pen.write(branch, (event(h, token), t))
-                    )).lift
-                  case None =>
-                    (time >>= (t =>
-                      pen.write(branch, (Event.Done(token), t))
-                    )).lift
-                }
-                .handleErrorWith(err =>
-                  time.lift >>= (t => onError(err, t, token, pen, branch))
-                )
-            }
+        .bracket(branch, label)(token =>
+          time.lift.flatMap { t =>
+            pen
+              .writeWithLastTwo(
+                branch,
+                (to, from) =>
+                  (
+                    Event
+                      .Pull(
+                        to = to,
+                        from = from,
+                        token = token
+                      ),
+                    t
+                  )
+              )
+              .lift >> uncons(in.pull)
+              .flatTap {
+                case Some((h, _)) =>
+                  (time >>= (t => pen.write(branch, (event(h, token), t)))).lift
+                case None =>
+                  (time >>= (t =>
+                    pen.write(branch, (Event.Done(token), t))
+                  )).lift
+              }
+              .handleErrorWith(err =>
+                time.lift >>= (t => onError(err, t, token, pen, branch))
+              )
+          }
         )
         .flatMap {
           case Some((h, t)) => output(h) >> go(t)
@@ -163,7 +166,7 @@ object Scape {
   private def onError[F[_]: Monad](
       e: Throwable,
       time: Time,
-      token: Unique.Token,
+      token: Token.Token,
       pen: Pen[F, (Event, Time)],
       branch: Branch
   ): Pull[F, Nothing, Nothing] = {

@@ -20,15 +20,14 @@ import aquascape.*
 import cats.Foldable
 import cats.data.Chain
 import cats.data.NonEmptyChain
-import cats.effect.Unique
 
 private def eventsToDiagram[F[_]: Foldable](
     events: F[(Event, Time)]
 ): Diagram = {
 
   case class PullCoord(progress: Int, from: Int, to: Int)
-  type TokenMapEntry = (Unique.Token, PullCoord)
-  type TokenMap = Map[Unique.Token, PullCoord]
+  type TokenMapEntry = (Token.Token, PullCoord)
+  type TokenMap = Map[Token.Token, PullCoord]
 
   def op(labels: List[String])(
       acc: (Diagram, TokenMap),
@@ -41,7 +40,7 @@ private def eventsToDiagram[F[_]: Foldable](
       if (idx == -1) {
         throw sys.error(s"Label is not present. Label $l in $labels")
       } else idx
-    def token(t: Unique.Token) =
+    def token(t: Token.Token) =
       tokens.getOrElse(t, sys.error("Token is not present."))
 
     def maybeToken: Event => Option[TokenMapEntry] = {
@@ -120,7 +119,7 @@ private def eventsToDiagram[F[_]: Foldable](
   val empty =
     (
       Diagram(labels = Nil, items = Nil),
-      Map.empty[Unique.Token, PullCoord],
+      Map.empty[Token.Token, PullCoord],
       Option.empty[Time]
     )
   def foldOp(labels: List[String])(

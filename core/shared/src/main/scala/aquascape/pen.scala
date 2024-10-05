@@ -25,9 +25,8 @@ import fs2.concurrent.Channel
 private trait Pen[F[_], E] {
   def bracket[A](branch: Branch, child: Label)(fa: F[A]): F[A]
   def bracket[O, A](branch: Branch, child: Label)(
-      fa: Pull[F, O, A]
+      fa: Token.Token => Pull[F, O, A]
   ): Pull[F, O, A]
-  def writeWithLast(branch: Branch, f: Label => E): F[Unit]
   def writeWithLastTwo(branch: Branch, f: (Label, Label) => E): F[Unit]
   def write(branch: Branch, e: E): F[Unit]
   def newRoot(parent: Branch): F[Unit]
@@ -40,21 +39,18 @@ private object Pen {
 
   def apply[F[_]: Async, E]: F[Pen[F, E]] =
     (
-      Ref.of[F, Map[Branch, (List[Label])]](Map.empty),
+      Token.generator[F],
+      Stack[F],
       Channel.synchronous[F, E]
-    ).mapN { case (stack, chan) =>
+    ).mapN { case (genToken, stack, chan) =>
       new {
         def bracket[A](branch: Branch, child: Label)(fa: F[A]): F[A] =
           stack.bracketF(branch, child)(fa)
         def bracket[O, A](branch: Branch, child: Label)(
-            fa: Pull[F, O, A]
-        ): Pull[F, O, A] = stack.bracket(branch, child)(fa)
-        def writeWithLast(branch: Branch, f: Label => E): F[Unit] =
-          stack
-            .peek(branch)
-            .flatMap(_.headOption.liftTo[F](MissingStageException))
-            .map(f)
-            .flatMap(s => chan.send(s).void)
+            fa: Token.Token => Pull[F, O, A]
+        ): Pull[F, O, A] = Pull.eval(genToken).flatMap { token =>
+          stack.bracket(branch, child)(fa(token))
+        }
 
         def writeWithLastTwo(branch: Branch, f: (Label, Label) => E): F[Unit] =
           stack.peek(branch).flatMap {
