@@ -35,25 +35,13 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     libraryDependencies ++= Seq(
       "co.fs2" %%% "fs2-core" % "3.11.0",
       "co.fs2" %%% "fs2-io" % "3.11.0",
-      ("org.creativescala" %%% "doodle-core" % "0.26.0"),
+      "org.creativescala" %%% "doodle-core" % "0.26.0",
       "org.typelevel" %%% "cats-core" % "2.12.0",
       "org.typelevel" %%% "cats-effect" % "3.5.4",
       "org.scalameta" %%% "munit" % "1.0.2" % Test,
       "org.typelevel" %%% "cats-effect-testkit" % "3.5.4" % Test,
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
-      ("com.lihaoyi" %%% "pprint" % "0.9.0" % Test)
-      .cross(CrossVersion.for3Use2_13),
-      ("com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test)
-        .exclude(
-          "com.lihaoyi",
-          "pprint_3"
-        )
-        // .exclude(
-        //   "com.lihaoyi",
-        //   "sourcecode_3"
-        // )
-
-      // Both snapshot4s and scalameta include sourcecode.
+      "com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
     buildInfoPackage := "aquascape",
@@ -69,11 +57,14 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .jsSettings(
     Test / fork := false,
+    Test / scalaJSLinkerConfig ~= {
+      _.withModuleKind(ModuleKind.CommonJSModule)
+    },
     libraryDependencies += ("org.creativescala" %%% "doodle-svg" % "0.26.0")
       .exclude(
         "com.lihaoyi",
         "sourcecode_sjs1_3"
-      ), // Both doodle-svg and pprint include sourcecode.
+      ), // Both doodle-svg and snapshot4s include sourcecode.
     mimaPreviousArtifacts := Set.empty
   )
   .enablePlugins(BuildInfoPlugin, Snapshot4sPlugin)

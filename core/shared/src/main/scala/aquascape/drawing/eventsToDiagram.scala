@@ -72,7 +72,7 @@ private def eventsToDiagram[F[_]: Foldable](
       case e: Event.OutputChunk =>
         val pullCoord = token(e.token)
         Item.Output(
-          value = e.value.toList.mkString("[", ",", "]"),
+          value = e.value.mkString("[", ",", "]"),
           from = pullCoord.to,
           to = pullCoord.from,
           pullProgress = pullCoord.progress
