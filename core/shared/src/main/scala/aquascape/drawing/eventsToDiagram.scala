@@ -104,7 +104,7 @@ private def eventsToDiagram[F[_]: Foldable](
     }
     val nextTokens = maybeToken(event).fold(tokens)(tokens + _)
     val items = item(event) :: diagram.items
-    (diagram.copy(labels = labels, items = items), nextTokens)
+    (diagram.copy(items = items), nextTokens)
   }
 
   def time(prev: Time, cur: Time): Option[Item] = {
@@ -113,12 +113,6 @@ private def eventsToDiagram[F[_]: Foldable](
     Option.when(diff > 0)(Item.Time(diff))
   }
 
-  val empty =
-    (
-      Diagram(labels = Nil, items = Nil),
-      Map.empty[Token.Token, PullCoord],
-      Option.empty[Time]
-    )
   def foldOp(labels: List[String])(
       acc: (Diagram, TokenMap, Option[Time]),
       te: (Event, Time)
@@ -139,8 +133,13 @@ private def eventsToDiagram[F[_]: Foldable](
     case (Event.Pull(to, from, _), _) => Some((from, to))
     case _                            => None
   }
-  println(s"Sorting labels ${labelPairs}")
   val labels = sortLabels(labelPairs)
+  val empty =
+    (
+      Diagram(labels = labels, items = Nil),
+      Map.empty[Token.Token, PullCoord],
+      Option.empty[Time]
+    )
 
   val (diagram, _, _) = events.foldLeft(empty)(foldOp(labels))
   diagram.copy(items = diagram.items.reverse)

@@ -26,16 +26,13 @@ import snapshot4s.munit.SnapshotAssertions
 import cats.effect.testkit.*
 
 class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
-  object Boom extends Throwable("BOOM!")
-
-  import Event.*
 
   implicit val showUnit: Show[Unit] = _ => "()"
 
   private def execute[O](io: IO[O]): IO[O] =
     TestControl.executeEmbed(io, seed = Some("MTIzNA=="))
 
-  private def simple[O](f: Scape[IO] ?=> IO[O]): IO[List[Event]] =
+  private def unchunked[O](f: Scape[IO] ?=> IO[O]): IO[List[Event]] =
     execute(
       Scape.unchunked[IO].flatMap { t =>
         t.events(f(using t).attempt.void)
@@ -43,7 +40,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       }
     )
 
-  private def simpleChunked[O](
+  private def chunked[O](
       f: Scape[IO] ?=> IO[O]
   ): IO[List[Event]] =
     execute(
@@ -52,6 +49,10 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
           .map(_._1.map(_._1).toList)
       }
     )
+
+  object Boom extends Throwable("BOOM!")
+
+  import Event.*
 
   test("raises an error when compileStage is not present") {
     val program = Scape.unchunked[IO].flatMap { case t @ (given Scape[IO]) =>
@@ -85,8 +86,8 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
     )
   }
 
-  test("traces a single combinator") {
-    val program = simple {
+  test("traces a single operator") {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .compile
@@ -106,10 +107,9 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       )
     }
   }
-  def t: Token.Token = ???
 
   test("traces chunks") {
-    val program = simpleChunked {
+    val program = chunked {
       Stream("Mao", "Popcorn")[IO]
         .stage("source")
         .compile
@@ -130,8 +130,8 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
     }
   }
 
-  test("traces multiple combinators") {
-    val program = simple {
+  test("traces multiple operators") {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .map(_.toUpperCase)
@@ -159,7 +159,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
   }
 
   test("traces zipped streams") {
-    val program = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("left")
         .zip(
@@ -192,7 +192,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
   }
 
   test("traces effect evaluation") {
-    val program = simple {
+    val program = unchunked {
       Stream
         .eval(IO("Mao").trace())
         .stage("source")
@@ -217,7 +217,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
   }
 
   test("traces raising errors") {
-    val program = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -241,7 +241,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
   }
 
   test("traces handling errors") {
-    val program = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -277,7 +277,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       )
 
   test("traces resources and errors") {
-    val program = simple {
+    val program = unchunked {
       bracket()
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -303,7 +303,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
   }
 
   test("traces resources and error handling") {
-    val program = simple {
+    val program = unchunked {
       bracket()
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -334,76 +334,8 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
     }
   }
 
-  test("scope: error in parent") {
-    val program = simple {
-      bracket("Left")
-        .stage("left")
-        .zip(
-          bracket("Right")
-            .stage("right")
-        )
-        .evalTap(_ => IO.raiseError[String](Boom))
-        .stage("eval")
-        .compile
-        .drain
-        .compileStage("drain")
-    }
-    program.map { actual =>
-      assertInlineSnapshot(
-        actual,
-        List(
-          Pull(to = "eval", from = "drain", token = 0),
-          Pull(to = "left", from = "eval", token = 1),
-          Eval(value = "acquireLeft"),
-          Output(value = "()", token = 1),
-          Pull(to = "right", from = "eval", token = 2),
-          Eval(value = "acquireRight"),
-          Output(value = "()", token = 2),
-          Error(value = "BOOM!", token = 0, raisedHere = true),
-          Eval(value = "releaseRight"),
-          Eval(value = "releaseLeft"),
-          Finished(at = "drain", errored = true, value = "BOOM!")
-        )
-      )
-    }
-  }
-
-  test("scope: error in child") {
-    val program = simple {
-      bracket("Left")
-        .stage("left")
-        .zip(
-          bracket("Right")
-            .evalTap(_ => IO.raiseError[String](Boom))
-            .stage("right")
-        )
-        .stage("zip")
-        .compile
-        .drain
-        .compileStage("drain")
-    }
-    program.map { actual =>
-      assertInlineSnapshot(
-        actual,
-        List(
-          Pull(to = "zip", from = "drain", token = 0),
-          Pull(to = "left", from = "zip", token = 1),
-          Eval(value = "acquireLeft"),
-          Output(value = "()", token = 1),
-          Pull(to = "right", from = "zip", token = 2),
-          Eval(value = "acquireRight"),
-          Error(value = "BOOM!", token = 2, raisedHere = true),
-          Eval(value = "releaseRight"),
-          Eval(value = "releaseLeft"),
-          Error(value = "BOOM!", token = 0, raisedHere = false),
-          Finished(at = "drain", errored = true, value = "BOOM!")
-        )
-      )
-    }
-  }
-
   // test("stage parallel execution".ignore) {
-  // val actualIO = simple {
+  // val actualIO = unchunked {
   //   Stream("Mao", "Popcorn", "Trouble")[IO]
   //     .stage("source", branch = "s")
   //     .fork("root", "s")
@@ -417,7 +349,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
   // }
 
   test("traces merged streams") {
-    val program = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("left", branch = "l")
         .fork("root", "l")

@@ -22,7 +22,6 @@ import cats.effect.Ref
 import cats.effect.Async
 import cats.syntax.all.*
 import fs2.*
-
 type Branch = String
 
 private object Stack {
