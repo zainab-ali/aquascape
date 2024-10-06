@@ -18,77 +18,41 @@ package aquascape
 
 import cats.*
 import cats.effect.*
+import cats.effect.testkit.*
 import fs2.*
 import munit.CatsEffectSuite
 import munit.Location
-class ScapeSuite extends CatsEffectSuite {
+import snapshot4s.generated.*
+import snapshot4s.munit.SnapshotAssertions
+
+class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
+
+  implicit val showUnit: Show[Unit] = _ => "()"
+
+  private def execute[O](io: IO[O]): IO[O] =
+    TestControl.executeEmbed(io, seed = Some("MTIzNA=="))
+
+  private def unchunked[O](f: Scape[IO] ?=> IO[O]): IO[List[Event]] =
+    execute(
+      Scape.unchunked[IO].flatMap { t =>
+        t.events(f(using t).attempt.void)
+          .map(_._1.map(_._1).toList)
+      }
+    )
+
+  private def chunked[O](
+      f: Scape[IO] ?=> IO[O]
+  ): IO[List[Event]] =
+    execute(
+      Scape.chunked[IO].flatMap { t =>
+        t.events(f(using t))
+          .map(_._1.map(_._1).toList)
+      }
+    )
+
   object Boom extends Throwable("BOOM!")
 
   import Event.*
-
-  implicit val showUnit: Show[Unit] = _ => "()"
-  val t = new Unique.Token()
-  private def replaceToken: Event => Event = {
-    case Pull(to, from, _) => Pull(to, from, t)
-    case Done(_)           => Done(t)
-    case Output(v, _)      => Output(v, t)
-    case e: Error          => e.copy(token = t)
-    case OutputChunk(v, _) => OutputChunk(v, t)
-    case other             => other
-  }
-
-  private def simple[O](f: Scape[IO] ?=> IO[O]): IO[List[Event]] =
-    Scape.unchunked[IO].flatMap { t =>
-      t.events(f(using t).attempt.void)
-        .map(_._1.map(_._1).toList)
-    }
-
-  private def simpleChunked[O](
-      f: Scape[IO] ?=> IO[O]
-  ): IO[List[Event]] =
-    Scape.chunked[IO].flatMap { t =>
-      t.events(f(using t))
-        .map(_._1.map(_._1).toList)
-    }
-
-  def assertContains(
-      actual: List[Event],
-      expected: List[(Event, Location)]
-  ): Unit = {
-    val _ = expected.foldLeft(actual) { (acc, el) =>
-      val (e, l) = el
-      assert(acc.contains(e))(l)
-      acc.dropWhile(_ != e)
-    }
-  }
-  def assertEvents(
-      actualIO: IO[List[Event]],
-      expected: List[(Event, Location)]
-  )(using
-      loc: munit.Location
-  ): IO[Unit] = {
-    actualIO.map { actual =>
-      actual.zipWithIndex
-        .zip(expected)
-        .map { case ((a, i), (e, l)) =>
-          assertEquals(
-            replaceToken(a),
-            e,
-            s"Event $i is incorrect - ${pprint(actual)}"
-          )(
-            l,
-            summon
-          )
-        }
-      assertEquals(
-        actual.length,
-        expected.length,
-        s"Wrong number of events obtained. ${pprint(actual)}"
-      )
-    }.void
-  }
-
-  private def loc[A](a: A)(using l: Location): (A, Location) = (a, l)
 
   test("raises an error when compileStage is not present") {
     val program = Scape.unchunked[IO].flatMap { case t @ (given Scape[IO]) =>
@@ -122,48 +86,52 @@ class ScapeSuite extends CatsEffectSuite {
     )
   }
 
-  test("traces a single combinator") {
-    val actual = simple {
+  test("traces a single operator") {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .compile
         .lastOrError
         .compileStage("last")
     }
-    val expected = List(
-      loc(OpenScope(label = "source")),
-      loc(Pull("source", "last", t)),
-      loc(Output(value = "Mao", token = t)),
-      loc(Pull("source", "last", t)),
-      loc(Done(t)),
-      loc(CloseScope(label = "source")),
-      loc(Finished(at = "last", errored = false, value = "Mao"))
-    )
-
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "source", from = "last", token = 0),
+          Output(value = "Mao", token = 0),
+          Pull(to = "source", from = "last", token = 1),
+          Done(token = 1),
+          Finished(at = "last", errored = false, value = "Mao")
+        )
+      )
+    }
   }
+
   test("traces chunks") {
-    val actual = simpleChunked {
+    val program = chunked {
       Stream("Mao", "Popcorn")[IO]
         .stage("source")
         .compile
         .lastOrError
         .compileStage("last")
     }
-    val expected = List(
-      loc(OpenScope("source")),
-      loc(Pull("source", "last", t)),
-      loc(OutputChunk(Chunk("Mao", "Popcorn"), token = t)),
-      loc(Pull("source", "last", t)),
-      loc(Done(t)),
-      loc(CloseScope("source")),
-      loc(Finished(at = "last", errored = false, value = "Popcorn"))
-    )
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "source", from = "last", token = 0),
+          OutputChunk(value = List("Mao", "Popcorn"), token = 0),
+          Pull(to = "source", from = "last", token = 1),
+          Done(token = 1),
+          Finished(at = "last", errored = false, value = "Popcorn")
+        )
+      )
+    }
   }
 
-  test("traces multiple combinators") {
-    val actual = simple {
+  test("traces multiple operators") {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .map(_.toUpperCase)
@@ -172,26 +140,26 @@ class ScapeSuite extends CatsEffectSuite {
         .lastOrError
         .compileStage("last")
     }
-    val expected = List(
-      loc(OpenScope("map")),
-      loc(Pull("map", "last", t)),
-      loc(OpenScope("source")),
-      loc(Pull("source", "map", t)),
-      loc(Output("Mao", t)),
-      loc(Output("MAO", t)),
-      loc(Pull("map", "last", t)),
-      loc(Pull("source", "map", t)),
-      loc(Done(t)),
-      loc(CloseScope("source")),
-      loc(Done(t)),
-      loc(CloseScope("map")),
-      loc(Finished(at = "last", errored = false, value = "MAO"))
-    )
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "map", from = "last", token = 0),
+          Pull(to = "source", from = "map", token = 1),
+          Output(value = "Mao", token = 1),
+          Output(value = "MAO", token = 0),
+          Pull(to = "map", from = "last", token = 2),
+          Pull(to = "source", from = "map", token = 3),
+          Done(token = 3),
+          Done(token = 2),
+          Finished(at = "last", errored = false, value = "MAO")
+        )
+      )
+    }
   }
 
   test("traces zipped streams") {
-    val actual = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("left")
         .zip(
@@ -203,30 +171,28 @@ class ScapeSuite extends CatsEffectSuite {
         .lastOrError
         .compileStage("last")
     }
-    val expected = List(
-      loc(OpenScope("zip")),
-      loc(Pull("zip", "last", t)),
-      loc(OpenScope("left")),
-      loc(Pull("left", "zip", t)),
-      loc(Output("Mao", t)),
-      loc(OpenScope("right")),
-      loc(Pull("right", "zip", t)),
-      loc(Output("Popcorn", t)),
-      loc(Output("(Mao,Popcorn)", t)),
-      loc(Pull("zip", "last", t)),
-      loc(Pull("left", "zip", t)),
-      loc(Done(t)),
-      loc(CloseScope("left")),
-      loc(CloseScope("right")),
-      loc(Done(t)),
-      loc(CloseScope("zip")),
-      loc(Finished(at = "last", errored = false, value = "(Mao,Popcorn)"))
-    )
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "zip", from = "last", token = 0),
+          Pull(to = "left", from = "zip", token = 1),
+          Output(value = "Mao", token = 1),
+          Pull(to = "right", from = "zip", token = 2),
+          Output(value = "Popcorn", token = 2),
+          Output(value = "(Mao,Popcorn)", token = 0),
+          Pull(to = "zip", from = "last", token = 3),
+          Pull(to = "left", from = "zip", token = 4),
+          Done(token = 4),
+          Done(token = 3),
+          Finished(at = "last", errored = false, value = "(Mao,Popcorn)")
+        )
+      )
+    }
   }
 
   test("traces effect evaluation") {
-    val actual = simple {
+    val program = unchunked {
       Stream
         .eval(IO("Mao").trace())
         .stage("source")
@@ -235,21 +201,23 @@ class ScapeSuite extends CatsEffectSuite {
         .compileStage("last")
 
     }
-    val expected = List(
-      loc(OpenScope("source")),
-      loc(Pull("source", "last", t)),
-      loc(Eval("Mao")),
-      loc(Output("Mao", t)),
-      loc(Pull("source", "last", t)),
-      loc(Done(t)),
-      loc(CloseScope("source")),
-      loc(Finished(at = "last", errored = false, value = "Mao"))
-    )
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "source", from = "last", token = 0),
+          Eval(value = "Mao"),
+          Output(value = "Mao", token = 0),
+          Pull(to = "source", from = "last", token = 1),
+          Done(token = 1),
+          Finished(at = "last", errored = false, value = "Mao")
+        )
+      )
+    }
   }
 
   test("traces raising errors") {
-    val actual = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -258,23 +226,22 @@ class ScapeSuite extends CatsEffectSuite {
         .lastOrError
         .compileStage("last")
     }
-    val expected = List(
-      loc(OpenScope(label = "eval")),
-      loc(Pull("eval", "last", t)),
-      loc(OpenScope(label = "source")),
-      loc(Pull("source", "eval", t)),
-      loc(Output(value = "Mao", t)),
-      loc(Error(value = "BOOM!", t, raisedHere = true)),
-      loc(CloseScope(label = "source")),
-      loc(CloseScope(label = "eval")),
-      loc(Finished(at = "last", errored = true, value = "BOOM!"))
-    )
-
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "eval", from = "last", token = 0),
+          Pull(to = "source", from = "eval", token = 1),
+          Output(value = "Mao", token = 1),
+          Error(value = "BOOM!", token = 0, raisedHere = true),
+          Finished(at = "last", errored = true, value = "BOOM!")
+        )
+      )
+    }
   }
 
   test("traces handling errors") {
-    val actual = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -285,28 +252,22 @@ class ScapeSuite extends CatsEffectSuite {
         .drain
         .compileStage("drain")
     }
-    val expected = List(
-      loc(OpenScope("handle")),
-      loc(Pull("handle", "drain", t)),
-      loc(OpenScope("eval")),
-      loc(Pull("eval", "handle", t)),
-      loc(OpenScope("source")),
-      loc(Pull("source", "eval", t)),
-      loc(Output("Mao", t)),
-      loc(
-        Error("BOOM!", t, raisedHere = true)
-      ),
-      loc(CloseScope("source")),
-      loc(CloseScope("eval")),
-      loc(OpenScope("second")),
-      loc(Pull("second", "handle", t)),
-      loc(Done(t)),
-      loc(CloseScope("second")),
-      loc(Done(t)),
-      loc(CloseScope("handle")),
-      loc(Finished(at = "drain", errored = false, value = "()"))
-    )
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "handle", from = "drain", token = 0),
+          Pull(to = "eval", from = "handle", token = 1),
+          Pull(to = "source", from = "eval", token = 2),
+          Output(value = "Mao", token = 2),
+          Error(value = "BOOM!", token = 1, raisedHere = true),
+          Pull(to = "second", from = "handle", token = 3),
+          Done(token = 3),
+          Done(token = 0),
+          Finished(at = "drain", errored = false, value = "()")
+        )
+      )
+    }
   }
 
   def bracket(suffix: String = "")(using t: Scape[IO]): Stream[IO, Unit] =
@@ -316,7 +277,7 @@ class ScapeSuite extends CatsEffectSuite {
       )
 
   test("traces resources and errors") {
-    val actual = simple {
+    val program = unchunked {
       bracket()
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -325,24 +286,24 @@ class ScapeSuite extends CatsEffectSuite {
         .drain
         .compileStage("drain")
     }
-    val expected = List(
-      loc(OpenScope("eval")),
-      loc(Pull("eval", "drain", t)),
-      loc(OpenScope("source")),
-      loc(Pull("source", "eval", t)),
-      loc(Eval("acquire")),
-      loc(Output("()", t)),
-      loc(Error("BOOM!", t, raisedHere = true)),
-      loc(Eval("release")),
-      loc(CloseScope("source")),
-      loc(CloseScope("eval")),
-      loc(Finished(at = "drain", errored = true, value = "BOOM!"))
-    )
-    assertEvents(actual, expected)
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "eval", from = "drain", token = 0),
+          Pull(to = "source", from = "eval", token = 1),
+          Eval(value = "acquire"),
+          Output(value = "()", token = 1),
+          Error(value = "BOOM!", token = 0, raisedHere = true),
+          Eval(value = "release"),
+          Finished(at = "drain", errored = true, value = "BOOM!")
+        )
+      )
+    }
   }
 
   test("traces resources and error handling") {
-    val actual = simple {
+    val program = unchunked {
       bracket()
         .stage("source")
         .evalTap(_ => IO.raiseError[String](Boom))
@@ -353,120 +314,42 @@ class ScapeSuite extends CatsEffectSuite {
         .drain
         .compileStage("drain")
     }
-    val expected = List(
-      loc(OpenScope("handle")),
-      loc(Pull("handle", "drain", t)),
-      loc(OpenScope("eval")),
-      loc(Pull("eval", "handle", t)),
-      loc(OpenScope("source")),
-      loc(Pull("source", "eval", t)),
-      loc(Eval("acquire")),
-      loc(Output("()", t)),
-      loc(
-        Error("BOOM!", t, raisedHere = true)
-      ),
-      loc(Eval("release")),
-      loc(CloseScope("source")),
-      loc(CloseScope("eval")),
-      loc(OpenScope("second")),
-      loc(Pull("second", "handle", t)),
-      loc(Done(t)),
-      loc(CloseScope("second")),
-      loc(Done(t)),
-      loc(CloseScope("handle")),
-      loc(Finished(at = "drain", errored = false, value = "()"))
-    )
-    assertEvents(actual, expected)
-  }
-
-  test("scope: error in parent") {
-    val actual = simple {
-      bracket("Left")
-        .stage("left")
-        .zip(
-          bracket("Right")
-            .stage("right")
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "handle", from = "drain", token = 0),
+          Pull(to = "eval", from = "handle", token = 1),
+          Pull(to = "source", from = "eval", token = 2),
+          Eval(value = "acquire"),
+          Output(value = "()", token = 2),
+          Error(value = "BOOM!", token = 1, raisedHere = true),
+          Eval(value = "release"),
+          Pull(to = "second", from = "handle", token = 3),
+          Done(token = 3),
+          Done(token = 0),
+          Finished(at = "drain", errored = false, value = "()")
         )
-        .evalTap(_ => IO.raiseError[String](Boom))
-        .stage("eval")
-        .compile
-        .drain
-        .compileStage("drain")
+      )
     }
-    val expected = List(
-      loc(OpenScope("eval")),
-      loc(Pull("eval", "drain", t)),
-      loc(OpenScope("left")),
-      loc(Pull("left", "eval", t)),
-      loc(Eval("acquireLeft")),
-      loc(Output("()", t)),
-      loc(OpenScope("right")),
-      loc(Pull("right", "eval", t)),
-      loc(Eval("acquireRight")),
-      loc(Output("()", t)),
-      loc(Error("BOOM!", t, raisedHere = true)),
-      loc(Eval("releaseRight")),
-      loc(CloseScope("right")),
-      loc(Eval("releaseLeft")),
-      loc(CloseScope("left")),
-      loc(CloseScope("eval")),
-      loc(Finished(at = "drain", errored = true, value = "BOOM!"))
-    )
-    assertEvents(actual, expected)
   }
 
-  test("scope: error in child") {
-    val actual = simple {
-      bracket("Left")
-        .stage("left")
-        .zip(
-          bracket("Right")
-            .evalTap(_ => IO.raiseError[String](Boom))
-            .stage("right")
-        )
-        .stage("zip")
-        .compile
-        .drain
-        .compileStage("drain")
-    }
-    val expected = List(
-      loc(OpenScope("zip")),
-      loc(Pull("zip", "drain", t)),
-      loc(OpenScope("left")),
-      loc(Pull("left", "zip", t)),
-      loc(Eval("acquireLeft")),
-      loc(Output("()", t)),
-      loc(OpenScope("right")),
-      loc(Pull("right", "zip", t)),
-      loc(Eval("acquireRight")),
-      loc(Error("BOOM!", t, raisedHere = true)),
-      loc(Eval("releaseRight")),
-      loc(CloseScope("right")),
-      loc(Eval("releaseLeft")),
-      loc(CloseScope("left")),
-      loc(Error("BOOM!", t, raisedHere = false)),
-      loc(CloseScope("zip")),
-      loc(Finished(at = "drain", errored = true, value = "BOOM!"))
-    )
-    assertEvents(actual, expected)
-  }
-
-  test("stage parallel execution".ignore) {
-    val actualIO = simple {
-      Stream("Mao", "Popcorn", "Trouble")[IO]
-        .stage("source", branch = "s")
-        .fork("root", "s")
-        .parEvalMap(2)(IO(_).trace())
-        .stage("parEvalMap")
-        .compile
-        .drain
-        .compileStage("drain")
-    }
-    assertEvents(actualIO, Nil)
-  }
+  // test("stage parallel execution".ignore) {
+  // val actualIO = unchunked {
+  //   Stream("Mao", "Popcorn", "Trouble")[IO]
+  //     .stage("source", branch = "s")
+  //     .fork("root", "s")
+  //     .parEvalMap(2)(IO(_).trace())
+  //     .stage("parEvalMap")
+  //     .compile
+  //     .drain
+  //     .compileStage("drain")
+  // }
+  // assertEvents(actualIO, Nil)
+  // }
 
   test("traces merged streams") {
-    val actualIO = simple {
+    val program = unchunked {
       Stream("Mao")[IO]
         .stage("left", branch = "l")
         .fork("root", "l")
@@ -480,35 +363,27 @@ class ScapeSuite extends CatsEffectSuite {
         .drain
         .compileStage("drain")
     }
-    actualIO.map { actualWithTokens =>
-      val actual = actualWithTokens.map(replaceToken)
-      val beginning = List(
-        loc(OpenScope(label = "merge")),
-        loc(Pull("merge", "drain", t))
+    program.map { actual =>
+      assertInlineSnapshot(
+        actual,
+        List(
+          Pull(to = "merge", from = "drain", token = 0),
+          Pull(to = "left", from = "merge", token = 1),
+          Pull(to = "right", from = "merge", token = 2),
+          Output(value = "Popcorn", token = 2),
+          Output(value = "Mao", token = 1),
+          Output(value = "Mao", token = 0),
+          Pull(to = "merge", from = "drain", token = 3),
+          Output(value = "Popcorn", token = 3),
+          Pull(to = "merge", from = "drain", token = 5),
+          Pull(to = "left", from = "merge", token = 4),
+          Done(token = 4),
+          Pull(to = "right", from = "merge", token = 6),
+          Done(token = 6),
+          Done(token = 5),
+          Finished(at = "drain", errored = false, value = "()")
+        )
       )
-      assertEquals(actual.take(beginning.size), beginning.map(_._1))
-      val left = List(
-        loc(OpenScope(label = "left")),
-        loc(Pull("left", "merge", t)),
-        loc(
-          Output(value = "Mao", t)
-        ),
-        loc(Output(value = "Mao", t)),
-        loc(Pull("left", "merge", t)),
-        loc(Done(t)),
-        loc(CloseScope(label = "left"))
-      )
-      assertContains(actual.drop(beginning.size), left)
-      val right = List(
-        loc(OpenScope(label = "right")),
-        loc(Pull("right", "merge", t)),
-        loc(Output(value = "Popcorn", t)),
-        loc(Output(value = "Popcorn", t)),
-        loc(Pull("right", "merge", t)),
-        loc(Done(t)),
-        loc(CloseScope(label = "right"))
-      )
-      assertContains(actual.drop(beginning.size), right)
     }
   }
 }

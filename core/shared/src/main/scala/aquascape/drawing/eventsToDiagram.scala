@@ -20,15 +20,14 @@ import aquascape.*
 import cats.Foldable
 import cats.data.Chain
 import cats.data.NonEmptyChain
-import cats.effect.Unique
 
 private def eventsToDiagram[F[_]: Foldable](
     events: F[(Event, Time)]
 ): Diagram = {
 
   case class PullCoord(progress: Int, from: Int, to: Int)
-  type TokenMapEntry = (Unique.Token, PullCoord)
-  type TokenMap = Map[Unique.Token, PullCoord]
+  type TokenMapEntry = (Token.Token, PullCoord)
+  type TokenMap = Map[Token.Token, PullCoord]
 
   def op(labels: List[String])(
       acc: (Diagram, TokenMap),
@@ -41,7 +40,7 @@ private def eventsToDiagram[F[_]: Foldable](
       if (idx == -1) {
         throw sys.error(s"Label is not present. Label $l in $labels")
       } else idx
-    def token(t: Unique.Token) =
+    def token(t: Token.Token) =
       tokens.getOrElse(t, sys.error("Token is not present."))
 
     def maybeToken: Event => Option[TokenMapEntry] = {
@@ -57,10 +56,7 @@ private def eventsToDiagram[F[_]: Foldable](
       case _ => None
     }
 
-    val item: PartialFunction[
-      Event,
-      Item
-    ] = {
+    val item: Event => Item = {
       case e: Event.Pull =>
         val to = labelIndex(e.to)
         val from = labelIndex(e.from)
@@ -76,7 +72,7 @@ private def eventsToDiagram[F[_]: Foldable](
       case e: Event.OutputChunk =>
         val pullCoord = token(e.token)
         Item.Output(
-          value = e.value.toList.mkString("[", ",", "]"),
+          value = e.value.mkString("[", ",", "]"),
           from = pullCoord.to,
           to = pullCoord.from,
           pullProgress = pullCoord.progress
@@ -107,8 +103,8 @@ private def eventsToDiagram[F[_]: Foldable](
         )
     }
     val nextTokens = maybeToken(event).fold(tokens)(tokens + _)
-    val items = item.lift(event).fold(diagram.items)(_ :: diagram.items)
-    (diagram.copy(labels = labels, items = items), nextTokens)
+    val items = item(event) :: diagram.items
+    (diagram.copy(items = items), nextTokens)
   }
 
   def time(prev: Time, cur: Time): Option[Item] = {
@@ -117,12 +113,6 @@ private def eventsToDiagram[F[_]: Foldable](
     Option.when(diff > 0)(Item.Time(diff))
   }
 
-  val empty =
-    (
-      Diagram(labels = Nil, items = Nil),
-      Map.empty[Unique.Token, PullCoord],
-      Option.empty[Time]
-    )
   def foldOp(labels: List[String])(
       acc: (Diagram, TokenMap, Option[Time]),
       te: (Event, Time)
@@ -143,8 +133,13 @@ private def eventsToDiagram[F[_]: Foldable](
     case (Event.Pull(to, from, _), _) => Some((from, to))
     case _                            => None
   }
-  println(s"Sorting labels ${labelPairs}")
   val labels = sortLabels(labelPairs)
+  val empty =
+    (
+      Diagram(labels = labels, items = Nil),
+      Map.empty[Token.Token, PullCoord],
+      Option.empty[Time]
+    )
 
   val (diagram, _, _) = events.foldLeft(empty)(foldOp(labels))
   diagram.copy(items = diagram.items.reverse)

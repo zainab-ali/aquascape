@@ -15,20 +15,31 @@
  */
 
 package aquascape
-import cats.effect.Unique.Token
+
+import cats.effect.Async
+import cats.effect.Ref
+import cats.syntax.all.*
 type Label = String
 
 private final case class Time(seconds: Int)
 
+private object Token {
+  private[aquascape] type Token = Int
+
+  def generator[F[_]: Async]: F[F[Token]] = Ref.of[F, Token](0).map { counter =>
+    counter.getAndUpdate(_ + 1)
+  }
+}
+
+import Token.Token
+
 private enum Event {
+
   case Pull(to: String, from: String, token: Token)
   case Done(token: Token)
   case Eval(value: String)
-  case EvalError(value: String)
   case Error(value: String, token: Token, raisedHere: Boolean)
   case Output(value: String, token: Token)
-  case OutputChunk(value: fs2.Chunk[String], token: Token)
-  case OpenScope(label: Label)
-  case CloseScope(label: Label)
+  case OutputChunk(value: List[String], token: Token)
   case Finished(at: String, errored: Boolean, value: String)
 }
