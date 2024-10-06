@@ -16,8 +16,8 @@
 
 package aquascape
 
-import cats.effect.Ref
 import cats.effect.Async
+import cats.effect.Ref
 import cats.syntax.all.*
 type Label = String
 

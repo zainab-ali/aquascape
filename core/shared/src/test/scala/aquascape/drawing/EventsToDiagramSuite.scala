@@ -19,12 +19,12 @@ package aquascape.drawing
 import aquascape.*
 import cats.*
 import cats.effect.*
+import cats.effect.testkit.*
 import fs2.*
 import munit.CatsEffectSuite
 import munit.Location
 import snapshot4s.generated.*
 import snapshot4s.munit.SnapshotAssertions
-import cats.effect.testkit.*
 
 class EventsToDiagramSuite extends CatsEffectSuite with SnapshotAssertions {
   import Item.*

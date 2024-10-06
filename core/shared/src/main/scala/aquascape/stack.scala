@@ -17,9 +17,9 @@
 package aquascape
 
 import cats.*
+import cats.effect.Async
 import cats.effect.MonadCancelThrow
 import cats.effect.Ref
-import cats.effect.Async
 import cats.syntax.all.*
 import fs2.*
 type Branch = String
