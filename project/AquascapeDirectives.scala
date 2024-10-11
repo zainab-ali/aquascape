@@ -107,8 +107,8 @@ object AquascapeDirectives extends DirectiveRegistry {
                    |</script>""".stripMargin
           )
           BlockSequence(
-            scriptEl,
-            BlockSequence(symbolEl(id) +: body, options = Styles("symbol"))
+            BlockSequence(symbolEl(id) +: body, options = Styles("symbol")),
+            scriptEl
           )
         }
     }
