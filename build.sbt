@@ -37,9 +37,9 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "co.fs2" %%% "fs2-io" % "3.11.0",
       "org.creativescala" %%% "doodle-core" % "0.26.0",
       "org.typelevel" %%% "cats-core" % "2.12.0",
-      "org.typelevel" %%% "cats-effect" % "3.5.4",
+      "org.typelevel" %%% "cats-effect" % "3.5.5",
       "org.scalameta" %%% "munit" % "1.0.2" % Test,
-      "org.typelevel" %%% "cats-effect-testkit" % "3.5.4" % Test,
+      "org.typelevel" %%% "cats-effect-testkit" % "3.5.5" % Test,
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
       "com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test
     ),
@@ -86,7 +86,7 @@ lazy val examples = project
       ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Compile)
         .cross(CrossVersion.for3Use2_13),
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
-      "org.typelevel" %%% "cats-effect-testkit" % "3.5.4",
+      "org.typelevel" %%% "cats-effect-testkit" % "3.5.5",
       "org.scalameta" %%% "munit" % "1.0.2" % Test,
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
       ("com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test)
