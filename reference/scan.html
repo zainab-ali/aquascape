@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Typelevel Laika + Helium Theme" />
+  <title>scan</title>
+  
+  <meta name="author" content="Zainab Ali"/>
+  
+  
+  <meta name="description" content="docs"/>
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:500">
+  
+  <link rel="stylesheet" type="text/css" href="../helium/site/icofont.min.css" />
+    <link rel="stylesheet" type="text/css" href="../helium/site/laika-helium.css" />
+    <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="../a11y-dark.min.css" />
+  <script src="../helium/site/laika-helium.js"></script>
+    <script src="../main.js"></script>
+    <script src="../highlight.min.js"></script>
+    <script src="../aquascape.js"></script>
+  
+  
+  <script> /* for avoiding page load transitions */ </script>
+</head>
+
+  <body>
+
+    <header id="top-bar" class="light-default dark-default">
+
+  <div class="row">
+    <a id="nav-icon">
+      <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
+    </a>
+    
+    
+  </div>
+
+  <a class="icon-link glyph-link" href="../"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row links">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>  
+
+</header>
+    
+    <nav id="sidebar">
+
+  <div class="row">
+    
+    <a class="icon-link svg-link" href="https://github.com/zainab-ali/aquascape"><span class="github" title="Source Code"><svg class="svg-icon" width="100%" height="100%" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  <g class="svg-shape">
+    <path d="M49.995,1c-27.609,-0 -49.995,22.386 -49.995,50.002c-0,22.09 14.325,40.83 34.194,47.444c2.501,0.458 3.413,-1.086 3.413,-2.412c0,-1.185 -0.043,-4.331 -0.067,-8.503c-13.908,3.021 -16.843,-6.704 -16.843,-6.704c-2.274,-5.773 -5.552,-7.311 -5.552,-7.311c-4.54,-3.103 0.344,-3.042 0.344,-3.042c5.018,0.356 7.658,5.154 7.658,5.154c4.46,7.64 11.704,5.433 14.552,4.156c0.454,-3.232 1.744,-5.436 3.174,-6.685c-11.102,-1.262 -22.775,-5.553 -22.775,-24.713c-0,-5.457 1.949,-9.92 5.147,-13.416c-0.516,-1.265 -2.231,-6.348 0.488,-13.233c0,0 4.199,-1.344 13.751,5.126c3.988,-1.108 8.266,-1.663 12.518,-1.682c4.245,0.019 8.523,0.574 12.517,1.682c9.546,-6.47 13.736,-5.126 13.736,-5.126c2.728,6.885 1.013,11.968 0.497,13.233c3.204,3.496 5.141,7.959 5.141,13.416c0,19.209 -11.691,23.436 -22.83,24.673c1.795,1.544 3.394,4.595 3.394,9.26c0,6.682 -0.061,12.076 -0.061,13.715c0,1.338 0.899,2.894 3.438,2.406c19.853,-6.627 34.166,-25.354 34.166,-47.438c-0,-27.616 -22.389,-50.002 -50.005,-50.002"/>
+  </g>
+</svg></span></a>
+    
+  </div>
+
+  <ul class="nav-list">
+    <li class="level1 nav-header">About</li>
+    <li class="level2 nav-leaf"><a href="../">About aquascape</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-read-the-diagrams.html">How to read the diagrams</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-write-the-diagrams.html">How to write the diagrams</a></li>
+    <li class="level1 nav-leaf"><a href="../how-to-contribute-docs.html">How to contribute docs</a></li>
+    <li class="level1 nav-node"><a href="index.html">Reference Guide</a></li>
+    <li class="level2 nav-leaf"><a href="evalMap.html">evalMap</a></li>
+    <li class="level2 nav-leaf"><a href="filter.html">filter</a></li>
+    <li class="level2 nav-leaf"><a href="take.html">take</a></li>
+    <li class="level2 nav-leaf"><a href="time.html">time</a></li>
+    <li class="level2 nav-leaf"><a href="flatMap.html">flatMap</a></li>
+    <li class="level2 nav-leaf"><a href="topic.html">Topic</a></li>
+    <li class="level2 nav-leaf"><a href="merge.html">merge</a></li>
+    <li class="level2 active nav-leaf"><a href="#">scan</a></li>
+    <li class="level2 nav-leaf"><a href="bracket.html">bracket</a></li>
+    <li class="level2 nav-leaf"><a href="chunk.html">chunk</a></li>
+    <li class="level2 nav-leaf"><a href="append.html">append</a></li>
+    <li class="level2 nav-leaf"><a href="compile.html">compile</a></li>
+    <li class="level2 nav-leaf"><a href="errors.html">errors</a></li>
+    <li class="level2 nav-leaf"><a href="drop.html">drop</a></li>
+    <li class="level2 nav-leaf"><a href="parEvalMap.html">parEvalMap</a></li>
+  </ul>
+
+</nav>
+
+    <div id="container">
+
+      
+<nav id="page-nav">
+  <p class="header"><a href="#">scan</a></p>
+
+  <ul class="nav-list">
+    <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
+    <li class="level2 nav-leaf"><a href="#scan-2">scan</a></li>
+    <li class="level2 nav-leaf"><a href="#scan1-1">scan1</a></li>
+    <li class="level2 nav-leaf"><a href="#scanmonoid">scanMonoid</a></li>
+    <li class="level2 nav-leaf"><a href="#scanmap">scanMap</a></li>
+    <li class="level1 nav-leaf"><a href="#chunk-propagation">Chunk propagation</a></li>
+    <li class="level1 nav-leaf"><a href="#scan-3">scan</a></li>
+    <li class="level1 nav-leaf"><a href="#scan1-2">scan1</a></li>
+  </ul>
+
+  <p class="footer"></p>
+</nav>
+
+
+      <main class="content">
+
+        <h1 id="scan-1" class="title">scan</h1>
+        <p>This page is a reference guide for the <code>scan</code> family of operators. It describes:</p>
+        <ul>
+          <li>The behaviour of <code>scan</code>, <code>scan1</code>, <code>scanMap</code> and <code>scanMonoid</code>.</li>
+        </ul>
+        <ul>
+          <li>How <code>scan</code> operators propagate chunks.</li>
+        </ul>
+        <p>As the <code>scan</code> family of operators have normal error propagation and finalizer handling, these are not described.</p>
+        
+        <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
+        <p>The <code>scan</code> family of operators perform a left fold over an input stream and output intermediate results.</p>
+        
+        <h3 id="scan-2" class="section"><a class="anchor-link left" href="#scan-2"><i class="icofont-laika link">&#xef71;</i></a>scan</h3>
+        <p>The <code>scan</code> operator pulls an element from its input stream, evaluates a function with its previous result, then outputs the result. It is analogous to <code>scan</code> on lists.</p>
+        <p>The following example scans over an input stream of characters to produce a string. A character <code>ch</code> is pulled and combined with an accumulated string <code>str</code> with the <code>s&quot;$str-$ch&quot;</code> function.</p>
+        <pre class="example-code"><code id="DocsReferenceScan.scanCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceScan.scan" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceScan.scan, "DocsReferenceScan.scanCode", ExampleFrameIds.unchunked("DocsReferenceScan.scan"));
+</script>
+        
+        <h3 id="scan1-1" class="section"><a class="anchor-link left" href="#scan1-1"><i class="icofont-laika link">&#xef71;</i></a>scan1</h3>
+        <p>The <code>scan1</code> operator is similar to <code>scan</code>, but uses the first element pulled from the input stream to evaluate the result.</p>
+        <pre class="example-code"><code id="DocsReferenceScan.scan1Code" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceScan.scan1" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceScan.scan1, "DocsReferenceScan.scan1Code", ExampleFrameIds.unchunked("DocsReferenceScan.scan1"));
+</script>
+        
+        <h3 id="scanmonoid" class="section"><a class="anchor-link left" href="#scanmonoid"><i class="icofont-laika link">&#xef71;</i></a>scanMonoid</h3>
+        <p>The <code>scanMonoid</code> operator scans over its input with a <code>Monoid</code> typeclass instance.</p>
+        <p>The following example uses the <code>String</code> monoid instance. The empty element of the instance <code>&quot;&quot;</code> is outputted first. The <code>combine</code> function of the instance concatenates two strings.</p>
+        <pre class="example-code"><code id="DocsReferenceScan.scanMonoidCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceScan.scanMonoid" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceScan.scanMonoid, "DocsReferenceScan.scanMonoidCode", ExampleFrameIds.unchunked("DocsReferenceScan.scanMonoid"));
+</script>
+        
+        <h3 id="scanmap" class="section"><a class="anchor-link left" href="#scanmap"><i class="icofont-laika link">&#xef71;</i></a>scanMap</h3>
+        <p>The <code>scanMap</code> operator maps over its input then scans with a <code>Monoid</code> typeclass instance. <code>input.scanMap(f)</code> is equivalent to <code>input.map(f).scanMonoid</code>.</p>
+        <pre class="example-code"><code id="DocsReferenceScan.scanMapCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceScan.scanMap" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceScan.scanMap, "DocsReferenceScan.scanMapCode", ExampleFrameIds.unchunked("DocsReferenceScan.scanMap"));
+</script>
+        
+        <h2 id="chunk-propagation" class="section"><a class="anchor-link left" href="#chunk-propagation"><i class="icofont-laika link">&#xef71;</i></a>Chunk propagation</h2>
+        
+        <h2 id="scan-3" class="section"><a class="anchor-link left" href="#scan-3"><i class="icofont-laika link">&#xef71;</i></a>scan</h2>
+        <p>The <code>scan</code> operator preserves the chunks of its input. The first argument to <code>scan</code> is outputted as a singleton chunk.</p>
+        <pre class="example-code"><code id="DocsReferenceScan.scanChunkPropagationCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceScan.scanChunkPropagationChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceScan.scanChunkPropagation, "DocsReferenceScan.scanChunkPropagationCode", ExampleFrameIds.chunked("DocsReferenceScan.scanChunkPropagationChunked"));
+</script>
+        
+        <h2 id="scan1-2" class="section"><a class="anchor-link left" href="#scan1-2"><i class="icofont-laika link">&#xef71;</i></a>scan1</h2>
+        <p><code>scan1</code> preserves the chunks of its input, with the exception of the first chunk. The first element of the first chunk is outputted as a singleton chunk.</p>
+        <pre class="example-code"><code id="DocsReferenceScan.scan1chunkedCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceScan.scan1chunkedChunked" class="example-frame"></div>
+            <footer class="example-frame-footer">This diagram displays chunks. Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.example(DocsReferenceScan.scan1, "DocsReferenceScan.scan1chunkedCode", ExampleFrameIds.chunked("DocsReferenceScan.scan1chunkedChunked"));
+</script>
+
+        
+<hr class="footer-rule"/>
+<footer>
+  Site generated by <a href="https://typelevel.org/Laika/">Laika</a> with the Helium theme.
+</footer>
+
+
+      </main>
+
+    </div>
+
+  </body>
+
+</html>
