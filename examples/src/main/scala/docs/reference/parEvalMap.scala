@@ -36,19 +36,18 @@ object parEvalMap {
     max = max
   )
 
-
   @JSExport
   val parEvalMapUnbounded = new Example {
     def apply(using Scape[IO]): StreamCode =
       code(
         Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')", "upstream")
-        .fork("root", "upstream")
-        .parEvalMapUnbounded(ch => IO.sleep(1.second).as(ch).trace())
-        .stage("parEvalMapUnbounded(…)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
+          .stage("Stream('a','b','c')", "upstream")
+          .fork("root", "upstream")
+          .parEvalMapUnbounded(ch => IO.sleep(1.second).as(ch).trace())
+          .stage("parEvalMapUnbounded(…)")
+          .compile
+          .toList
+          .compileStage("compile.toList")
       )
   }
 
@@ -58,13 +57,13 @@ object parEvalMap {
     def apply(n: Int)(using Scape[IO]): StreamCode =
       code(
         Stream('a', 'b', 'c', 'd')
-        .stage("Stream('a','b','c', 'd')", "upstream")
-        .fork("root", "upstream")
-        .parEvalMap(n)(ch => IO.sleep(1.second).as(ch).trace())
-        .stage(s"parEvalMap($n)(…)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
+          .stage("Stream('a','b','c', 'd')", "upstream")
+          .fork("root", "upstream")
+          .parEvalMap(n)(ch => IO.sleep(1.second).as(ch).trace())
+          .stage(s"parEvalMap($n)(…)")
+          .compile
+          .toList
+          .compileStage("compile.toList")
       )
   }
 
@@ -72,45 +71,45 @@ object parEvalMap {
   val parEvalMapOrder = new Example {
     def apply(using Scape[IO]): StreamCode =
       code(
-        Stream(3, 2, 1)
-        .stage("Stream(3, 2, 1)", "upstream")
-        .fork("root", "upstream")
-        .parEvalMap(2)(n => IO.sleep(n.second).as(n).trace())
-        .stage("parEvalMap(2)(…)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
+        Stream(100, 5)
+          .stage("Stream(100, 5)", "upstream")
+          .fork("root", "upstream")
+          .parEvalMap(2)(n => IO.sleep(n.second).as(n).trace())
+          .stage("parEvalMap(2)(…)")
+          .compile
+          .toList
+          .compileStage("compile.toList")
       )
   }
 
   @JSExport
-  val parEvalMapInputSequential = new Example {
+  val parEvalMapUnorderedUnbounded = new Example {
     def apply(using Scape[IO]): StreamCode =
       code(
-        Stream('a', 'b', 'c')
-        .spaced[IO](1.second)
-        .stage("Stream('a', 'b', 'c').spaced(1s)", "upstream")
-        .fork("root", "upstream")
-        .parEvalMap(2)(ch => IO.sleep(1.second).as(ch).trace())
-        .stage("parEvalMap(2)(…)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
+        Stream(100, 5)
+          .stage("Stream(100, 5)", "upstream")
+          .fork("root", "upstream")
+          .parEvalMapUnorderedUnbounded(n => IO.sleep(n.second).as(n).trace())
+          .stage("parEvalMapUnorderedUnbounded(…)")
+          .compile
+          .toList
+          .compileStage("compile.toList")
       )
   }
 
   @JSExport
-  val parEvalMapUnordered = new Example {
-    def apply(using Scape[IO]): StreamCode =
+  val parEvalMapUnorderedConcurrency = new ExampleWithInput[Int] {
+    val inputBox: InputBox[Int] = concurrencyInputBox(4)
+    def apply(n: Int)(using Scape[IO]): StreamCode =
       code(
-        Stream(4, 2, 1)
-        .stage("Stream(4, 2, 1)", "upstream")
-        .fork("root", "upstream")
-        .parEvalMapUnordered(2)(n => IO.sleep(n.second).as(n).trace())
-        .stage("parEvalMapUnordered(2)(…)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
+        Stream(5, 4, 3, 2)
+          .stage("Stream(5, 4, 3, 2)", "upstream")
+          .fork("root", "upstream")
+          .parEvalMapUnordered(n)(i => IO.sleep(i.second).as(i).trace())
+          .stage(s"parEvalMapUnordered($n)(…)")
+          .compile
+          .toList
+          .compileStage("compile.toList")
       )
   }
 
@@ -119,13 +118,13 @@ object parEvalMap {
     def apply(using Scape[IO]): StreamCode =
       code(
         Stream('a', 'b', 'c')
-        .stage("Stream('a','b','c')", "upstream")
-        .fork("root", "upstream")
-        .parEvalMap(2)(ch => IO.sleep(1.second).as(ch).trace())
-        .stage("parEvalMap(2)(…)")
-        .compile
-        .toList
-        .compileStage("compile.toList")
+          .stage("Stream('a','b','c')", "upstream")
+          .fork("root", "upstream")
+          .parEvalMap(2)(ch => IO.sleep(1.second).as(ch).trace())
+          .stage("parEvalMap(2)(…)")
+          .compile
+          .toList
+          .compileStage("compile.toList")
       )
   }
 

@@ -11,7 +11,15 @@ This page is a reference guide for the `parEvalMap` family of operators. It desc
 
 ## Behaviour
 
-The `parEvalMap` family of operators are used to evaluate effects concurrently.
+The `parEvalMap` family of operators are used to evaluate effects concurrently. They differ in two aspects:
+
+ - Whether they limit the number of concurrent effects
+ - Whether they output elements in order of their input, or as soon as they are calculated.
+
+| output order            | bounded concurrency   | unbounded concurrency          |
+|-------------------------|-----------------------|--------------------------------|
+| in order of input       | `parEvalMap`          | `parEvalMapUnbounded`          |
+| in order of calculation | `parEvalMapUnordered` | `parEvalMapUnorderedUnbounded` |
 
 ### parEvalMapUnbounded
 
@@ -25,7 +33,7 @@ In the following example, the elements `a`, `b` and `c` are pulled from the inpu
 
 ### parEvalMap
 
-`parEvalMap(n)` evaluates at most `n` effects concurrently. Experiment with the number of concurrent effects below.
+`parEvalMap(n)` evaluates at most `n` effects concurrently. You can experiment with the number of concurrent effects below.
 
 @:exampleWithInput(parEvalMapConcurrency) {
   drawChunked = false
@@ -33,27 +41,45 @@ In the following example, the elements `a`, `b` and `c` are pulled from the inpu
 
 #### Output order
 
-The elements outputted by `parEvalMap` and `parEvalMapUnbounded` are in the same order as their corresponding input. 
+The elements outputted by `parEvalMap` and `parEvalMapUnbounded` are always in the same order as their corresponding input. 
 
-In the following example, the effect for the first element `3` takes longer to be evaluated than that of the second element `2`. The second result is only outputted after the first result, even though it finishes before it.
+If an element takes a long time to evaluate, it will hold up the output of subsequent results.
+
+In the following example, the effect for the first element `100` takes longer to be evaluated than that of the second element `5`. The second result is only outputted after the first result, even though it finishes long before it.
 
 @:example(parEvalMapOrder) {
   drawChunked = false
 }
 
-### parEvalMapUnordered
 
-`parEvalMapUnordered` is similar to `parEvalMap`, but it outputs elements in the order that their effect evaluation completes.
+### parEvalMapUnorderedUnbounded
 
-@:example(parEvalMapUnordered) {
+`parEvalMapUnorderedUnbounded` is similar to `parEvalMapUnbounded`, but it outputs elements in the order that their effect evaluation completes.
+
+In the following example, the first element `100` takes longer to be evaluated than the second element `5`. The second element is outputted before it.
+
+@:example(parEvalMapUnorderedUnbounded) {
   drawChunked = false
 }
 
+### parEvalMapUnordered
+
+`parEvalMapUnordered(n)` is similar to `parEvalMap`. It evaluates at most `n` effects concurrently, but outputs them in the order that their effect evaluation completes. You can experiment with the number of concurrent effects below.
+
+@:exampleWithInput(parEvalMapUnorderedConcurrency) {
+  drawChunked = false
+}
+
+
 # Chunk preservation
 
-The `parEvalMap` family of operators do not preserve chunks. They always output singleton chunks.
+The `parEvalMap` family of operators always output singleton chunks.
+
+The example below shows how a chunk of three elements is pulled from the input stream and outputted as three singleton chunks.
 
 @:example(parEvalMapSingletonChunks) {
   suffix = chunked
   drawChunked = true
 }
+
+@:todo(cancellation, better descriptions)
