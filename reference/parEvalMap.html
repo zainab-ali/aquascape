@@ -107,6 +107,7 @@
     <li class="level1 nav-node"><a href="#behaviour">Behaviour</a></li>
     <li class="level2 nav-leaf"><a href="#parevalmapunbounded">parEvalMapUnbounded</a></li>
     <li class="level2 nav-leaf"><a href="#parevalmap-2">parEvalMap</a></li>
+    <li class="level2 nav-leaf"><a href="#parevalmapunorderedunbounded">parEvalMapUnorderedUnbounded</a></li>
     <li class="level2 nav-leaf"><a href="#parevalmapunordered">parEvalMapUnordered</a></li>
     <li class="level1 nav-leaf"><a href="#chunk-preservation">Chunk preservation</a></li>
   </ul>
@@ -127,7 +128,34 @@
         </ul>
         
         <h2 id="behaviour" class="section"><a class="anchor-link left" href="#behaviour"><i class="icofont-laika link">&#xef71;</i></a>Behaviour</h2>
-        <p>The <code>parEvalMap</code> family of operators are used to evaluate effects concurrently.</p>
+        <p>The <code>parEvalMap</code> family of operators are used to evaluate effects concurrently. They differ in two aspects:</p>
+        <ul>
+          <li>Whether they limit the number of concurrent effects</li>
+        </ul>
+        <ul>
+          <li>Whether they output elements in order of their input, or as soon as they are calculated.</li>
+        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>output order</th>
+              <th>bounded concurrency</th>
+              <th>unbounded concurrency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>in order of input</td>
+              <td><code>parEvalMap</code></td>
+              <td><code>parEvalMapUnbounded</code></td>
+            </tr>
+            <tr>
+              <td>in order of calculation</td>
+              <td><code>parEvalMapUnordered</code></td>
+              <td><code>parEvalMapUnorderedUnbounded</code></td>
+            </tr>
+          </tbody>
+        </table>
         
         <h3 id="parevalmapunbounded" class="section"><a class="anchor-link left" href="#parevalmapunbounded"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnbounded</h3>
         <p><code>parEvalMapUnbounded</code> pulls an element from its input stream, constructs an effect for it, then evaluates it while pulling and constructs the subsequent effects. It evaluates the effects concurrently. </p>
@@ -142,7 +170,7 @@
 </script>
         
         <h3 id="parevalmap-2" class="section"><a class="anchor-link left" href="#parevalmap-2"><i class="icofont-laika link">&#xef71;</i></a>parEvalMap</h3>
-        <p><code>parEvalMap(n)</code> evaluates at most <code>n</code> effects concurrently. Experiment with the number of concurrent effects below.</p>
+        <p><code>parEvalMap(n)</code> evaluates at most <code>n</code> effects concurrently. You can experiment with the number of concurrent effects below.</p>
         <div class="example-input">
           <label id="DocsReferenceParEvalMap.parEvalMapConcurrencyLabel" for="DocsReferenceParEvalMap.parEvalMapConcurrencyInput"></label>
           <input id="DocsReferenceParEvalMap.parEvalMapConcurrencyInput"></input>
@@ -157,8 +185,9 @@
 </script>
         
         <h4 id="output-order" class="section"><a class="anchor-link left" href="#output-order"><i class="icofont-laika link">&#xef71;</i></a>Output order</h4>
-        <p>The elements outputted by <code>parEvalMap</code> and <code>parEvalMapUnbounded</code> are in the same order as their corresponding input. </p>
-        <p>In the following example, the effect for the first element <code>3</code> takes longer to be evaluated than that of the second element <code>2</code>. The second result is only outputted after the first result, even though it finishes before it.</p>
+        <p>The elements outputted by <code>parEvalMap</code> and <code>parEvalMapUnbounded</code> are always in the same order as their corresponding input. </p>
+        <p>If an element takes a long time to evaluate, it will hold up the output of subsequent results.</p>
+        <p>In the following example, the effect for the first element <code>100</code> takes longer to be evaluated than that of the second element <code>5</code>. The second result is only outputted after the first result, even though it finishes long before it.</p>
         <pre class="example-code"><code id="DocsReferenceParEvalMap.parEvalMapOrderCode" class="language-scala"></code></pre>
         <section>
             <div id="DocsReferenceParEvalMap.parEvalMapOrder" class="example-frame"></div>
@@ -168,19 +197,36 @@
  aquascape.example(DocsReferenceParEvalMap.parEvalMapOrder, "DocsReferenceParEvalMap.parEvalMapOrderCode", ExampleFrameIds.unchunked("DocsReferenceParEvalMap.parEvalMapOrder"));
 </script>
         
-        <h3 id="parevalmapunordered" class="section"><a class="anchor-link left" href="#parevalmapunordered"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnordered</h3>
-        <p><code>parEvalMapUnordered</code> is similar to <code>parEvalMap</code>, but it outputs elements in the order that their effect evaluation completes.</p>
-        <pre class="example-code"><code id="DocsReferenceParEvalMap.parEvalMapUnorderedCode" class="language-scala"></code></pre>
+        <h3 id="parevalmapunorderedunbounded" class="section"><a class="anchor-link left" href="#parevalmapunorderedunbounded"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnorderedUnbounded</h3>
+        <p><code>parEvalMapUnorderedUnbounded</code> is similar to <code>parEvalMapUnbounded</code>, but it outputs elements in the order that their effect evaluation completes.</p>
+        <p>In the following example, the first element <code>100</code> takes longer to be evaluated than the second element <code>5</code>. The second element is outputted before it.</p>
+        <pre class="example-code"><code id="DocsReferenceParEvalMap.parEvalMapUnorderedUnboundedCode" class="language-scala"></code></pre>
         <section>
-            <div id="DocsReferenceParEvalMap.parEvalMapUnordered" class="example-frame"></div>
+            <div id="DocsReferenceParEvalMap.parEvalMapUnorderedUnbounded" class="example-frame"></div>
             <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
           </section>
         <script>
- aquascape.example(DocsReferenceParEvalMap.parEvalMapUnordered, "DocsReferenceParEvalMap.parEvalMapUnorderedCode", ExampleFrameIds.unchunked("DocsReferenceParEvalMap.parEvalMapUnordered"));
+ aquascape.example(DocsReferenceParEvalMap.parEvalMapUnorderedUnbounded, "DocsReferenceParEvalMap.parEvalMapUnorderedUnboundedCode", ExampleFrameIds.unchunked("DocsReferenceParEvalMap.parEvalMapUnorderedUnbounded"));
+</script>
+        
+        <h3 id="parevalmapunordered" class="section"><a class="anchor-link left" href="#parevalmapunordered"><i class="icofont-laika link">&#xef71;</i></a>parEvalMapUnordered</h3>
+        <p><code>parEvalMapUnordered(n)</code> is similar to <code>parEvalMap</code>. It evaluates at most <code>n</code> effects concurrently, but outputs them in the order that their effect evaluation completes. You can experiment with the number of concurrent effects below.</p>
+        <div class="example-input">
+          <label id="DocsReferenceParEvalMap.parEvalMapUnorderedConcurrencyLabel" for="DocsReferenceParEvalMap.parEvalMapUnorderedConcurrencyInput"></label>
+          <input id="DocsReferenceParEvalMap.parEvalMapUnorderedConcurrencyInput"></input>
+        </div>
+        <pre class="example-code"><code id="DocsReferenceParEvalMap.parEvalMapUnorderedConcurrencyCode" class="language-scala"></code></pre>
+        <section>
+            <div id="DocsReferenceParEvalMap.parEvalMapUnorderedConcurrency" class="example-frame"></div>
+            <footer class="example-frame-footer">Confused? <a href="../how-to-read-the-diagrams.html">Learn how to read the diagrams</a>.</footer>
+          </section>
+        <script>
+ aquascape.exampleWithInput(DocsReferenceParEvalMap.parEvalMapUnorderedConcurrency, "DocsReferenceParEvalMap.parEvalMapUnorderedConcurrencyCode", ExampleFrameIds.unchunked("DocsReferenceParEvalMap.parEvalMapUnorderedConcurrency"), "DocsReferenceParEvalMap.parEvalMapUnorderedConcurrencyLabel", "DocsReferenceParEvalMap.parEvalMapUnorderedConcurrencyInput");
 </script>
         
         <h1 id="chunk-preservation" class="section"><a class="anchor-link left" href="#chunk-preservation"><i class="icofont-laika link">&#xef71;</i></a>Chunk preservation</h1>
-        <p>The <code>parEvalMap</code> family of operators do not preserve chunks. They always output singleton chunks.</p>
+        <p>The <code>parEvalMap</code> family of operators always output singleton chunks.</p>
+        <p>The example below shows how a chunk of three elements is pulled from the input stream and outputted as three singleton chunks.</p>
         <pre class="example-code"><code id="DocsReferenceParEvalMap.parEvalMapSingletonChunkschunkedCode" class="language-scala"></code></pre>
         <section>
             <div id="DocsReferenceParEvalMap.parEvalMapSingletonChunkschunkedChunked" class="example-frame"></div>
@@ -189,6 +235,7 @@
         <script>
  aquascape.example(DocsReferenceParEvalMap.parEvalMapSingletonChunks, "DocsReferenceParEvalMap.parEvalMapSingletonChunkschunkedCode", ExampleFrameIds.chunked("DocsReferenceParEvalMap.parEvalMapSingletonChunkschunkedChunked"));
 </script>
+        
 
         
 <hr class="footer-rule"/>
