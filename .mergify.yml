@@ -10,8 +10,8 @@ pull_request_rules:
   conditions:
   - author=scala-steward
   - body~=labels:.*early-semver-patch
-  - status-success=Build and Test (ubuntu-latest, 3, temurin@8, rootJS)
-  - status-success=Build and Test (ubuntu-latest, 3, temurin@8, rootJVM)
+  - status-success=Test (ubuntu-22.04, 3, temurin@8, rootJS)
+  - status-success=Test (ubuntu-22.04, 3, temurin@8, rootJVM)
   actions:
     merge: {}
 - name: Label core PRs
