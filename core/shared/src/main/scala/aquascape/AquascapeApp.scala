@@ -18,8 +18,9 @@ package aquascape
 
 import aquascape.drawing.Config
 import cats.effect.*
+import cats.syntax.all.*
 
-trait Core {
+trait Aquascape {
   def name: String
 
   def chunked: Boolean = false
@@ -44,9 +45,25 @@ object AquascapeApp extends PlatformCompanion {
     picture <- args.stream(using scape).draw(args.config)
     _ <- draw(picture, args.name)
   } yield ()
+
+  trait Batch extends IOApp.Simple {
+    def aquascapes: List[Aquascape]
+
+    final def run: IO[Unit] =
+      aquascapes.traverse_(aquascape =>
+        AquascapeApp.run(
+          Args(
+            aquascape.name,
+            aquascape.chunked,
+            aquascape.config,
+            aquascape.stream
+          )
+        )
+      )
+  }
 }
 
-trait AquascapeApp extends IOApp.Simple with Core {
+trait AquascapeApp extends IOApp.Simple with Aquascape {
   final def run: IO[Unit] =
     AquascapeApp.run(AquascapeApp.Args(name, chunked, config, stream))
 }

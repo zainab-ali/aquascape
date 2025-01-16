@@ -111,6 +111,51 @@ object App extends AquascapeApp {
 }
 ```
 
+## How to draw a batch of aquascapes
+
+You can generate multiple aquascapes in a single `App` by extending `AquascapeApp.Batch` and defining a list of `aquascapes`:
+
+```scala mdoc:nest:silent
+// App.scala
+//> using dep com.github.zainab-ali::aquascape::@VERSION@
+
+import aquascape.*
+import cats.effect.*
+import fs2.*
+
+val firstAquascape = new Aquascape {
+  def name: String = "firstFrame"
+  def stream(using Scape[IO]): IO[Unit] = {
+    Stream(1, 2, 3)
+      .stage("Stream(1, 2, 3)")
+      .compile
+      .toList
+      .compileStage(
+        "compile.toList"
+      )
+      .void
+  }
+}
+
+val secondAquascape = new Aquascape {
+  def name: String = "secondFrame"
+  def stream(using Scape[IO]): IO[Unit] = {
+    Stream(4, 5, 6)
+      .stage("Stream(4, 5, 4)")
+      .compile
+      .toList
+      .compileStage(
+        "compile.toList"
+      )
+      .void
+  }
+}
+
+object App extends AquascapeApp.Batch {
+  val aquascapes: List[Aquascape] = List(firstAquascape, secondAquascape)
+}
+```
+
 ## Best practices
 
 A good aquascape is a simple, informative diagram. It helps readers understand how a stream system behaves.
