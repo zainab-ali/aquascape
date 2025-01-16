@@ -17,6 +17,7 @@
 package aquascape
 
 import aquascape.drawing.Config
+import aquascape.code.StreamCode
 import cats.effect.*
 import cats.syntax.all.*
 
@@ -28,6 +29,8 @@ trait Aquascape {
   def config: Config = Config.default
 
   def stream(using Scape[IO]): IO[Unit]
+
+  def streamCode(using Scape[IO]): StreamCode = StreamCode(code = None, stream = stream)
 }
 
 object AquascapeApp extends PlatformCompanion {
@@ -36,13 +39,14 @@ object AquascapeApp extends PlatformCompanion {
       val name: String,
       val chunked: Boolean,
       val config: Config,
-      val stream: Scape[IO] ?=> IO[Unit]
+      val streamCode: Scape[IO] ?=> StreamCode
   )
 
   def run(args: Args): IO[Unit] = for {
     scape <- if (args.chunked) Scape.chunked[IO] else Scape.unchunked[IO]
     given Scape[IO] = scape
-    picture <- args.stream(using scape).draw(args.config)
+    streamCode = args.streamCode(using scape)
+    picture <- streamCode.stream.draw(args.config)
     _ <- draw(picture, args.name)
   } yield ()
 
@@ -65,5 +69,5 @@ object AquascapeApp extends PlatformCompanion {
 
 trait AquascapeApp extends IOApp.Simple with Aquascape {
   final def run: IO[Unit] =
-    AquascapeApp.run(AquascapeApp.Args(name, chunked, config, stream))
+    AquascapeApp.run(AquascapeApp.Args(name, chunked, config, streamCode))
 }

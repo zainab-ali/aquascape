@@ -20,8 +20,14 @@ import cats.effect.*
 import doodle.core.format.*
 import doodle.java2d.*
 import doodle.syntax.all.*
+import fs2.io.file.Path
+import fs2.io.file.Files
+import fs2.Stream
 
 trait PlatformCompanion {
+
+  def code(text: String, name: String): IO[Unit] =
+    Files[IO].writeUtf8(Path(s"$name.txt"))(Stream(text)).compile.drain
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
     picture.writeToIO[Png](s"$name.png")
 }

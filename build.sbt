@@ -41,7 +41,25 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "org.scalameta" %%% "munit" % "1.0.4" % Test,
       "org.typelevel" %%% "cats-effect-testkit" % "3.5.7" % Test,
       "org.typelevel" %%% "munit-cats-effect" % "2.0.0" % Test,
-      "com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test
+      ("com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test)
+        .exclude(
+          "com.lihaoyi",
+          "sourcecode_sjs1_3"
+        )
+        .exclude(
+          "com.lihaoyi",
+          "sourcecode_3"
+        )
+        .exclude(
+          "com.lihaoyi",
+          "fansi_3"
+        ),
+
+      // scalameta and scalafmt are required for the code macro.
+      ("org.scalameta" %%% "scalameta" % "4.9.9" % Compile)
+        .cross(CrossVersion.for3Use2_13),
+      ("org.scalameta" %% "scalafmt-core" % "3.8.3" % Compile)
+        .cross(CrossVersion.for3Use2_13)
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
     buildInfoPackage := "aquascape"

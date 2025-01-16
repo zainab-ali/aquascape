@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aquascape.examples
+package aquascape.code
 
 import cats.effect.IO
 import org.scalafmt.Scalafmt
@@ -23,7 +23,7 @@ import org.scalafmt.config.ScalafmtConfig
 import scala.meta.*
 import scala.quoted.*
 
-final case class StreamCode(code: String, stream: IO[Any])
+final case class StreamCode(code: Option[String], stream: IO[Any])
 
 inline def code(stream: IO[Any]): StreamCode = ${ codeImpl('stream) }
 
@@ -36,7 +36,7 @@ private def codeImpl(
   }))
   '{
     StreamCode(
-      code = $txt,
+      code = Some($txt),
       stream = $stream
     )
   }
