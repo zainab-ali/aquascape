@@ -122,6 +122,37 @@ lazy val docs = project
   .dependsOn(core.jvm)
   .settings(
     mdocVariables += ("SCALAJS_VERSION" -> scalaJSVersion),
+    libraryDependencies ~= { old =>
+      old.map { dependency =>
+        if (
+          dependency.organization == "org.scalameta" && dependency.name == "mdoc"
+        ) {
+          dependency
+            .exclude(
+              "com.lihaoyi",
+              "sourcecode_3"
+            )
+            .exclude(
+              "com.lihaoyi",
+              "fansi_3"
+            )
+            .exclude(
+              "org.scalameta",
+              "mdoc-parser_3"
+            )
+            .exclude(
+              "org.typelevel",
+              "paiges-core_3"
+            )
+            .exclude(
+              "org.scala-lang.modules",
+              "scala-collection-compat_3"
+            )
+        } else {
+          dependency
+        }
+      }
+    },
     tlSiteKeepFiles := false,
     tlSiteHelium := tlSiteHelium.value.site
       .mainNavigation(

@@ -123,7 +123,7 @@ import aquascape.*
 import cats.effect.*
 import fs2.*
 
-val firstAquascape = new Aquascape {
+val firstAquascape = new Aquascape.Simple {
   def name: String = "firstFrame"
   def stream(using Scape[IO]): IO[Unit] = {
     Stream(1, 2, 3)
@@ -137,7 +137,7 @@ val firstAquascape = new Aquascape {
   }
 }
 
-val secondAquascape = new Aquascape {
+val secondAquascape = new Aquascape.Simple {
   def name: String = "secondFrame"
   def stream(using Scape[IO]): IO[Unit] = {
     Stream(4, 5, 6)
@@ -167,6 +167,53 @@ object App extends AquascapeApp.Batch {
   <body>
     <div id="firstFrame"></div>
     <div id="secondFrame"></div>
+  </body>
+</html>
+```
+## How to export code snippets
+
+You can export code snippets along with their aquascapes using the `streamCode` and `code` functions. These come in handy when embedding aquascapes into blog posts and docs.
+
+@:todo(This snippet must be manually checked due to classpath issues when running scalafmt)
+```scala
+// App.scala
+//> using dep com.github.zainab-ali::aquascape::@VERSION@
+
+import aquascape.*
+import cats.effect.*
+import fs2.*
+
+val basicScape = new Aquascape { // Extend `Aquascape` instead of `Aquascape.Simple`
+  def name: String = "aquascapeFrame"
+  def streamCode(using Scape[IO]): StreamCode = code { // Call the `code` macro
+    Stream(1, 2, 3)
+      .stage("Stream(1, 2, 3)")
+      .compile
+      .toList
+      .compileStage(
+        "compile.toList"
+      )
+      .void
+  }
+}
+
+object App extends AquascapeApp.Batch {
+  val aquascapes: List[Aquascape] = List(basicScape)
+}
+```
+
+### Embedding code snippets in HTML
+
+[Package the app](#embed-an-svg-in-html) as before, then include it in HTML along with a `<code>` element. The `<code>` element must have an id corresponding to the aquascape:
+
+```html
+<html>
+  <head>
+    <script src="App.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <code id="aquascapeFrameCode"></code>
+    <div id="aquascapeFrame"></div>
   </body>
 </html>
 ```
