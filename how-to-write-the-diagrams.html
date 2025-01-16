@@ -109,6 +109,8 @@
     <li class="level2 nav-leaf"><a href="#embed-an-svg-in-html">Embed an SVG in HTML</a></li>
     <li class="level1 nav-leaf"><a href="#how-to-draw-chunks">How to draw chunks</a></li>
     <li class="level1 nav-leaf"><a href="#how-to-draw-concurrent-processes">How to draw concurrent processes</a></li>
+    <li class="level1 nav-node"><a href="#how-to-draw-a-batch-of-aquascapes">How to draw a batch of aquascapes</a></li>
+    <li class="level2 nav-leaf"><a href="#embed-a-batch-of-svgs-in-html">Embed a batch of SVGs in HTML</a></li>
     <li class="level1 nav-leaf"><a href="#best-practices">Best practices</a></li>
   </ul>
 
@@ -155,14 +157,14 @@
         
         <h3 id="embed-an-svg-in-html" class="section"><a class="anchor-link left" href="#embed-an-svg-in-html"><i class="icofont-laika link">&#xef71;</i></a>Embed an SVG in HTML</h3>
         <p>Package the app with Scala <code>3.5.0</code> and above to produce a <code>App.js</code> file.</p>
-        <pre class="keep-together pdf epub"><code class="nohighlight"><span>scala --power package --js-version </span><span class="number-literal">1.16.0</span><span> --js App.scala</span></code></pre>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span>scala --power package --js-version </span><span class="number-literal">1.17.0</span><span> --js App.scala</span></code></pre>
         <p>Include this as a script:</p>
         <pre class="keep-together pdf epub"><code class="nohighlight"><span class="tag-punctuation">&lt;</span><span class="tag-name">html</span><span class="tag-punctuation">&gt;</span><span>
   </span><span class="tag-punctuation">&lt;</span><span class="tag-name">head</span><span class="tag-punctuation">&gt;</span><span>
     </span><span class="tag-punctuation">&lt;</span><span class="tag-name">script</span><span class="tag-punctuation"> </span><span class="attribute-name">src</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;App.js&quot;</span><span class="tag-punctuation"> </span><span class="attribute-name">type</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;text/javascript&quot;</span><span class="tag-punctuation">&gt;&lt;/</span><span class="tag-name">script</span><span class="tag-punctuation">&gt;</span><span>
   </span><span class="tag-punctuation">&lt;/</span><span class="tag-name">head</span><span class="tag-punctuation">&gt;</span><span>
   </span><span class="tag-punctuation">&lt;</span><span class="tag-name">body</span><span class="tag-punctuation">&gt;</span><span>
-    </span><span class="tag-punctuation">&lt;</span><span class="tag-name">div</span><span class="tag-punctuation"> </span><span class="attribute-name">id</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;aquascapeFrame&quot;</span><span class="tag-punctuation">&gt;</span><span>
+    </span><span class="tag-punctuation">&lt;</span><span class="tag-name">div</span><span class="tag-punctuation"> </span><span class="attribute-name">id</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;aquascapeFrame&quot;</span><span class="tag-punctuation">&gt;&lt;/</span><span class="tag-name">div</span><span class="tag-punctuation">&gt;</span><span>
   </span><span class="tag-punctuation">&lt;/</span><span class="tag-name">body</span><span class="tag-punctuation">&gt;</span><span>
 </span><span class="tag-punctuation">&lt;/</span><span class="tag-name">html</span><span class="tag-punctuation">&gt;</span></code></pre>
         <p>Open up your HTML page to see your aquascape.</p>
@@ -200,6 +202,59 @@
       .</span><span class="identifier">compileStage</span><span>(</span><span class="string-literal">&quot;compile.drain&quot;</span><span>)            </span><span class="comment">// Introduce a default branch named `root`.
 </span><span>  }
 }</span></code></pre>
+        
+        <h2 id="how-to-draw-a-batch-of-aquascapes" class="section"><a class="anchor-link left" href="#how-to-draw-a-batch-of-aquascapes"><i class="icofont-laika link">&#xef71;</i></a>How to draw a batch of aquascapes</h2>
+        <p>You can generate multiple aquascapes in a single <code>App</code> by extending <code>AquascapeApp.Batch</code> and defining a list of <code>aquascapes</code>:</p>
+        <pre><code class="nohighlight"><span class="comment">// App.scala
+//&gt; using dep com.github.zainab-ali::aquascape::0.3.0
+</span><span>
+</span><span class="keyword">import</span><span> </span><span class="identifier">aquascape</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">cats</span><span>.</span><span class="identifier">effect</span><span>.*
+</span><span class="keyword">import</span><span> </span><span class="identifier">fs2</span><span>.*
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">firstAquascape</span><span> = </span><span class="keyword">new</span><span> </span><span class="type-name">Aquascape</span><span> {
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">name</span><span>: </span><span class="type-name">String</span><span> = </span><span class="string-literal">&quot;firstFrame&quot;</span><span>
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]): </span><span class="type-name">IO</span><span>[</span><span class="type-name">Unit</span><span>] = {
+    </span><span class="type-name">Stream</span><span>(</span><span class="number-literal">1</span><span>, </span><span class="number-literal">2</span><span>, </span><span class="number-literal">3</span><span>)
+      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;Stream(1, 2, 3)&quot;</span><span>)
+      .</span><span class="identifier">compile</span><span>
+      .</span><span class="identifier">toList</span><span>
+      .</span><span class="identifier">compileStage</span><span>(
+        </span><span class="string-literal">&quot;compile.toList&quot;</span><span>
+      )
+      .</span><span class="identifier">void</span><span>
+  }
+}
+
+</span><span class="keyword">val</span><span> </span><span class="identifier">secondAquascape</span><span> = </span><span class="keyword">new</span><span> </span><span class="type-name">Aquascape</span><span> {
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">name</span><span>: </span><span class="type-name">String</span><span> = </span><span class="string-literal">&quot;secondFrame&quot;</span><span>
+  </span><span class="keyword">def</span><span> </span><span class="declaration-name">stream</span><span>(</span><span class="keyword">using</span><span> </span><span class="type-name">Scape</span><span>[</span><span class="type-name">IO</span><span>]): </span><span class="type-name">IO</span><span>[</span><span class="type-name">Unit</span><span>] = {
+    </span><span class="type-name">Stream</span><span>(</span><span class="number-literal">4</span><span>, </span><span class="number-literal">5</span><span>, </span><span class="number-literal">6</span><span>)
+      .</span><span class="identifier">stage</span><span>(</span><span class="string-literal">&quot;Stream(4, 5, 6)&quot;</span><span>)
+      .</span><span class="identifier">compile</span><span>
+      .</span><span class="identifier">toList</span><span>
+      .</span><span class="identifier">compileStage</span><span>(
+        </span><span class="string-literal">&quot;compile.toList&quot;</span><span>
+      )
+      .</span><span class="identifier">void</span><span>
+  }
+}
+
+</span><span class="keyword">object</span><span> </span><span class="type-name">App</span><span> </span><span class="keyword">extends</span><span> </span><span class="type-name">AquascapeApp</span><span>.</span><span class="type-name">Batch</span><span> {
+  </span><span class="keyword">val</span><span> </span><span class="identifier">aquascapes</span><span>: </span><span class="type-name">List</span><span>[</span><span class="type-name">Aquascape</span><span>] = </span><span class="type-name">List</span><span>(</span><span class="identifier">firstAquascape</span><span>, </span><span class="identifier">secondAquascape</span><span>)
+}</span></code></pre>
+        
+        <h3 id="embed-a-batch-of-svgs-in-html" class="section"><a class="anchor-link left" href="#embed-a-batch-of-svgs-in-html"><i class="icofont-laika link">&#xef71;</i></a>Embed a batch of SVGs in HTML</h3>
+        <p><a href="#embed-an-svg-in-html">Package the app</a> as before, then include it in HTML with a <code>&lt;div&gt;</code> per aquascape:</p>
+        <pre class="keep-together pdf epub"><code class="nohighlight"><span class="tag-punctuation">&lt;</span><span class="tag-name">html</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;</span><span class="tag-name">head</span><span class="tag-punctuation">&gt;</span><span>
+    </span><span class="tag-punctuation">&lt;</span><span class="tag-name">script</span><span class="tag-punctuation"> </span><span class="attribute-name">src</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;App.js&quot;</span><span class="tag-punctuation"> </span><span class="attribute-name">type</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;text/javascript&quot;</span><span class="tag-punctuation">&gt;&lt;/</span><span class="tag-name">script</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;/</span><span class="tag-name">head</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;</span><span class="tag-name">body</span><span class="tag-punctuation">&gt;</span><span>
+    </span><span class="tag-punctuation">&lt;</span><span class="tag-name">div</span><span class="tag-punctuation"> </span><span class="attribute-name">id</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;firstFrame&quot;</span><span class="tag-punctuation">&gt;&lt;/</span><span class="tag-name">div</span><span class="tag-punctuation">&gt;</span><span>
+    </span><span class="tag-punctuation">&lt;</span><span class="tag-name">div</span><span class="tag-punctuation"> </span><span class="attribute-name">id</span><span class="tag-punctuation">=</span><span class="string-literal">&quot;secondFrame&quot;</span><span class="tag-punctuation">&gt;&lt;/</span><span class="tag-name">div</span><span class="tag-punctuation">&gt;</span><span>
+  </span><span class="tag-punctuation">&lt;/</span><span class="tag-name">body</span><span class="tag-punctuation">&gt;</span><span>
+</span><span class="tag-punctuation">&lt;/</span><span class="tag-name">html</span><span class="tag-punctuation">&gt;</span></code></pre>
         
         <h2 id="best-practices" class="section"><a class="anchor-link left" href="#best-practices"><i class="icofont-laika link">&#xef71;</i></a>Best practices</h2>
         <p>A good aquascape is a simple, informative diagram. It helps readers understand how a stream system behaves.</p>
