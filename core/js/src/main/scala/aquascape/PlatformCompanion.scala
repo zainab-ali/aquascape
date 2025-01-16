@@ -19,8 +19,15 @@ package aquascape
 import cats.effect.*
 import doodle.svg.*
 import doodle.syntax.all.*
+import org.scalajs.dom
 
 trait PlatformCompanion {
+
+  def writeCode(text: String, name: String): IO[Unit] = for {
+    codeEl <- IO(dom.document.getElementById(s"${name}Code"))
+    _ <- IO(codeEl.textContent = text)
+  } yield ()
+
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
     picture.drawWithFrameToIO(Frame(name))
 }

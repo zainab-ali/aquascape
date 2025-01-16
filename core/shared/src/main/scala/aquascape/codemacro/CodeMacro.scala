@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package aquascape.examples
-
+package aquascape.codemacro
+import aquascape.StreamCode
 import cats.effect.IO
-import org.scalafmt.Scalafmt
-import org.scalafmt.config.ScalafmtConfig
 
 import scala.meta.*
+import scala.meta.given
 import scala.quoted.*
 
-final case class StreamCode(code: String, stream: IO[Any])
-
-inline def code(stream: IO[Any]): StreamCode = ${ codeImpl('stream) }
-
-private def codeImpl(
+def codeImpl(
     stream: Expr[IO[Any]]
 )(using q: Quotes): Expr[StreamCode] = {
   import q.reflect.*
@@ -36,7 +31,7 @@ private def codeImpl(
   }))
   '{
     StreamCode(
-      code = $txt,
+      code = Some($txt),
       stream = $stream
     )
   }
@@ -50,16 +45,21 @@ private def clean(source: String): String = {
   format(stripStageCalls(tree))
 }
 private def stripStageCalls(tree: Tree): Tree = {
-  tree.transform {
-    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("fork")), _) =>
-      stripStageCalls(t)
-    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("stage")), _)  => t
-    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace")), _)  => t
-    case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace_")), _) => t
-    case Term.Apply
-          .After_4_6_0(Term.Select(t, Term.Name("compileStage")), _) =>
-      t
-  }
+  ???
+  // scalameta transformers don't compile for Scala 3 yet.
+  // See
+  //  - https://github.com/scalameta/scalameta/issues/4146
+  //  - https://github.com/scalameta/scalameta/blob/2e71839da10d6bbb20a19a09407778d8f1f179f1/scalameta/common/shared/src/main/scala/scala/meta/internal/transversers/traverser.scala#L6
+  // tree.transform {
+  //   case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("fork")), _) =>
+  //     stripStageCalls(t)
+  //   case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("stage")), _)  => t
+  //   case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace")), _)  => t
+  //   case Term.Apply.After_4_6_0(Term.Select(t, Term.Name("trace_")), _) => t
+  //   case Term.Apply
+  //         .After_4_6_0(Term.Select(t, Term.Name("compileStage")), _) =>
+  //     t
+  // }
 }
 
 private def prettySyntax(tree: Tree): String = tree match {
@@ -75,8 +75,5 @@ private def prettySyntax(tree: Tree): String = tree match {
 private def format(code: Tree): String = {
   import scala.meta.dialects.Scala3
   val text = prettySyntax(code)
-  Scalafmt
-    .format(text, style = ScalafmtConfig.default.withDialect(Scala3))
-    .get // Throw an error at compile time if we cannot format the code
-    .trim
+  text.trim
 }

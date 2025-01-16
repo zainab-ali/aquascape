@@ -16,18 +16,10 @@
 
 package aquascape
 
-import cats.effect.*
-import doodle.core.format.*
-import doodle.java2d.*
-import doodle.syntax.all.*
-import fs2.io.file.Path
-import fs2.io.file.Files
-import fs2.Stream
+import cats.effect.IO
 
-trait PlatformCompanion {
+final case class StreamCode(code: Option[String], stream: IO[Any])
 
-  def writeCode(text: String, name: String): IO[Unit] =
-    Files[IO].writeUtf8(Path(s"$name.txt"))(Stream(text)).compile.drain
-  def draw(picture: Picture[Unit], name: String): IO[Unit] =
-    picture.writeToIO[Png](s"$name.png")
+inline def code(stream: IO[Any]): StreamCode = ${
+  aquascape.codemacro.codeImpl('stream)
 }
