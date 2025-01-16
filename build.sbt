@@ -44,11 +44,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
-    buildInfoPackage := "aquascape",
-    mimaBinaryIssueFilters += ProblemFilters
-      .exclude[DirectMissingMethodProblem](
-        "aquascape.drawing.Config.minProgressWidth"
-      )
+    buildInfoPackage := "aquascape"
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
@@ -107,6 +103,7 @@ lazy val docs = project
   .in(file("site"))
   .dependsOn(core.jvm)
   .settings(
+    mdocVariables += ("SCALAJS_VERSION" -> scalaJSVersion),
     tlSiteKeepFiles := false,
     tlSiteHelium := tlSiteHelium.value.site
       .mainNavigation(
