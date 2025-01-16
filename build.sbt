@@ -103,6 +103,7 @@ lazy val docs = project
   .in(file("site"))
   .dependsOn(core.jvm)
   .settings(
+    mdocVariables += ("SCALAJS_VERSION" -> scalaJSVersion),
     tlSiteKeepFiles := false,
     tlSiteHelium := tlSiteHelium.value.site
       .mainNavigation(

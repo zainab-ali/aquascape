@@ -49,7 +49,7 @@ Congratulations! You've produced an `aquascapeFrame.png` aquascape.
 Package the app with Scala `3.5.0` and above to produce a `App.js` file.
 
 ```sh
-scala --power package --js-version 1.16.0 --js App.scala
+scala --power package --js-version @SCALAJS_VERSION@ --js App.scala
 ```
 
 Include this as a script:
@@ -59,7 +59,7 @@ Include this as a script:
     <script src="App.js" type="text/javascript"></script>
   </head>
   <body>
-    <div id="aquascapeFrame">
+    <div id="aquascapeFrame"></div>
   </body>
 </html>
 ```
@@ -141,7 +141,7 @@ val secondAquascape = new Aquascape {
   def name: String = "secondFrame"
   def stream(using Scape[IO]): IO[Unit] = {
     Stream(4, 5, 6)
-      .stage("Stream(4, 5, 4)")
+      .stage("Stream(4, 5, 6)")
       .compile
       .toList
       .compileStage(
@@ -154,6 +154,21 @@ val secondAquascape = new Aquascape {
 object App extends AquascapeApp.Batch {
   val aquascapes: List[Aquascape] = List(firstAquascape, secondAquascape)
 }
+```
+### Embed a batch of SVGs in HTML
+
+[Package the app](#embed-an-svg-in-html) as before, then include it in HTML with a `<div>` per aquascape:
+
+```html
+<html>
+  <head>
+    <script src="App.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="firstFrame"></div>
+    <div id="secondFrame"></div>
+  </body>
+</html>
 ```
 
 ## Best practices
