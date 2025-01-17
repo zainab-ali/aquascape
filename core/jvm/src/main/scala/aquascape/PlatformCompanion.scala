@@ -17,6 +17,7 @@
 package aquascape
 
 import cats.effect.*
+import cats.effect.std.Console
 import doodle.core.format.*
 import doodle.java2d.*
 import doodle.syntax.all.*
@@ -28,7 +29,7 @@ trait PlatformCompanion {
     Path(name).parent.traverse_(Files[IO].createDirectories) >> picture
       .writeToIO[Png](s"$name.png")
 
-  def platformParseArgs(args: List[String]): CliArgs = {
+  def parseArgs(args: List[String]): IO[Either[ExitCode, String]] = {
     val outputDirOpt = Opts
       .option[String](
         "output",
@@ -42,12 +43,12 @@ trait PlatformCompanion {
       header = "Writes aquascape PNG images"
     )(outputDirOpt)
     cmd.parse(args) match {
-      case Left(help) if (help.errors.isEmpty) => CliArgs.Help(help.toString)
-      case Left(help)                          => CliArgs.Err(help.toString)
-      case Right(Some(outputDir)) => CliArgs.OutputDir(s"$outputDir/")
-      case Right(None)            => CliArgs.NoArgs
+      case Left(help) if (help.errors.isEmpty) =>
+        Console[IO].println(help.show).as(Left(ExitCode.Success))
+      case Left(help) => Console[IO].errorln(help.show).as(Left(ExitCode.Error))
+      case Right(Some(outputDir)) => IO(Right(s"$outputDir/"))
+      case Right(None)            => IO(Right(""))
     }
-    ???
   }
 
 }

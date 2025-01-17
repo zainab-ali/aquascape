@@ -24,5 +24,7 @@ trait PlatformCompanion {
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
     picture.drawWithFrameToIO(Frame(name))
 
-  def platformParseArgs(args: List[String]): CliArgs = CliArgs.NoArgs
+  def parseArgs(args: List[String]): IO[Either[ExitCode, String]] = IO(
+    Right("")
+  )
 }

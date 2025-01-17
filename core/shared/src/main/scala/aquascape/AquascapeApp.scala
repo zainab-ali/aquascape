@@ -30,12 +30,6 @@ trait Aquascape {
   def stream(using Scape[IO]): IO[Unit]
 }
 
-private enum CliArgs {
-  case Help(text: String)
-  case Err(err: String)
-  case OutputDir(dir: String)
-  case NoArgs
-}
 object AquascapeApp extends PlatformCompanion {
 
   final class Args(
@@ -45,15 +39,6 @@ object AquascapeApp extends PlatformCompanion {
       val stream: Scape[IO] ?=> IO[Unit]
   )
 
-  private def parseArgs(args: List[String]): IO[Either[ExitCode, String]] = {
-    import CliArgs.*
-    platformParseArgs(args) match {
-      case Help(msg)      => IO.println(msg).as(Left(ExitCode.Success))
-      case Err(msg)       => IO.println(msg).as(Left(ExitCode.Error))
-      case OutputDir(dir) => Right(s"$dir/").pure
-      case NoArgs         => Right("").pure
-    }
-  }
   def run(args: Args): IO[Unit] = for {
     scape <- if (args.chunked) Scape.chunked[IO] else Scape.unchunked[IO]
     given Scape[IO] = scape
