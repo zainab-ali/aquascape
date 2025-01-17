@@ -23,4 +23,6 @@ import doodle.syntax.all.*
 trait PlatformCompanion {
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
     picture.drawWithFrameToIO(Frame(name))
+
+  def parseOutputPrefix(args: List[String]): String = ""
 }

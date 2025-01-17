@@ -20,8 +20,32 @@ import cats.effect.*
 import doodle.core.format.*
 import doodle.java2d.*
 import doodle.syntax.all.*
-
+import fs2.io.file.*
+import cats.syntax.all.*
+import com.monovore.decline.*
 trait PlatformCompanion {
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
-    picture.writeToIO[Png](s"$name.png")
+    Path(name).parent.traverse_(Files[IO].createDirectories) >> picture
+      .writeToIO[Png](s"$name.png")
+
+  def parseOutputPrefix(args: List[String]): String = {
+    val outputDirOpt = Opts.option[String](
+      "output",
+      short = "o",
+      metavar = "output",
+      help = "The directory in which aquascapes are written."
+    ).orNone
+    val cmd = Command(
+      name = "AquascapeApp.Batch",
+      header = "Writes aquascape PNG images"
+    )(outputDirOpt)
+    cmd.parse(args) match {
+      case Left(help) =>
+        println(help)
+        sys.exit(0)
+      case Right(Some(outputDir)) => s"$outputDir/"
+      case Right(None) => ""
+    }
+  }
+
 }

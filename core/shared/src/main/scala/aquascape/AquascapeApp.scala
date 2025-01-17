@@ -46,20 +46,23 @@ object AquascapeApp extends PlatformCompanion {
     _ <- draw(picture, args.name)
   } yield ()
 
-  trait Batch extends IOApp.Simple {
+  trait Batch extends IOApp {
     def aquascapes: List[Aquascape]
 
-    final def run: IO[Unit] =
-      aquascapes.traverse_(aquascape =>
-        AquascapeApp.run(
-          Args(
-            aquascape.name,
-            aquascape.chunked,
-            aquascape.config,
-            aquascape.stream
+    final def run(args: List[String]): IO[ExitCode] =
+      val prefix = parseOutputPrefix(args)
+      aquascapes
+        .traverse_(aquascape =>
+          AquascapeApp.run(
+            Args(
+              s"$prefix${aquascape.name}",
+              aquascape.chunked,
+              aquascape.config,
+              aquascape.stream
+            )
           )
         )
-      )
+        .as(ExitCode.Success)
   }
 }
 
