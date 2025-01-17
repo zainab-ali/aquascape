@@ -28,24 +28,26 @@ trait PlatformCompanion {
     Path(name).parent.traverse_(Files[IO].createDirectories) >> picture
       .writeToIO[Png](s"$name.png")
 
-  def parseOutputPrefix(args: List[String]): String = {
-    val outputDirOpt = Opts.option[String](
-      "output",
-      short = "o",
-      metavar = "output",
-      help = "The directory in which aquascapes are written."
-    ).orNone
+  def platformParseArgs(args: List[String]): CliArgs = {
+    val outputDirOpt = Opts
+      .option[String](
+        "output",
+        short = "o",
+        metavar = "output",
+        help = "The directory in which aquascapes are written."
+      )
+      .orNone
     val cmd = Command(
       name = "AquascapeApp.Batch",
       header = "Writes aquascape PNG images"
     )(outputDirOpt)
     cmd.parse(args) match {
-      case Left(help) =>
-        println(help)
-        sys.exit(0)
-      case Right(Some(outputDir)) => s"$outputDir/"
-      case Right(None) => ""
+      case Left(help) if (help.errors.isEmpty) => CliArgs.Help(help.toString)
+      case Left(help)                          => CliArgs.Err(help.toString)
+      case Right(Some(outputDir)) => CliArgs.OutputDir(s"$outputDir/")
+      case Right(None)            => CliArgs.NoArgs
     }
+    ???
   }
 
 }

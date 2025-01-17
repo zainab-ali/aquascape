@@ -30,6 +30,12 @@ trait Aquascape {
   def stream(using Scape[IO]): IO[Unit]
 }
 
+private enum CliArgs {
+  case Help(text: String)
+  case Err(err: String)
+  case OutputDir(dir: String)
+  case NoArgs
+}
 object AquascapeApp extends PlatformCompanion {
 
   final class Args(
@@ -39,6 +45,15 @@ object AquascapeApp extends PlatformCompanion {
       val stream: Scape[IO] ?=> IO[Unit]
   )
 
+  private def parseArgs(args: List[String]): IO[Either[ExitCode, String]] = {
+    import CliArgs.*
+    platformParseArgs(args) match {
+      case Help(msg)      => IO.println(msg).as(Left(ExitCode.Success))
+      case Err(msg)       => IO.println(msg).as(Left(ExitCode.Error))
+      case OutputDir(dir) => Right(s"$dir/").pure
+      case NoArgs         => Right("").pure
+    }
+  }
   def run(args: Args): IO[Unit] = for {
     scape <- if (args.chunked) Scape.chunked[IO] else Scape.unchunked[IO]
     given Scape[IO] = scape
@@ -49,24 +64,34 @@ object AquascapeApp extends PlatformCompanion {
   trait Batch extends IOApp {
     def aquascapes: List[Aquascape]
 
-    final def run(args: List[String]): IO[ExitCode] =
-      val prefix = parseOutputPrefix(args)
-      aquascapes
-        .traverse_(aquascape =>
-          AquascapeApp.run(
-            Args(
-              s"$prefix${aquascape.name}",
-              aquascape.chunked,
-              aquascape.config,
-              aquascape.stream
+    final def run(args: List[String]): IO[ExitCode] = parseArgs(args).flatMap {
+      case Left(exitCode) => exitCode.pure
+      case Right(prefix) =>
+        aquascapes
+          .traverse_(aquascape =>
+            AquascapeApp.run(
+              Args(
+                s"$prefix${aquascape.name}",
+                aquascape.chunked,
+                aquascape.config,
+                aquascape.stream
+              )
             )
           )
-        )
-        .as(ExitCode.Success)
+          .as(ExitCode.Success)
+    }
   }
 }
 
-trait AquascapeApp extends IOApp.Simple with Aquascape {
-  final def run: IO[Unit] =
-    AquascapeApp.run(AquascapeApp.Args(name, chunked, config, stream))
+trait AquascapeApp extends IOApp with Aquascape {
+  final def run(args: List[String]): IO[ExitCode] = {
+    AquascapeApp.parseArgs(args).flatMap {
+      case Left(exitCode) => exitCode.pure
+      case Right(prefix) =>
+        AquascapeApp
+          .run(AquascapeApp.Args(s"$prefix${name}", chunked, config, stream))
+          .as(ExitCode.Success)
+
+    }
+  }
 }
