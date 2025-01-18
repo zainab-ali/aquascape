@@ -17,11 +17,38 @@
 package aquascape
 
 import cats.effect.*
+import cats.effect.std.Console
+import cats.syntax.all.*
+import com.monovore.decline.*
 import doodle.core.format.*
 import doodle.java2d.*
 import doodle.syntax.all.*
-
+import fs2.io.file.*
 trait PlatformCompanion {
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
-    picture.writeToIO[Png](s"$name.png")
+    Path(name).parent.traverse_(Files[IO].createDirectories) >> picture
+      .writeToIO[Png](s"$name.png")
+
+  def parseArgs(args: List[String]): IO[Either[ExitCode, String]] = {
+    val outputDirOpt = Opts
+      .option[String](
+        "output",
+        short = "o",
+        metavar = "output",
+        help = "The directory in which aquascapes are written."
+      )
+      .orNone
+    val cmd = Command(
+      name = "AquascapeApp.Batch",
+      header = "Writes aquascape PNG images"
+    )(outputDirOpt)
+    cmd.parse(args) match {
+      case Left(help) if (help.errors.isEmpty) =>
+        Console[IO].println(help.show).as(Left(ExitCode.Success))
+      case Left(help) => Console[IO].errorln(help.show).as(Left(ExitCode.Error))
+      case Right(Some(outputDir)) => IO(Right(s"$outputDir/"))
+      case Right(None)            => IO(Right(""))
+    }
+  }
+
 }

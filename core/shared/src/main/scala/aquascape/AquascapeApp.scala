@@ -46,24 +46,37 @@ object AquascapeApp extends PlatformCompanion {
     _ <- draw(picture, args.name)
   } yield ()
 
-  trait Batch extends IOApp.Simple {
+  trait Batch extends IOApp {
     def aquascapes: List[Aquascape]
 
-    final def run: IO[Unit] =
-      aquascapes.traverse_(aquascape =>
-        AquascapeApp.run(
-          Args(
-            aquascape.name,
-            aquascape.chunked,
-            aquascape.config,
-            aquascape.stream
+    final def run(args: List[String]): IO[ExitCode] = parseArgs(args).flatMap {
+      case Left(exitCode) => exitCode.pure
+      case Right(prefix) =>
+        aquascapes
+          .traverse_(aquascape =>
+            AquascapeApp.run(
+              Args(
+                s"$prefix${aquascape.name}",
+                aquascape.chunked,
+                aquascape.config,
+                aquascape.stream
+              )
+            )
           )
-        )
-      )
+          .as(ExitCode.Success)
+    }
   }
 }
 
-trait AquascapeApp extends IOApp.Simple with Aquascape {
-  final def run: IO[Unit] =
-    AquascapeApp.run(AquascapeApp.Args(name, chunked, config, stream))
+trait AquascapeApp extends IOApp with Aquascape {
+  final def run(args: List[String]): IO[ExitCode] = {
+    AquascapeApp.parseArgs(args).flatMap {
+      case Left(exitCode) => exitCode.pure
+      case Right(prefix) =>
+        AquascapeApp
+          .run(AquascapeApp.Args(s"$prefix${name}", chunked, config, stream))
+          .as(ExitCode.Success)
+
+    }
+  }
 }
