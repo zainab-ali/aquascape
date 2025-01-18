@@ -18,12 +18,12 @@ package aquascape
 
 import cats.effect.*
 import cats.effect.std.Console
+import cats.syntax.all.*
+import com.monovore.decline.*
 import doodle.core.format.*
 import doodle.java2d.*
 import doodle.syntax.all.*
 import fs2.io.file.*
-import cats.syntax.all.*
-import com.monovore.decline.*
 trait PlatformCompanion {
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
     Path(name).parent.traverse_(Files[IO].createDirectories) >> picture
