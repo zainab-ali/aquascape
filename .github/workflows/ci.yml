@@ -77,13 +77,17 @@ jobs:
         if: matrix.java == 'temurin@8' && matrix.os == 'ubuntu-22.04'
         run: sbt 'project ${{ matrix.project }}' '++ ${{ matrix.scala }}' doc
 
+      - name: Test plugin
+        if: matrix.project == 'rootJVM'
+        run: sbt 'project ${{ matrix.project }}' '++ ${{ matrix.scala }}' scripted
+
       - name: Make target directories
         if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
-        run: mkdir -p core/js/target core/jvm/target project/target
+        run: mkdir -p plugin/target core/js/target core/jvm/target project/target
 
       - name: Compress target directories
         if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
-        run: tar cf targets.tar core/js/target core/jvm/target project/target
+        run: tar cf targets.tar plugin/target core/js/target core/jvm/target project/target
 
       - name: Upload target directories
         if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')

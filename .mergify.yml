@@ -30,6 +30,14 @@ pull_request_rules:
       add:
       - examples
       remove: []
+- name: Label plugin PRs
+  conditions:
+  - files~=^plugin/
+  actions:
+    label:
+      add:
+      - plugin
+      remove: []
 - name: Label site PRs
   conditions:
   - files~=^site/

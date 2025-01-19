@@ -1,0 +1,3 @@
+> docs / aquascape
+$ exists myproject-docs/target/mdoc/myaquascape.png
+> docs / mdoc

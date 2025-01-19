@@ -23,10 +23,14 @@ val Scala3 = "3.3.4"
 ThisBuild / crossScalaVersions := Seq(Scala3)
 ThisBuild / scalaVersion := Scala3 // the default Scala
 
-lazy val root = tlCrossRootProject.aggregate(core)
-
 ThisBuild / tlCiMimaBinaryIssueCheck := false
+lazy val root = tlCrossRootProject.aggregate(core, plugin)
 
+ThisBuild / githubWorkflowBuild += WorkflowStep.Sbt(
+  List("scripted"),
+  name = Some("Test plugin"),
+  cond = Some("matrix.project == 'rootJVM'")
+)
 lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
   .settings(
@@ -99,6 +103,23 @@ lazy val examples = project
 import laika.format._
 import laika.ast.Path.Root
 import laika.helium.config.{ThemeNavigationSection, TextLink}
+
+lazy val plugin = (project in file("plugin"))
+  .enablePlugins(SbtPlugin, BuildInfoPlugin)
+  .settings(
+    name := "sbt-aquascape",
+    buildInfoPackage := "sbtaquascape",
+    scalaVersion := "2.12.20",
+    scriptedLaunchOpts := {
+      scriptedLaunchOpts.value ++
+        Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
+    },
+    scriptedBufferLog := false,
+    scriptedDependencies := {
+      (core.jvm / publishLocal).value
+      scriptedDependencies.value
+    }
+  )
 
 lazy val docs = project
   .in(file("site"))
