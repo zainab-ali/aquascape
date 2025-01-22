@@ -32,6 +32,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .settings(
     name := "aquascape",
     fork := true,
+    mimaPreviousArtifacts := Set.empty,
     libraryDependencies ++= Seq(
       "co.fs2" %%% "fs2-core" % "3.11.0",
       "co.fs2" %%% "fs2-io" % "3.11.0",
