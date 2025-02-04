@@ -19,7 +19,7 @@ ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeLegacy
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
 
-val Scala3 = "3.3.4"
+val Scala3 = "3.3.5"
 ThisBuild / crossScalaVersions := Seq(Scala3)
 ThisBuild / scalaVersion := Scala3 // the default Scala
 
