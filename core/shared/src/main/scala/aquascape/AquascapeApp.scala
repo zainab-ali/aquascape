@@ -51,7 +51,7 @@ object AquascapeApp extends PlatformCompanion {
 
     final def run(args: List[String]): IO[ExitCode] = parseArgs(args).flatMap {
       case Left(exitCode) => exitCode.pure
-      case Right(prefix) =>
+      case Right(prefix)  =>
         aquascapes
           .traverse_(aquascape =>
             AquascapeApp.run(
@@ -72,7 +72,7 @@ trait AquascapeApp extends IOApp with Aquascape {
   final def run(args: List[String]): IO[ExitCode] = {
     AquascapeApp.parseArgs(args).flatMap {
       case Left(exitCode) => exitCode.pure
-      case Right(prefix) =>
+      case Right(prefix)  =>
         AquascapeApp
           .run(AquascapeApp.Args(s"$prefix${name}", chunked, config, stream))
           .as(ExitCode.Success)
