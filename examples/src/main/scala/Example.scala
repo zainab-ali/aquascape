@@ -103,8 +103,8 @@ private def drawFrames(
 )(stream: Scape[IO] ?=> StreamCode): IO[Unit] = {
   for {
     code <- frameIds match {
-      case FrameIds.Unchunked(id) => drawFrame(id, false)(stream)
-      case FrameIds.Chunked(id)   => drawFrame(id, true)(stream)
+      case FrameIds.Unchunked(id)                => drawFrame(id, false)(stream)
+      case FrameIds.Chunked(id)                  => drawFrame(id, true)(stream)
       case FrameIds.Both(unchunkedId, chunkedId) =>
         drawFrame(unchunkedId, false)(stream) *> drawFrame(chunkedId, true)(
           stream
