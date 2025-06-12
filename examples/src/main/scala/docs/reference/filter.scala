@@ -20,7 +20,6 @@ import aquascape.*
 import aquascape.examples.*
 import cats.Show
 import cats.effect.*
-import cats.effect.IO
 import cats.syntax.all.*
 import fs2.*
 
