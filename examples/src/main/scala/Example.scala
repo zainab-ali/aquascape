@@ -18,7 +18,6 @@ package aquascape.examples
 
 import aquascape.*
 import cats.effect.*
-import cats.effect.IO
 import cats.effect.testkit.*
 import cats.effect.unsafe.implicits.global
 import cats.syntax.all.*

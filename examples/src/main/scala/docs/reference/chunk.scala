@@ -21,7 +21,6 @@ import aquascape.examples.*
 import aquascape.examples.syntax.given
 import cats.Show
 import cats.effect.*
-import cats.effect.IO
 import fs2.*
 
 import scala.scalajs.js.annotation.JSExport
