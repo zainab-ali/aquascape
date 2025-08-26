@@ -5,7 +5,7 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 // https://typelevel.org/sbt-typelevel/faq.html#what-is-a-base-version-anyway
 ThisBuild / tlBaseVersion := "0.4" // your current series x.y
 
-ThisBuild / organization := "com.github.zainab-ali"
+ThisBuild / organization := "io.github.zainab-ali"
 ThisBuild / organizationName := "Zainab Ali"
 ThisBuild / startYear := Some(2023)
 ThisBuild / licenses := Seq(License.Apache2)
