@@ -12,7 +12,7 @@ Extend `AquascapeApp`:
 
 ```scala
 // App.scala
-//> using dep com.github.zainab-ali::aquascape::@VERSION@
+//> using dep io.github.zainab-ali::aquascape::@VERSION@
 
 import aquascape.*
 import cats.effect.*
@@ -117,7 +117,7 @@ You can generate multiple aquascapes in a single `App` by extending `AquascapeAp
 
 ```scala mdoc:nest:silent
 // App.scala
-//> using dep com.github.zainab-ali::aquascape::@VERSION@
+//> using dep io.github.zainab-ali::aquascape::@VERSION@
 
 import aquascape.*
 import cats.effect.*
