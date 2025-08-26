@@ -13,9 +13,6 @@ ThisBuild / developers := List(
   tlGitHubDev("zainab-ali", "Zainab Ali")
 )
 
-// publish to s01.oss.sonatype.org (set to true to publish to oss.sonatype.org instead)
-ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeLegacy
-
 // publish website from this branch
 ThisBuild / tlSitePublishBranch := Some("main")
 
