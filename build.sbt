@@ -3,7 +3,7 @@ import snapshot4s.BuildInfo.snapshot4sVersion
 import aquascapebuild.AquascapeDirectives
 Global / onChangedBuildSource := ReloadOnSourceChanges
 // https://typelevel.org/sbt-typelevel/faq.html#what-is-a-base-version-anyway
-ThisBuild / tlBaseVersion := "0.3" // your current series x.y
+ThisBuild / tlBaseVersion := "0.4" // your current series x.y
 
 ThisBuild / organization := "com.github.zainab-ali"
 ThisBuild / organizationName := "Zainab Ali"
