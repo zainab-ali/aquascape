@@ -200,7 +200,7 @@ jobs:
       - name: Submit Dependencies
         uses: scalacenter/sbt-dependency-submission@v2
         with:
-          modules-ignore: examples_sjs1_3 rootjs_3 docs_3 rootjvm_3 rootnative_3
+          modules-ignore: rootjs_3 aquascape-site_sjs1_3 docs_3 symbolguide_sjs1_3 referenceguide_sjs1_3 rootjvm_3 rootnative_3
           configs-ignore: test scala-tool scala-doc-tool test-internal
 
   site:

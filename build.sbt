@@ -64,9 +64,10 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   )
   .enablePlugins(BuildInfoPlugin, Snapshot4sPlugin)
 
-lazy val examples = project
-  .in(file("examples"))
+lazy val siteUtils = project
+  .in(file("site-utils"))
   .settings(
+    name := "aquascape-site",
     Test / scalaJSLinkerConfig ~= {
       _.withModuleKind(ModuleKind.CommonJSModule)
     },
@@ -93,6 +94,16 @@ lazy val examples = project
   )
   .dependsOn(core.js)
   .enablePlugins(ScalaJSPlugin, NoPublishPlugin, Snapshot4sPlugin)
+
+lazy val referenceGuide = project
+  .in(file("reference-guide"))
+  .dependsOn(siteUtils)
+  .enablePlugins(ScalaJSPlugin, NoPublishPlugin)
+
+lazy val symbolGuide = project
+  .in(file("symbol-guide"))
+  .dependsOn(siteUtils, referenceGuide)
+  .enablePlugins(ScalaJSPlugin, NoPublishPlugin)
 
 import laika.format._
 import laika.ast.Path.Root
@@ -123,16 +134,21 @@ lazy val docs = project
       .site
       .internalJS(Root / "aquascape.js")
       .site
+      .internalJS(Root / "symbol-guide.js")
+      .site
       .internalCSS(Root / "a11y-dark.min.css"),
     laikaExtensions += AquascapeDirectives,
-    // Add examples JS
-    Laika / sourceDirectories += (examples / Compile / fastOptJS / artifactPath).value
-      .getParentFile() / s"${(examples / moduleName).value}-fastopt",
+    // Add symbol guide and reference doc JS
     tlSite := Def
       .sequential(
         Compile / clean,
-        examples / Compile / fastOptJS,
+        symbolGuide / Compile / fastOptJS,
         mdoc.toTask(""),
+        Def.task {
+          val symbolGuideJS =
+            (symbolGuide / Compile / fastOptJS / artifactPath).value
+          IO.copyFile(symbolGuideJS, mdocOut.value / "symbol-guide.js")
+        },
         laikaSite
       )
       .value
