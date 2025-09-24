@@ -24,10 +24,13 @@
     <link rel="stylesheet" type="text/css" href="helium/site/laika-helium.css" />
     <link rel="stylesheet" type="text/css" href="main.css" />
     <link rel="stylesheet" type="text/css" href="a11y-dark.min.css" />
+    <link rel="stylesheet" type="text/css" href="search/search.css" />
   <script src="helium/site/laika-helium.js"></script>
     <script src="main.js"></script>
     <script src="highlight.min.js"></script>
     <script src="aquascape.js"></script>
+    <script src="search/protosearch.js"></script>
+    <script src="search/searchBar.js"></script>
   
   
   <script> /* for avoiding page load transitions */ </script>
@@ -41,11 +44,22 @@
     <a id="nav-icon">
       <i class="icofont-laika navigationMenu" title="Navigation">&#xefa2;</i>
     </a>
-    
+
     
   </div>
 
   <a class="icon-link glyph-link" href="index.html"><i class="icofont-laika home" title="Home">&#xef47;</i></a>
+
+  <div class="row search-row">
+    <input id="search-top-bar" class="input" type="text" placeholder="Search">
+  </div>
+  <div id="search-modal" class="search-modal">
+    <div class="search-modal-content">
+      <span class="search-close">&times;</span>
+      <input id="search-modal-input" class="input" type="text">
+      <div id="search-modal-content-body"></div>
+    </div>
+  </div>
 
   <div class="row links">
     
@@ -55,9 +69,10 @@
   </g>
 </svg></span></a>
     
-  </div>  
+  </div>
 
 </header>
+
     
     <nav id="sidebar">
 
