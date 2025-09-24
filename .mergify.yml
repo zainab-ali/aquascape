@@ -22,13 +22,13 @@ pull_request_rules:
       add:
       - core
       remove: []
-- name: Label examples PRs
+- name: Label reference-guide PRs
   conditions:
-  - files~=^examples/
+  - files~=^reference-guide/
   actions:
     label:
       add:
-      - examples
+      - reference-guide
       remove: []
 - name: Label site PRs
   conditions:
@@ -37,4 +37,20 @@ pull_request_rules:
     label:
       add:
       - site
+      remove: []
+- name: Label site-utils PRs
+  conditions:
+  - files~=^site-utils/
+  actions:
+    label:
+      add:
+      - site-utils
+      remove: []
+- name: Label symbol-guide PRs
+  conditions:
+  - files~=^symbol-guide/
+  actions:
+    label:
+      add:
+      - symbol-guide
       remove: []

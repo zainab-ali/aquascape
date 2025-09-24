@@ -84,13 +84,6 @@ trait ExampleWithInput[A] {
   def apply(a: A)(using Scape[IO]): StreamCode
 }
 
-final class Symbol(picture: Picture[Unit]) {
-  @JSExport
-  def draw(id: String): Unit = {
-    picture.drawWithFrameToIO(Frame(id)).unsafeRunAsync(getOrThrow)
-  }
-}
-
 private def getOrThrow(either: Either[Throwable, Unit]): Unit = either match {
   case Left(err) => throw err
   case Right(_)  => ()

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package aquascape.examples
+package aquascape.symbolguide
 
 import aquascape.*
 import aquascape.drawing.Config
