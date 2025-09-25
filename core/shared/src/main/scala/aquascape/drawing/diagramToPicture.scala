@@ -195,7 +195,7 @@ object DiagramToPicture {
         .beside(effectGridLine(config, totalNumStages))
         .on(margin)
         .at(
-          progressOffset + config.arrowBaseWidth + config.textBoxPaddingWidth,
+          progressOffset + config.arrowBaseWidth + config.textBoxPaddingWidth + (width / 2.0),
           -1 * config.stageHeight
         )
     }
