@@ -406,8 +406,6 @@ private[drawing] def diagramToPicture(
         output.on(pullToOutput)
       case i: Item.Eval =>
         DiagramToPicture.eval(config, progressOffset, totalNumStages, i)
-//      case i: Item.SideEffects =>
-//        DiagramToPicture.sideEffects(config, progressOffset, i)
       case i: Item.Time =>
         DiagramToPicture.time(config, progressOffset, totalNumStages, i)
       case i: Item.Error =>
