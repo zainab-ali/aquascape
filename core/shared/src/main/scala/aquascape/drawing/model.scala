@@ -70,6 +70,8 @@ final case class Config(
     pullColor: Color,
     doneColor: Color,
     startDotColor: Color,
+    sideEffectsText: String,
+    sideEffectsIndex: Int,
     font: Font
 ) {
   def arrowBaseWidth: Int = arrowBaseHalfWidth * 2
@@ -110,6 +112,8 @@ object Config {
     outputColor = Color.rgb(6, 68, 88),
     doneColor = Color.green,
     startDotColor = Color.black,
+    sideEffectsText = "Side Effects",
+    sideEffectsIndex = -1,
     font = Font.defaultSansSerif.family(FontFamily.named("monospace")).size(12)
   )
 }
