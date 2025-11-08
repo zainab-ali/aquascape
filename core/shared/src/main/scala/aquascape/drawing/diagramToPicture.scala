@@ -337,7 +337,6 @@ object DiagramToPicture {
         .font(config.font)
       (box.width.map(_.toInt), box.height.map(_.toInt)).tupled
     }
-
     labelDimensions(config, text).flatMap { (width, height) =>
       val labelBoxWidth = width + config.labelPaddingWidth
       Picture
@@ -352,10 +351,23 @@ object DiagramToPicture {
         .at(-labelBoxWidth / 2, index * config.stageHeight)
         .font(config.font)
         .strokeColor(config.stageColor)
-        .on(stageLine(config, diagramWidth, index))
     }
   }
+
+  private[drawing] def labelPicturesList(
+      config: Config,
+      diagramWidth: Int,
+      diagram: Diagram
+  ): List[Picture[Unit]] = {
+    label(config, diagramWidth)(
+      config.sideEffectsText,
+      config.sideEffectsIndex
+    ) :: diagram.labels.zipWithIndex.map((a, b) =>
+      label(config, diagramWidth)(a, b).on(stageLine(config, diagramWidth, b))
+    )
+  }
 }
+
 private[drawing] def diagramToPicture(
     config: Config
 )(diagram: Diagram): Picture[Unit] = {
@@ -425,12 +437,10 @@ private[drawing] def diagramToPicture(
           (nextOffset.toInt, nextOffsets, pic :: pics)
         }
     }
-  )
-    .flatMap { case (progressOffset, offsets, pictures: List[Picture[Unit]]) =>
-      (pictures ++ List(
-        DiagramToPicture.start(config)
-      ) ++ diagram.labels.zipWithIndex.map(
-        DiagramToPicture.label(config, progressOffset)
-      )).reduce(_ on _)
-    }
+  ).flatMap { case (progressOffset, offsets, pictures: List[Picture[Unit]]) =>
+    (pictures ++ List(
+      DiagramToPicture.start(config)
+    ) ++ DiagramToPicture.labelPicturesList(config, progressOffset, diagram))
+      .reduce(_ on _)
+  }
 }
