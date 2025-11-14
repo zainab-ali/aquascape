@@ -134,7 +134,8 @@ private def eventsToDiagram[F[_]: Foldable](
     case _                            => None
   }
   val labels = sortLabels(labelPairs)
-  val labelsSortedLN = labels.sortBy(a => a._2).foldLeft(List.empty[String])((a,b) => b._1 :: a )
+  val labelsSortedLN =
+    labels.sortBy(a => a._2).foldLeft(List.empty[String])((a, b) => b._1 :: a)
   labelsSortedLN.foreach(println)
   val empty =
     (

@@ -19,7 +19,7 @@ package aquascape.macros
 import scala.quoted.*
 
 object macros {
-  def fromContextImpl(using ctx: Quotes)= {
+  def fromContextImpl(using ctx: Quotes) = {
     import ctx.reflect._
     val position = Position.ofMacroExpansion
     Expr(position.startLine + 1)
