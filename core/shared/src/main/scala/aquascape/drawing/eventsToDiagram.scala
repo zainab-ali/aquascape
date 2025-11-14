@@ -17,7 +17,6 @@
 package aquascape.drawing
 
 import aquascape.*
-import aquascape.macros.LineNumber
 import cats.Foldable
 import cats.data.Chain
 import cats.data.NonEmptyChain

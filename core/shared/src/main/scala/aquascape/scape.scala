@@ -16,7 +16,6 @@
 
 package aquascape
 
-import aquascape.macros.LineNumber
 import cats.*
 import cats.effect.*
 import cats.syntax.all.*
