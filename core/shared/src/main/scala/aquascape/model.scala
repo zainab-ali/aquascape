@@ -19,7 +19,7 @@ package aquascape
 import cats.effect.Async
 import cats.effect.Ref
 import cats.syntax.all.*
-type Label = String
+type Label = (String, Int)
 
 private final case class Time(seconds: Int)
 
@@ -35,11 +35,11 @@ import Token.Token
 
 private enum Event {
 
-  case Pull(to: String, from: String, token: Token)
+  case Pull(to: Label, from: Label, token: Token)
   case Done(token: Token)
   case Eval(value: String)
   case Error(value: String, token: Token, raisedHere: Boolean)
   case Output(value: String, token: Token)
   case OutputChunk(value: List[String], token: Token)
-  case Finished(at: String, errored: Boolean, value: String)
+  case Finished(at: Label, errored: Boolean, value: String)
 }
