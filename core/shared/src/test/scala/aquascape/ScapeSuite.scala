@@ -98,11 +98,11 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("source",92), from = ("last",95), token = 0),
+          Pull(to = ("source", 92), from = ("last", 95), token = 0),
           Output(value = "Mao", token = 0),
-          Pull(to = ("source",92), from = ("last",95), token = 1),
+          Pull(to = ("source", 92), from = ("last", 95), token = 1),
           Done(token = 1),
-          Finished(at = ("last",95), errored = false, value = "Mao")
+          Finished(at = ("last", 95), errored = false, value = "Mao")
         )
       )
     }
