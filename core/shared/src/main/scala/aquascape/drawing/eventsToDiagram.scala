@@ -45,8 +45,8 @@ private def eventsToDiagram[F[_]: Foldable](
 
     def maybeToken: Event => Option[TokenMapEntry] = {
       case e: Event.Pull =>
-        val to = labelIndex(e.to)
-        val from = labelIndex(e.from)
+        val to = labelIndex(e.to._1)
+        val from = labelIndex(e.from._1)
         Some(
           (
             e.token,
@@ -58,8 +58,8 @@ private def eventsToDiagram[F[_]: Foldable](
 
     val item: Event => Item = {
       case e: Event.Pull =>
-        val to = labelIndex(e.to)
-        val from = labelIndex(e.from)
+        val to = labelIndex(e.to._1)
+        val from = labelIndex(e.from._1)
         Item.Pull(from = from, to = to)
       case Event.Output(value, tok) =>
         val pullCoord = token(tok)
@@ -95,7 +95,7 @@ private def eventsToDiagram[F[_]: Foldable](
           pullProgress = pullCoord.progress
         )
       case Event.Finished(at, errored, value) =>
-        val atIndex = labelIndex(at)
+        val atIndex = labelIndex(at._1)
         Item.Finished(
           value = value,
           errored = errored,
@@ -129,19 +129,22 @@ private def eventsToDiagram[F[_]: Foldable](
     (nextDiagram, tokens, Some(curTime))
   }
 
-  val labelPairs: List[(String, String)] = events.toList.mapFilter {
+  val labelPairs: List[(Label, Label)] = events.toList.mapFilter {
     case (Event.Pull(to, from, _), _) => Some((from, to))
     case _                            => None
   }
   val labels = sortLabels(labelPairs)
+  val labelsSortedLN =
+    labels.sortBy(a => a._2).foldLeft(List.empty[String])((a, b) => b._1 :: a)
+  labelsSortedLN.foreach(println)
   val empty =
     (
-      Diagram(labels = labels, items = Nil),
+      Diagram(labels = labelsSortedLN, items = Nil),
       Map.empty[Token.Token, PullCoord],
       Option.empty[Time]
     )
 
-  val (diagram, _, _) = events.foldLeft(empty)(foldOp(labels))
+  val (diagram, _, _) = events.foldLeft(empty)(foldOp(labelsSortedLN))
   diagram.copy(items = diagram.items.reverse)
 }
 
@@ -151,10 +154,10 @@ import cats.syntax.all.*
   * to position adjacent next to each other.
   */
 private def sortLabels[F[_]: Foldable](
-    pairs: F[(String, String)]
-): List[String] = {
-  val groups: Chain[NonEmptyChain[String]] =
-    pairs.foldLeft(Chain.empty[NonEmptyChain[String]]) {
+    pairs: F[(Label, Label)]
+): List[Label] = {
+  val groups: Chain[NonEmptyChain[Label]] =
+    pairs.foldLeft(Chain.empty[NonEmptyChain[Label]]) {
       case (groups, (from, to)) =>
         if (groups.exists(_.contains(to))) {
           // The `to` label is present. Do not add it again.

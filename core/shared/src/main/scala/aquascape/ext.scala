@@ -17,6 +17,7 @@
 package aquascape
 
 import aquascape.drawing.*
+import aquascape.macros.LineNumber
 import cats.*
 import cats.effect.Async
 import cats.effect.Concurrent
@@ -25,10 +26,10 @@ import fs2.*
 
 private val defaultBranch: String = "root"
 
-extension [F[_], A: Show](s: Stream[F, A])(using t: Scape[F]) {
-
-  def stage(label: String, branch: String = defaultBranch): Stream[F, A] =
-    t.stage(label, branch)(s)
+extension [F[_], A: Show](s: Stream[F, A])(using t: Scape[F], ln: LineNumber) {
+  def stage(label: String, branch: String = defaultBranch): Stream[F, A] = {
+    t.stage((label, ln.lineNumber), branch)(s)
+  }
 
   def fork(from: String, to: String): Stream[F, A] = t.fork(from, to)(s)
 }
@@ -36,8 +37,10 @@ extension [F[_], A: Show](s: Stream[F, A])(using t: Scape[F]) {
 extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Scape[F]) {
   def trace(branch: String = defaultBranch): F[O] = t.trace(fo, branch)
   def trace_(branch: String = defaultBranch): F[Unit] = t.trace(fo, branch).void
-  def compileStage(label: String, branch: String = defaultBranch): F[O] =
-    t.compileStage(fo, label, branch)
+  def compileStage(label: String, branch: String = defaultBranch)(using
+      ln: LineNumber
+  ): F[O] =
+    t.compileStage(fo, (label, ln.lineNumber), branch)
 }
 
 extension [F[_]: Async, O](fo: F[O])(using t: Scape[F]) {
