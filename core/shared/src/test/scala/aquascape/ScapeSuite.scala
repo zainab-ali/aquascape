@@ -367,21 +367,21 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("merge",361), from = ("drain",364), token = 0),
-          Pull(to = ("left",354), from = ("merge",361), token = 1),
-          Pull(to = ("right",358), from = ("merge",361), token = 2),
+          Pull(to = ("merge", 361), from = ("drain", 364), token = 0),
+          Pull(to = ("left", 354), from = ("merge", 361), token = 1),
+          Pull(to = ("right", 358), from = ("merge", 361), token = 2),
           Output(value = "Popcorn", token = 2),
           Output(value = "Mao", token = 1),
           Output(value = "Mao", token = 0),
-          Pull(to = ("merge",361), from = ("drain",364), token = 3),
+          Pull(to = ("merge", 361), from = ("drain", 364), token = 3),
           Output(value = "Popcorn", token = 3),
-          Pull(to = ("merge",361), from = ("drain",364), token = 5),
-          Pull(to = ("left",354), from = ("merge",361), token = 4),
+          Pull(to = ("merge", 361), from = ("drain", 364), token = 5),
+          Pull(to = ("left", 354), from = ("merge", 361), token = 4),
           Done(token = 4),
-          Pull(to = ("right",358), from = ("merge",361), token = 6),
+          Pull(to = ("right", 358), from = ("merge", 361), token = 6),
           Done(token = 6),
           Done(token = 5),
-          Finished(at = ("drain",364), errored = false, value = "()")
+          Finished(at = ("drain", 364), errored = false, value = "()")
         )
       )
     }
