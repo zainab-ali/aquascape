@@ -117,21 +117,21 @@ class EventsToDiagramSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         Diagram(
-          labels = List("last", "zip", "left", "right"),
-          items = List(
-            Pull(from = 0, to = 1),
-            Pull(from = 1, to = 2),
-            Output(value = "Mao", from = 2, to = 1, pullProgress = 1),
-            Pull(from = 1, to = 3),
-            Output(value = "Popcorn", from = 3, to = 1, pullProgress = 3),
-            Output(value = "(Mao,Popcorn)", from = 1, to = 0, pullProgress = 0),
-            Pull(from = 0, to = 1),
-            Pull(from = 1, to = 2),
-            Done(from = 2, to = 1, pullProgress = 7),
-            Done(from = 1, to = 0, pullProgress = 6),
-            Finished(value = "(Mao,Popcorn)", errored = false, at = 0)
-          )
-        )
+  labels = List("last", "zip", "right", "left"),
+  items = List(
+    Pull(from = 0, to = 1),
+    Pull(from = 1, to = 3),
+    Output(value = "Mao", from = 3, to = 1, pullProgress = 1),
+    Pull(from = 1, to = 2),
+    Output(value = "Popcorn", from = 2, to = 1, pullProgress = 3),
+    Output(value = "(Mao,Popcorn)", from = 1, to = 0, pullProgress = 0),
+    Pull(from = 0, to = 1),
+    Pull(from = 1, to = 3),
+    Done(from = 3, to = 1, pullProgress = 7),
+    Done(from = 1, to = 0, pullProgress = 6),
+    Finished(value = "(Mao,Popcorn)", errored = false, at = 0)
+  )
+)
       )
     }
   }
@@ -207,19 +207,19 @@ class EventsToDiagramSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         Diagram(
-          labels = List("drain", "handle", "eval", "source", "second"),
-          items = List(
-            Pull(from = 0, to = 1),
-            Pull(from = 1, to = 2),
-            Pull(from = 2, to = 3),
-            Output(value = "Mao", from = 3, to = 2, pullProgress = 2),
-            Error(value = "BOOM!", from = 2, to = 1, pullProgress = 1),
-            Pull(from = 1, to = 4),
-            Done(from = 4, to = 1, pullProgress = 5),
-            Done(from = 1, to = 0, pullProgress = 0),
-            Finished(value = "()", errored = false, at = 0)
-          )
-        )
+  labels = List("drain", "handle", "second", "eval", "source"),
+  items = List(
+    Pull(from = 0, to = 1),
+    Pull(from = 1, to = 3),
+    Pull(from = 3, to = 4),
+    Output(value = "Mao", from = 4, to = 3, pullProgress = 2),
+    Error(value = "BOOM!", from = 3, to = 1, pullProgress = 1),
+    Pull(from = 1, to = 2),
+    Done(from = 2, to = 1, pullProgress = 5),
+    Done(from = 1, to = 0, pullProgress = 0),
+    Finished(value = "()", errored = false, at = 0)
+  )
+)
       )
     }
   }
@@ -243,25 +243,25 @@ class EventsToDiagramSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         Diagram(
-          labels = List("drain", "merge", "left", "right"),
-          items = List(
-            Pull(from = 0, to = 1),
-            Pull(from = 1, to = 2),
-            Pull(from = 1, to = 3),
-            Output(value = "Popcorn", from = 3, to = 1, pullProgress = 2),
-            Output(value = "Mao", from = 2, to = 1, pullProgress = 1),
-            Output(value = "Mao", from = 1, to = 0, pullProgress = 0),
-            Pull(from = 0, to = 1),
-            Output(value = "Popcorn", from = 1, to = 0, pullProgress = 6),
-            Pull(from = 0, to = 1),
-            Pull(from = 1, to = 2),
-            Done(from = 2, to = 1, pullProgress = 9),
-            Pull(from = 1, to = 3),
-            Done(from = 3, to = 1, pullProgress = 11),
-            Done(from = 1, to = 0, pullProgress = 8),
-            Finished(value = "()", errored = false, at = 0)
-          )
-        )
+  labels = List("drain", "merge", "right", "left"),
+  items = List(
+    Pull(from = 0, to = 1),
+    Pull(from = 1, to = 3),
+    Pull(from = 1, to = 2),
+    Output(value = "Popcorn", from = 2, to = 1, pullProgress = 2),
+    Output(value = "Mao", from = 3, to = 1, pullProgress = 1),
+    Output(value = "Mao", from = 1, to = 0, pullProgress = 0),
+    Pull(from = 0, to = 1),
+    Output(value = "Popcorn", from = 1, to = 0, pullProgress = 6),
+    Pull(from = 0, to = 1),
+    Pull(from = 1, to = 3),
+    Done(from = 3, to = 1, pullProgress = 9),
+    Pull(from = 1, to = 2),
+    Done(from = 2, to = 1, pullProgress = 11),
+    Done(from = 1, to = 0, pullProgress = 8),
+    Finished(value = "()", errored = false, at = 0)
+  )
+)
       )
     }
   }
