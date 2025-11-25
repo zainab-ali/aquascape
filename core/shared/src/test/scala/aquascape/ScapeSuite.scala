@@ -98,11 +98,11 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("source", 92), from = ("last", 95), token = 0),
+          Pull(to = Label("source", 92), from = Label("last", 95), token = 0),
           Output(value = "Mao", token = 0),
-          Pull(to = ("source", 92), from = ("last", 95), token = 1),
+          Pull(to = Label("source", 92), from = Label("last", 95), token = 1),
           Done(token = 1),
-          Finished(at = ("last", 95), errored = false, value = "Mao")
+          Finished(at = Label("last", 95), errored = false, value = "Mao")
         )
       )
     }
@@ -120,11 +120,11 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("source", 114), from = ("last", 117), token = 0),
+          Pull(to = Label("source", 114), from = Label("last", 117), token = 0),
           OutputChunk(value = List("Mao", "Popcorn"), token = 0),
-          Pull(to = ("source", 114), from = ("last", 117), token = 1),
+          Pull(to = Label("source", 114), from = Label("last", 117), token = 1),
           Done(token = 1),
-          Finished(at = ("last", 117), errored = false, value = "Popcorn")
+          Finished(at = Label("last", 117), errored = false, value = "Popcorn")
         )
       )
     }
@@ -144,15 +144,15 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("map", 138), from = ("last", 141), token = 0),
-          Pull(to = ("source", 136), from = ("map", 138), token = 1),
+          Pull(to = Label("map", 138), from = Label("last", 141), token = 0),
+          Pull(to = Label("source", 136), from = Label("map", 138), token = 1),
           Output(value = "Mao", token = 1),
           Output(value = "MAO", token = 0),
-          Pull(to = ("map", 138), from = ("last", 141), token = 2),
-          Pull(to = ("source", 136), from = ("map", 138), token = 3),
+          Pull(to = Label("map", 138), from = Label("last", 141), token = 2),
+          Pull(to = Label("source", 136), from = Label("map", 138), token = 3),
           Done(token = 3),
           Done(token = 2),
-          Finished(at = ("last", 141), errored = false, value = "MAO")
+          Finished(at = Label("last", 141), errored = false, value = "MAO")
         )
       )
     }
@@ -175,17 +175,21 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("zip", 169), from = ("last", 172), token = 0),
-          Pull(to = ("left", 164), from = ("zip", 169), token = 1),
+          Pull(to = Label("zip", 169), from = Label("last", 172), token = 0),
+          Pull(to = Label("left", 164), from = Label("zip", 169), token = 1),
           Output(value = "Mao", token = 1),
-          Pull(to = ("right", 167), from = ("zip", 169), token = 2),
+          Pull(to = Label("right", 167), from = Label("zip", 169), token = 2),
           Output(value = "Popcorn", token = 2),
           Output(value = "(Mao,Popcorn)", token = 0),
-          Pull(to = ("zip", 169), from = ("last", 172), token = 3),
-          Pull(to = ("left", 164), from = ("zip", 169), token = 4),
+          Pull(to = Label("zip", 169), from = Label("last", 172), token = 3),
+          Pull(to = Label("left", 164), from = Label("zip", 169), token = 4),
           Done(token = 4),
           Done(token = 3),
-          Finished(at = ("last", 172), errored = false, value = "(Mao,Popcorn)")
+          Finished(
+            at = Label("last", 172),
+            errored = false,
+            value = "(Mao,Popcorn)"
+          )
         )
       )
     }
@@ -205,12 +209,12 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("source", 198), from = ("last", 201), token = 0),
+          Pull(to = Label("source", 198), from = Label("last", 201), token = 0),
           Eval(value = "Mao"),
           Output(value = "Mao", token = 0),
-          Pull(to = ("source", 198), from = ("last", 201), token = 1),
+          Pull(to = Label("source", 198), from = Label("last", 201), token = 1),
           Done(token = 1),
-          Finished(at = ("last", 201), errored = false, value = "Mao")
+          Finished(at = Label("last", 201), errored = false, value = "Mao")
         )
       )
     }
@@ -230,11 +234,11 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("eval", 224), from = ("last", 227), token = 0),
-          Pull(to = ("source", 222), from = ("eval", 224), token = 1),
+          Pull(to = Label("eval", 224), from = Label("last", 227), token = 0),
+          Pull(to = Label("source", 222), from = Label("eval", 224), token = 1),
           Output(value = "Mao", token = 1),
           Error(value = "BOOM!", token = 0, raisedHere = true),
-          Finished(at = ("last", 227), errored = true, value = "BOOM!")
+          Finished(at = Label("last", 227), errored = true, value = "BOOM!")
         )
       )
     }
@@ -256,15 +260,23 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("handle", 250), from = ("drain", 253), token = 0),
-          Pull(to = ("eval", 248), from = ("handle", 250), token = 1),
-          Pull(to = ("source", 246), from = ("eval", 248), token = 2),
+          Pull(
+            to = Label("handle", 250),
+            from = Label("drain", 253),
+            token = 0
+          ),
+          Pull(to = Label("eval", 248), from = Label("handle", 250), token = 1),
+          Pull(to = Label("source", 246), from = Label("eval", 248), token = 2),
           Output(value = "Mao", token = 2),
           Error(value = "BOOM!", token = 1, raisedHere = true),
-          Pull(to = ("second", 249), from = ("handle", 250), token = 3),
+          Pull(
+            to = Label("second", 249),
+            from = Label("handle", 250),
+            token = 3
+          ),
           Done(token = 3),
           Done(token = 0),
-          Finished(at = ("drain", 253), errored = false, value = "()")
+          Finished(at = Label("drain", 253), errored = false, value = "()")
         )
       )
     }
@@ -290,13 +302,13 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("eval", 284), from = ("drain", 287), token = 0),
-          Pull(to = ("source", 282), from = ("eval", 284), token = 1),
+          Pull(to = Label("eval", 284), from = Label("drain", 287), token = 0),
+          Pull(to = Label("source", 282), from = Label("eval", 284), token = 1),
           Eval(value = "acquire"),
           Output(value = "()", token = 1),
           Error(value = "BOOM!", token = 0, raisedHere = true),
           Eval(value = "release"),
-          Finished(at = ("drain", 287), errored = true, value = "BOOM!")
+          Finished(at = Label("drain", 287), errored = true, value = "BOOM!")
         )
       )
     }
@@ -318,17 +330,25 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("handle", 312), from = ("drain", 315), token = 0),
-          Pull(to = ("eval", 310), from = ("handle", 312), token = 1),
-          Pull(to = ("source", 308), from = ("eval", 310), token = 2),
+          Pull(
+            to = Label("handle", 312),
+            from = Label("drain", 315),
+            token = 0
+          ),
+          Pull(to = Label("eval", 310), from = Label("handle", 312), token = 1),
+          Pull(to = Label("source", 308), from = Label("eval", 310), token = 2),
           Eval(value = "acquire"),
           Output(value = "()", token = 2),
           Error(value = "BOOM!", token = 1, raisedHere = true),
           Eval(value = "release"),
-          Pull(to = ("second", 311), from = ("handle", 312), token = 3),
+          Pull(
+            to = Label("second", 311),
+            from = Label("handle", 312),
+            token = 3
+          ),
           Done(token = 3),
           Done(token = 0),
-          Finished(at = ("drain", 315), errored = false, value = "()")
+          Finished(at = Label("drain", 315), errored = false, value = "()")
         )
       )
     }
@@ -367,21 +387,21 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
       assertInlineSnapshot(
         actual,
         List(
-          Pull(to = ("merge", 361), from = ("drain", 364), token = 0),
-          Pull(to = ("left", 354), from = ("merge", 361), token = 1),
-          Pull(to = ("right", 358), from = ("merge", 361), token = 2),
+          Pull(to = Label("merge", 361), from = Label("drain", 364), token = 0),
+          Pull(to = Label("left", 354), from = Label("merge", 361), token = 1),
+          Pull(to = Label("right", 358), from = Label("merge", 361), token = 2),
           Output(value = "Popcorn", token = 2),
           Output(value = "Mao", token = 1),
           Output(value = "Mao", token = 0),
-          Pull(to = ("merge", 361), from = ("drain", 364), token = 3),
+          Pull(to = Label("merge", 361), from = Label("drain", 364), token = 3),
           Output(value = "Popcorn", token = 3),
-          Pull(to = ("merge", 361), from = ("drain", 364), token = 5),
-          Pull(to = ("left", 354), from = ("merge", 361), token = 4),
+          Pull(to = Label("merge", 361), from = Label("drain", 364), token = 5),
+          Pull(to = Label("left", 354), from = Label("merge", 361), token = 4),
           Done(token = 4),
-          Pull(to = ("right", 358), from = ("merge", 361), token = 6),
+          Pull(to = Label("right", 358), from = Label("merge", 361), token = 6),
           Done(token = 6),
           Done(token = 5),
-          Finished(at = ("drain", 364), errored = false, value = "()")
+          Finished(at = Label("drain", 364), errored = false, value = "()")
         )
       )
     }

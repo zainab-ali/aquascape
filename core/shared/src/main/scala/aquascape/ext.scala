@@ -28,7 +28,7 @@ private val defaultBranch: String = "root"
 
 extension [F[_], A: Show](s: Stream[F, A])(using t: Scape[F], ln: LineNumber) {
   def stage(label: String, branch: String = defaultBranch): Stream[F, A] = {
-    t.stage((label, ln.lineNumber), branch)(s)
+    t.stage(Label(label, ln.lineNumber), branch)(s)
   }
 
   def fork(from: String, to: String): Stream[F, A] = t.fork(from, to)(s)
@@ -40,7 +40,7 @@ extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Scape[F]) {
   def compileStage(label: String, branch: String = defaultBranch)(using
       ln: LineNumber
   ): F[O] =
-    t.compileStage(fo, (label, ln.lineNumber), branch)
+    t.compileStage(fo, Label(label, ln.lineNumber), branch)
 }
 
 extension [F[_]: Async, O](fo: F[O])(using t: Scape[F]) {

@@ -17,7 +17,7 @@
 package aquascape.drawing
 
 import aquascape.*
-import cats.Foldable
+import cats.{Eq, Foldable}
 import cats.data.Chain
 import cats.data.NonEmptyChain
 
@@ -136,7 +136,6 @@ private def eventsToDiagram[F[_]: Foldable](
   val labels = sortLabels(labelPairs)
   val labelsSortedLN =
     labels.sortBy(a => a._2).foldLeft(List.empty[String])((a, b) => b._1 :: a)
-  labelsSortedLN.foreach(println)
   val empty =
     (
       Diagram(labels = labelsSortedLN, items = Nil),

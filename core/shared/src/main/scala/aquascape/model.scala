@@ -18,8 +18,13 @@ package aquascape
 
 import cats.effect.Async
 import cats.effect.Ref
+import cats.Eq
 import cats.syntax.all.*
-type Label = (String, Int)
+
+private final case class Label(label: String, lineNumber: Int)
+implicit val labelEq: Eq[Label] = (x: Label, y: Label) => {
+  x.label == y.label && x.lineNumber == y.lineNumber
+}
 
 private final case class Time(seconds: Int)
 
