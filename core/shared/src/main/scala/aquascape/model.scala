@@ -16,9 +16,9 @@
 
 package aquascape
 
+import cats.Eq
 import cats.effect.Async
 import cats.effect.Ref
-import cats.Eq
 import cats.syntax.all.*
 
 private final case class Label(label: String, lineNumber: Int)
