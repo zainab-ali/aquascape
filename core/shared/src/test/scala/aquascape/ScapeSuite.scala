@@ -270,7 +270,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
           Output(value = "Mao", token = 2),
           Error(value = "BOOM!", token = 1, raisedHere = true),
           Pull(
-            to = Label("second", 249),
+            to = Label("second", 253),
             from = Label("handle", 254),
             token = 3
           ),
@@ -342,7 +342,7 @@ class ScapeSuite extends CatsEffectSuite with SnapshotAssertions {
           Error(value = "BOOM!", token = 1, raisedHere = true),
           Eval(value = "release"),
           Pull(
-            to = Label("second", 311),
+            to = Label("second", 323),
             from = Label("handle", 324),
             token = 3
           ),
