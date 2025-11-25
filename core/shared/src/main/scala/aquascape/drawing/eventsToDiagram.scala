@@ -17,7 +17,7 @@
 package aquascape.drawing
 
 import aquascape.*
-import cats.{Eq, Foldable}
+import cats.Foldable
 import cats.data.Chain
 import cats.data.NonEmptyChain
 
