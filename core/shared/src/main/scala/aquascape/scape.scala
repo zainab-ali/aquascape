@@ -110,7 +110,7 @@ object Scape {
   private def time[F[_]: Temporal]: F[Time] =
     summon[Temporal[F]].realTime.map(t => Time(t.toSeconds.toInt))
 
-  private def stage_[F[_]: Temporal: Unique, O, A](
+  private def stage_[F[_]: Temporal, O, A](
       uncons: Stream.ToPull[F, O] => Pull[F, O, Option[(A, Stream[F, O])]],
       event: (A, Token.Token) => Event,
       output: A => Pull[F, O, Unit],
@@ -157,7 +157,7 @@ object Scape {
   }
 
   private[aquascape] final case class Caught(e: Throwable) extends Throwable
-  private def onError[F[_]: Monad](
+  private def onError[F[_]](
       e: Throwable,
       time: Time,
       token: Token.Token,
@@ -184,7 +184,7 @@ object Scape {
     }
   }
 
-  private def trace_[F[_]: MonadThrow: Temporal, O: Show](
+  private def trace_[F[_]: Temporal, O: Show](
       pen: Pen[F, (Event, Time)],
       fo: F[O],
       branch: Branch
@@ -193,14 +193,14 @@ object Scape {
       time >>= (t => pen.write(branch, (Event.Eval(o.show), t)))
     }
 
-  private def fork_[F[_]: Monad, O, E](
+  private def fork_[F[_], O, E](
       pen: Pen[F, E]
   )(parent: Branch, child: Branch)(
       s: Stream[F, O]
   ): Stream[F, O] =
     Stream.exec(pen.fork(parent, child)) ++ s
 
-  private def compileStage_[F[_]: MonadCancelThrow: Temporal, O: Show](
+  private def compileStage_[F[_]: Temporal, O: Show](
       pen: Pen[F, (Event, Time)],
       fo: F[O],
       label: Label,

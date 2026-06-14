@@ -20,10 +20,13 @@ import cats.effect.*
 import doodle.svg.*
 import doodle.syntax.all.*
 
+import scala.annotation.unused
+
 trait PlatformCompanion {
   def draw(picture: Picture[Unit], name: String): IO[Unit] =
     picture.drawWithFrameToIO(Frame(name))
 
+  @unused
   def parseArgs(args: List[String]): IO[Either[ExitCode, String]] = IO(
     Right("")
   )

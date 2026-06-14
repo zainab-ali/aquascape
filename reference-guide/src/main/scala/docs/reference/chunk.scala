@@ -29,10 +29,10 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 @JSExportTopLevel("DocsReferenceChunk")
 object chunk {
 
-  def chunkSizeInputBox(max: Int, default: Int = 1): InputBox[Int] =
+  def chunkSizeInputBox(max: Int, default: Int): InputBox[Int] =
     InputBox.int(
       labelText = "n (chunk size)",
-      defaultValue = 1,
+      defaultValue = default,
       min = 1,
       max = max
     )
@@ -85,7 +85,7 @@ object chunk {
 
   @JSExport
   val chunkN = new ExampleWithInput[Int] {
-    val inputBox: InputBox[Int] = chunkSizeInputBox(5)
+    val inputBox: InputBox[Int] = chunkSizeInputBox(5, default = 1)
     def apply(n: Int)(using Scape[IO]): StreamCode =
       code(
         Stream('a', 'b', 'c')

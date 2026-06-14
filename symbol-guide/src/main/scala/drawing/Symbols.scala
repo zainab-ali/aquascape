@@ -73,5 +73,5 @@ object Symbols {
     DiagramToPicture.eval(config, 0, 0, Item.Eval(value = "a"))
 
   def label(config: Config): Picture[Unit] =
-    DiagramToPicture.label(config, 0)("take(2)", 0)
+    DiagramToPicture.label(config)("take(2)", 0)
 }

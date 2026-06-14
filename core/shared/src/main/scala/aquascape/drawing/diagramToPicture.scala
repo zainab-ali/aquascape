@@ -242,7 +242,7 @@ object DiagramToPicture {
       .font(config.font)
       .strokeColor(config.timeColor)
       .fillColor(config.timeColor)
-    (box.width, box.height).flatMapN { (width, height) =>
+    (box.width).flatMap { width =>
       val circle = box.on(
         Picture
           .circle(
@@ -328,8 +328,7 @@ object DiagramToPicture {
   }
 
   private[drawing] def label(
-      config: Config,
-      diagramWidth: Int
+      config: Config
   )(text: String, index: Int): Picture[Unit] = {
     def labelDimensions(config: Config, text: String): Picture[(Int, Int)] = {
       val box = Picture
@@ -359,11 +358,11 @@ object DiagramToPicture {
       diagramWidth: Int,
       diagram: Diagram
   ): List[Picture[Unit]] = {
-    label(config, diagramWidth)(
+    label(config)(
       config.sideEffectsText,
       config.sideEffectsIndex
     ) :: diagram.labels.zipWithIndex.map((a, b) =>
-      label(config, diagramWidth)(a, b).on(stageLine(config, diagramWidth, b))
+      label(config)(a, b).on(stageLine(config, diagramWidth, b))
     )
   }
 }
