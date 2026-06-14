@@ -30,10 +30,10 @@ private object Stack {
   def apply[F[_]: Async]: F[Stack[F]] =
     Ref.of[F, Map[Branch, (List[Label])]](Map.empty)
 
-  extension [F[_]: MonadCancelThrow](stack: Stack[F]) {
+  extension [F[_]](stack: Stack[F]) {
     private[aquascape] def bracketF[A](branch: Branch, child: Label)(
         fa: F[A]
-    ): F[A] =
+    )(using MonadCancelThrow[F]): F[A] =
       summon[MonadCancelThrow[F]].bracket(
         stack.update { bs =>
           bs.get(branch).fold(bs) { case xs =>
@@ -51,7 +51,9 @@ private object Stack {
       stack.update { bs => bs + ((root, Nil)) }
     }
 
-    private[aquascape] def forkTS(parent: Branch, child: Branch): F[Unit] = {
+    private[aquascape] def forkTS(parent: Branch, child: Branch)(using
+        MonadThrow[F]
+    ): F[Unit] = {
       val updateOrError = stack.modify { bs =>
         bs.get(parent) match {
           case None => (bs, Some(ParentBranchNotFound(parent, child)))
@@ -64,7 +66,9 @@ private object Stack {
       }
     }
 
-    private[aquascape] def peek(branch: Branch): F[List[Label]] = {
+    private[aquascape] def peek(
+        branch: Branch
+    )(using Functor[F]): F[List[Label]] = {
       stack.get.map(_.getOrElse(branch, Nil))
     }
 

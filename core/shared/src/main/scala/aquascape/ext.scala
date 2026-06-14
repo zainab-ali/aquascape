@@ -26,17 +26,21 @@ import fs2.*
 
 private val defaultBranch: String = "root"
 
-extension [F[_], A: Show](s: Stream[F, A])(using t: Scape[F], ln: LineNumber) {
-  def stage(label: String, branch: String = defaultBranch): Stream[F, A] = {
+extension [F[_], A](s: Stream[F, A])(using t: Scape[F]) {
+  def stage(label: String, branch: String = defaultBranch)(using
+      ln: LineNumber,
+      show: Show[A]
+  ): Stream[F, A] = {
     t.stage(Label(label, ln.lineNumber), branch)(s)
   }
 
   def fork(from: String, to: String): Stream[F, A] = t.fork(from, to)(s)
 }
 
-extension [F[_]: Concurrent, O: Show](fo: F[O])(using t: Scape[F]) {
+extension [F[_], O: Show](fo: F[O])(using t: Scape[F]) {
   def trace(branch: String = defaultBranch): F[O] = t.trace(fo, branch)
-  def trace_(branch: String = defaultBranch): F[Unit] = t.trace(fo, branch).void
+  def trace_(branch: String = defaultBranch)(using Concurrent[F]): F[Unit] =
+    t.trace(fo, branch).void
   def compileStage(label: String, branch: String = defaultBranch)(using
       ln: LineNumber
   ): F[O] =

@@ -82,6 +82,11 @@ object App extends AquascapeApp {
   def stream(using Scape[IO]) = ???
 }
 ```
+
+```scala mdoc:invisible
+// Use the app to prevent unused warnings
+App
+```
 ## How to draw concurrent processes
 
 Aquascape can track most pulls and outputs by itself. It needs a bit of manual intervention for operators requiring `Concurrent`.
@@ -109,6 +114,11 @@ object App extends AquascapeApp {
       .compileStage("compile.drain")            // Introduce a default branch named `root`.
   }
 }
+```
+
+```scala mdoc:invisible
+// Use the app to prevent unused warnings
+App
 ```
 
 ## How to draw a batch of aquascapes
@@ -155,6 +165,12 @@ object App extends AquascapeApp.Batch {
   val aquascapes: List[Aquascape] = List(firstAquascape, secondAquascape)
 }
 ```
+
+```scala mdoc:invisible
+// Use the app to prevent unused warnings
+App
+```
+
 ### Embed a batch of SVGs in HTML
 
 [Package the app](#embed-an-svg-in-html) as before, then include it in HTML with a `<div>` per aquascape:
