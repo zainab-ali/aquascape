@@ -3482,33 +3482,21 @@ $c_Laquascape_symbolguide_SymbolGuide$.prototype.constructor = $c_Laquascape_sym
 function $h_Laquascape_symbolguide_SymbolGuide$() {
 }
 $h_Laquascape_symbolguide_SymbolGuide$.prototype = $c_Laquascape_symbolguide_SymbolGuide$.prototype;
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "pull", ({
+  "get": (function() {
+    return this.Laquascape_symbolguide_SymbolGuide$__f_pull;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "finishedErrored", ({
   "get": (function() {
     return this.Laquascape_symbolguide_SymbolGuide$__f_finishedErrored;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "finished", ({
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "eval", ({
   "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_finished;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "start", ({
-  "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_start;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "error", ({
-  "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_error;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "pull", ({
-  "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_pull;
+    return this.Laquascape_symbolguide_SymbolGuide$__f_eval;
   }),
   "configurable": true
 }));
@@ -3518,15 +3506,27 @@ Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "label",
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "outputChunk", ({
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "error", ({
   "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_outputChunk;
+    return this.Laquascape_symbolguide_SymbolGuide$__f_error;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "eval", ({
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "time", ({
   "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_eval;
+    return this.Laquascape_symbolguide_SymbolGuide$__f_time;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "start", ({
+  "get": (function() {
+    return this.Laquascape_symbolguide_SymbolGuide$__f_start;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "finished", ({
+  "get": (function() {
+    return this.Laquascape_symbolguide_SymbolGuide$__f_finished;
   }),
   "configurable": true
 }));
@@ -3542,9 +3542,9 @@ Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "output"
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "time", ({
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "outputChunk", ({
   "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_time;
+    return this.Laquascape_symbolguide_SymbolGuide$__f_outputChunk;
   }),
   "configurable": true
 }));
@@ -6398,6 +6398,18 @@ $c_Ldocs_reference_append$.prototype.constructor = $c_Ldocs_reference_append$;
 function $h_Ldocs_reference_append$() {
 }
 $h_Ldocs_reference_append$.prototype = $c_Ldocs_reference_append$.prototype;
+Object.defineProperty($c_Ldocs_reference_append$.prototype, "finalizers", ({
+  "get": (function() {
+    return this.Ldocs_reference_append$__f_finalizers;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_append$.prototype, "errors", ({
+  "get": (function() {
+    return this.Ldocs_reference_append$__f_errors;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_append$.prototype, "basic", ({
   "get": (function() {
     return this.Ldocs_reference_append$__f_basic;
@@ -6410,21 +6422,9 @@ Object.defineProperty($c_Ldocs_reference_append$.prototype, "finite", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_append$.prototype, "errors", ({
-  "get": (function() {
-    return this.Ldocs_reference_append$__f_errors;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_append$.prototype, "infinite", ({
   "get": (function() {
     return this.Ldocs_reference_append$__f_infinite;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_append$.prototype, "finalizers", ({
-  "get": (function() {
-    return this.Ldocs_reference_append$__f_finalizers;
   }),
   "configurable": true
 }));
@@ -6468,39 +6468,9 @@ $c_Ldocs_reference_bracket$.prototype.constructor = $c_Ldocs_reference_bracket$;
 function $h_Ldocs_reference_bracket$() {
 }
 $h_Ldocs_reference_bracket$.prototype = $c_Ldocs_reference_bracket$.prototype;
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "resource", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_resource;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCase", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracketCase;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCaseErrored", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracketCaseErrored;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketAppend", ({
   "get": (function() {
     return this.Ldocs_reference_bracket$__f_bracketAppend;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "onFinalizeCase", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_onFinalizeCase;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketAcquireError", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracketAcquireError;
   }),
   "configurable": true
 }));
@@ -6510,21 +6480,51 @@ Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCaseCancele
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracket", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracket;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracketCase;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketReleaseError", ({
   "get": (function() {
     return this.Ldocs_reference_bracket$__f_bracketReleaseError;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "onFinalize", ({
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCaseErrored", ({
   "get": (function() {
-    return this.Ldocs_reference_bracket$__f_onFinalize;
+    return this.Ldocs_reference_bracket$__f_bracketCaseErrored;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracket", ({
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "onFinalizeCase", ({
   "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracket;
+    return this.Ldocs_reference_bracket$__f_onFinalizeCase;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "resource", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_resource;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketAcquireError", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracketAcquireError;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "onFinalize", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_onFinalize;
   }),
   "configurable": true
 }));
@@ -6568,15 +6568,9 @@ Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunkN", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunkLimit", ({
+Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "unchunks", ({
   "get": (function() {
-    return this.Ldocs_reference_chunk$__f_chunkLimit;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunks", ({
-  "get": (function() {
-    return this.Ldocs_reference_chunk$__f_chunks;
+    return this.Ldocs_reference_chunk$__f_unchunks;
   }),
   "configurable": true
 }));
@@ -6586,9 +6580,15 @@ Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "repartition", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "unchunks", ({
+Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunks", ({
   "get": (function() {
-    return this.Ldocs_reference_chunk$__f_unchunks;
+    return this.Ldocs_reference_chunk$__f_chunks;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunkLimit", ({
+  "get": (function() {
+    return this.Ldocs_reference_chunk$__f_chunkLimit;
   }),
   "configurable": true
 }));
@@ -6634,15 +6634,15 @@ $c_Ldocs_reference_compile$.prototype.constructor = $c_Ldocs_reference_compile$;
 function $h_Ldocs_reference_compile$() {
 }
 $h_Ldocs_reference_compile$.prototype = $c_Ldocs_reference_compile$.prototype;
-Object.defineProperty($c_Ldocs_reference_compile$.prototype, "onlyOrError", ({
+Object.defineProperty($c_Ldocs_reference_compile$.prototype, "toList", ({
   "get": (function() {
-    return this.Ldocs_reference_compile$__f_onlyOrError;
+    return this.Ldocs_reference_compile$__f_toList;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_compile$.prototype, "drain", ({
+Object.defineProperty($c_Ldocs_reference_compile$.prototype, "onlyOrError", ({
   "get": (function() {
-    return this.Ldocs_reference_compile$__f_drain;
+    return this.Ldocs_reference_compile$__f_onlyOrError;
   }),
   "configurable": true
 }));
@@ -6652,9 +6652,9 @@ Object.defineProperty($c_Ldocs_reference_compile$.prototype, "last", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_compile$.prototype, "toList", ({
+Object.defineProperty($c_Ldocs_reference_compile$.prototype, "drain", ({
   "get": (function() {
-    return this.Ldocs_reference_compile$__f_toList;
+    return this.Ldocs_reference_compile$__f_drain;
   }),
   "configurable": true
 }));
@@ -6698,9 +6698,9 @@ $c_Ldocs_reference_drop$.prototype.constructor = $c_Ldocs_reference_drop$;
 function $h_Ldocs_reference_drop$() {
 }
 $h_Ldocs_reference_drop$.prototype = $c_Ldocs_reference_drop$.prototype;
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "basic", ({
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLast", ({
   "get": (function() {
-    return this.Ldocs_reference_drop$__f_basic;
+    return this.Ldocs_reference_drop$__f_dropLast;
   }),
   "configurable": true
 }));
@@ -6710,9 +6710,9 @@ Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropThrough", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLast", ({
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLastChunks", ({
   "get": (function() {
-    return this.Ldocs_reference_drop$__f_dropLast;
+    return this.Ldocs_reference_drop$__f_dropLastChunks;
   }),
   "configurable": true
 }));
@@ -6722,9 +6722,9 @@ Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLastIf", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLastChunks", ({
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropChunks", ({
   "get": (function() {
-    return this.Ldocs_reference_drop$__f_dropLastChunks;
+    return this.Ldocs_reference_drop$__f_dropChunks;
   }),
   "configurable": true
 }));
@@ -6734,9 +6734,9 @@ Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropWhile", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropChunks", ({
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "basic", ({
   "get": (function() {
-    return this.Ldocs_reference_drop$__f_dropChunks;
+    return this.Ldocs_reference_drop$__f_basic;
   }),
   "configurable": true
 }));
@@ -6772,21 +6772,9 @@ $c_Ldocs_reference_errors$.prototype.constructor = $c_Ldocs_reference_errors$;
 function $h_Ldocs_reference_errors$() {
 }
 $h_Ldocs_reference_errors$.prototype = $c_Ldocs_reference_errors$.prototype;
-Object.defineProperty($c_Ldocs_reference_errors$.prototype, "raiseErrorExitCase", ({
+Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorExitCase", ({
   "get": (function() {
-    return this.Ldocs_reference_errors$__f_raiseErrorExitCase;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleError", ({
-  "get": (function() {
-    return this.Ldocs_reference_errors$__f_handleError;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorWith", ({
-  "get": (function() {
-    return this.Ldocs_reference_errors$__f_handleErrorWith;
+    return this.Ldocs_reference_errors$__f_handleErrorExitCase;
   }),
   "configurable": true
 }));
@@ -6796,15 +6784,27 @@ Object.defineProperty($c_Ldocs_reference_errors$.prototype, "raiseError", ({
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_errors$.prototype, "raiseErrorExitCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_errors$__f_raiseErrorExitCase;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_errors$.prototype, "attempt", ({
   "get": (function() {
     return this.Ldocs_reference_errors$__f_attempt;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorExitCase", ({
+Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorWith", ({
   "get": (function() {
-    return this.Ldocs_reference_errors$__f_handleErrorExitCase;
+    return this.Ldocs_reference_errors$__f_handleErrorWith;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleError", ({
+  "get": (function() {
+    return this.Ldocs_reference_errors$__f_handleError;
   }),
   "configurable": true
 }));
@@ -6860,21 +6860,9 @@ $c_Ldocs_reference_evalMap$.prototype.constructor = $c_Ldocs_reference_evalMap$;
 function $h_Ldocs_reference_evalMap$() {
 }
 $h_Ldocs_reference_evalMap$.prototype = $c_Ldocs_reference_evalMap$.prototype;
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "basic", ({
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunk", ({
   "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_basic;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapTake", ({
-  "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_evalMapTake;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalTap", ({
-  "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_evalTap;
+    return this.Ldocs_reference_evalMap$__f_evalMapChunk;
   }),
   "configurable": true
 }));
@@ -6884,9 +6872,15 @@ Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "errorEvalMapChunk"
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunkHead", ({
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "error", ({
   "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_evalMapChunkHead;
+    return this.Ldocs_reference_evalMap$__f_error;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapTake", ({
+  "get": (function() {
+    return this.Ldocs_reference_evalMap$__f_evalMapTake;
   }),
   "configurable": true
 }));
@@ -6896,15 +6890,21 @@ Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "errorEvalMap", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunk", ({
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunkHead", ({
   "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_evalMapChunk;
+    return this.Ldocs_reference_evalMap$__f_evalMapChunkHead;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "error", ({
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalTap", ({
   "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_error;
+    return this.Ldocs_reference_evalMap$__f_evalTap;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "basic", ({
+  "get": (function() {
+    return this.Ldocs_reference_evalMap$__f_basic;
   }),
   "configurable": true
 }));
@@ -6940,18 +6940,6 @@ $c_Ldocs_reference_filter$.prototype.constructor = $c_Ldocs_reference_filter$;
 function $h_Ldocs_reference_filter$() {
 }
 $h_Ldocs_reference_filter$.prototype = $c_Ldocs_reference_filter$.prototype;
-Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filter", ({
-  "get": (function() {
-    return this.Ldocs_reference_filter$__f_filter;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_filter$.prototype, "mapFilter", ({
-  "get": (function() {
-    return this.Ldocs_reference_filter$__f_mapFilter;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterWithPrevious", ({
   "get": (function() {
     return this.Ldocs_reference_filter$__f_filterWithPrevious;
@@ -6964,15 +6952,27 @@ Object.defineProperty($c_Ldocs_reference_filter$.prototype, "changes", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterChunked", ({
+Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filter", ({
   "get": (function() {
-    return this.Ldocs_reference_filter$__f_filterChunked;
+    return this.Ldocs_reference_filter$__f_filter;
   }),
   "configurable": true
 }));
 Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterNot", ({
   "get": (function() {
     return this.Ldocs_reference_filter$__f_filterNot;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_filter$.prototype, "mapFilter", ({
+  "get": (function() {
+    return this.Ldocs_reference_filter$__f_mapFilter;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterChunked", ({
+  "get": (function() {
+    return this.Ldocs_reference_filter$__f_filterChunked;
   }),
   "configurable": true
 }));
@@ -7010,6 +7010,12 @@ $c_Ldocs_reference_flatMap$.prototype.constructor = $c_Ldocs_reference_flatMap$;
 function $h_Ldocs_reference_flatMap$() {
 }
 $h_Ldocs_reference_flatMap$.prototype = $c_Ldocs_reference_flatMap$.prototype;
+Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorPropagation", ({
+  "get": (function() {
+    return this.Ldocs_reference_flatMap$__f_errorPropagation;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "basic", ({
   "get": (function() {
     return this.Ldocs_reference_flatMap$__f_basic;
@@ -7028,12 +7034,6 @@ Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorHandlingInput
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "finalizerChild", ({
-  "get": (function() {
-    return this.Ldocs_reference_flatMap$__f_finalizerChild;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "finalizerInput", ({
   "get": (function() {
     return this.Ldocs_reference_flatMap$__f_finalizerInput;
@@ -7046,9 +7046,9 @@ Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorHandling", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorPropagation", ({
+Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "finalizerChild", ({
   "get": (function() {
-    return this.Ldocs_reference_flatMap$__f_errorPropagation;
+    return this.Ldocs_reference_flatMap$__f_finalizerChild;
   }),
   "configurable": true
 }));
@@ -7092,15 +7092,9 @@ $c_Ldocs_reference_merge$.prototype.constructor = $c_Ldocs_reference_merge$;
 function $h_Ldocs_reference_merge$() {
 }
 $h_Ldocs_reference_merge$.prototype = $c_Ldocs_reference_merge$.prototype;
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "merge", ({
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeError", ({
   "get": (function() {
-    return this.Ldocs_reference_merge$__f_merge;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "resources", ({
-  "get": (function() {
-    return this.Ldocs_reference_merge$__f_resources;
+    return this.Ldocs_reference_merge$__f_mergeError;
   }),
   "configurable": true
 }));
@@ -7110,15 +7104,33 @@ Object.defineProperty($c_Ldocs_reference_merge$.prototype, "takeExitCase", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeError", ({
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "resources", ({
   "get": (function() {
-    return this.Ldocs_reference_merge$__f_mergeError;
+    return this.Ldocs_reference_merge$__f_resources;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "merge", ({
+  "get": (function() {
+    return this.Ldocs_reference_merge$__f_merge;
   }),
   "configurable": true
 }));
 Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltL", ({
   "get": (function() {
     return this.Ldocs_reference_merge$__f_mergeHaltL;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltBoth", ({
+  "get": (function() {
+    return this.Ldocs_reference_merge$__f_mergeHaltBoth;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltBothExitCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_merge$__f_mergeHaltBothExitCase;
   }),
   "configurable": true
 }));
@@ -7137,18 +7149,6 @@ Object.defineProperty($c_Ldocs_reference_merge$.prototype, "resourcesError", ({
 Object.defineProperty($c_Ldocs_reference_merge$.prototype, "errorExitCase", ({
   "get": (function() {
     return this.Ldocs_reference_merge$__f_errorExitCase;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltBoth", ({
-  "get": (function() {
-    return this.Ldocs_reference_merge$__f_mergeHaltBoth;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltBothExitCase", ({
-  "get": (function() {
-    return this.Ldocs_reference_merge$__f_mergeHaltBothExitCase;
   }),
   "configurable": true
 }));
@@ -7196,27 +7196,27 @@ Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapConcu
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapSingletonChunks", ({
-  "get": (function() {
-    return this.Ldocs_reference_parEvalMap$__f_parEvalMapSingletonChunks;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapUnbounded", ({
-  "get": (function() {
-    return this.Ldocs_reference_parEvalMap$__f_parEvalMapUnbounded;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapOrder", ({
   "get": (function() {
     return this.Ldocs_reference_parEvalMap$__f_parEvalMapOrder;
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapSingletonChunks", ({
+  "get": (function() {
+    return this.Ldocs_reference_parEvalMap$__f_parEvalMapSingletonChunks;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapUnorderedConcurrency", ({
   "get": (function() {
     return this.Ldocs_reference_parEvalMap$__f_parEvalMapUnorderedConcurrency;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapUnbounded", ({
+  "get": (function() {
+    return this.Ldocs_reference_parEvalMap$__f_parEvalMapUnbounded;
   }),
   "configurable": true
 }));
@@ -7250,9 +7250,9 @@ $c_Ldocs_reference_scan$.prototype.constructor = $c_Ldocs_reference_scan$;
 function $h_Ldocs_reference_scan$() {
 }
 $h_Ldocs_reference_scan$.prototype = $c_Ldocs_reference_scan$.prototype;
-Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanChunkPropagation", ({
+Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanMonoid", ({
   "get": (function() {
-    return this.Ldocs_reference_scan$__f_scanChunkPropagation;
+    return this.Ldocs_reference_scan$__f_scanMonoid;
   }),
   "configurable": true
 }));
@@ -7262,15 +7262,15 @@ Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanMap", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scan", ({
+Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanChunkPropagation", ({
   "get": (function() {
-    return this.Ldocs_reference_scan$__f_scan;
+    return this.Ldocs_reference_scan$__f_scanChunkPropagation;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanMonoid", ({
+Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scan", ({
   "get": (function() {
-    return this.Ldocs_reference_scan$__f_scanMonoid;
+    return this.Ldocs_reference_scan$__f_scan;
   }),
   "configurable": true
 }));
@@ -7308,27 +7308,27 @@ $c_Ldocs_reference_take$.prototype.constructor = $c_Ldocs_reference_take$;
 function $h_Ldocs_reference_take$() {
 }
 $h_Ldocs_reference_take$.prototype = $c_Ldocs_reference_take$.prototype;
-Object.defineProperty($c_Ldocs_reference_take$.prototype, "basic", ({
-  "get": (function() {
-    return this.Ldocs_reference_take$__f_basic;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeRight", ({
   "get": (function() {
     return this.Ldocs_reference_take$__f_takeRight;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeThrough", ({
-  "get": (function() {
-    return this.Ldocs_reference_take$__f_takeThrough;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeWhile", ({
   "get": (function() {
     return this.Ldocs_reference_take$__f_takeWhile;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_take$.prototype, "basic", ({
+  "get": (function() {
+    return this.Ldocs_reference_take$__f_basic;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeThrough", ({
+  "get": (function() {
+    return this.Ldocs_reference_take$__f_takeThrough;
   }),
   "configurable": true
 }));
@@ -7395,39 +7395,9 @@ $c_Ldocs_reference_time$.prototype.given_Show_FiniteDuration__Lcats_Show = (func
   }
   return this.Ldocs_reference_time$__f_given_Show_FiniteDuration$lzy1;
 });
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "delayBy", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "awakeEvery", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_delayBy;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateFastElementEval", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateFastElementEval;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "spaced", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_spaced;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredStartImmediately", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_meteredStartImmediately;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowElementEval", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_meteredSlowElementEval;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateDamped", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateDamped;
+    return this.Ldocs_reference_time$__f_awakeEvery;
   }),
   "configurable": true
 }));
@@ -7437,9 +7407,15 @@ Object.defineProperty($c_Ldocs_reference_time$.prototype, "metered", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateStartImmediately", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredStartImmediately", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateStartImmediately;
+    return this.Ldocs_reference_time$__f_meteredStartImmediately;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateDamped", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_fixedRateDamped;
   }),
   "configurable": true
 }));
@@ -7449,21 +7425,15 @@ Object.defineProperty($c_Ldocs_reference_time$.prototype, "awakeDelay", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateSlowElementEval", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRate", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateSlowElementEval;
+    return this.Ldocs_reference_time$__f_fixedRate;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowInputEval", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "delayBy", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_meteredSlowInputEval;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateUndamped", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateUndamped;
+    return this.Ldocs_reference_time$__f_delayBy;
   }),
   "configurable": true
 }));
@@ -7473,15 +7443,45 @@ Object.defineProperty($c_Ldocs_reference_time$.prototype, "sleep", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRate", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateFastElementEval", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRate;
+    return this.Ldocs_reference_time$__f_fixedRateFastElementEval;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "awakeEvery", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowInputEval", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_awakeEvery;
+    return this.Ldocs_reference_time$__f_meteredSlowInputEval;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "spaced", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_spaced;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowElementEval", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_meteredSlowElementEval;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateUndamped", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_fixedRateUndamped;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateStartImmediately", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_fixedRateStartImmediately;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedDelay", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_fixedDelay;
   }),
   "configurable": true
 }));
@@ -7491,9 +7491,9 @@ Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedDelaySlowElement
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedDelay", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateSlowElementEval", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedDelay;
+    return this.Ldocs_reference_time$__f_fixedRateSlowElementEval;
   }),
   "configurable": true
 }));
@@ -7529,27 +7529,21 @@ $c_Ldocs_reference_topic$.prototype.constructor = $c_Ldocs_reference_topic$;
 function $h_Ldocs_reference_topic$() {
 }
 $h_Ldocs_reference_topic$.prototype = $c_Ldocs_reference_topic$.prototype;
-Object.defineProperty($c_Ldocs_reference_topic$.prototype, "delayedSubscriber", ({
-  "get": (function() {
-    return this.Ldocs_reference_topic$__f_delayedSubscriber;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_topic$.prototype, "topic", ({
-  "get": (function() {
-    return this.Ldocs_reference_topic$__f_topic;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_topic$.prototype, "slowSubscriber", ({
-  "get": (function() {
-    return this.Ldocs_reference_topic$__f_slowSubscriber;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_topic$.prototype, "multipleSubscribers", ({
   "get": (function() {
     return this.Ldocs_reference_topic$__f_multipleSubscribers;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_topic$.prototype, "multipleSubscribersBounded", ({
+  "get": (function() {
+    return this.Ldocs_reference_topic$__f_multipleSubscribersBounded;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_topic$.prototype, "delayedSubscriber", ({
+  "get": (function() {
+    return this.Ldocs_reference_topic$__f_delayedSubscriber;
   }),
   "configurable": true
 }));
@@ -7559,9 +7553,15 @@ Object.defineProperty($c_Ldocs_reference_topic$.prototype, "boundedSubscriber", 
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_topic$.prototype, "multipleSubscribersBounded", ({
+Object.defineProperty($c_Ldocs_reference_topic$.prototype, "slowSubscriber", ({
   "get": (function() {
-    return this.Ldocs_reference_topic$__f_multipleSubscribersBounded;
+    return this.Ldocs_reference_topic$__f_slowSubscriber;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_topic$.prototype, "topic", ({
+  "get": (function() {
+    return this.Ldocs_reference_topic$__f_topic;
   }),
   "configurable": true
 }));
@@ -97063,15 +97063,6 @@ function $p_Lcats_effect_kernel_Resource__loop$2__Lcats_effect_kernel_MonadCance
     throw new $c_s_MatchError(x133);
   }
 }
-function $p_Lcats_effect_kernel_Resource__State$lzyINIT1$1__sr_LazyRef__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource$State$3$($thiz, State$lzy1$1, F$52) {
-  if ((State$lzy1$1 === null)) {
-    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException());
-  }
-  return $as_Lcats_effect_kernel_Resource$State$3$(($n(State$lzy1$1).sr_LazyRef__f__initialized ? $n(State$lzy1$1).sr_LazyRef__f__value : $n(State$lzy1$1).initialize__O__O(new $c_Lcats_effect_kernel_Resource$State$3$(F$52, $thiz))));
-}
-function $p_Lcats_effect_kernel_Resource__State$2__sr_LazyRef__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource$State$3$($thiz, State$lzy1$2, F$53) {
-  return $as_Lcats_effect_kernel_Resource$State$3$(($n(State$lzy1$2).sr_LazyRef__f__initialized ? $n(State$lzy1$2).sr_LazyRef__f__value : $p_Lcats_effect_kernel_Resource__State$lzyINIT1$1__sr_LazyRef__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource$State$3$($thiz, State$lzy1$2, F$53)));
-}
 /** @constructor */
 function $c_Lcats_effect_kernel_Resource() {
 }
@@ -97470,81 +97461,121 @@ $c_Lcats_effect_kernel_Resource.prototype.guaranteeCase__F1__Lcats_effect_kernel
   return new $c_Lcats_effect_kernel_Resource$Allocate(resource);
 });
 $c_Lcats_effect_kernel_Resource.prototype.start__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource = (function(F) {
-  var State$lzy1 = new $c_sr_LazyRef();
-  var $x_7 = $m_Lcats_effect_kernel_Resource$();
-  var target = $n(F).ref__O__O($n($p_Lcats_effect_kernel_Resource__State$2__sr_LazyRef__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource$State$3$(this, State$lzy1, F)).apply__O__Z__Z__Lcats_effect_kernel_Resource$State$1($n($p_Lcats_effect_kernel_Resource__State$2__sr_LazyRef__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource$State$3$(this, State$lzy1, F)).$lessinit$greater$default$1__O(), ($n($p_Lcats_effect_kernel_Resource__State$2__sr_LazyRef__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource$State$3$(this, State$lzy1, F)), false), ($n($p_Lcats_effect_kernel_Resource__State$2__sr_LazyRef__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_Resource$State$3$(this, State$lzy1, F)), false)));
-  var this$27 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target, F);
+  var $x_2 = $m_Lcats_effect_kernel_Resource$();
+  var $x_1 = $n(F);
+  var fin = $n(F).unit__O();
+  var target = $x_1.ref__O__O(new $c_Lcats_effect_kernel_Resource$FiberState(fin, false, false));
+  var this$39 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target, F);
   var f$3 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((state) => {
     var state$1 = $as_Lcats_effect_kernel_Ref(state);
     var finalized = $n(F).uncancelable__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((poll) => {
       var poll$1 = $as_Lcats_effect_kernel_Poll(poll);
+      var this$4 = $m_Lcats_effect_kernel_implicits$();
       var wrapped = $n(poll$1).apply__O__O(this.allocated__Lcats_effect_kernel_MonadCancel__O(F));
-      var fin = $n(state$1).update__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((s) => {
-        var s$1 = $as_Lcats_effect_kernel_Resource$State$1(s);
-        if ($n(s$1).Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete) {
-          var $x_2 = $n(s$1);
-          var this$4 = $n(s$1);
-          var $x_1 = this$4.Lcats_effect_kernel_Resource$State$1__f_fin;
-          var this$5 = $n(s$1);
-          return $x_2.copy__O__Z__Z__Lcats_effect_kernel_Resource$State$1($x_1, this$5.Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete, true);
-        } else {
-          return s$1;
-        }
-      })));
-      var target$1 = $n(F).guarantee__O__O__O(wrapped, fin);
-      var this$18 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target$1, F);
-      var f$1 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((x$1) => {
-        var x$1$1 = $as_T2(x$1);
-        if ((x$1$1 !== null)) {
-          var a = $n(x$1$1)._1__O();
-          var rel = $n(x$1$1)._2__O();
-          var action = $n(state$1).modify__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((s$2) => {
-            var s$3 = $as_Lcats_effect_kernel_Resource$State$1(s$2);
-            if ($n(s$3).Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete) {
-              var f = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$36) => {
-                $as_jl_Throwable(_$36);
-              }));
-              var _2 = $n(F).handleError__O__F1__O(rel, f);
-              return $ct_T2__O__O__(new $c_T2(), s$3, _2);
+      var ev$33 = $f_Lcats_effect_kernel_syntax_MonadCancelSyntax__monadCancelOps__O__Lcats_effect_kernel_MonadCancel__O(this$4, wrapped, F);
+      var fin$3 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((x$1) => {
+        var x$1$1 = $as_Lcats_effect_kernel_Outcome(x$1);
+        matchAlts1: {
+          matchAlts2: {
+            if (((x$1$1 instanceof $c_Lcats_effect_kernel_Outcome$Canceled) && ($as_Lcats_effect_kernel_Outcome$Canceled(x$1$1), true))) {
+              break matchAlts2;
+            }
+            if ((x$1$1 instanceof $c_Lcats_effect_kernel_Outcome$Errored)) {
+              var x$1$2 = $as_Lcats_effect_kernel_Outcome$Errored(x$1$1);
+              var this$6 = $n(x$1$2);
+              $as_jl_Throwable(this$6.Lcats_effect_kernel_Outcome$Errored__f_e);
+              break matchAlts2;
+            }
+            break matchAlts1;
+          }
+          return $n(state$1).update__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((s) => {
+            var s$1 = $as_Lcats_effect_kernel_Resource$FiberState(s);
+            if ($n(s$1).Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete) {
+              $n(s$1);
+              var this$7 = $n(s$1);
+              var fin$1 = this$7.Lcats_effect_kernel_Resource$FiberState__f_fin;
+              var this$8 = $n(s$1);
+              var finalizeOnComplete = this$8.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete;
+              return new $c_Lcats_effect_kernel_Resource$FiberState(fin$1, finalizeOnComplete, true);
             } else {
-              var $x_4 = $n(s$3);
-              var this$11 = $n(s$3);
-              var $x_3 = this$11.Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete;
-              var this$12 = $n(s$3);
-              var _1 = $x_4.copy__O__Z__Z__Lcats_effect_kernel_Resource$State$1(rel, $x_3, this$12.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete);
-              var _2$1 = $n(F).unit__O();
-              return $ct_T2__O__O__(new $c_T2(), _1, _2$1);
+              return s$1;
             }
           })));
-          var target$2 = $f_Lcats_FlatMap__flatten__O__O($n(F), action);
-          var this$17 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$2, F);
-          return $n(this$17.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).as__O__O__O(this$17.Lcats_Functor$ToFunctorOps$$anon$5__f_self, a);
+        }
+        if ((x$1$1 instanceof $c_Lcats_effect_kernel_Outcome$Succeeded)) {
+          var x$1$3 = $as_Lcats_effect_kernel_Outcome$Succeeded(x$1$1);
+          var this$11 = $n(x$1$3);
+          var x164 = this$11.Lcats_effect_kernel_Outcome$Succeeded__f_fa;
+          var this$25 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(x164, F);
+          var f = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((x$1$2$1) => {
+            var x$1$4 = $as_T2(x$1$2$1);
+            if ((x$1$4 !== null)) {
+              var rel = $n(x$1$4)._2__O();
+              var action = $n(state$1).modify__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((s$2) => {
+                var s$3 = $as_Lcats_effect_kernel_Resource$FiberState(s$2);
+                if ($n(s$3).Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete) {
+                  $n(s$3);
+                  var this$13 = $n(s$3);
+                  var fin$2 = this$13.Lcats_effect_kernel_Resource$FiberState__f_fin;
+                  var this$14 = $n(s$3);
+                  var finalizeOnComplete$1 = this$14.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete;
+                  var _1 = new $c_Lcats_effect_kernel_Resource$FiberState(fin$2, finalizeOnComplete$1, true);
+                  var _2 = $f_Lcats_ApplicativeError__voidError__O__O($n(F), rel);
+                  return $ct_T2__O__O__(new $c_T2(), _1, _2);
+                } else {
+                  $n(s$3);
+                  var this$19 = $n(s$3);
+                  var finalizeOnComplete$2 = this$19.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete;
+                  var this$20 = $n(s$3);
+                  var confirmedFinalizeOnComplete = this$20.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete;
+                  var _1$1 = new $c_Lcats_effect_kernel_Resource$FiberState(rel, finalizeOnComplete$2, confirmedFinalizeOnComplete);
+                  var _2$1 = $n(F).unit__O();
+                  return $ct_T2__O__O__(new $c_T2(), _1$1, _2$1);
+                }
+              })));
+              return $f_Lcats_FlatMap__flatten__O__O($n(F), action);
+            }
+            throw new $c_s_MatchError(x$1$4);
+          }));
+          return $n(this$25.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$25.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f);
         }
         throw new $c_s_MatchError(x$1$1);
       }));
-      return $n(this$18.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$18.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$1);
+      var target$1 = $n(F).guaranteeCase__O__F1__O(ev$33, fin$3);
+      var this$28 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$1, F);
+      var f$1 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((x$1$2$2) => {
+        var x$1$5 = $as_T2(x$1$2$2);
+        if ((x$1$5 !== null)) {
+          var a = $n(x$1$5)._1__O();
+          return a;
+        }
+        throw new $c_s_MatchError(x$1$5);
+      }));
+      return $n(this$28.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).map__O__F1__O(this$28.Lcats_Functor$ToFunctorOps$$anon$5__f_self, f$1);
     })));
-    var target$3 = $n(F).start__O__O(finalized);
-    var this$26 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$3, F);
+    var target$2 = $n(F).start__O__O(finalized);
+    var this$37 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$2, F);
     var f$2 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((outer) => {
       var outer$1 = $as_Lcats_effect_kernel_Fiber(outer);
       var fiber = new $c_Lcats_effect_kernel_Resource$$anon$4(F, outer$1, state$1);
       var ffa = $n(state$1).modify__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((s$4) => {
-        var s$5 = $as_Lcats_effect_kernel_Resource$State$1(s$4);
-        var $x_6 = $n(s$5);
-        var this$20 = $n(s$5);
-        var $x_5 = this$20.Lcats_effect_kernel_Resource$State$1__f_fin;
-        var this$21 = $n(s$5);
-        var _1$1 = $x_6.copy__O__Z__Z__Lcats_effect_kernel_Resource$State$1($x_5, true, this$21.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete);
-        var _2$2 = $n(s$5).Lcats_effect_kernel_Resource$State$1__f_fin;
-        return $ct_T2__O__O__(new $c_T2(), _1$1, _2$2);
+        var s$5 = $as_Lcats_effect_kernel_Resource$FiberState(s$4);
+        $n(s$5);
+        var this$30 = $n(s$5);
+        var fin$4 = this$30.Lcats_effect_kernel_Resource$FiberState__f_fin;
+        var this$31 = $n(s$5);
+        var confirmedFinalizeOnComplete$1 = this$31.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete;
+        var _1$2 = new $c_Lcats_effect_kernel_Resource$FiberState(fin$4, true, confirmedFinalizeOnComplete$1);
+        var _2$2 = $n(s$5).Lcats_effect_kernel_Resource$FiberState__f_fin;
+        return $ct_T2__O__O__(new $c_T2(), _1$2, _2$2);
       })));
       var finalizeOuter = $f_Lcats_FlatMap__flatten__O__O($n(F), ffa);
       return $ct_T2__O__O__(new $c_T2(), fiber, finalizeOuter);
     }));
-    return $n(this$26.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).map__O__F1__O(this$26.Lcats_Functor$ToFunctorOps$$anon$5__f_self, f$2);
+    var wrapped$1 = $n(this$37.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).map__O__F1__O(this$37.Lcats_Functor$ToFunctorOps$$anon$5__f_self, f$2);
+    return $m_Lcats_effect_kernel_syntax_MonadCancelOps\uff3f$().uncancelable$extension__O__Lcats_effect_kernel_MonadCancel__O(wrapped$1, F);
   }));
-  return $x_7.apply__O__Lcats_Functor__Lcats_effect_kernel_Resource($n(this$27.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$27.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$3), F);
+  return $x_2.apply__O__Lcats_Functor__Lcats_effect_kernel_Resource($n(this$39.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$39.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$3), F);
 });
 $c_Lcats_effect_kernel_Resource.prototype.attempt__Lcats_effect_kernel_MonadCancel__Lcats_effect_kernel_Resource = (function(F) {
   var resource = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((poll) => {
@@ -97555,16 +97586,16 @@ $c_Lcats_effect_kernel_Resource.prototype.attempt__Lcats_effect_kernel_MonadCanc
     var f = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((x$1) => {
       var x$1$1 = $as_s_util_Either(x$1);
       if ((x$1$1 instanceof $c_s_util_Right)) {
-        var x206 = $as_T2($n($as_s_util_Right(x$1$1)).s_util_Right__f_value);
-        if ((x206 !== null)) {
-          var a = $n(x206)._1__O();
-          var r = $as_F1($n(x206)._2__O());
+        var x213 = $as_T2($n($as_s_util_Right(x$1$1)).s_util_Right__f_value);
+        if ((x213 !== null)) {
+          var a = $n(x213)._1__O();
+          var r = $as_F1($n(x213)._2__O());
           var _1 = new $c_s_util_Right(a);
           return $ct_T2__O__O__(new $c_T2(), _1, r);
         }
       }
-      var _2 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$46) => {
-        $as_Lcats_effect_kernel_Resource$ExitCase(_$46);
+      var _2 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$45) => {
+        $as_Lcats_effect_kernel_Resource$ExitCase(_$45);
         return $n(F).unit__O();
       }));
       return $ct_T2__O__O__(new $c_T2(), x$1$1, _2);
@@ -99539,18 +99570,18 @@ $c_Ldocs_reference_append$$anon$2.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy2 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$20), new $c_Laquascape_macros_LineNumber(64)));
   return new $c_Laquascape_examples_StreamCode("(Stream('a', 'b') ++ Stream('x', 'y')).take(n).compile.toList", stream$proxy2);
 });
+$c_Ldocs_reference_append$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_append$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_append$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_append$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_append$$anon$2, "docs.reference.append$$anon$2", ({
   Ldocs_reference_append$$anon$2: 1,
@@ -99586,18 +99617,18 @@ $c_Ldocs_reference_append$$anon$3.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy3 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(80)));
   return new $c_Laquascape_examples_StreamCode("def repeatAb: Stream[IO, Char] = Stream('a', 'b') ++ repeatAb\n\nrepeatAb.take(n).compile.toList", stream$proxy3);
 });
+$c_Ldocs_reference_append$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_append$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_append$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_append$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_append$$anon$3, "docs.reference.append$$anon$3", ({
   Ldocs_reference_append$$anon$3: 1,
@@ -99687,18 +99718,18 @@ $c_Ldocs_reference_append$$anon$5.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy5 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$7, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$26), new $c_Laquascape_macros_LineNumber(113)));
   return new $c_Laquascape_examples_StreamCode("(Stream('a', 'b').onFinalize(IO(\"ab\")) ++ Stream('x', 'y')\n  .onFinalize(IO(\"xy\"))).take(n).compile.toList", stream$proxy5);
 });
+$c_Ldocs_reference_append$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_append$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_append$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_append$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_append$$anon$5, "docs.reference.append$$anon$5", ({
   Ldocs_reference_append$$anon$5: 1,
@@ -100276,18 +100307,18 @@ $c_Ldocs_reference_chunk$$anon$2.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy2 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(66)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').repeatN(2).chunkLimit(n).compile.toList", stream$proxy2);
 });
+$c_Ldocs_reference_chunk$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_chunk$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_chunk$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_chunk$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_chunk$$anon$2, "docs.reference.chunk$$anon$2", ({
   Ldocs_reference_chunk$$anon$2: 1,
@@ -100325,18 +100356,18 @@ $c_Ldocs_reference_chunk$$anon$3.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy3 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(82)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').repeatN(3).chunkMin(n).compile.toList", stream$proxy3);
 });
+$c_Ldocs_reference_chunk$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_chunk$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_chunk$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_chunk$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_chunk$$anon$3, "docs.reference.chunk$$anon$3", ({
   Ldocs_reference_chunk$$anon$3: 1,
@@ -100374,18 +100405,18 @@ $c_Ldocs_reference_chunk$$anon$4.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy4 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(98)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').repeatN(2).chunkN(n).compile.toList", stream$proxy4);
 });
+$c_Ldocs_reference_chunk$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_chunk$$anon$4.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_chunk$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_chunk$$anon$4 = new $TypeData().initClass($c_Ldocs_reference_chunk$$anon$4, "docs.reference.chunk$$anon$4", ({
   Ldocs_reference_chunk$$anon$4: 1,
@@ -100572,18 +100603,18 @@ $c_Ldocs_reference_compile$$anon$2.prototype.apply__I__Laquascape_Scape__Laquasc
   var stream$proxy2 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.last", "root", new $c_Lcats_instances_OptionInstances$$anon$2(evidence$1$1, this$13), new $c_Laquascape_macros_LineNumber(60)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').take(n).compile.last", stream$proxy2);
 });
+$c_Ldocs_reference_compile$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_compile$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_compile$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_compile$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_compile$$anon$2, "docs.reference.compile$$anon$2", ({
   Ldocs_reference_compile$$anon$2: 1,
@@ -100618,18 +100649,18 @@ $c_Ldocs_reference_compile$$anon$3.prototype.apply__I__Laquascape_Scape__Laquasc
   var stream$proxy3 = $as_Lcats_effect_IO($m_Laquascape_ext$package$().compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.onlyOrError", "root", $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar, new $c_Laquascape_macros_LineNumber(74)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').take(n).compile.onlyOrError", stream$proxy3);
 });
+$c_Ldocs_reference_compile$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_compile$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_compile$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_compile$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_compile$$anon$3, "docs.reference.compile$$anon$3", ({
   Ldocs_reference_compile$$anon$3: 1,
@@ -100737,18 +100768,18 @@ $c_Ldocs_reference_drop$$anon$1.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy1 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$1, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(54)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').drop(n).compile.toList", stream$proxy1);
 });
+$c_Ldocs_reference_drop$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_drop$$anon$1.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_drop$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_drop$$anon$1 = new $TypeData().initClass($c_Ldocs_reference_drop$$anon$1, "docs.reference.drop$$anon$1", ({
   Ldocs_reference_drop$$anon$1: 1,
@@ -100901,18 +100932,18 @@ $c_Ldocs_reference_drop$$anon$5.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy5 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$5, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(110)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').take(n).dropLastIf(_ != 'b').compile.toList", stream$proxy5);
 });
+$c_Ldocs_reference_drop$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_drop$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_drop$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_drop$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_drop$$anon$5, "docs.reference.drop$$anon$5", ({
   Ldocs_reference_drop$$anon$5: 1,
@@ -100951,18 +100982,18 @@ $c_Ldocs_reference_drop$$anon$6.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy6 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$6, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(126)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').repeatN(2).drop(n).compile.toList", stream$proxy6);
 });
+$c_Ldocs_reference_drop$$anon$6.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_drop$$anon$6.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_drop$$anon$6.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_drop$$anon$6 = new $TypeData().initClass($c_Ldocs_reference_drop$$anon$6, "docs.reference.drop$$anon$6", ({
   Ldocs_reference_drop$$anon$6: 1,
@@ -101391,18 +101422,18 @@ $c_Ldocs_reference_evalMap$$anon$3.prototype.apply__I__Laquascape_Scape__Laquasc
   var stream$proxy3 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$6, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$20), new $c_Laquascape_macros_LineNumber(80)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').evalMap(c => IO(c.toInt)).take(n).compile.toList", stream$proxy3);
 });
+$c_Ldocs_reference_evalMap$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_evalMap$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_evalMap$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_evalMap$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_evalMap$$anon$3, "docs.reference.evalMap$$anon$3", ({
   Ldocs_reference_evalMap$$anon$3: 1,
@@ -102231,18 +102262,18 @@ $c_Ldocs_reference_merge$$anon$1.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy1 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$1, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(65)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy1);
 });
+$c_Ldocs_reference_merge$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$1.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$1 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$1, "docs.reference.merge$$anon$1", ({
   Ldocs_reference_merge$$anon$1: 1,
@@ -102307,18 +102338,18 @@ $c_Ldocs_reference_merge$$anon$10.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy10 = $as_Lcats_effect_IO($x_6.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$19, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$34), new $c_Laquascape_macros_LineNumber(290)));
   return new $c_Laquascape_examples_StreamCode("val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))\n  .onFinalize(IO(\"ab\"))\nval xy = Stream('x', 'y').onFinalize(IO(\"xy\")).metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy10);
 });
+$c_Ldocs_reference_merge$$anon$10.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$10.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$10.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$10 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$10, "docs.reference.merge$$anon$10", ({
   Ldocs_reference_merge$$anon$10: 1,
@@ -102373,18 +102404,18 @@ $c_Ldocs_reference_merge$$anon$2.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy2 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(87)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.mergeHaltBoth(xy).compile.toList", stream$proxy2);
 });
+$c_Ldocs_reference_merge$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$2, "docs.reference.merge$$anon$2", ({
   Ldocs_reference_merge$$anon$2: 1,
@@ -102439,18 +102470,18 @@ $c_Ldocs_reference_merge$$anon$3.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy3 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(109)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.mergeHaltL(xy).compile.toList", stream$proxy3);
 });
+$c_Ldocs_reference_merge$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$3, "docs.reference.merge$$anon$3", ({
   Ldocs_reference_merge$$anon$3: 1,
@@ -102507,18 +102538,18 @@ $c_Ldocs_reference_merge$$anon$4.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy4 = $as_Lcats_effect_IO($x_3.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$29), new $c_Laquascape_macros_LineNumber(132)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.mergeHaltR(xy).compile.toList", stream$proxy4);
 });
+$c_Ldocs_reference_merge$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$4.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$4 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$4, "docs.reference.merge$$anon$4", ({
   Ldocs_reference_merge$$anon$4: 1,
@@ -102595,18 +102626,18 @@ $c_Ldocs_reference_merge$$anon$5.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy5 = $as_Lcats_effect_IO($x_6.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$7, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$40), new $c_Laquascape_macros_LineNumber(159)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b')\n  .metered[IO](n.seconds)\n  .onFinalizeCase(exitCase => IO(show\"ab-$exitCase\"))\nval xy = Stream('x', 'y')\n  .metered[IO](2.seconds)\n  .onFinalizeCase(exitCase => IO(show\"xy-$exitCase\"))\n\nab.mergeHaltBoth(xy).compile.toList", stream$proxy5);
 });
+$c_Ldocs_reference_merge$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$5, "docs.reference.merge$$anon$5", ({
   Ldocs_reference_merge$$anon$5: 1,
@@ -102750,18 +102781,18 @@ $c_Ldocs_reference_merge$$anon$7.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy7 = $as_Lcats_effect_IO($x_5.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$12, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$34), new $c_Laquascape_macros_LineNumber(211)));
   return new $c_Laquascape_examples_StreamCode("val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))\nval xy = Stream('x', 'y')\n  .onFinalizeCase(exitCase => IO(show\"xy-$exitCase\"))\n  .metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy7);
 });
+$c_Ldocs_reference_merge$$anon$7.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$7.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$7.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$7 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$7, "docs.reference.merge$$anon$7", ({
   Ldocs_reference_merge$$anon$7: 1,
@@ -102818,18 +102849,18 @@ $c_Ldocs_reference_merge$$anon$8.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy8 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$13, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(234)));
   return new $c_Laquascape_examples_StreamCode("val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy8);
 });
+$c_Ldocs_reference_merge$$anon$8.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$8.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$8.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$8 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$8, "docs.reference.merge$$anon$8", ({
   Ldocs_reference_merge$$anon$8: 1,
@@ -102892,18 +102923,18 @@ $c_Ldocs_reference_merge$$anon$9.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy9 = $as_Lcats_effect_IO($x_6.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$16, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$34), new $c_Laquascape_macros_LineNumber(262)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').onFinalize(IO(\"ab\")).metered[IO](n.second)\nval xy = Stream('x', 'y').onFinalize(IO(\"xy\")).metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy9);
 });
+$c_Ldocs_reference_merge$$anon$9.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_merge$$anon$9.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_merge$$anon$9.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$9 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$9, "docs.reference.merge$$anon$9", ({
   Ldocs_reference_merge$$anon$9: 1,
@@ -103001,18 +103032,18 @@ $c_Ldocs_reference_parEvalMap$$anon$2.prototype.apply__I__Laquascape_Scape__Laqu
   var stream$proxy2 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$23), new $c_Laquascape_macros_LineNumber(65)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c', 'd')\n  .parEvalMap(n)(ch => IO.sleep(1.second).as(ch))\n  .compile\n  .toList", stream$proxy2);
 });
+$c_Ldocs_reference_parEvalMap$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_parEvalMap$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_parEvalMap$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_parEvalMap$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_parEvalMap$$anon$2, "docs.reference.parEvalMap$$anon$2", ({
   Ldocs_reference_parEvalMap$$anon$2: 1,
@@ -103158,18 +103189,18 @@ $c_Ldocs_reference_parEvalMap$$anon$5.prototype.apply__I__Laquascape_Scape__Laqu
   var stream$proxy5 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$10, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$23), new $c_Laquascape_macros_LineNumber(111)));
   return new $c_Laquascape_examples_StreamCode("Stream(5, 4, 3, 2)\n  .parEvalMapUnordered(n)(i => IO.sleep(i.second).as(i))\n  .compile\n  .toList", stream$proxy5);
 });
+$c_Ldocs_reference_parEvalMap$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_parEvalMap$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_parEvalMap$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_parEvalMap$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_parEvalMap$$anon$5, "docs.reference.parEvalMap$$anon$5", ({
   Ldocs_reference_parEvalMap$$anon$5: 1,
@@ -103451,18 +103482,18 @@ $c_Ldocs_reference_take$$anon$1.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy1 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$1, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(48)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').repeat.take(n).compile.toList", stream$proxy1);
 });
+$c_Ldocs_reference_take$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_take$$anon$1.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_take$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_take$$anon$1 = new $TypeData().initClass($c_Ldocs_reference_take$$anon$1, "docs.reference.take$$anon$1", ({
   Ldocs_reference_take$$anon$1: 1,
@@ -103576,18 +103607,18 @@ $c_Ldocs_reference_take$$anon$4.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy4 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$14), new $c_Laquascape_macros_LineNumber(91)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').repeatN(3).takeRight(n).compile.toList", stream$proxy4);
 });
+$c_Ldocs_reference_take$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_take$$anon$4.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_take$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_take$$anon$4 = new $TypeData().initClass($c_Ldocs_reference_take$$anon$4, "docs.reference.take$$anon$4", ({
   Ldocs_reference_take$$anon$4: 1,
@@ -104487,18 +104518,18 @@ $c_Ldocs_reference_topic$$anon$2.prototype.apply__I__Laquascape_Scape__Laquascap
   })));
   return new $c_Laquascape_examples_StreamCode("Topic[IO, Char].flatMap { topic =>\n  val pub = Stream('a', 'b').spaced[IO](2.second, startImmediately = false)\n  val sub = topic.subscribeUnbounded\n  (\n    sub.delayBy(n.seconds).compile.toList,\n    pub.through(topic.publish).compile.drain\n  ).parTupled\n}", stream$proxy2);
 });
+$c_Ldocs_reference_topic$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_topic$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_topic$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_topic$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_topic$$anon$2, "docs.reference.topic$$anon$2", ({
   Ldocs_reference_topic$$anon$2: 1,
@@ -104693,18 +104724,18 @@ $c_Ldocs_reference_topic$$anon$5.prototype.apply__I__Laquascape_Scape__Laquascap
   })));
   return new $c_Laquascape_examples_StreamCode("Topic[IO, Char].flatMap { topic =>\n  val pub = Stream('a', 'b', 'c', 'd').delayBy[IO](1.second)\n  val sub = topic.subscribe(n).spaced(1.second)\n  (sub.compile.toList, pub.through(topic.publish).compile.drain).parTupled\n}", stream$proxy5);
 });
+$c_Ldocs_reference_topic$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
+});
 $c_Ldocs_reference_topic$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
-});
-$c_Ldocs_reference_topic$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_topic$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_topic$$anon$5, "docs.reference.topic$$anon$5", ({
   Ldocs_reference_topic$$anon$5: 1,
@@ -123182,13 +123213,13 @@ $c_Laquascape_examples_FrameIds$.prototype.both = (function(arg, arg$2) {
   var prep1 = $as_T(arg$2);
   return new $c_Laquascape_examples_FrameIds$Both(prep0, prep1);
 });
-$c_Laquascape_examples_FrameIds$.prototype.unchunked = (function(arg) {
-  var prep0 = $as_T(arg);
-  return new $c_Laquascape_examples_FrameIds$Unchunked(prep0);
-});
 $c_Laquascape_examples_FrameIds$.prototype.chunked = (function(arg) {
   var prep0 = $as_T(arg);
   return new $c_Laquascape_examples_FrameIds$Chunked(prep0);
+});
+$c_Laquascape_examples_FrameIds$.prototype.unchunked = (function(arg) {
+  var prep0 = $as_T(arg);
+  return new $c_Laquascape_examples_FrameIds$Unchunked(prep0);
 });
 var $d_Laquascape_examples_FrameIds$ = new $TypeData().initClass($c_Laquascape_examples_FrameIds$, "aquascape.examples.FrameIds$", ({
   Laquascape_examples_FrameIds$: 1,
@@ -124010,13 +124041,13 @@ function $asArrayOf_Lcats_effect_kernel_Poll(obj, depth) {
   return (($isArrayOf_Lcats_effect_kernel_Poll(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcats.effect.kernel.Poll;", depth));
 }
 /** @constructor */
-function $c_Lcats_effect_kernel_Resource$$anon$4(F$105, outer$2, state$5) {
-  this.Lcats_effect_kernel_Resource$$anon$4__f_F$60 = null;
+function $c_Lcats_effect_kernel_Resource$$anon$4(F$102, outer$2, state$6) {
+  this.Lcats_effect_kernel_Resource$$anon$4__f_F$58 = null;
   this.Lcats_effect_kernel_Resource$$anon$4__f_outer$1 = null;
-  this.Lcats_effect_kernel_Resource$$anon$4__f_state$4 = null;
-  this.Lcats_effect_kernel_Resource$$anon$4__f_F$60 = F$105;
+  this.Lcats_effect_kernel_Resource$$anon$4__f_state$5 = null;
+  this.Lcats_effect_kernel_Resource$$anon$4__f_F$58 = F$102;
   this.Lcats_effect_kernel_Resource$$anon$4__f_outer$1 = outer$2;
-  this.Lcats_effect_kernel_Resource$$anon$4__f_state$4 = state$5;
+  this.Lcats_effect_kernel_Resource$$anon$4__f_state$5 = state$6;
 }
 $c_Lcats_effect_kernel_Resource$$anon$4.prototype = new $h_O();
 $c_Lcats_effect_kernel_Resource$$anon$4.prototype.constructor = $c_Lcats_effect_kernel_Resource$$anon$4;
@@ -124025,55 +124056,56 @@ function $h_Lcats_effect_kernel_Resource$$anon$4() {
 }
 $h_Lcats_effect_kernel_Resource$$anon$4.prototype = $c_Lcats_effect_kernel_Resource$$anon$4.prototype;
 $c_Lcats_effect_kernel_Resource$$anon$4.prototype.cancel__Lcats_effect_kernel_Resource = (function() {
-  var fa$1 = $n(this.Lcats_effect_kernel_Resource$$anon$4__f_F$60).uncancelable__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((poll) => {
+  var fa$1 = $n(this.Lcats_effect_kernel_Resource$$anon$4__f_F$58).uncancelable__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((poll) => {
     var poll$1 = $as_Lcats_effect_kernel_Poll(poll);
     var fa = $n(poll$1).apply__O__O($n(this.Lcats_effect_kernel_Resource$$anon$4__f_outer$1).cancel__O());
-    var fb = $n(this.Lcats_effect_kernel_Resource$$anon$4__f_state$4).update__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$38) => {
-      var _$38$1 = $as_Lcats_effect_kernel_Resource$State$1(_$38);
-      var $x_2 = $n(_$38$1);
-      var this$3 = $n(_$38$1);
-      var $x_1 = this$3.Lcats_effect_kernel_Resource$State$1__f_fin;
-      var this$4 = $n(_$38$1);
-      return $x_2.copy__O__Z__Z__Lcats_effect_kernel_Resource$State$1($x_1, true, this$4.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete);
+    var fb = $n(this.Lcats_effect_kernel_Resource$$anon$4__f_state$5).update__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$37) => {
+      var _$37$1 = $as_Lcats_effect_kernel_Resource$FiberState(_$37);
+      $n(_$37$1);
+      var this$3 = $n(_$37$1);
+      var fin = this$3.Lcats_effect_kernel_Resource$FiberState__f_fin;
+      var this$4 = $n(_$37$1);
+      var confirmedFinalizeOnComplete = this$4.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete;
+      return new $c_Lcats_effect_kernel_Resource$FiberState(fin, true, confirmedFinalizeOnComplete);
     })));
-    var F = this.Lcats_effect_kernel_Resource$$anon$4__f_F$60;
-    var this$6 = $n(F);
-    return this$6.productR__O__O__O(fa, fb);
+    var F = this.Lcats_effect_kernel_Resource$$anon$4__f_F$58;
+    var this$7 = $n(F);
+    return this$7.productR__O__O__O(fa, fb);
   })));
   return new $c_Lcats_effect_kernel_Resource$Eval(fa$1);
 });
 $c_Lcats_effect_kernel_Resource$$anon$4.prototype.join__Lcats_effect_kernel_Resource = (function() {
   var target = $n(this.Lcats_effect_kernel_Resource$$anon$4__f_outer$1).join__O();
-  var tc = this.Lcats_effect_kernel_Resource$$anon$4__f_F$60;
+  var tc = this.Lcats_effect_kernel_Resource$$anon$4__f_F$58;
   var this$23 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target, tc);
   var f$1 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((x$1) => {
     var x$1$1 = $as_Lcats_effect_kernel_Outcome(x$1);
     if (((x$1$1 instanceof $c_Lcats_effect_kernel_Outcome$Canceled) && ($as_Lcats_effect_kernel_Outcome$Canceled(x$1$1), true))) {
       var a = new $c_Lcats_effect_kernel_Outcome$Canceled();
-      var F = this.Lcats_effect_kernel_Resource$$anon$4__f_F$60;
+      var F = this.Lcats_effect_kernel_Resource$$anon$4__f_F$58;
       return $n(F).pure__O__O(a);
     }
     if ((x$1$1 instanceof $c_Lcats_effect_kernel_Outcome$Errored)) {
       var x$1$2 = $as_Lcats_effect_kernel_Outcome$Errored(x$1$1);
       var this$8 = $n(x$1$2);
-      var x171 = $as_jl_Throwable(this$8.Lcats_effect_kernel_Outcome$Errored__f_e);
-      var a$1 = new $c_Lcats_effect_kernel_Outcome$Errored(x171);
-      var F$1 = this.Lcats_effect_kernel_Resource$$anon$4__f_F$60;
+      var x178 = $as_jl_Throwable(this$8.Lcats_effect_kernel_Outcome$Errored__f_e);
+      var a$1 = new $c_Lcats_effect_kernel_Outcome$Errored(x178);
+      var F$1 = this.Lcats_effect_kernel_Resource$$anon$4__f_F$58;
       return $n(F$1).pure__O__O(a$1);
     }
     if ((x$1$1 instanceof $c_Lcats_effect_kernel_Outcome$Succeeded)) {
       var x$1$3 = $as_Lcats_effect_kernel_Outcome$Succeeded(x$1$1);
       var this$14 = $n(x$1$3);
-      var x168 = this$14.Lcats_effect_kernel_Outcome$Succeeded__f_fa;
-      var target$1 = $n(this.Lcats_effect_kernel_Resource$$anon$4__f_state$4).get__O();
-      var tc$1 = this.Lcats_effect_kernel_Resource$$anon$4__f_F$60;
+      var x175 = this$14.Lcats_effect_kernel_Outcome$Succeeded__f_fa;
+      var target$1 = $n(this.Lcats_effect_kernel_Resource$$anon$4__f_state$5).get__O();
+      var tc$1 = this.Lcats_effect_kernel_Resource$$anon$4__f_F$58;
       var this$22 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$1, tc$1);
       var f = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((s) => {
-        var s$1 = $as_Lcats_effect_kernel_Resource$State$1(s);
-        if ($n(s$1).Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete) {
+        var s$1 = $as_Lcats_effect_kernel_Resource$FiberState(s);
+        if ($n(s$1).Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete) {
           return new $c_Lcats_effect_kernel_Outcome$Canceled();
         } else {
-          var fa = new $c_Lcats_effect_kernel_Resource$Eval(x168);
+          var fa = new $c_Lcats_effect_kernel_Resource$Eval(x175);
           return new $c_Lcats_effect_kernel_Outcome$Succeeded(fa);
         }
       }));
@@ -124113,10 +124145,10 @@ var $d_Lcats_effect_kernel_Resource$$anon$5 = new $TypeData().initClass($c_Lcats
   Lcats_arrow_FunctionK: 1
 }));
 /** @constructor */
-function $c_Lcats_effect_kernel_Resource$$anon$7(F$107, body$4) {
-  this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94 = null;
+function $c_Lcats_effect_kernel_Resource$$anon$7(F$104, body$4) {
+  this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92 = null;
   this.Lcats_effect_kernel_Resource$$anon$7__f_body$3 = null;
-  this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94 = F$107;
+  this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92 = F$104;
   this.Lcats_effect_kernel_Resource$$anon$7__f_body$3 = body$4;
 }
 $c_Lcats_effect_kernel_Resource$$anon$7.prototype = new $h_O();
@@ -124131,11 +124163,11 @@ $c_Lcats_effect_kernel_Resource$$anon$7.prototype.apply__Lcats_effect_kernel_Mon
     var nt$1 = $as_Lcats_arrow_FunctionK(nt);
     var nt2 = new $c_Lcats_effect_kernel_Resource$$anon$7$$anon$8(G, nt$1, this);
     var $x_1 = $n(nt$1);
-    var target = $n(this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94).ref__O__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$100) => {
+    var target = $n(this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92).ref__O__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$100) => {
       $as_Lcats_effect_kernel_Resource$ExitCase(_$100);
-      return $n(this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94).unit__O();
+      return $n(this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92).unit__O();
     })));
-    var tc = this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94;
+    var tc = this.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92;
     var this$3 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target, tc);
     var f = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$101) => {
       var _$101$1 = $as_Lcats_effect_kernel_Ref(_$101);
@@ -124200,7 +124232,7 @@ $c_Lcats_effect_kernel_Resource$$anon$7$$anon$8.prototype.apply__Lcats_effect_ke
     var r$1 = $as_Lcats_effect_kernel_Ref(r);
     return $n(this.Lcats_effect_kernel_Resource$$anon$7$$anon$8__f_G$5).uncancelable__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((poll) => {
       var poll$1 = $as_Lcats_effect_kernel_Poll(poll);
-      var target = $n(poll$1).apply__O__O($n(this.Lcats_effect_kernel_Resource$$anon$7$$anon$8__f_nt$1).apply__O__O($n(rfa).allocatedCase__Lcats_effect_kernel_MonadCancel__O($n(this.Lcats_effect_kernel_Resource$$anon$7$$anon$8__f_$outer).Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94)));
+      var target = $n(poll$1).apply__O__O($n(this.Lcats_effect_kernel_Resource$$anon$7$$anon$8__f_nt$1).apply__O__O($n(rfa).allocatedCase__Lcats_effect_kernel_MonadCancel__O($n(this.Lcats_effect_kernel_Resource$$anon$7$$anon$8__f_$outer).Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92)));
       var tc = this.Lcats_effect_kernel_Resource$$anon$7$$anon$8__f_G$5;
       var this$9 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target, tc);
       var f$2 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((x$1) => {
@@ -124216,9 +124248,9 @@ $c_Lcats_effect_kernel_Resource$$anon$7$$anon$8.prototype.apply__Lcats_effect_ke
             return new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((ec) => {
               var ec$1 = $as_Lcats_effect_kernel_Resource$ExitCase(ec);
               var wrapped = $n(f$1).apply__O__O(ec$1);
-              var fa = $n(this$3.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94).unit__O();
-              var fb = $m_Lcats_syntax_FlatMapOps$().$greater$greater$extension__O__F0__Lcats_FlatMap__O(fa, new $c_sjsr_AnonFunction0_$$Lambda$92a2e254bbb9c06a0a02fc31abab59c51c18ecc1((() => $n(fin).apply__O__O(ec$1))), this$3.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94);
-              var F = this$3.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$94;
+              var fa = $n(this$3.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92).unit__O();
+              var fb = $m_Lcats_syntax_FlatMapOps$().$greater$greater$extension__O__F0__Lcats_FlatMap__O(fa, new $c_sjsr_AnonFunction0_$$Lambda$92a2e254bbb9c06a0a02fc31abab59c51c18ecc1((() => $n(fin).apply__O__O(ec$1))), this$3.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92);
+              var F = this$3.Lcats_effect_kernel_Resource$$anon$7__f_cats$effect$kernel$Resource$$anon$7$$F$92;
               return $n(F).forceR__O__O__O(wrapped, fb);
             }));
           }))(x$2)));
@@ -124259,8 +124291,8 @@ $c_Lcats_effect_kernel_Resource$ExitCase$.prototype.fromOutcome__Lcats_effect_ke
   if ((outcome instanceof $c_Lcats_effect_kernel_Outcome$Errored)) {
     var x$1$1 = $as_Lcats_effect_kernel_Outcome$Errored(outcome);
     var this$4 = $n(x$1$1);
-    var x260 = $as_jl_Throwable(this$4.Lcats_effect_kernel_Outcome$Errored__f_e);
-    return new $c_Lcats_effect_kernel_Resource$ExitCase$Errored(x260);
+    var x271 = $as_jl_Throwable(this$4.Lcats_effect_kernel_Outcome$Errored__f_e);
+    return new $c_Lcats_effect_kernel_Resource$ExitCase$Errored(x271);
   }
   if (((outcome instanceof $c_Lcats_effect_kernel_Outcome$Canceled) && ($as_Lcats_effect_kernel_Outcome$Canceled(outcome), true))) {
     return $m_Lcats_effect_kernel_Resource$ExitCase$Canceled$();
@@ -124344,45 +124376,6 @@ function $asArrayOf_Lcats_effect_kernel_Resource$Frame$6$(obj, depth) {
 }
 var $d_Lcats_effect_kernel_Resource$Frame$6$ = new $TypeData().initClass($c_Lcats_effect_kernel_Resource$Frame$6$, "cats.effect.kernel.Resource$Frame$6$", ({
   Lcats_effect_kernel_Resource$Frame$6$: 1,
-  s_deriving_Mirror: 1,
-  s_deriving_Mirror$Product: 1
-}));
-/** @constructor */
-function $c_Lcats_effect_kernel_Resource$State$3$(F$104, outer) {
-  this.Lcats_effect_kernel_Resource$State$3$__f_F$54 = null;
-  this.Lcats_effect_kernel_Resource$State$3$__f_$outer = null;
-  this.Lcats_effect_kernel_Resource$State$3$__f_F$54 = F$104;
-  if ((outer === null)) {
-    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException());
-  }
-  this.Lcats_effect_kernel_Resource$State$3$__f_$outer = outer;
-}
-$c_Lcats_effect_kernel_Resource$State$3$.prototype = new $h_O();
-$c_Lcats_effect_kernel_Resource$State$3$.prototype.constructor = $c_Lcats_effect_kernel_Resource$State$3$;
-/** @constructor */
-function $h_Lcats_effect_kernel_Resource$State$3$() {
-}
-$h_Lcats_effect_kernel_Resource$State$3$.prototype = $c_Lcats_effect_kernel_Resource$State$3$.prototype;
-$c_Lcats_effect_kernel_Resource$State$3$.prototype.apply__O__Z__Z__Lcats_effect_kernel_Resource$State$1 = (function(fin, finalizeOnComplete, confirmedFinalizeOnComplete) {
-  return new $c_Lcats_effect_kernel_Resource$State$1(this.Lcats_effect_kernel_Resource$State$3$__f_$outer, fin, finalizeOnComplete, confirmedFinalizeOnComplete);
-});
-$c_Lcats_effect_kernel_Resource$State$3$.prototype.toString__T = (function() {
-  return "State";
-});
-$c_Lcats_effect_kernel_Resource$State$3$.prototype.$lessinit$greater$default$1__O = (function() {
-  return $n(this.Lcats_effect_kernel_Resource$State$3$__f_F$54).unit__O();
-});
-function $as_Lcats_effect_kernel_Resource$State$3$(obj) {
-  return (((obj instanceof $c_Lcats_effect_kernel_Resource$State$3$) || (obj === null)) ? obj : $throwClassCastException(obj, "cats.effect.kernel.Resource$State$3$"));
-}
-function $isArrayOf_Lcats_effect_kernel_Resource$State$3$(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcats_effect_kernel_Resource$State$3$)));
-}
-function $asArrayOf_Lcats_effect_kernel_Resource$State$3$(obj, depth) {
-  return (($isArrayOf_Lcats_effect_kernel_Resource$State$3$(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcats.effect.kernel.Resource$State$3$;", depth));
-}
-var $d_Lcats_effect_kernel_Resource$State$3$ = new $TypeData().initClass($c_Lcats_effect_kernel_Resource$State$3$, "cats.effect.kernel.Resource$State$3$", ({
-  Lcats_effect_kernel_Resource$State$3$: 1,
   s_deriving_Mirror: 1,
   s_deriving_Mirror$Product: 1
 }));
@@ -150022,11 +150015,11 @@ function $asArrayOf_Lcats_effect_kernel_Ref(obj, depth) {
   return (($isArrayOf_Lcats_effect_kernel_Ref(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcats.effect.kernel.Ref;", depth));
 }
 /** @constructor */
-function $c_Lcats_effect_kernel_Resource$$anon$6(poll$6, F$106) {
+function $c_Lcats_effect_kernel_Resource$$anon$6(poll$6, F$103) {
   this.Lcats_effect_kernel_Resource$$anon$6__f_poll$5 = null;
-  this.Lcats_effect_kernel_Resource$$anon$6__f_F$91 = null;
+  this.Lcats_effect_kernel_Resource$$anon$6__f_F$89 = null;
   this.Lcats_effect_kernel_Resource$$anon$6__f_poll$5 = poll$6;
-  this.Lcats_effect_kernel_Resource$$anon$6__f_F$91 = F$106;
+  this.Lcats_effect_kernel_Resource$$anon$6__f_F$89 = F$103;
 }
 $c_Lcats_effect_kernel_Resource$$anon$6.prototype = new $h_O();
 $c_Lcats_effect_kernel_Resource$$anon$6.prototype.constructor = $c_Lcats_effect_kernel_Resource$$anon$6;
@@ -150037,7 +150030,7 @@ $h_Lcats_effect_kernel_Resource$$anon$6.prototype = $c_Lcats_effect_kernel_Resou
 $c_Lcats_effect_kernel_Resource$$anon$6.prototype.apply__Lcats_effect_kernel_Resource__Lcats_effect_kernel_Resource = (function(rfb) {
   var resource = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((innerPoll) => {
     var innerPoll$1 = $as_Lcats_effect_kernel_Poll(innerPoll);
-    return $n(innerPoll$1).apply__O__O($n(this.Lcats_effect_kernel_Resource$$anon$6__f_poll$5).apply__O__O($n(rfb).allocatedCase__Lcats_effect_kernel_MonadCancel__O(this.Lcats_effect_kernel_Resource$$anon$6__f_F$91)));
+    return $n(innerPoll$1).apply__O__O($n(this.Lcats_effect_kernel_Resource$$anon$6__f_poll$5).apply__O__O($n(rfb).allocatedCase__Lcats_effect_kernel_MonadCancel__O(this.Lcats_effect_kernel_Resource$$anon$6__f_F$89)));
   }));
   return new $c_Lcats_effect_kernel_Resource$Allocate(resource);
 });
@@ -150063,54 +150056,49 @@ function $asArrayOf_Lcats_effect_kernel_Resource$ExitCase(obj, depth) {
   return (($isArrayOf_Lcats_effect_kernel_Resource$ExitCase(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcats.effect.kernel.Resource$ExitCase;", depth));
 }
 /** @constructor */
-function $c_Lcats_effect_kernel_Resource$State$1(outer, fin, finalizeOnComplete, confirmedFinalizeOnComplete) {
-  this.Lcats_effect_kernel_Resource$State$1__f_fin = null;
-  this.Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete = false;
-  this.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete = false;
-  this.Lcats_effect_kernel_Resource$State$1__f_$outer = null;
-  this.Lcats_effect_kernel_Resource$State$1__f_fin = fin;
-  this.Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete = finalizeOnComplete;
-  this.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete = confirmedFinalizeOnComplete;
-  if ((outer === null)) {
-    throw $ct_jl_NullPointerException__(new $c_jl_NullPointerException());
-  }
-  this.Lcats_effect_kernel_Resource$State$1__f_$outer = outer;
+function $c_Lcats_effect_kernel_Resource$FiberState(fin, finalizeOnComplete, confirmedFinalizeOnComplete) {
+  this.Lcats_effect_kernel_Resource$FiberState__f_fin = null;
+  this.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete = false;
+  this.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete = false;
+  this.Lcats_effect_kernel_Resource$FiberState__f_fin = fin;
+  this.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete = finalizeOnComplete;
+  this.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete = confirmedFinalizeOnComplete;
 }
-$c_Lcats_effect_kernel_Resource$State$1.prototype = new $h_O();
-$c_Lcats_effect_kernel_Resource$State$1.prototype.constructor = $c_Lcats_effect_kernel_Resource$State$1;
+$c_Lcats_effect_kernel_Resource$FiberState.prototype = new $h_O();
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.constructor = $c_Lcats_effect_kernel_Resource$FiberState;
 /** @constructor */
-function $h_Lcats_effect_kernel_Resource$State$1() {
+function $h_Lcats_effect_kernel_Resource$FiberState() {
 }
-$h_Lcats_effect_kernel_Resource$State$1.prototype = $c_Lcats_effect_kernel_Resource$State$1.prototype;
-$c_Lcats_effect_kernel_Resource$State$1.prototype.productIterator__sc_Iterator = (function() {
+$h_Lcats_effect_kernel_Resource$FiberState.prototype = $c_Lcats_effect_kernel_Resource$FiberState.prototype;
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.productIterator__sc_Iterator = (function() {
   return new $c_s_Product$$anon$1(this);
 });
-$c_Lcats_effect_kernel_Resource$State$1.prototype.hashCode__I = (function() {
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.hashCode__I = (function() {
   var acc = (-889275714);
   var hash = acc;
-  var data = $f_T__hashCode__I("State");
+  var data = $f_T__hashCode__I("FiberState");
   acc = $m_sr_Statics$().mix__I__I__I(hash, data);
   var hash$1 = acc;
-  var x = this.Lcats_effect_kernel_Resource$State$1__f_fin;
+  var x = this.Lcats_effect_kernel_Resource$FiberState__f_fin;
   var data$1 = $m_sr_Statics$().anyHash__O__I(x);
   acc = $m_sr_Statics$().mix__I__I__I(hash$1, data$1);
   var hash$2 = acc;
-  var data$2 = (this.Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete ? 1231 : 1237);
+  var data$2 = (this.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete ? 1231 : 1237);
   acc = $m_sr_Statics$().mix__I__I__I(hash$2, data$2);
   var hash$3 = acc;
-  var data$3 = (this.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete ? 1231 : 1237);
+  var data$3 = (this.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete ? 1231 : 1237);
   acc = $m_sr_Statics$().mix__I__I__I(hash$3, data$3);
   var hash$4 = acc;
   return $m_sr_Statics$().finalizeHash__I__I__I(hash$4, 3);
 });
-$c_Lcats_effect_kernel_Resource$State$1.prototype.equals__O__Z = (function(x$0) {
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.equals__O__Z = (function(x$0) {
   if ((this === x$0)) {
     return true;
-  } else if ((x$0 instanceof $c_Lcats_effect_kernel_Resource$State$1)) {
-    var x$0$2 = $as_Lcats_effect_kernel_Resource$State$1(x$0);
-    if (((this.Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete === $n(x$0$2).Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete) && (this.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete === $n(x$0$2).Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete))) {
-      var x = this.Lcats_effect_kernel_Resource$State$1__f_fin;
-      var y = $n(x$0$2).Lcats_effect_kernel_Resource$State$1__f_fin;
+  } else if ((x$0 instanceof $c_Lcats_effect_kernel_Resource$FiberState)) {
+    var x$0$2 = $as_Lcats_effect_kernel_Resource$FiberState(x$0);
+    if (((this.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete === $n(x$0$2).Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete) && (this.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete === $n(x$0$2).Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete))) {
+      var x = this.Lcats_effect_kernel_Resource$FiberState__f_fin;
+      var y = $n(x$0$2).Lcats_effect_kernel_Resource$FiberState__f_fin;
       return $m_sr_BoxesRunTime$().equals__O__O__Z(x, y);
     } else {
       return false;
@@ -150119,27 +150107,27 @@ $c_Lcats_effect_kernel_Resource$State$1.prototype.equals__O__Z = (function(x$0) 
     return false;
   }
 });
-$c_Lcats_effect_kernel_Resource$State$1.prototype.toString__T = (function() {
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.toString__T = (function() {
   return $m_sr_ScalaRunTime$()._toString__s_Product__T(this);
 });
-$c_Lcats_effect_kernel_Resource$State$1.prototype.productArity__I = (function() {
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.productArity__I = (function() {
   return 3;
 });
-$c_Lcats_effect_kernel_Resource$State$1.prototype.productPrefix__T = (function() {
-  return "State";
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.productPrefix__T = (function() {
+  return "FiberState";
 });
-$c_Lcats_effect_kernel_Resource$State$1.prototype.productElement__I__O = (function(n) {
+$c_Lcats_effect_kernel_Resource$FiberState.prototype.productElement__I__O = (function(n) {
   switch (n) {
     case 0: {
-      return this.Lcats_effect_kernel_Resource$State$1__f_fin;
+      return this.Lcats_effect_kernel_Resource$FiberState__f_fin;
       break;
     }
     case 1: {
-      return this.Lcats_effect_kernel_Resource$State$1__f_finalizeOnComplete;
+      return this.Lcats_effect_kernel_Resource$FiberState__f_finalizeOnComplete;
       break;
     }
     case 2: {
-      return this.Lcats_effect_kernel_Resource$State$1__f_confirmedFinalizeOnComplete;
+      return this.Lcats_effect_kernel_Resource$FiberState__f_confirmedFinalizeOnComplete;
       break;
     }
     default: {
@@ -150147,20 +150135,17 @@ $c_Lcats_effect_kernel_Resource$State$1.prototype.productElement__I__O = (functi
     }
   }
 });
-$c_Lcats_effect_kernel_Resource$State$1.prototype.copy__O__Z__Z__Lcats_effect_kernel_Resource$State$1 = (function(fin, finalizeOnComplete, confirmedFinalizeOnComplete) {
-  return new $c_Lcats_effect_kernel_Resource$State$1(this.Lcats_effect_kernel_Resource$State$1__f_$outer, fin, finalizeOnComplete, confirmedFinalizeOnComplete);
-});
-function $as_Lcats_effect_kernel_Resource$State$1(obj) {
-  return (((obj instanceof $c_Lcats_effect_kernel_Resource$State$1) || (obj === null)) ? obj : $throwClassCastException(obj, "cats.effect.kernel.Resource$State$1"));
+function $as_Lcats_effect_kernel_Resource$FiberState(obj) {
+  return (((obj instanceof $c_Lcats_effect_kernel_Resource$FiberState) || (obj === null)) ? obj : $throwClassCastException(obj, "cats.effect.kernel.Resource$FiberState"));
 }
-function $isArrayOf_Lcats_effect_kernel_Resource$State$1(obj, depth) {
-  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcats_effect_kernel_Resource$State$1)));
+function $isArrayOf_Lcats_effect_kernel_Resource$FiberState(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.Lcats_effect_kernel_Resource$FiberState)));
 }
-function $asArrayOf_Lcats_effect_kernel_Resource$State$1(obj, depth) {
-  return (($isArrayOf_Lcats_effect_kernel_Resource$State$1(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcats.effect.kernel.Resource$State$1;", depth));
+function $asArrayOf_Lcats_effect_kernel_Resource$FiberState(obj, depth) {
+  return (($isArrayOf_Lcats_effect_kernel_Resource$FiberState(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lcats.effect.kernel.Resource$FiberState;", depth));
 }
-var $d_Lcats_effect_kernel_Resource$State$1 = new $TypeData().initClass($c_Lcats_effect_kernel_Resource$State$1, "cats.effect.kernel.Resource$State$1", ({
-  Lcats_effect_kernel_Resource$State$1: 1,
+var $d_Lcats_effect_kernel_Resource$FiberState = new $TypeData().initClass($c_Lcats_effect_kernel_Resource$FiberState, "cats.effect.kernel.Resource$FiberState", ({
+  Lcats_effect_kernel_Resource$FiberState: 1,
   s_Equals: 1,
   s_Product: 1,
   Ljava_io_Serializable: 1
@@ -166616,11 +166601,11 @@ var $d_Lcats_effect_kernel_Ref$TransformedRef2 = new $TypeData().initClass($c_Lc
   Lcats_effect_kernel_RefSink: 1
 }));
 /** @constructor */
-function $c_Lcats_effect_kernel_Resource$$anon$2(rel$4, F$102) {
+function $c_Lcats_effect_kernel_Resource$$anon$2(rel$4, F$100) {
   this.Lcats_effect_kernel_Resource$$anon$2__f_rel$2 = null;
   this.Lcats_effect_kernel_Resource$$anon$2__f_F$41 = null;
   this.Lcats_effect_kernel_Resource$$anon$2__f_rel$2 = rel$4;
-  this.Lcats_effect_kernel_Resource$$anon$2__f_F$41 = F$102;
+  this.Lcats_effect_kernel_Resource$$anon$2__f_F$41 = F$100;
 }
 $c_Lcats_effect_kernel_Resource$$anon$2.prototype = new $h_sr_AbstractPartialFunction();
 $c_Lcats_effect_kernel_Resource$$anon$2.prototype.constructor = $c_Lcats_effect_kernel_Resource$$anon$2;
@@ -257670,8 +257655,8 @@ function $f_Lcats_effect_kernel_GenConcurrent__racePair__O__O__O($thiz, fa, fb) 
   return $thiz.uncancelable__F1__O(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((poll) => {
     var poll$1 = $as_Lcats_effect_kernel_Poll(poll);
     var target = $thiz.deferred__O();
-    var this$27 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target, $thiz);
-    var f$7 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((result) => {
+    var this$33 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target, $thiz);
+    var f$8 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((result) => {
       var result$1 = $as_Lcats_effect_kernel_Deferred(result);
       var target$2 = $thiz.start__O__O($thiz.guaranteeCase__O__F1__O(fa, new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((oc) => {
         var oc$1 = $as_Lcats_effect_kernel_Outcome(oc);
@@ -257679,8 +257664,8 @@ function $f_Lcats_effect_kernel_GenConcurrent__racePair__O__O__O($thiz, fa, fb) 
         var this$5 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$1, $thiz);
         return $n(this$5.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).void__O__O(this$5.Lcats_Functor$ToFunctorOps$$anon$5__f_self);
       }))));
-      var this$26 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target$2, $thiz);
-      var f$6 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((fibA) => {
+      var this$32 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target$2, $thiz);
+      var f$7 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((fibA) => {
         var fibA$1 = $as_Lcats_effect_kernel_Fiber(fibA);
         var target$4 = $thiz.start__O__O($thiz.guaranteeCase__O__F1__O(fb, new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((oc$2) => {
           var oc$3 = $as_Lcats_effect_kernel_Outcome(oc$2);
@@ -257688,8 +257673,8 @@ function $f_Lcats_effect_kernel_GenConcurrent__racePair__O__O__O($thiz, fa, fb) 
           var this$9 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$3, $thiz);
           return $n(this$9.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).void__O__O(this$9.Lcats_Functor$ToFunctorOps$$anon$5__f_self);
         }))));
-        var this$25 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target$4, $thiz);
-        var f$5 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((fibB) => {
+        var this$31 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target$4, $thiz);
+        var f$6 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((fibB) => {
           var fibB$1 = $as_Lcats_effect_kernel_Fiber(fibB);
           var $x_1 = $n(poll$1).apply__O__O($n(result$1).get__O());
           var target$5 = $thiz.start__O__O($n(fibA$1).cancel__O());
@@ -257716,28 +257701,45 @@ function $f_Lcats_effect_kernel_GenConcurrent__racePair__O__O__O($thiz, fa, fb) 
             return $n(this$17.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$17.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$2);
           }));
           var target$9 = $thiz.onCancel__O__O__O($x_1, $n(this$18.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$18.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$3));
-          var this$24 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$9, $thiz);
-          var f$4 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((back) => {
+          var this$30 = new $c_Lcats_FlatMap$ToFlatMapOps$$anon$2(target$9, $thiz);
+          var f$5 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((back) => {
             var back$1 = $as_s_util_Either(back);
-            if ((back$1 instanceof $c_s_util_Left)) {
-              var oc$4 = $as_Lcats_effect_kernel_Outcome($n($as_s_util_Left(back$1)).s_util_Left__f_value);
-              var value = $ct_T2__O__O__(new $c_T2(), oc$4, fibB$1);
-              return new $c_s_util_Left(value);
+            matchResult21: {
+              var target$12;
+              if ((back$1 instanceof $c_s_util_Left)) {
+                var oc$4 = $as_Lcats_effect_kernel_Outcome($n($as_s_util_Left(back$1)).s_util_Left__f_value);
+                var target$10 = $n(fibA$1).join__O();
+                var this$23 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$10, $thiz);
+                var value = $ct_T2__O__O__(new $c_T2(), oc$4, fibB$1);
+                var b = new $c_s_util_Left(value);
+                var target$12 = $n(this$23.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).as__O__O__O(this$23.Lcats_Functor$ToFunctorOps$$anon$5__f_self, b);
+                break matchResult21;
+              }
+              if ((back$1 instanceof $c_s_util_Right)) {
+                var oc$2$1 = $as_Lcats_effect_kernel_Outcome($n($as_s_util_Right(back$1)).s_util_Right__f_value);
+                var target$11 = $n(fibB$1).join__O();
+                var this$27 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$11, $thiz);
+                var value$1 = $ct_T2__O__O__(new $c_T2(), fibA$1, oc$2$1);
+                var b$1 = new $c_s_util_Right(value$1);
+                var target$12 = $n(this$27.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).as__O__O__O(this$27.Lcats_Functor$ToFunctorOps$$anon$5__f_self, b$1);
+                break matchResult21;
+              }
+              throw new $c_s_MatchError(back$1);
             }
-            if ((back$1 instanceof $c_s_util_Right)) {
-              var oc$2$1 = $as_Lcats_effect_kernel_Outcome($n($as_s_util_Right(back$1)).s_util_Right__f_value);
-              var value$1 = $ct_T2__O__O__(new $c_T2(), fibA$1, oc$2$1);
-              return new $c_s_util_Right(value$1);
-            }
-            throw new $c_s_MatchError(back$1);
+            var this$29 = new $c_Lcats_Functor$ToFunctorOps$$anon$5(target$12, $thiz);
+            var f$4 = new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((result$2) => {
+              var result$3 = $as_s_util_Either(result$2);
+              return result$3;
+            }));
+            return $n(this$29.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).map__O__F1__O(this$29.Lcats_Functor$ToFunctorOps$$anon$5__f_self, f$4);
           }));
-          return $n(this$24.Lcats_Functor$ToFunctorOps$$anon$5__f_typeClassInstance).map__O__F1__O(this$24.Lcats_Functor$ToFunctorOps$$anon$5__f_self, f$4);
+          return $n(this$30.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$30.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$5);
         }));
-        return $n(this$25.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$25.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$5);
+        return $n(this$31.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$31.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$6);
       }));
-      return $n(this$26.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$26.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$6);
+      return $n(this$32.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$32.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$7);
     }));
-    return $n(this$27.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$27.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$7);
+    return $n(this$33.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_typeClassInstance).flatMap__O__F1__O(this$33.Lcats_FlatMap$ToFlatMapOps$$anon$2__f_self, f$8);
   })));
 }
 function $is_Lcats_effect_kernel_GenConcurrent(obj) {
@@ -262131,17 +262133,17 @@ var $d_Lcats_EvalInstances$$anon$6 = new $TypeData().initClass($c_Lcats_EvalInst
 }));
 function $f_Lcats_effect_kernel_GenConcurrent$KleisliGenConcurrent__ref__O__Lcats_data_Kleisli($thiz, a) {
   var this$3 = $m_Lcats_data_Kleisli$();
-  var x = $n($thiz.F__Lcats_effect_kernel_GenConcurrent()).map__O__F1__O($n($thiz.F__Lcats_effect_kernel_GenConcurrent()).ref__O__O(a), new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$56) => {
-    var _$56$1 = $as_Lcats_effect_kernel_Ref(_$56);
-    return $n(_$56$1).mapK__Lcats_arrow_FunctionK__Lcats_Functor__s_DummyImplicit__Lcats_effect_kernel_Ref(($m_Lcats_data_Kleisli$(), new $c_Lcats_data_KleisliFunctions$$anon$3()), $m_Lcats_effect_kernel_GenConcurrent$().genConcurrentForKleisli__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_GenConcurrent($thiz.F__Lcats_effect_kernel_GenConcurrent()), $m_s_DummyImplicit$().s_DummyImplicit$__f_dummyImplicit);
+  var x = $n($thiz.F__Lcats_effect_kernel_GenConcurrent()).map__O__F1__O($n($thiz.F__Lcats_effect_kernel_GenConcurrent()).ref__O__O(a), new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$65) => {
+    var _$65$1 = $as_Lcats_effect_kernel_Ref(_$65);
+    return $n(_$65$1).mapK__Lcats_arrow_FunctionK__Lcats_Functor__s_DummyImplicit__Lcats_effect_kernel_Ref(($m_Lcats_data_Kleisli$(), new $c_Lcats_data_KleisliFunctions$$anon$3()), $m_Lcats_effect_kernel_GenConcurrent$().genConcurrentForKleisli__Lcats_effect_kernel_GenConcurrent__Lcats_effect_kernel_GenConcurrent($thiz.F__Lcats_effect_kernel_GenConcurrent()), $m_s_DummyImplicit$().s_DummyImplicit$__f_dummyImplicit);
   })));
   return $f_Lcats_data_KleisliFunctions__liftF__O__Lcats_data_Kleisli(this$3, x);
 }
 function $f_Lcats_effect_kernel_GenConcurrent$KleisliGenConcurrent__deferred__Lcats_data_Kleisli($thiz) {
   var this$3 = $m_Lcats_data_Kleisli$();
-  var x = $n($thiz.F__Lcats_effect_kernel_GenConcurrent()).map__O__F1__O($n($thiz.F__Lcats_effect_kernel_GenConcurrent()).deferred__O(), new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$58) => {
-    var _$58$1 = $as_Lcats_effect_kernel_Deferred(_$58);
-    var this$2 = $n(_$58$1);
+  var x = $n($thiz.F__Lcats_effect_kernel_GenConcurrent()).map__O__F1__O($n($thiz.F__Lcats_effect_kernel_GenConcurrent()).deferred__O(), new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((_$67) => {
+    var _$67$1 = $as_Lcats_effect_kernel_Deferred(_$67);
+    var this$2 = $n(_$67$1);
     $m_Lcats_data_Kleisli$();
     var f = new $c_Lcats_data_KleisliFunctions$$anon$3();
     return new $c_Lcats_effect_kernel_Deferred$TransformedDeferred(this$2, f);
