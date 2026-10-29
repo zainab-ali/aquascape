@@ -3482,27 +3482,15 @@ $c_Laquascape_symbolguide_SymbolGuide$.prototype.constructor = $c_Laquascape_sym
 function $h_Laquascape_symbolguide_SymbolGuide$() {
 }
 $h_Laquascape_symbolguide_SymbolGuide$.prototype = $c_Laquascape_symbolguide_SymbolGuide$.prototype;
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "pull", ({
-  "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_pull;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "finishedErrored", ({
   "get": (function() {
     return this.Laquascape_symbolguide_SymbolGuide$__f_finishedErrored;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "eval", ({
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "start", ({
   "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_eval;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "label", ({
-  "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_label;
+    return this.Laquascape_symbolguide_SymbolGuide$__f_start;
   }),
   "configurable": true
 }));
@@ -3518,9 +3506,21 @@ Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "time", 
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "start", ({
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "done", ({
   "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_start;
+    return this.Laquascape_symbolguide_SymbolGuide$__f_done;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "pull", ({
+  "get": (function() {
+    return this.Laquascape_symbolguide_SymbolGuide$__f_pull;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "eval", ({
+  "get": (function() {
+    return this.Laquascape_symbolguide_SymbolGuide$__f_eval;
   }),
   "configurable": true
 }));
@@ -3530,21 +3530,21 @@ Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "finishe
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "done", ({
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "outputChunk", ({
   "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_done;
+    return this.Laquascape_symbolguide_SymbolGuide$__f_outputChunk;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "label", ({
+  "get": (function() {
+    return this.Laquascape_symbolguide_SymbolGuide$__f_label;
   }),
   "configurable": true
 }));
 Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "output", ({
   "get": (function() {
     return this.Laquascape_symbolguide_SymbolGuide$__f_output;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Laquascape_symbolguide_SymbolGuide$.prototype, "outputChunk", ({
-  "get": (function() {
-    return this.Laquascape_symbolguide_SymbolGuide$__f_outputChunk;
   }),
   "configurable": true
 }));
@@ -6398,12 +6398,6 @@ $c_Ldocs_reference_append$.prototype.constructor = $c_Ldocs_reference_append$;
 function $h_Ldocs_reference_append$() {
 }
 $h_Ldocs_reference_append$.prototype = $c_Ldocs_reference_append$.prototype;
-Object.defineProperty($c_Ldocs_reference_append$.prototype, "finalizers", ({
-  "get": (function() {
-    return this.Ldocs_reference_append$__f_finalizers;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_append$.prototype, "errors", ({
   "get": (function() {
     return this.Ldocs_reference_append$__f_errors;
@@ -6413,6 +6407,12 @@ Object.defineProperty($c_Ldocs_reference_append$.prototype, "errors", ({
 Object.defineProperty($c_Ldocs_reference_append$.prototype, "basic", ({
   "get": (function() {
     return this.Ldocs_reference_append$__f_basic;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_append$.prototype, "finalizers", ({
+  "get": (function() {
+    return this.Ldocs_reference_append$__f_finalizers;
   }),
   "configurable": true
 }));
@@ -6468,45 +6468,9 @@ $c_Ldocs_reference_bracket$.prototype.constructor = $c_Ldocs_reference_bracket$;
 function $h_Ldocs_reference_bracket$() {
 }
 $h_Ldocs_reference_bracket$.prototype = $c_Ldocs_reference_bracket$.prototype;
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketAppend", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracketAppend;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCaseCanceled", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracketCaseCanceled;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracket", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracket;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCase", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracketCase;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketReleaseError", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_bracketReleaseError;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCaseErrored", ({
   "get": (function() {
     return this.Ldocs_reference_bracket$__f_bracketCaseErrored;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "onFinalizeCase", ({
-  "get": (function() {
-    return this.Ldocs_reference_bracket$__f_onFinalizeCase;
   }),
   "configurable": true
 }));
@@ -6516,15 +6480,51 @@ Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "resource", ({
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracket", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracket;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketAcquireError", ({
   "get": (function() {
     return this.Ldocs_reference_bracket$__f_bracketAcquireError;
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracketCase;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "onFinalizeCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_onFinalizeCase;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "onFinalize", ({
   "get": (function() {
     return this.Ldocs_reference_bracket$__f_onFinalize;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketCaseCanceled", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracketCaseCanceled;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketAppend", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracketAppend;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_bracket$.prototype, "bracketReleaseError", ({
+  "get": (function() {
+    return this.Ldocs_reference_bracket$__f_bracketReleaseError;
   }),
   "configurable": true
 }));
@@ -6562,18 +6562,6 @@ $c_Ldocs_reference_chunk$.prototype.constructor = $c_Ldocs_reference_chunk$;
 function $h_Ldocs_reference_chunk$() {
 }
 $h_Ldocs_reference_chunk$.prototype = $c_Ldocs_reference_chunk$.prototype;
-Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunkN", ({
-  "get": (function() {
-    return this.Ldocs_reference_chunk$__f_chunkN;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "unchunks", ({
-  "get": (function() {
-    return this.Ldocs_reference_chunk$__f_unchunks;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "repartition", ({
   "get": (function() {
     return this.Ldocs_reference_chunk$__f_repartition;
@@ -6592,9 +6580,21 @@ Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunkLimit", ({
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "unchunks", ({
+  "get": (function() {
+    return this.Ldocs_reference_chunk$__f_unchunks;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunkMin", ({
   "get": (function() {
     return this.Ldocs_reference_chunk$__f_chunkMin;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_chunk$.prototype, "chunkN", ({
+  "get": (function() {
+    return this.Ldocs_reference_chunk$__f_chunkN;
   }),
   "configurable": true
 }));
@@ -6646,9 +6646,9 @@ Object.defineProperty($c_Ldocs_reference_compile$.prototype, "onlyOrError", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_compile$.prototype, "last", ({
+Object.defineProperty($c_Ldocs_reference_compile$.prototype, "count", ({
   "get": (function() {
-    return this.Ldocs_reference_compile$__f_last;
+    return this.Ldocs_reference_compile$__f_count;
   }),
   "configurable": true
 }));
@@ -6658,9 +6658,9 @@ Object.defineProperty($c_Ldocs_reference_compile$.prototype, "drain", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_compile$.prototype, "count", ({
+Object.defineProperty($c_Ldocs_reference_compile$.prototype, "last", ({
   "get": (function() {
-    return this.Ldocs_reference_compile$__f_count;
+    return this.Ldocs_reference_compile$__f_last;
   }),
   "configurable": true
 }));
@@ -6698,21 +6698,9 @@ $c_Ldocs_reference_drop$.prototype.constructor = $c_Ldocs_reference_drop$;
 function $h_Ldocs_reference_drop$() {
 }
 $h_Ldocs_reference_drop$.prototype = $c_Ldocs_reference_drop$.prototype;
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLast", ({
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropChunks", ({
   "get": (function() {
-    return this.Ldocs_reference_drop$__f_dropLast;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropThrough", ({
-  "get": (function() {
-    return this.Ldocs_reference_drop$__f_dropThrough;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLastChunks", ({
-  "get": (function() {
-    return this.Ldocs_reference_drop$__f_dropLastChunks;
+    return this.Ldocs_reference_drop$__f_dropChunks;
   }),
   "configurable": true
 }));
@@ -6722,9 +6710,21 @@ Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLastIf", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropChunks", ({
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLastChunks", ({
   "get": (function() {
-    return this.Ldocs_reference_drop$__f_dropChunks;
+    return this.Ldocs_reference_drop$__f_dropLastChunks;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropThrough", ({
+  "get": (function() {
+    return this.Ldocs_reference_drop$__f_dropThrough;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "basic", ({
+  "get": (function() {
+    return this.Ldocs_reference_drop$__f_basic;
   }),
   "configurable": true
 }));
@@ -6734,9 +6734,9 @@ Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropWhile", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_drop$.prototype, "basic", ({
+Object.defineProperty($c_Ldocs_reference_drop$.prototype, "dropLast", ({
   "get": (function() {
-    return this.Ldocs_reference_drop$__f_basic;
+    return this.Ldocs_reference_drop$__f_dropLast;
   }),
   "configurable": true
 }));
@@ -6772,9 +6772,9 @@ $c_Ldocs_reference_errors$.prototype.constructor = $c_Ldocs_reference_errors$;
 function $h_Ldocs_reference_errors$() {
 }
 $h_Ldocs_reference_errors$.prototype = $c_Ldocs_reference_errors$.prototype;
-Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorExitCase", ({
+Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorWith", ({
   "get": (function() {
-    return this.Ldocs_reference_errors$__f_handleErrorExitCase;
+    return this.Ldocs_reference_errors$__f_handleErrorWith;
   }),
   "configurable": true
 }));
@@ -6796,15 +6796,15 @@ Object.defineProperty($c_Ldocs_reference_errors$.prototype, "attempt", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorWith", ({
-  "get": (function() {
-    return this.Ldocs_reference_errors$__f_handleErrorWith;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleError", ({
   "get": (function() {
     return this.Ldocs_reference_errors$__f_handleError;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_errors$.prototype, "handleErrorExitCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_errors$__f_handleErrorExitCase;
   }),
   "configurable": true
 }));
@@ -6860,15 +6860,9 @@ $c_Ldocs_reference_evalMap$.prototype.constructor = $c_Ldocs_reference_evalMap$;
 function $h_Ldocs_reference_evalMap$() {
 }
 $h_Ldocs_reference_evalMap$.prototype = $c_Ldocs_reference_evalMap$.prototype;
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunk", ({
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "basic", ({
   "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_evalMapChunk;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "errorEvalMapChunk", ({
-  "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_errorEvalMapChunk;
+    return this.Ldocs_reference_evalMap$__f_basic;
   }),
   "configurable": true
 }));
@@ -6878,21 +6872,15 @@ Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "error", ({
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunk", ({
+  "get": (function() {
+    return this.Ldocs_reference_evalMap$__f_evalMapChunk;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapTake", ({
   "get": (function() {
     return this.Ldocs_reference_evalMap$__f_evalMapTake;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "errorEvalMap", ({
-  "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_errorEvalMap;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunkHead", ({
-  "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_evalMapChunkHead;
   }),
   "configurable": true
 }));
@@ -6902,9 +6890,21 @@ Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalTap", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "basic", ({
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "errorEvalMapChunk", ({
   "get": (function() {
-    return this.Ldocs_reference_evalMap$__f_basic;
+    return this.Ldocs_reference_evalMap$__f_errorEvalMapChunk;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "evalMapChunkHead", ({
+  "get": (function() {
+    return this.Ldocs_reference_evalMap$__f_evalMapChunkHead;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_evalMap$.prototype, "errorEvalMap", ({
+  "get": (function() {
+    return this.Ldocs_reference_evalMap$__f_errorEvalMap;
   }),
   "configurable": true
 }));
@@ -6940,21 +6940,9 @@ $c_Ldocs_reference_filter$.prototype.constructor = $c_Ldocs_reference_filter$;
 function $h_Ldocs_reference_filter$() {
 }
 $h_Ldocs_reference_filter$.prototype = $c_Ldocs_reference_filter$.prototype;
-Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterWithPrevious", ({
-  "get": (function() {
-    return this.Ldocs_reference_filter$__f_filterWithPrevious;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_filter$.prototype, "changes", ({
   "get": (function() {
     return this.Ldocs_reference_filter$__f_changes;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filter", ({
-  "get": (function() {
-    return this.Ldocs_reference_filter$__f_filter;
   }),
   "configurable": true
 }));
@@ -6964,15 +6952,27 @@ Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterNot", ({
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterChunked", ({
+  "get": (function() {
+    return this.Ldocs_reference_filter$__f_filterChunked;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filter", ({
+  "get": (function() {
+    return this.Ldocs_reference_filter$__f_filter;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_filter$.prototype, "mapFilter", ({
   "get": (function() {
     return this.Ldocs_reference_filter$__f_mapFilter;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterChunked", ({
+Object.defineProperty($c_Ldocs_reference_filter$.prototype, "filterWithPrevious", ({
   "get": (function() {
-    return this.Ldocs_reference_filter$__f_filterChunked;
+    return this.Ldocs_reference_filter$__f_filterWithPrevious;
   }),
   "configurable": true
 }));
@@ -7010,21 +7010,33 @@ $c_Ldocs_reference_flatMap$.prototype.constructor = $c_Ldocs_reference_flatMap$;
 function $h_Ldocs_reference_flatMap$() {
 }
 $h_Ldocs_reference_flatMap$.prototype = $c_Ldocs_reference_flatMap$.prototype;
-Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorPropagation", ({
+Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorHandling", ({
   "get": (function() {
-    return this.Ldocs_reference_flatMap$__f_errorPropagation;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "basic", ({
-  "get": (function() {
-    return this.Ldocs_reference_flatMap$__f_basic;
+    return this.Ldocs_reference_flatMap$__f_errorHandling;
   }),
   "configurable": true
 }));
 Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "multipleInputElements", ({
   "get": (function() {
     return this.Ldocs_reference_flatMap$__f_multipleInputElements;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorPropagation", ({
+  "get": (function() {
+    return this.Ldocs_reference_flatMap$__f_errorPropagation;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "finalizerChild", ({
+  "get": (function() {
+    return this.Ldocs_reference_flatMap$__f_finalizerChild;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "basic", ({
+  "get": (function() {
+    return this.Ldocs_reference_flatMap$__f_basic;
   }),
   "configurable": true
 }));
@@ -7037,18 +7049,6 @@ Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorHandlingInput
 Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "finalizerInput", ({
   "get": (function() {
     return this.Ldocs_reference_flatMap$__f_finalizerInput;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "errorHandling", ({
-  "get": (function() {
-    return this.Ldocs_reference_flatMap$__f_errorHandling;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_flatMap$.prototype, "finalizerChild", ({
-  "get": (function() {
-    return this.Ldocs_reference_flatMap$__f_finalizerChild;
   }),
   "configurable": true
 }));
@@ -7092,33 +7092,9 @@ $c_Ldocs_reference_merge$.prototype.constructor = $c_Ldocs_reference_merge$;
 function $h_Ldocs_reference_merge$() {
 }
 $h_Ldocs_reference_merge$.prototype = $c_Ldocs_reference_merge$.prototype;
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeError", ({
-  "get": (function() {
-    return this.Ldocs_reference_merge$__f_mergeError;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "takeExitCase", ({
-  "get": (function() {
-    return this.Ldocs_reference_merge$__f_takeExitCase;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_merge$.prototype, "resources", ({
   "get": (function() {
     return this.Ldocs_reference_merge$__f_resources;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "merge", ({
-  "get": (function() {
-    return this.Ldocs_reference_merge$__f_merge;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltL", ({
-  "get": (function() {
-    return this.Ldocs_reference_merge$__f_mergeHaltL;
   }),
   "configurable": true
 }));
@@ -7128,15 +7104,39 @@ Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltBoth", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltBothExitCase", ({
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "merge", ({
   "get": (function() {
-    return this.Ldocs_reference_merge$__f_mergeHaltBothExitCase;
+    return this.Ldocs_reference_merge$__f_merge;
   }),
   "configurable": true
 }));
 Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltR", ({
   "get": (function() {
     return this.Ldocs_reference_merge$__f_mergeHaltR;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "takeExitCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_merge$__f_takeExitCase;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeError", ({
+  "get": (function() {
+    return this.Ldocs_reference_merge$__f_mergeError;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltBothExitCase", ({
+  "get": (function() {
+    return this.Ldocs_reference_merge$__f_mergeHaltBothExitCase;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_merge$.prototype, "mergeHaltL", ({
+  "get": (function() {
+    return this.Ldocs_reference_merge$__f_mergeHaltL;
   }),
   "configurable": true
 }));
@@ -7184,9 +7184,9 @@ $c_Ldocs_reference_parEvalMap$.prototype.constructor = $c_Ldocs_reference_parEva
 function $h_Ldocs_reference_parEvalMap$() {
 }
 $h_Ldocs_reference_parEvalMap$.prototype = $c_Ldocs_reference_parEvalMap$.prototype;
-Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapUnorderedUnbounded", ({
+Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapSingletonChunks", ({
   "get": (function() {
-    return this.Ldocs_reference_parEvalMap$__f_parEvalMapUnorderedUnbounded;
+    return this.Ldocs_reference_parEvalMap$__f_parEvalMapSingletonChunks;
   }),
   "configurable": true
 }));
@@ -7196,27 +7196,27 @@ Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapConcu
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapOrder", ({
-  "get": (function() {
-    return this.Ldocs_reference_parEvalMap$__f_parEvalMapOrder;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapSingletonChunks", ({
-  "get": (function() {
-    return this.Ldocs_reference_parEvalMap$__f_parEvalMapSingletonChunks;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapUnorderedConcurrency", ({
   "get": (function() {
     return this.Ldocs_reference_parEvalMap$__f_parEvalMapUnorderedConcurrency;
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapUnorderedUnbounded", ({
+  "get": (function() {
+    return this.Ldocs_reference_parEvalMap$__f_parEvalMapUnorderedUnbounded;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapUnbounded", ({
   "get": (function() {
     return this.Ldocs_reference_parEvalMap$__f_parEvalMapUnbounded;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_parEvalMap$.prototype, "parEvalMapOrder", ({
+  "get": (function() {
+    return this.Ldocs_reference_parEvalMap$__f_parEvalMapOrder;
   }),
   "configurable": true
 }));
@@ -7250,21 +7250,15 @@ $c_Ldocs_reference_scan$.prototype.constructor = $c_Ldocs_reference_scan$;
 function $h_Ldocs_reference_scan$() {
 }
 $h_Ldocs_reference_scan$.prototype = $c_Ldocs_reference_scan$.prototype;
-Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanMonoid", ({
-  "get": (function() {
-    return this.Ldocs_reference_scan$__f_scanMonoid;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanMap", ({
   "get": (function() {
     return this.Ldocs_reference_scan$__f_scanMap;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanChunkPropagation", ({
+Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanMonoid", ({
   "get": (function() {
-    return this.Ldocs_reference_scan$__f_scanChunkPropagation;
+    return this.Ldocs_reference_scan$__f_scanMonoid;
   }),
   "configurable": true
 }));
@@ -7277,6 +7271,12 @@ Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scan", ({
 Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scan1", ({
   "get": (function() {
     return this.Ldocs_reference_scan$__f_scan1;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_scan$.prototype, "scanChunkPropagation", ({
+  "get": (function() {
+    return this.Ldocs_reference_scan$__f_scanChunkPropagation;
   }),
   "configurable": true
 }));
@@ -7308,27 +7308,27 @@ $c_Ldocs_reference_take$.prototype.constructor = $c_Ldocs_reference_take$;
 function $h_Ldocs_reference_take$() {
 }
 $h_Ldocs_reference_take$.prototype = $c_Ldocs_reference_take$.prototype;
-Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeRight", ({
-  "get": (function() {
-    return this.Ldocs_reference_take$__f_takeRight;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeWhile", ({
-  "get": (function() {
-    return this.Ldocs_reference_take$__f_takeWhile;
-  }),
-  "configurable": true
-}));
 Object.defineProperty($c_Ldocs_reference_take$.prototype, "basic", ({
   "get": (function() {
     return this.Ldocs_reference_take$__f_basic;
   }),
   "configurable": true
 }));
+Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeRight", ({
+  "get": (function() {
+    return this.Ldocs_reference_take$__f_takeRight;
+  }),
+  "configurable": true
+}));
 Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeThrough", ({
   "get": (function() {
     return this.Ldocs_reference_take$__f_takeThrough;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_take$.prototype, "takeWhile", ({
+  "get": (function() {
+    return this.Ldocs_reference_take$__f_takeWhile;
   }),
   "configurable": true
 }));
@@ -7395,63 +7395,9 @@ $c_Ldocs_reference_time$.prototype.given_Show_FiniteDuration__Lcats_Show = (func
   }
   return this.Ldocs_reference_time$__f_given_Show_FiniteDuration$lzy1;
 });
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "awakeEvery", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedDelaySlowElementEval", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_awakeEvery;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "metered", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_metered;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredStartImmediately", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_meteredStartImmediately;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateDamped", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateDamped;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "awakeDelay", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_awakeDelay;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRate", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRate;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "delayBy", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_delayBy;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "sleep", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_sleep;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateFastElementEval", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateFastElementEval;
-  }),
-  "configurable": true
-}));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowInputEval", ({
-  "get": (function() {
-    return this.Ldocs_reference_time$__f_meteredSlowInputEval;
+    return this.Ldocs_reference_time$__f_fixedDelaySlowElementEval;
   }),
   "configurable": true
 }));
@@ -7461,15 +7407,21 @@ Object.defineProperty($c_Ldocs_reference_time$.prototype, "spaced", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowElementEval", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "awakeDelay", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_meteredSlowElementEval;
+    return this.Ldocs_reference_time$__f_awakeDelay;
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateUndamped", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateDamped", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedRateUndamped;
+    return this.Ldocs_reference_time$__f_fixedRateDamped;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRate", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_fixedRate;
   }),
   "configurable": true
 }));
@@ -7485,15 +7437,63 @@ Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedDelay", ({
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedDelaySlowElementEval", ({
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredStartImmediately", ({
   "get": (function() {
-    return this.Ldocs_reference_time$__f_fixedDelaySlowElementEval;
+    return this.Ldocs_reference_time$__f_meteredStartImmediately;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "delayBy", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_delayBy;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "awakeEvery", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_awakeEvery;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateUndamped", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_fixedRateUndamped;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "sleep", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_sleep;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowInputEval", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_meteredSlowInputEval;
   }),
   "configurable": true
 }));
 Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateSlowElementEval", ({
   "get": (function() {
     return this.Ldocs_reference_time$__f_fixedRateSlowElementEval;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "metered", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_metered;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "meteredSlowElementEval", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_meteredSlowElementEval;
+  }),
+  "configurable": true
+}));
+Object.defineProperty($c_Ldocs_reference_time$.prototype, "fixedRateFastElementEval", ({
+  "get": (function() {
+    return this.Ldocs_reference_time$__f_fixedRateFastElementEval;
   }),
   "configurable": true
 }));
@@ -7541,9 +7541,9 @@ Object.defineProperty($c_Ldocs_reference_topic$.prototype, "multipleSubscribersB
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_topic$.prototype, "delayedSubscriber", ({
+Object.defineProperty($c_Ldocs_reference_topic$.prototype, "slowSubscriber", ({
   "get": (function() {
-    return this.Ldocs_reference_topic$__f_delayedSubscriber;
+    return this.Ldocs_reference_topic$__f_slowSubscriber;
   }),
   "configurable": true
 }));
@@ -7553,9 +7553,9 @@ Object.defineProperty($c_Ldocs_reference_topic$.prototype, "boundedSubscriber", 
   }),
   "configurable": true
 }));
-Object.defineProperty($c_Ldocs_reference_topic$.prototype, "slowSubscriber", ({
+Object.defineProperty($c_Ldocs_reference_topic$.prototype, "delayedSubscriber", ({
   "get": (function() {
-    return this.Ldocs_reference_topic$__f_slowSubscriber;
+    return this.Ldocs_reference_topic$__f_delayedSubscriber;
   }),
   "configurable": true
 }));
@@ -99570,18 +99570,18 @@ $c_Ldocs_reference_append$$anon$2.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy2 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$20), new $c_Laquascape_macros_LineNumber(64)));
   return new $c_Laquascape_examples_StreamCode("(Stream('a', 'b') ++ Stream('x', 'y')).take(n).compile.toList", stream$proxy2);
 });
-$c_Ldocs_reference_append$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_append$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_append$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_append$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_append$$anon$2, "docs.reference.append$$anon$2", ({
   Ldocs_reference_append$$anon$2: 1,
@@ -99617,18 +99617,18 @@ $c_Ldocs_reference_append$$anon$3.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy3 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(80)));
   return new $c_Laquascape_examples_StreamCode("def repeatAb: Stream[IO, Char] = Stream('a', 'b') ++ repeatAb\n\nrepeatAb.take(n).compile.toList", stream$proxy3);
 });
-$c_Ldocs_reference_append$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_append$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_append$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_append$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_append$$anon$3, "docs.reference.append$$anon$3", ({
   Ldocs_reference_append$$anon$3: 1,
@@ -99689,12 +99689,12 @@ $c_Ldocs_reference_append$$anon$5.prototype.inputBox__Laquascape_examples_InputB
 $c_Ldocs_reference_append$$anon$5.prototype.apply__I__Laquascape_Scape__Laquascape_examples_StreamCode = (function(n, x$2) {
   var this$1 = $m_Lfs2_Stream$();
   var os = $m_sr_ScalaRunTime$().wrapCharArray__AC__sci_ArraySeq(new $ac_C(new Uint16Array([97, 98])));
-  var $x_1 = $n(this$1.emits__sc_Seq__Lfs2_Stream(os));
+  var $x_2 = $n(this$1.emits__sc_Seq__Lfs2_Stream(os));
   var this$2 = $m_Lcats_effect_IO$();
   var thunk = new $c_sjsr_AnonFunction0_$$Lambda$92a2e254bbb9c06a0a02fc31abab59c51c18ecc1((() => "ab"));
   var fo$5 = this$2.delay__F0__Lcats_effect_IO(thunk);
-  var s$12 = $x_1.onFinalize__O__Lcats_Applicative__Lfs2_Stream($m_Laquascape_ext$package$().trace___O__Laquascape_Scape__T__Lcats_Show__Lcats_effect_kernel_GenConcurrent__O(fo$5, x$2, "root", $m_Lcats_instances_package$string$().Lcats_instances_package$string$__f_catsStdShowForString, $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO), $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO);
-  var $x_2 = $n($n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$12, x$2, "Stream('a','b')", "root", new $c_Laquascape_macros_LineNumber(105), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar)).$plus$plus__F0__Lfs2_Stream(new $c_sjsr_AnonFunction0_$$Lambda$92a2e254bbb9c06a0a02fc31abab59c51c18ecc1((() => {
+  var s$12 = $x_2.onFinalize__O__Lcats_Applicative__Lfs2_Stream($m_Laquascape_ext$package$().trace___O__Laquascape_Scape__T__Lcats_Show__Lcats_effect_kernel_GenConcurrent__O(fo$5, x$2, "root", $m_Lcats_instances_package$string$().Lcats_instances_package$string$__f_catsStdShowForString, $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO), $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO);
+  var $x_1 = $n($n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$12, x$2, "Stream('a','b')", "root", new $c_Laquascape_macros_LineNumber(105), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar)).$plus$plus__F0__Lfs2_Stream(new $c_sjsr_AnonFunction0_$$Lambda$92a2e254bbb9c06a0a02fc31abab59c51c18ecc1((() => {
     var this$8 = $m_Lfs2_Stream$();
     var os$1 = $m_sr_ScalaRunTime$().wrapCharArray__AC__sci_ArraySeq(new $ac_C(new Uint16Array([120, 121])));
     var $x_3 = $n(this$8.emits__sc_Seq__Lfs2_Stream(os$1));
@@ -99705,7 +99705,7 @@ $c_Ldocs_reference_append$$anon$5.prototype.apply__I__Laquascape_Scape__Laquasca
     return $m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$13, x$2, "Stream('x', 'y')", "root", new $c_Laquascape_macros_LineNumber(108), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar);
   }))));
   var hi = (n >> 31);
-  var s$14 = $x_2.take__J__Lfs2_Stream(n, hi);
+  var s$14 = $x_1.take__J__Lfs2_Stream(n, hi);
   var this$22 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$14, x$2, (("(\u2026 ++ \u2026).take(" + n) + ")"), "root", new $c_Laquascape_macros_LineNumber(110), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar));
   $m_Lfs2_Compiler$();
   var evidence$1 = $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO;
@@ -99718,18 +99718,18 @@ $c_Ldocs_reference_append$$anon$5.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy5 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$7, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$26), new $c_Laquascape_macros_LineNumber(113)));
   return new $c_Laquascape_examples_StreamCode("(Stream('a', 'b').onFinalize(IO(\"ab\")) ++ Stream('x', 'y')\n  .onFinalize(IO(\"xy\"))).take(n).compile.toList", stream$proxy5);
 });
-$c_Ldocs_reference_append$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_append$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_append$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_append$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_append$$anon$5, "docs.reference.append$$anon$5", ({
   Ldocs_reference_append$$anon$5: 1,
@@ -100307,18 +100307,18 @@ $c_Ldocs_reference_chunk$$anon$2.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy2 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(66)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').repeatN(2).chunkLimit(n).compile.toList", stream$proxy2);
 });
-$c_Ldocs_reference_chunk$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_chunk$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_chunk$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_chunk$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_chunk$$anon$2, "docs.reference.chunk$$anon$2", ({
   Ldocs_reference_chunk$$anon$2: 1,
@@ -100356,18 +100356,18 @@ $c_Ldocs_reference_chunk$$anon$3.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy3 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(82)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').repeatN(3).chunkMin(n).compile.toList", stream$proxy3);
 });
-$c_Ldocs_reference_chunk$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_chunk$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_chunk$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_chunk$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_chunk$$anon$3, "docs.reference.chunk$$anon$3", ({
   Ldocs_reference_chunk$$anon$3: 1,
@@ -100405,18 +100405,18 @@ $c_Ldocs_reference_chunk$$anon$4.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy4 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$12), new $c_Laquascape_macros_LineNumber(98)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').repeatN(2).chunkN(n).compile.toList", stream$proxy4);
 });
-$c_Ldocs_reference_chunk$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_chunk$$anon$4.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_chunk$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_chunk$$anon$4 = new $TypeData().initClass($c_Ldocs_reference_chunk$$anon$4, "docs.reference.chunk$$anon$4", ({
   Ldocs_reference_chunk$$anon$4: 1,
@@ -100468,14 +100468,14 @@ function $h_Ldocs_reference_chunk$$anon$6() {
 $h_Ldocs_reference_chunk$$anon$6.prototype = $c_Ldocs_reference_chunk$$anon$6.prototype;
 $c_Ldocs_reference_chunk$$anon$6.prototype.apply__Laquascape_Scape__Laquascape_examples_StreamCode = (function(x$1) {
   var this$2 = $m_Lfs2_Stream$();
-  var $x_1 = $m_sr_ScalaRunTime$();
+  var $x_2 = $m_sr_ScalaRunTime$();
   var this$1 = $m_Lfs2_Chunk$();
   var os = $m_sr_ScalaRunTime$().wrapCharArray__AC__sci_ArraySeq(new $ac_C(new Uint16Array([97, 98, 99])));
-  var os$1 = $x_1.wrapRefArray__AO__sci_ArraySeq(new ($d_Lfs2_Chunk.getArrayOf().constr)([this$1.from__sc_Iterable__Lfs2_Chunk(os)]));
+  var os$1 = $x_2.wrapRefArray__AO__sci_ArraySeq(new ($d_Lfs2_Chunk.getArrayOf().constr)([this$1.from__sc_Iterable__Lfs2_Chunk(os)]));
   var s$10 = $n(this$2.emits__sc_Seq__Lfs2_Stream(os$1)).repeatN__J__Lfs2_Stream(2, 0);
-  var $x_2 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$10, x$1, "Stream(\u2026)", "root", new $c_Laquascape_macros_LineNumber(123), $m_Laquascape_examples_syntax$().given_Show_Chunk__Lcats_Show()));
+  var $x_1 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$10, x$1, "Stream(\u2026)", "root", new $c_Laquascape_macros_LineNumber(123), $m_Laquascape_examples_syntax$().given_Show_Chunk__Lcats_Show()));
   var this$5 = $m_s_$less$colon$less$();
-  var s$11 = $x_2.unchunks__s_$less$colon$less__Lfs2_Stream(this$5.s_$less$colon$less$__f_singleton);
+  var s$11 = $x_1.unchunks__s_$less$colon$less__Lfs2_Stream(this$5.s_$less$colon$less$__f_singleton);
   var this$11 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$11, x$1, "unchunks", "root", new $c_Laquascape_macros_LineNumber(125), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar));
   $m_Lfs2_Compiler$();
   var evidence$1 = $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO;
@@ -100603,18 +100603,18 @@ $c_Ldocs_reference_compile$$anon$2.prototype.apply__I__Laquascape_Scape__Laquasc
   var stream$proxy2 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.last", "root", new $c_Lcats_instances_OptionInstances$$anon$2(evidence$1$1, this$13), new $c_Laquascape_macros_LineNumber(60)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').take(n).compile.last", stream$proxy2);
 });
-$c_Ldocs_reference_compile$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_compile$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_compile$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_compile$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_compile$$anon$2, "docs.reference.compile$$anon$2", ({
   Ldocs_reference_compile$$anon$2: 1,
@@ -100649,18 +100649,18 @@ $c_Ldocs_reference_compile$$anon$3.prototype.apply__I__Laquascape_Scape__Laquasc
   var stream$proxy3 = $as_Lcats_effect_IO($m_Laquascape_ext$package$().compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.onlyOrError", "root", $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar, new $c_Laquascape_macros_LineNumber(74)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').take(n).compile.onlyOrError", stream$proxy3);
 });
-$c_Ldocs_reference_compile$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_compile$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_compile$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_compile$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_compile$$anon$3, "docs.reference.compile$$anon$3", ({
   Ldocs_reference_compile$$anon$3: 1,
@@ -100768,18 +100768,18 @@ $c_Ldocs_reference_drop$$anon$1.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy1 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$1, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(54)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').drop(n).compile.toList", stream$proxy1);
 });
-$c_Ldocs_reference_drop$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_drop$$anon$1.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_drop$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_drop$$anon$1 = new $TypeData().initClass($c_Ldocs_reference_drop$$anon$1, "docs.reference.drop$$anon$1", ({
   Ldocs_reference_drop$$anon$1: 1,
@@ -100932,18 +100932,18 @@ $c_Ldocs_reference_drop$$anon$5.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy5 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$5, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(110)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c').take(n).dropLastIf(_ != 'b').compile.toList", stream$proxy5);
 });
-$c_Ldocs_reference_drop$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_drop$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_drop$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_drop$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_drop$$anon$5, "docs.reference.drop$$anon$5", ({
   Ldocs_reference_drop$$anon$5: 1,
@@ -100982,18 +100982,18 @@ $c_Ldocs_reference_drop$$anon$6.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy6 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$6, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(126)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').repeatN(2).drop(n).compile.toList", stream$proxy6);
 });
-$c_Ldocs_reference_drop$$anon$6.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_drop$$anon$6.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_drop$$anon$6.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_drop$$anon$6 = new $TypeData().initClass($c_Ldocs_reference_drop$$anon$6, "docs.reference.drop$$anon$6", ({
   Ldocs_reference_drop$$anon$6: 1,
@@ -101422,18 +101422,18 @@ $c_Ldocs_reference_evalMap$$anon$3.prototype.apply__I__Laquascape_Scape__Laquasc
   var stream$proxy3 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$6, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$20), new $c_Laquascape_macros_LineNumber(80)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').evalMap(c => IO(c.toInt)).take(n).compile.toList", stream$proxy3);
 });
-$c_Ldocs_reference_evalMap$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_evalMap$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_evalMap$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_evalMap$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_evalMap$$anon$3, "docs.reference.evalMap$$anon$3", ({
   Ldocs_reference_evalMap$$anon$3: 1,
@@ -102183,14 +102183,14 @@ $c_Ldocs_reference_flatMap$$anon$7.prototype.apply__Laquascape_Scape__Laquascape
   var s$21 = this$1.emits__sc_Seq__Lfs2_Stream(os);
   var s$23 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$21, x$1, "Stream(\"ab\", \"xy\")", "root", new $c_Laquascape_macros_LineNumber(140), $m_Lcats_instances_package$string$().Lcats_instances_package$string$__f_catsStdShowForString)).flatMap__F1__s_util_NotGiven__Lfs2_Stream(new $c_sjsr_AnonFunction1_$$Lambda$3aa60c34ef08a878abffbf4628007cc68fa3c7ab(((str) => {
     var str$1 = $as_T(str);
-    var $x_1 = $m_Lfs2_Stream$();
+    var $x_2 = $m_Lfs2_Stream$();
     var this$5 = $n($m_s_Predef$().wrapString__T__sci_WrappedString(str$1));
-    var s$22 = $x_1.emits__sc_Seq__Lfs2_Stream($m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(this$5));
-    var $x_2 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$22, x$1, "Stream.emits(str.toList)", "root", new $c_Laquascape_macros_LineNumber(144), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar));
+    var s$22 = $x_2.emits__sc_Seq__Lfs2_Stream($m_sci_Nil$().prependedAll__sc_IterableOnce__sci_List(this$5));
+    var $x_1 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$22, x$1, "Stream.emits(str.toList)", "root", new $c_Laquascape_macros_LineNumber(144), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar));
     var this$10 = $m_Lcats_effect_IO$();
     var thunk = new $c_sjsr_AnonFunction0_$$Lambda$92a2e254bbb9c06a0a02fc31abab59c51c18ecc1((() => str$1));
     var fo$8 = this$10.delay__F0__Lcats_effect_IO(thunk);
-    return $x_2.onFinalize__O__Lcats_Applicative__Lfs2_Stream($m_Laquascape_ext$package$().trace___O__Laquascape_Scape__T__Lcats_Show__Lcats_effect_kernel_GenConcurrent__O(fo$8, x$1, "root", $m_Lcats_instances_package$string$().Lcats_instances_package$string$__f_catsStdShowForString, $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO), $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO);
+    return $x_1.onFinalize__O__Lcats_Applicative__Lfs2_Stream($m_Laquascape_ext$package$().trace___O__Laquascape_Scape__T__Lcats_Show__Lcats_effect_kernel_GenConcurrent__O(fo$8, x$1, "root", $m_Lcats_instances_package$string$().Lcats_instances_package$string$__f_catsStdShowForString, $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO), $m_Lcats_effect_IO$().Lcats_effect_IO$__f__asyncForIO);
   })), $m_s_util_NotGiven$().s_util_NotGiven$__f_cachedValue);
   var this$18 = $n($m_Laquascape_ext$package$().stage__Lfs2_Stream__Laquascape_Scape__T__T__Laquascape_macros_LineNumber__Lcats_Show__Lfs2_Stream(s$23, x$1, "flatMap {\u2026}", "root", new $c_Laquascape_macros_LineNumber(147), $m_Lcats_instances_package$char$().Lcats_instances_package$char$__f_catsStdShowForChar));
   $m_Lfs2_Compiler$();
@@ -102262,18 +102262,18 @@ $c_Ldocs_reference_merge$$anon$1.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy1 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$1, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(65)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy1);
 });
-$c_Ldocs_reference_merge$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$1.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$1 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$1, "docs.reference.merge$$anon$1", ({
   Ldocs_reference_merge$$anon$1: 1,
@@ -102338,18 +102338,18 @@ $c_Ldocs_reference_merge$$anon$10.prototype.apply__I__Laquascape_Scape__Laquasca
   var stream$proxy10 = $as_Lcats_effect_IO($x_6.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$19, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$34), new $c_Laquascape_macros_LineNumber(290)));
   return new $c_Laquascape_examples_StreamCode("val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))\n  .onFinalize(IO(\"ab\"))\nval xy = Stream('x', 'y').onFinalize(IO(\"xy\")).metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy10);
 });
-$c_Ldocs_reference_merge$$anon$10.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$10.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$10.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$10 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$10, "docs.reference.merge$$anon$10", ({
   Ldocs_reference_merge$$anon$10: 1,
@@ -102404,18 +102404,18 @@ $c_Ldocs_reference_merge$$anon$2.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy2 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$2, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(87)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.mergeHaltBoth(xy).compile.toList", stream$proxy2);
 });
-$c_Ldocs_reference_merge$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$2, "docs.reference.merge$$anon$2", ({
   Ldocs_reference_merge$$anon$2: 1,
@@ -102470,18 +102470,18 @@ $c_Ldocs_reference_merge$$anon$3.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy3 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$3, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(109)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.mergeHaltL(xy).compile.toList", stream$proxy3);
 });
-$c_Ldocs_reference_merge$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$3.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$3.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$3 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$3, "docs.reference.merge$$anon$3", ({
   Ldocs_reference_merge$$anon$3: 1,
@@ -102538,18 +102538,18 @@ $c_Ldocs_reference_merge$$anon$4.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy4 = $as_Lcats_effect_IO($x_3.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$29), new $c_Laquascape_macros_LineNumber(132)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').metered[IO](n.seconds)\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.mergeHaltR(xy).compile.toList", stream$proxy4);
 });
-$c_Ldocs_reference_merge$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$4.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$4 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$4, "docs.reference.merge$$anon$4", ({
   Ldocs_reference_merge$$anon$4: 1,
@@ -102626,18 +102626,18 @@ $c_Ldocs_reference_merge$$anon$5.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy5 = $as_Lcats_effect_IO($x_6.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$7, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$40), new $c_Laquascape_macros_LineNumber(159)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b')\n  .metered[IO](n.seconds)\n  .onFinalizeCase(exitCase => IO(show\"ab-$exitCase\"))\nval xy = Stream('x', 'y')\n  .metered[IO](2.seconds)\n  .onFinalizeCase(exitCase => IO(show\"xy-$exitCase\"))\n\nab.mergeHaltBoth(xy).compile.toList", stream$proxy5);
 });
-$c_Ldocs_reference_merge$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$5, "docs.reference.merge$$anon$5", ({
   Ldocs_reference_merge$$anon$5: 1,
@@ -102781,18 +102781,18 @@ $c_Ldocs_reference_merge$$anon$7.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy7 = $as_Lcats_effect_IO($x_5.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$12, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$34), new $c_Laquascape_macros_LineNumber(211)));
   return new $c_Laquascape_examples_StreamCode("val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))\nval xy = Stream('x', 'y')\n  .onFinalizeCase(exitCase => IO(show\"xy-$exitCase\"))\n  .metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy7);
 });
-$c_Ldocs_reference_merge$$anon$7.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$7.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$7.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$7 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$7, "docs.reference.merge$$anon$7", ({
   Ldocs_reference_merge$$anon$7: 1,
@@ -102849,18 +102849,18 @@ $c_Ldocs_reference_merge$$anon$8.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy8 = $as_Lcats_effect_IO($x_4.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$13, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$28), new $c_Laquascape_macros_LineNumber(234)));
   return new $c_Laquascape_examples_StreamCode("val ab = (Stream('a') ++ Stream.raiseError[IO](Err).delayBy(n.seconds))\nval xy = Stream('x', 'y').metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy8);
 });
-$c_Ldocs_reference_merge$$anon$8.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$8.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$8.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$8 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$8, "docs.reference.merge$$anon$8", ({
   Ldocs_reference_merge$$anon$8: 1,
@@ -102923,18 +102923,18 @@ $c_Ldocs_reference_merge$$anon$9.prototype.apply__I__Laquascape_Scape__Laquascap
   var stream$proxy9 = $as_Lcats_effect_IO($x_6.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$16, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$34), new $c_Laquascape_macros_LineNumber(262)));
   return new $c_Laquascape_examples_StreamCode("val ab = Stream('a', 'b').onFinalize(IO(\"ab\")).metered[IO](n.second)\nval xy = Stream('x', 'y').onFinalize(IO(\"xy\")).metered[IO](1.second)\n\nab.merge(xy).compile.toList", stream$proxy9);
 });
-$c_Ldocs_reference_merge$$anon$9.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_merge$$anon$9.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_merge$$anon$9.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_merge$$anon$9 = new $TypeData().initClass($c_Ldocs_reference_merge$$anon$9, "docs.reference.merge$$anon$9", ({
   Ldocs_reference_merge$$anon$9: 1,
@@ -103032,18 +103032,18 @@ $c_Ldocs_reference_parEvalMap$$anon$2.prototype.apply__I__Laquascape_Scape__Laqu
   var stream$proxy2 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$23), new $c_Laquascape_macros_LineNumber(65)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b', 'c', 'd')\n  .parEvalMap(n)(ch => IO.sleep(1.second).as(ch))\n  .compile\n  .toList", stream$proxy2);
 });
-$c_Ldocs_reference_parEvalMap$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_parEvalMap$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_parEvalMap$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_parEvalMap$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_parEvalMap$$anon$2, "docs.reference.parEvalMap$$anon$2", ({
   Ldocs_reference_parEvalMap$$anon$2: 1,
@@ -103189,18 +103189,18 @@ $c_Ldocs_reference_parEvalMap$$anon$5.prototype.apply__I__Laquascape_Scape__Laqu
   var stream$proxy5 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$10, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$2, this$23), new $c_Laquascape_macros_LineNumber(111)));
   return new $c_Laquascape_examples_StreamCode("Stream(5, 4, 3, 2)\n  .parEvalMapUnordered(n)(i => IO.sleep(i.second).as(i))\n  .compile\n  .toList", stream$proxy5);
 });
-$c_Ldocs_reference_parEvalMap$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_parEvalMap$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_parEvalMap$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_parEvalMap$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_parEvalMap$$anon$5, "docs.reference.parEvalMap$$anon$5", ({
   Ldocs_reference_parEvalMap$$anon$5: 1,
@@ -103482,18 +103482,18 @@ $c_Ldocs_reference_take$$anon$1.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy1 = $as_Lcats_effect_IO($x_2.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$1, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$16), new $c_Laquascape_macros_LineNumber(48)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').repeat.take(n).compile.toList", stream$proxy1);
 });
-$c_Ldocs_reference_take$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_take$$anon$1.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_take$$anon$1.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_take$$anon$1 = new $TypeData().initClass($c_Ldocs_reference_take$$anon$1, "docs.reference.take$$anon$1", ({
   Ldocs_reference_take$$anon$1: 1,
@@ -103607,18 +103607,18 @@ $c_Ldocs_reference_take$$anon$4.prototype.apply__I__Laquascape_Scape__Laquascape
   var stream$proxy4 = $as_Lcats_effect_IO($x_1.compileStage__O__Laquascape_Scape__T__T__Lcats_Show__Laquascape_macros_LineNumber__O(fo$4, x$2, "compile.toList", "root", new $c_Lcats_instances_ListInstances$$anon$2(evidence$1$1, this$14), new $c_Laquascape_macros_LineNumber(91)));
   return new $c_Laquascape_examples_StreamCode("Stream('a', 'b').repeatN(3).takeRight(n).compile.toList", stream$proxy4);
 });
-$c_Ldocs_reference_take$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_take$$anon$4.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_take$$anon$4.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_take$$anon$4 = new $TypeData().initClass($c_Ldocs_reference_take$$anon$4, "docs.reference.take$$anon$4", ({
   Ldocs_reference_take$$anon$4: 1,
@@ -104518,18 +104518,18 @@ $c_Ldocs_reference_topic$$anon$2.prototype.apply__I__Laquascape_Scape__Laquascap
   })));
   return new $c_Laquascape_examples_StreamCode("Topic[IO, Char].flatMap { topic =>\n  val pub = Stream('a', 'b').spaced[IO](2.second, startImmediately = false)\n  val sub = topic.subscribeUnbounded\n  (\n    sub.delayBy(n.seconds).compile.toList,\n    pub.through(topic.publish).compile.drain\n  ).parTupled\n}", stream$proxy2);
 });
-$c_Ldocs_reference_topic$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_topic$$anon$2.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_topic$$anon$2.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_topic$$anon$2 = new $TypeData().initClass($c_Ldocs_reference_topic$$anon$2, "docs.reference.topic$$anon$2", ({
   Ldocs_reference_topic$$anon$2: 1,
@@ -104724,18 +104724,18 @@ $c_Ldocs_reference_topic$$anon$5.prototype.apply__I__Laquascape_Scape__Laquascap
   })));
   return new $c_Laquascape_examples_StreamCode("Topic[IO, Char].flatMap { topic =>\n  val pub = Stream('a', 'b', 'c', 'd').delayBy[IO](1.second)\n  val sub = topic.subscribe(n).spaced(1.second)\n  (sub.compile.toList, pub.through(topic.publish).compile.drain).parTupled\n}", stream$proxy5);
 });
-$c_Ldocs_reference_topic$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
-  var prep0 = $as_T(arg);
-  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
-  var prep2 = $as_T(arg$3);
-  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
-});
 $c_Ldocs_reference_topic$$anon$5.prototype.setup = (function(arg, arg$2, arg$3, arg$4) {
   var prep0 = $as_T(arg);
   var prep1 = $as_T(arg$2);
   var prep2 = $as_T(arg$3);
   var prep3 = $as_Laquascape_examples_FrameIds(arg$4);
   $f_Laquascape_examples_ExampleWithInput__setup__T__T__T__Laquascape_examples_FrameIds__V(this, prep0, prep1, prep2, prep3);
+});
+$c_Ldocs_reference_topic$$anon$5.prototype.draw = (function(arg, arg$2, arg$3) {
+  var prep0 = $as_T(arg);
+  var prep1 = $as_Laquascape_examples_FrameIds(arg$2);
+  var prep2 = $as_T(arg$3);
+  $f_Laquascape_examples_ExampleWithInput__draw__T__Laquascape_examples_FrameIds__T__V(this, prep0, prep1, prep2);
 });
 var $d_Ldocs_reference_topic$$anon$5 = new $TypeData().initClass($c_Ldocs_reference_topic$$anon$5, "docs.reference.topic$$anon$5", ({
   Ldocs_reference_topic$$anon$5: 1,
@@ -123213,13 +123213,13 @@ $c_Laquascape_examples_FrameIds$.prototype.both = (function(arg, arg$2) {
   var prep1 = $as_T(arg$2);
   return new $c_Laquascape_examples_FrameIds$Both(prep0, prep1);
 });
-$c_Laquascape_examples_FrameIds$.prototype.chunked = (function(arg) {
-  var prep0 = $as_T(arg);
-  return new $c_Laquascape_examples_FrameIds$Chunked(prep0);
-});
 $c_Laquascape_examples_FrameIds$.prototype.unchunked = (function(arg) {
   var prep0 = $as_T(arg);
   return new $c_Laquascape_examples_FrameIds$Unchunked(prep0);
+});
+$c_Laquascape_examples_FrameIds$.prototype.chunked = (function(arg) {
+  var prep0 = $as_T(arg);
+  return new $c_Laquascape_examples_FrameIds$Chunked(prep0);
 });
 var $d_Laquascape_examples_FrameIds$ = new $TypeData().initClass($c_Laquascape_examples_FrameIds$, "aquascape.examples.FrameIds$", ({
   Laquascape_examples_FrameIds$: 1,
