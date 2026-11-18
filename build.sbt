@@ -38,7 +38,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "org.typelevel" %%% "cats-effect" % "3.6.4",
       "org.scalameta" %%% "munit" % "1.2.4" % Test,
       "org.typelevel" %%% "cats-effect-testkit" % "3.6.4" % Test,
-      "org.typelevel" %%% "munit-cats-effect" % "2.1.0" % Test,
+      "org.typelevel" %%% "munit-cats-effect" % "2.2.1" % Test,
       "com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test
     ),
     buildInfoKeys := Seq[BuildInfoKey](ThisBuild / baseDirectory),
@@ -84,7 +84,7 @@ lazy val siteUtils = project
       "org.scala-js" %%% "scalajs-dom" % "2.8.0",
       "org.typelevel" %%% "cats-effect-testkit" % "3.6.4",
       "org.scalameta" %%% "munit" % "1.2.4" % Test,
-      "org.typelevel" %%% "munit-cats-effect" % "2.1.0" % Test,
+      "org.typelevel" %%% "munit-cats-effect" % "2.2.1" % Test,
       ("com.siriusxm" %%% "snapshot4s-munit" % snapshot4sVersion % Test)
         .exclude(
           "com.lihaoyi",
