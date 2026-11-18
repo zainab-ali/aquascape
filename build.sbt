@@ -47,7 +47,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .jvmSettings(
     libraryDependencies ++= Seq(
       "org.creativescala" %% "doodle-java2d" % "0.32.0",
-      "com.monovore" %% "decline" % "2.5.0"
+      "com.monovore" %% "decline" % "2.6.2"
     )
   )
   .jsSettings(
